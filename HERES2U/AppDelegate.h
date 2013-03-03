@@ -7,8 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+#import <CoreData/CoreData.h>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UINavigationControllerDelegate>{ NSManagedObjectModel *managedObjectModel;
+    NSManagedObjectContext *managedObjectContext;
+    NSPersistentStoreCoordinator *persistentStoreCoordinator;
+    
+}
+@property (nonatomic, readonly, strong) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic,readonly,strong) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic,readonly,strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 @property (strong, nonatomic) UIWindow *window;
 
