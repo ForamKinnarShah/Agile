@@ -1,18 +1,18 @@
 //
-//  alertViewController.m
+//  contactInfoViewController.m
 //  HERES2U
 //
-//  Created by Paul Amador on 12/17/12.
-//  Copyright (c) 2012 Paul Amador. All rights reserved.
+//  Created by Paul Sukhanov on 3/26/13.
+//  Copyright (c) 2013 Paul Amador. All rights reserved.
 //
 
-#import "alertViewController.h"
+#import "contactInfoViewController.h"
 
-@interface alertViewController ()
+@interface contactInfoViewController ()
 
 @end
 
-@implementation alertViewController
+@implementation contactInfoViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

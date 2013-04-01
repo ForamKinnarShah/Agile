@@ -1,18 +1,18 @@
 //
-//  registerViewController.m
+//  creditCardInfoViewController.m
 //  HERES2U
 //
-//  Created by Paul Sukhanov on 11/29/12.
-//  Copyright (c) 2012 Paul Amador. All rights reserved.
+//  Created by Paul Sukhanov on 3/26/13.
+//  Copyright (c) 2013 Paul Amador. All rights reserved.
 //
 
-#import "registerViewController.h"
+#import "creditCardInfoViewController.h"
 
-@interface registerViewController ()
+@interface creditCardInfoViewController ()
 
 @end
 
-@implementation registerViewController
+@implementation creditCardInfoViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,11 +33,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
--(BOOL)textFieldShouldReturn:(UITextField *)textField
-{ [textField resignFirstResponder];
-    return YES;
 }
 
 @end
