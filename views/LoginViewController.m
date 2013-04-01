@@ -12,7 +12,6 @@
 #import "MytabViewController.h"
 #import "CheckinViewController.h"
 #import "Heres2uViewController.h"
-#import "registerViewController.h"
 
 @interface LoginViewController ()
 
@@ -128,7 +127,9 @@
         [self.view setFrame:Current];
     }];
 }
--(void)loggingInFailed:(NSError *)error{
+
+
+-(void)loggingInFailed:(NSError *)error{ 
     UIAlertView *Alert=[[UIAlertView alloc] initWithTitle:@"Warning" message:@"Invalid Email or Password" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [Alert show];
 }

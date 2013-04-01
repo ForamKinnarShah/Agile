@@ -10,4 +10,8 @@
 
 @protocol QBMSRequesterDelegate <NSObject>
 
+-(void)QBMSRequesterDelegateFinishedWithCode:(NSString*)code;
+-(void)QBMSRequesterDelegateFailedWithError:(NSError*)error;
+
+
 @end

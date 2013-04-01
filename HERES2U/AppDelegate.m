@@ -52,7 +52,10 @@
     FeedViewController *feed = [[FeedViewController alloc] initWithNibName:@"Empty" bundle:nil];
     UINavigationController *feedNav = [[UINavigationController alloc] initWithRootViewController:feed];
     
-    Heres2uViewController *h2u = [[Heres2uViewController alloc] initWithNibName:@"Heres2uViewController" bundle:nil];
+    //Heres2uViewController *h2u = [[Heres2uViewController alloc] initWithNibName:@"Heres2uViewController" bundle:nil];
+    Heres2uViewController *h2u = [[Heres2uViewController alloc] initWithNibName:@"Empty" bundle:nil];
+    
+    
     UINavigationController *h2uNav = [[UINavigationController alloc] initWithRootViewController:h2u];
     profNav.navigationBar.topItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:centerImageName]];
     mytabNav.navigationBar.topItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:centerImageName]];

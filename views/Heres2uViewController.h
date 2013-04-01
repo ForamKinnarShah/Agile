@@ -7,8 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "phpCaller.h"
+#import "heres2uitemdelegate.h"  
 
-@interface Heres2uViewController : UIViewController <UITabBarControllerDelegate,UINavigationControllerDelegate>
+@interface Heres2uViewController : UIViewController <UITabBarControllerDelegate,UINavigationControllerDelegate, phpCallerDelegate, heres2uitemdelegate>
+
+@property NSMutableArray *friendItems; 
+@property UIActivityIndicatorView *UIBlocker;
 
 -(IBAction)search:(id)sender;
 

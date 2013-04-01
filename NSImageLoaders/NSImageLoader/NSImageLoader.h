@@ -16,9 +16,9 @@
     UIImage *Target;
     NSString *ImageName;
 }
-@property (strong, nonatomic) NSString *URLString;
-@property (strong, nonatomic) NSURL *URL;
-@property (strong, nonatomic) id Delegate;
+@property (weak, nonatomic) NSString *URLString;
+@property (weak, nonatomic) NSURL *URL;
+@property (weak, nonatomic) id Delegate;
 -(id) initWithURL:(NSURL *)objURL;
 -(id) initWithURL:(NSURL *) objURL StartImmediately:(BOOL) startImmediately;
 -(id) initWithURLString:(NSString *) objURL;

@@ -10,4 +10,17 @@
 
 @implementation orderItem
 
+-(id)initWithName:(NSString*)name Price:(NSInteger)price itemType:(enum itemType)itemType
+{
+    self = [super init];
+    if (self)
+    {
+        self.name = name;
+        self.price = price;
+        self.itemType = itemType;
+        return self;
+    }
+    return nil; 
+}
+
 @end

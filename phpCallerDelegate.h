@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface phpCallerDelegateProtocol : NSObject
-
+@class phpCaller;
+@protocol phpCallerDelegate <NSObject>
+@optional
+-(void) phpCallerFailed:(NSError *)error;
+-(void) phpCallerFinished:(NSMutableArray*)returnData;
 @end

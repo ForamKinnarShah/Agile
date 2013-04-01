@@ -35,7 +35,7 @@
 {
     [super viewDidLoad];
     [lblTitle setText:[Checkin.Location text]];
-    [lblName setText:@"Paul Amador"];
+    [lblName setText:[NSGlobalConfiguration getConfigurationItem:@"ID"]];
     [UserImage setImage:[Checkin.Picture image] forState:UIControlStateNormal];
     
     // Do any additional setup after loading the view from its nib.

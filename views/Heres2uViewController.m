@@ -9,12 +9,17 @@
 #import "Heres2uViewController.h"
 #import "menuViewController.h"
 #import "searchViewController.h" 
+#import "NSGlobalConfiguration.h"
+#import "heres2uitemView.h"
+#import "NSImageLoaderToImageView.h"
 
 @interface Heres2uViewController ()
 
 @end
 
 @implementation Heres2uViewController
+
+@synthesize friendItems, UIBlocker;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,6 +39,17 @@
     UIBarButtonItem *searchBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(search:)];
     
     [self.navigationItem setRightBarButtonItem:searchBtn];
+    
+    phpCaller *caller = [[phpCaller alloc] init];
+    caller.delegate = self;
+    UIBlocker=[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    [UIBlocker setFrame:[self.tabBarController .view frame]];
+    [UIBlocker setBackgroundColor:[UIColor grayColor]];
+    [UIBlocker setAlpha:0.8];
+    [UIBlocker setHidesWhenStopped:YES];
+    [self.tabBarController.view addSubview:UIBlocker];
+    [UIBlocker startAnimating];
+    [caller invokeWebService:@"ui" forAction:@"getfollowees" withParameters:[NSArray arrayWithObjects:[NSGlobalConfiguration getConfigurationItem:@"ID"], nil]];
    
 }
 
@@ -43,8 +59,19 @@
     // Dispose of any resources that can be recreated.
 }
 
--(IBAction)goToMenu:(id)sender {
+//heres2uitemdelegate
+-(void)giftAFriend:(heres2uitemView*)sender {
     menuViewController *menu = [[menuViewController alloc] initWithNibName:@"menuViewController" bundle:nil];
+
+    NSLog(@"%@: name:%@",sender,sender.name.text);
+    
+    menu.followeeNametxt = sender.name.text;
+    menu.followeePicImg = sender.picture.image;
+    
+    menu.userInfo = [friendItems objectAtIndex:sender.tag]; 
+//    menu.followeeName.text = sender.name.text;
+//    menu.followeePic.image = sender.picture.image;
+    
     [self.navigationController pushViewController:menu animated:YES]; 
 }
 -(IBAction)search:(id)sender
@@ -52,5 +79,61 @@
     
     [self.navigationController pushViewController:search animated:YES];
 }
+
+-(void) phpCallerFailed:(NSError *)error;
+{
+    NSLog(@"php caller failed with error:%@",error.localizedDescription); 
+}
+
+-(void) phpCallerFinished:(NSMutableArray *)returnData
+{
+    if ([friendItems count] != [returnData count])
+    {
+    friendItems = returnData;
+    NSLog(@"php caller finished with items:%@",returnData);
+    [self loadActivities];
+    }
+    [UIBlocker stopAnimating];
+}
+
+-(void) viewDidAppear:(BOOL)animated
+{
+    phpCaller *caller = [[phpCaller alloc] init];
+    caller.delegate = self;
+    [caller invokeWebService:@"ui" forAction:@"getfollowees" withParameters:[NSArray arrayWithObjects:[NSGlobalConfiguration getConfigurationItem:@"ID"], nil]];
+}
+
+-(void) loadActivities{
+    //NSLog(@"Loading Activity");
+    if ([friendItems count] == 0)
+    {
+        UILabel *dummyLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.center.x-100, self.view.center.y, 200, 50)];
+        dummyLabel.text = @"no followees yet. Get some friends!";
+        [self.view addSubview:dummyLabel]; 
+        return; 
+    }
+    else {
+        
+    for(NSInteger i=0; i<[friendItems count];i++){
+        heres2uitemView *friend=[[heres2uitemView alloc] initWithFrame:CGRectMake(0, (i*81), 320, 81)];
+        NSDictionary *ItemData=[friendItems objectAtIndex:i];
+        friend.name.text = [ItemData objectForKey:@"FullName"];
+        friend.tag = i;
+        //friend.picture.image= [UIImage imageWithData:[NSData dataWithContentsOfURL:[ItemData objectForKey:@"ImageName"]]];
+        NSImageLoaderToImageView *img=[[NSImageLoaderToImageView alloc] initWithURLString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[ItemData valueForKey:@"ImageURL"]] ImageView:friend.picture];
+        [img start];
+
+        [friend setDelegate:self];
+        //  [activity.ProfilePicture setImage:[ProfilePicture image]];
+        //[activity setFrame:];
+        [self.view addSubview:friend];
+        // NSLog(@"added");
+    }
+    [(UIScrollView *)self.view setScrollEnabled:YES];
+    [(UIScrollView *)self.view setContentSize:CGSizeMake(320, ([friendItems count]*85))];
+    // NSLog(@"%i",([Profile.Feeds count]*166));
+    }
+}
+
 
 @end

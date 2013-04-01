@@ -48,6 +48,7 @@
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 { [textField resignFirstResponder];
+    NSLog(@"fiterText:%@",FilterTextBox.text); 
     return YES;
 }
      
@@ -71,7 +72,6 @@
         [CheckIn.Distance setText:@"0.0 m"];
         [CheckIn.Name setText:[ItemData valueForKey:@"Title"]];
         [CheckIn.Location setText:[ItemData valueForKey:@"Address"]];
-        [CheckIn.Distance setText:@"0.0 m"];
         [CheckIn setDelegate:self];
         [CheckIn setID:[(NSString *)[ItemData valueForKey:@"ID"] integerValue]];
         NSImageLoaderToImageView *img=[[NSImageLoaderToImageView alloc] initWithURLString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[ItemData valueForKey:@"Image"]] ImageView:CheckIn.Picture];

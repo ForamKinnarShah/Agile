@@ -8,6 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
+enum itemType{
+        food,
+        drink,
+        dessert
+}itemType; 
+
 @interface orderItem : NSObject
+
+@property NSString *name;
+@property float price;
+@property enum itemType itemType;
+
+-(id)initWithName:(NSString*)name Price:(NSInteger)price itemType:(enum itemType)itemType; 
 
 @end

@@ -10,9 +10,9 @@
 #import "NSImageLoader.h"
 #import "NSImageLoaderToImageViewProtocol.h"
 @interface NSImageLoaderToImageView : NSObject<NSImageLoaderProtocol>
-@property (strong,nonatomic) UIImageView *ImageView;
-@property (strong,nonatomic) id Delegate;
-@property (strong, nonatomic) NSImageLoader *LoaderObject;
+@property (weak,nonatomic) UIImageView *ImageView;
+@property (weak,nonatomic) id Delegate;
+@property (weak, nonatomic) NSImageLoader *LoaderObject;
 -(id)initWithURL:(NSURL *)objURL ImageView:(UIImageView *)imageview;
 -(id) initWithURLString:(NSString *)objURL ImageView:(UIImageView *)imageview;
 -(id) initWithURL:(NSURL *)objURL ImageView:(UIImageView *)imageview StartImmediately:(BOOL)startImmediately;

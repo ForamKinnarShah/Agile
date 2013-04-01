@@ -10,4 +10,6 @@
 #import "NSGlobalConfiguration.h"
 @interface settingsViewController : UIViewController
 
+-(IBAction)goToCreditCardInfoPage:(id)sender; 
+
 @end

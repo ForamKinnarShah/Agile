@@ -10,4 +10,10 @@
 
 @interface orderItemView : UIView
 
+@property IBOutlet UIImageView *image;
+@property IBOutlet UILabel *restaurantNameLbl;
+@property IBOutlet UIButton *senderNameBtn;
+@property IBOutlet UILabel *itemNameLbl; 
+@property id delegate;
+
 @end

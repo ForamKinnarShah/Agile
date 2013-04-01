@@ -10,4 +10,10 @@
 
 @interface utilities : NSObject
 
+@property UIActivityIndicatorView *UIBlocker;
+
+-(void)startUIBlockerInView:(UIView*)view; 
+-(void)stopUIBlockerInView:(UIView*)view; 
++(void)showAlertWithTitle:(NSString*)title Message:(NSString*)message; 
+
 @end

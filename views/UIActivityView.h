@@ -19,4 +19,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *btnBuy;
 @property (nonatomic) NSInteger ID;
 @property (strong,nonatomic) id Delegate;
+
+-(IBAction)buyWasClicked:(id)sender;
+
 @end

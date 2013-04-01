@@ -11,4 +11,5 @@
 @protocol UIActivityViewProtocol <NSObject>
 @optional
 -(void) activityviewRequestComment:(UIActivityView *) activity;
+-(IBAction)goToMenu:(id)sender;
 @end

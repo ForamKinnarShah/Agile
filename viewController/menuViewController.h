@@ -9,5 +9,25 @@
 #import <UIKit/UIKit.h>
 
 @interface menuViewController : UIViewController
+{
+    NSMutableArray *selectedItems;
+    NSMutableArray *selectedIndices; 
+    NSArray *menu; 
+}
+
+@property IBOutlet UISegmentedControl *segmentedControl;
+@property IBOutlet UILabel *lowPricelbl;
+@property IBOutlet UILabel *medPricelbl;
+@property IBOutlet UILabel *highPricelbl; 
+@property IBOutlet UITextField *enterPriceTxtField; 
+@property IBOutlet UIButton *button1;
+@property IBOutlet UIButton *button2;
+@property IBOutlet UIButton *button3;
+@property IBOutlet UILabel *followeeName;
+@property NSString *followeeNametxt; 
+@property IBOutlet UIImageView *followeePic;
+@property UIImage *followeePicImg; 
+@property IBOutlet UILabel *restaurantName; 
+@property NSMutableDictionary *userInfo; 
 
 @end

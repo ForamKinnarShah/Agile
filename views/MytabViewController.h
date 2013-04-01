@@ -7,9 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "phpCallerDelegate.h"
+#import "phpCaller.h" 
+#import "utilities.h" 
 
-@interface MytabViewController : UIViewController <UITabBarControllerDelegate,UINavigationControllerDelegate, UIActionSheetDelegate>
+@interface MytabViewController : UIViewController <UITabBarControllerDelegate,UINavigationControllerDelegate, UIActionSheetDelegate, phpCallerDelegate>
 {
     UISegmentedControl IBOutlet *segmented;
 }
+@property phpCaller *caller;
+@property utilities *util;
+@property NSMutableArray *receivedItems;
+@property NSMutableArray *sentItems;
+@property NSMutableArray *usedItems; 
+@property IBOutlet UIButton *defaultBtn;
+
 @end

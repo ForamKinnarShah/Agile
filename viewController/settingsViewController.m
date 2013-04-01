@@ -10,6 +10,7 @@
 #import "searchViewController.h"
 #import "LoginViewController.h"
 #import "supportViewController.h"
+#import "creditCardInfoViewController.h" 
 
 @interface settingsViewController ()
 
@@ -61,5 +62,9 @@
     
 }
 
-
+-(IBAction)goToCreditCardInfoPage:(id)sender
+{
+    creditCardInfoViewController *credit = [[creditCardInfoViewController alloc] initWithNibName:@"creditCardInfoViewController" bundle:nil];
+    [self.navigationController pushViewController:credit animated:YES]; 
+}
 @end

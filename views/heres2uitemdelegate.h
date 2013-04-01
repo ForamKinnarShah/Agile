@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface heres2uitemdelegate : NSObject
+@class heres2uitemView; 
+
+@protocol heres2uitemdelegate <NSObject>
+
+-(void)giftAFriend:(id)sender;
 
 @end

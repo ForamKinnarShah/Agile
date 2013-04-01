@@ -28,6 +28,20 @@
     NSDateFormatter *format=[[NSDateFormatter alloc] init];
     [format setDateFormat:@"MM/dd/yyyy"];
     NSString* DOB=[format stringFromDate:[form.DOB date]];
+    
+    for (NSString *field in [NSArray arrayWithObjects:form.Email.text,form.Password.text,form.Phone.text,form.ZipCode.text,form.Name.text, nil]) //should rewrite to include other disallowed entries
+    {
+        if ([field length] == 0)
+        {
+            [[[UIAlertView alloc] initWithTitle:@"Error"
+                                        message:@"One or more fields not filled in"
+                                        delegate:nil
+                                        cancelButtonTitle:@"OK"
+                                        otherButtonTitles:nil] show];
+            return;
+        }
+    }
+    
     [NSUserAccessControl RegisterUser:[form.Email text]  Password:[form.Password text] ProfilePicture:[form currentProfilePicture] Phone:[form.Phone text] DateOfBirth:DOB Name:[form.Name text] ZipCode:[form.ZipCode text] CallBackDelegate:self];
 }
 -(void) registrationDidBegin:(NSTaggedURLConnection *)connection{

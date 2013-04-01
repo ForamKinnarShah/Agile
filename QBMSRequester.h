@@ -8,6 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
-@interface QBMSRequester : NSObject
+@interface QBMSRequester : NSObject <NSURLConnectionDataDelegate, NSXMLParserDelegate>
+
+{
+    NSMutableData *data;
+    NSMutableString *currentString;
+
+}
+
+@property (nonatomic,retain) NSMutableData *data;
+@property NSString *creditCardTransactionID;
+@property id delegate;
+
+-(BOOL)sendChargeRequest:(NSMutableDictionary*)cardNumber forAmount:(NSString*)amount;
 
 @end

@@ -36,7 +36,7 @@
 {
     [super viewDidLoad];
     timer=[NSTimer timerWithTimeInterval:5 target:self selector:@selector(checkActivity) userInfo:nil repeats:YES];
-    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes ];
+    //[[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes ];
     self.title = @"Feed";
    // if([NSGlobalConfiguration getConfigurationItem:@"ID"]){
     feedManager=[[NSFeedManager alloc] init];
@@ -108,7 +108,7 @@
 }
 -(void) feedmanagerCompleted:(NSFeedManager *)feedmanager{
     //Load Feeds
-    NSLog(@"Loaded");
+    NSLog(@"feed manager loaded");
     [self loadActivities];
 }
 -(IBAction)sheet:(id)sender {
@@ -130,12 +130,17 @@ UIActionSheet *choose = [[UIActionSheet alloc] initWithTitle:@"Menu" delegate:se
     for(NSInteger i=0; i<[feedManager count];i++){
         UIActivityView *activity=[[UIActivityView alloc] initWithFrame:CGRectMake(0, (i*166), 320, 156)];
         NSDictionary *ItemData=[feedManager getFeedAtIndex:i];
+        NSLog(@"itemData:%@",ItemData); 
+        
          [activity setID:[(NSString *)[ItemData valueForKey:@"FeedID"] integerValue]];
         [activity.UserName setText:[ItemData valueForKey:@"FullName"]];
         [activity.lblComment setText:[ItemData valueForKey:@"UserComment"]];
         [activity.lblLocation setText:[ItemData valueForKey:@"Title"]];
         [activity.lblTime setText:[ItemData valueForKey:@"Time"]];
         [activity setDelegate:self];
+        NSImageLoaderToImageView *img=[[NSImageLoaderToImageView alloc] initWithURLString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[ItemData valueForKey:@"UserImage"]] ImageView:activity.ProfilePicture];
+        [img start];
+        
       //  [activity.ProfilePicture setImage:[ProfilePicture image]];
         //[activity setFrame:];
         [self.view addSubview:activity];

@@ -10,4 +10,9 @@
 
 @interface heres2uitemView : UIView
 
+@property IBOutlet UIImageView *picture;
+@property IBOutlet UILabel *name;
+@property id delegate;
+
+-(IBAction)giftAFriendPressed:(id)sender;
 @end
