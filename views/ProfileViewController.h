@@ -29,5 +29,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *UserName;
 @property (strong, nonatomic) IBOutlet UILabel *FollowButton;
 @property (strong, nonatomic) IBOutlet UIButton *btnFollowBack;
+@property IBOutlet UIButton *defaultViewButton;
+
 -(id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil ProfileID:(NSInteger) ID;
 @end

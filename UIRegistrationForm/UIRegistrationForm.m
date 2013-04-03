@@ -78,7 +78,7 @@
             if([tableView tag]==2){
                 return 5;
             }else{
-                NSLog(@"Returning 9");
+                NSLog(@"Returning 0");
                 return 0;
             }
         }
@@ -207,6 +207,7 @@
                         Email=[[UITextField alloc] initWithFrame:CGRectMake(5, 5, 216, 33)];
                     }
                     [Email setAutocapitalizationType:UITextAutocapitalizationTypeNone];
+                    [Email setAutocorrectionType:UITextAutocorrectionTypeNo]; 
                     [Email setInputAccessoryView:AccessoryView];
                     [Email setPlaceholder:@"Email"];
                     [Email setTextColor:[UIColor grayColor]];
@@ -229,6 +230,7 @@
                     }
                     [Password setInputAccessoryView:AccessoryView];
                     [Password setAutocapitalizationType:UITextAutocapitalizationTypeNone];
+                    [Password setAutocorrectionType:UITextAutocorrectionTypeNo];
                     [Password setTextColor:[UIColor grayColor]];
                     [Password setPlaceholder:@"Password"];
                     [Password addTarget:self action:@selector(textFieldSelected:) forControlEvents:UIControlEventEditingDidBegin];

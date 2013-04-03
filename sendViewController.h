@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <FacebookSDK/FacebookSDK.h>
 
-@interface sendViewController : UIViewController <UINavigationControllerDelegate>
+@interface sendViewController : UIViewController <UINavigationControllerDelegate, UITextFieldDelegate>
+{
+    IBOutlet UIButton *fbButton;
+    IBOutlet UIButton *emailButton;
+    IBOutlet UIButton *SMSButton;
+    IBOutlet UITextField *messageTextField; 
+}
 
 @end

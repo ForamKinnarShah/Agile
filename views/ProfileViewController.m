@@ -16,7 +16,7 @@
 @end
 
 @implementation ProfileViewController
-@synthesize ProfilePicture,FollowButton,FollowersCount,FollowersRect,FollowingCount,btnFollowBack,FollowingRect,ImageLoader,UserName,ProSroll;
+@synthesize ProfilePicture,FollowButton,FollowersCount,FollowersRect,FollowingCount,btnFollowBack,FollowingRect,ImageLoader,UserName,ProSroll, defaultViewButton;
 //Initializers:
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -46,7 +46,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    self.title = @"Profile";
+    Profile=[[NSProfile alloc] initWithProfileID:ProfileID];
+    [Profile setDelegate:self];
+    [Profile startFetching];
+    
+    //    self.title = @"Profile";
 //    UIImage *img = [[UIImage alloc] initWithContentsOfFile:@"dot.png"];
 //    UITabBarItem *tab = [[UITabBarItem alloc] initWithTitle:self.title image:img tag:5];
 //    self.tabBarItem = tab;
@@ -115,6 +119,11 @@
 }
 -(void) ProfileLoadingCompleted:(NSProfile *)profile{
     //Parse Data
+    if ([Profile.Feeds count] > 0)
+    {
+        [defaultViewButton removeFromSuperview];
+    }
+    
     [FollowersCount setText:[NSString stringWithFormat:@"%i",[Profile Followers]]];
   [FollowingCount setText:[NSString stringWithFormat:@"%i",[Profile Following]]];
     [UserName setText:[Profile FullName]];

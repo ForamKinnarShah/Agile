@@ -45,6 +45,9 @@
     [datePicker setDatePickerMode:UIDatePickerModeDate];
     [datePicker addTarget:self action:@selector(datePickerPicked) forControlEvents:UIControlEventValueChanged]; 
     [expirationDateTextField setInputView:datePicker];
+    UIToolbar *doneBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    [doneBar setItems:[NSArray arrayWithObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonItemStyleDone target:self action:@selector(textFieldShouldReturn:)]]];
+    [cardNumberTextField setInputAccessoryView:doneBar];
 }
 
 - (void)didReceiveMemoryWarning
@@ -79,6 +82,19 @@ return;
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 { [textField resignFirstResponder];
     return YES;
+}
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+//    if (textField == cardNumberTextField || textField == securityCodeTextField)
+//    {
+//        CGRect textFrame = textField.frame;
+//        //CGRect initialFrame = textField.frame;
+//        CGRect finalFrame =  self.view.frame; 
+//        finalFrame.origin = CGPointMake(textFrame.origin.x, textFrame.origin.y);
+//
+//        [UIView animateWithDuration:0.2 animations:^{[self.view setFrame:finalFrame];}];
+//    }
 }
 
 -(void)datePickerPicked

@@ -29,7 +29,7 @@
                      [NSArray arrayWithObjects:@"UserID",nil],@"getReceivedItems",
                      [NSArray arrayWithObjects:@"UserID",nil],@"getSentItems",
                      [NSArray arrayWithObjects:@"UserID",nil],@"getUsedItems",
-                     [NSArray arrayWithObjects:@"sendingUserID",@"receivingUserID",@"chargeAmount",@"creditTransID",@"orderID",nil],@"addTransactionRequest",nil];
+                     [NSArray arrayWithObjects:@"sendingUserID",@"receivingUserID",@"chargeAmount",@"creditTransID",@"locationID",nil],@"addTransactionRequest",nil];
     
     
     outputsDictionary =[NSDictionary dictionaryWithObjectsAndKeys:

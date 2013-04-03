@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
-@interface AppDelegate : UIResponder <UIApplicationDelegate, UINavigationControllerDelegate>{ NSManagedObjectModel *managedObjectModel;
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UINavigationControllerDelegate, NSURLConnectionDelegate>
+{
+    NSManagedObjectModel *managedObjectModel;
     NSManagedObjectContext *managedObjectContext;
     NSPersistentStoreCoordinator *persistentStoreCoordinator;
     

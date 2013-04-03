@@ -50,7 +50,6 @@
 		7A9911D816F3BFE200B1A742 /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A9911CF16F3BFE200B1A742 /* LoginView.xib */; };
 		7A9911D916F3BFE200B1A742 /* MytabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9911D116F3BFE200B1A742 /* MytabViewController.m */; };
 		7A9911DA16F3BFE200B1A742 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9911D316F3BFE200B1A742 /* ProfileViewController.m */; };
-		7A9911DB16F3BFE200B1A742 /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A9911D416F3BFE200B1A742 /* ProfileViewController.xib */; };
 		7A9F814016FCF3E700A99009 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9F813F16FCF3E700A99009 /* Constants.m */; };
 		7A9F814316FD01AC00A99009 /* orderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9F814216FD01AB00A99009 /* orderItem.m */; };
 		7A9F81461700E4D700A99009 /* phpCaller.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9F81451700E4D600A99009 /* phpCaller.m */; };
@@ -168,7 +167,7 @@
 		20A008D016C57E0E00262D09 /* UIActivityView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UIActivityView.xib; sourceTree = "<group>"; };
 		20A008D216C57F0500262D09 /* UIActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIActivityView.h; sourceTree = "<group>"; };
 		20A008D316C57F0500262D09 /* UIActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIActivityView.m; sourceTree = "<group>"; };
-		20A008D516C5841200262D09 /* ProfileView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileView.xib; sourceTree = "<group>"; };
+		20A008D516C5841200262D09 /* ProfileView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ProfileView.xib; path = ../../ProfileView.xib; sourceTree = "<group>"; };
 		20A008DA16C5ACE700262D09 /* NSImageLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSImageLoader.h; sourceTree = "<group>"; };
 		20A008DB16C5ACE700262D09 /* NSImageLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSImageLoader.m; sourceTree = "<group>"; };
 		20A008DC16C5ACE700262D09 /* NSImageLoaderProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSImageLoaderProtocol.h; sourceTree = "<group>"; };
@@ -235,7 +234,6 @@
 		7A9911D116F3BFE200B1A742 /* MytabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MytabViewController.m; path = views/MytabViewController.m; sourceTree = SOURCE_ROOT; };
 		7A9911D216F3BFE200B1A742 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfileViewController.h; path = views/ProfileViewController.h; sourceTree = SOURCE_ROOT; };
 		7A9911D316F3BFE200B1A742 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileViewController.m; path = views/ProfileViewController.m; sourceTree = SOURCE_ROOT; };
-		7A9911D416F3BFE200B1A742 /* ProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ProfileViewController.xib; path = views/ProfileViewController.xib; sourceTree = SOURCE_ROOT; };
 		7A9F813E16FCF3E700A99009 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = SOURCE_ROOT; };
 		7A9F813F16FCF3E700A99009 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = SOURCE_ROOT; };
 		7A9F814116FD01AB00A99009 /* orderItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = orderItem.h; path = ../../../../orderItem.h; sourceTree = "<group>"; };
@@ -515,7 +513,6 @@
 			children = (
 				20A008F816C9A12F00262D09 /* Following.xib */,
 				20A008E816C99F8500262D09 /* Followers.xib */,
-				20A008D516C5841200262D09 /* ProfileView.xib */,
 			);
 			name = ProfileView;
 			path = ../..;
@@ -672,7 +669,6 @@
 		7A9F81621702445100A99009 /* heres2u */ = {
 			isa = PBXGroup;
 			children = (
-				DAD45E6A1667451300599A9F /* Heres2uViewController.xib */,
 				DAC5F07A1668184F004B0053 /* searchViewController.xib */,
 				DAC5F08E166819C4004B0053 /* menuViewController.xib */,
 				7A9F815317011F3200A99009 /* heres2uItemView.xib */,
@@ -694,6 +690,7 @@
 				7A9F817017038ABD00A99009 /* QBMSRequesterDelegate.h */,
 				7A9911CD16F3BFE200B1A742 /* Heres2uViewController.h */,
 				7A9911CE16F3BFE200B1A742 /* Heres2uViewController.m */,
+				DAD45E6A1667451300599A9F /* Heres2uViewController.xib */,
 			);
 			name = heres2u;
 			path = views/Feed/heres2u;
@@ -729,7 +726,7 @@
 				20A008FB16C9A15B00262D09 /* FollowingViewController */,
 				7A9911D216F3BFE200B1A742 /* ProfileViewController.h */,
 				7A9911D316F3BFE200B1A742 /* ProfileViewController.m */,
-				7A9911D416F3BFE200B1A742 /* ProfileViewController.xib */,
+				20A008D516C5841200262D09 /* ProfileView.xib */,
 			);
 			name = profile;
 			path = views/checkin/profile;
@@ -1071,7 +1068,6 @@
 				20AD13CC16D17B2700F0AE6E /* UICommentView.xib in Resources */,
 				20AD13D716D1843E00F0AE6E /* UIComment.xib in Resources */,
 				7A9911D816F3BFE200B1A742 /* LoginView.xib in Resources */,
-				7A9911DB16F3BFE200B1A742 /* ProfileViewController.xib in Resources */,
 				7A9F815217011A1900A99009 /* orderItemView.xib in Resources */,
 				7A9F815417011F3300A99009 /* heres2uItemView.xib in Resources */,
 				7A9F816A17025B1000A99009 /* contactInfoViewController.xib in Resources */,
@@ -1254,6 +1250,7 @@
 		DAF870FC16671F0000747CDA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Paul Sukhanov (B5LQJ5SQ56)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/FacebookSDK\"",
@@ -1266,6 +1263,7 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "43437E69-61C2-4B88-853D-B5768840F9B9";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1273,6 +1271,7 @@
 		DAF870FD16671F0000747CDA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Paul Sukhanov (B5LQJ5SQ56)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/FacebookSDK\"",
@@ -1285,6 +1284,7 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "43437E69-61C2-4B88-853D-B5768840F9B9";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

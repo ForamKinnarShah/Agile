@@ -141,7 +141,7 @@ totalTotalLbl.text = [NSString stringWithFormat:@"$%.2f",totalTotal];
 -(void) phpCallerFailed:(NSError *)error
 {
     [util stopUIBlockerInView:self.view];
-    [[[UIAlertView alloc] initWithTitle:@"credit card authorization failed:" message:[NSString stringWithFormat:@"%@",error.localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
+    [[[UIAlertView alloc] initWithTitle:@"add Transaction failed:" message:[NSString stringWithFormat:@"%@",error.localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
 }
 
 -(void) phpCallerFinished:(NSMutableArray*)returnData

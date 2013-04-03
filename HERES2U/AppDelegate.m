@@ -72,6 +72,13 @@
      tab.viewControllers = [NSArray arrayWithObjects:feedNav,checkNav,h2uNav,mytabNav,profNav,nil];
     [self.window setRootViewController:tab];
     [self.window makeKeyAndVisible];
+    
+#if !TARGET_IPHONE_SIMULATOR
+    [application registerForRemoteNotificationTypes:
+     UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
+#endif
+
+    
     return YES;
 }
 -(NSURL *) HomeDirectory{
@@ -135,6 +142,22 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark -
+#pragma mark Remote notifications
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    // You can send here, for example, an asynchronous HTTP request to your web-server to store this deviceToken remotely.
+    NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://xxx.com"]];
+    [req setHTTPBody:deviceToken];
+    [req setHTTPMethod:@"POST"];
+    //[req setValue:<#(NSString *)#> forHTTPHeaderField:@"content-length"]; 
+    NSLog(@"Did register for remote notifications: %@", deviceToken);
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    NSLog(@"Fail to register for remote notifications: %@", error);
 }
 
 @end
