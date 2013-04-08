@@ -15,7 +15,7 @@
 @interface paymentViewController : UIViewController <QBMSRequesterDelegate, phpCallerDelegate>
 {
     NSString *creditCardNumber;
-    utilities *util; 
+    utilities *util;
 }
 
 @property NSArray *orderItems;

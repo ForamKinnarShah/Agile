@@ -101,7 +101,7 @@
 		DAD45E60166733FB00599A9F /* pic.png in Resources */ = {isa = PBXBuildFile; fileRef = DAD45E56166733FB00599A9F /* pic.png */; };
 		DAD45E6216673DA100599A9F /* dot.png in Resources */ = {isa = PBXBuildFile; fileRef = DAD45E6116673DA100599A9F /* dot.png */; };
 		DAD45E671667417100599A9F /* CheckinViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DAD45E651667417100599A9F /* CheckinViewController.xib */; };
-		DAD45E6C1667451300599A9F /* Heres2uViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DAD45E6A1667451300599A9F /* Heres2uViewController.xib */; };
+		DAD45E6C1667451300599A9F /* Heres2uViewController_old.xib in Resources */ = {isa = PBXBuildFile; fileRef = DAD45E6A1667451300599A9F /* Heres2uViewController_old.xib */; };
 		DAD45E711667D62F00599A9F /* MytabViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DAD45E6F1667D62F00599A9F /* MytabViewController.xib */; };
 		DAD45E861667F6D300599A9F /* pic3.png in Resources */ = {isa = PBXBuildFile; fileRef = DAD45E831667F6D300599A9F /* pic3.png */; };
 		DAD45E871667F6D300599A9F /* pic2.png in Resources */ = {isa = PBXBuildFile; fileRef = DAD45E841667F6D300599A9F /* pic2.png */; };
@@ -304,7 +304,7 @@
 		DAD45E56166733FB00599A9F /* pic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pic.png; sourceTree = "<group>"; };
 		DAD45E6116673DA100599A9F /* dot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dot.png; sourceTree = "<group>"; };
 		DAD45E651667417100599A9F /* CheckinViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CheckinViewController.xib; path = ../CheckinViewController.xib; sourceTree = "<group>"; };
-		DAD45E6A1667451300599A9F /* Heres2uViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Heres2uViewController.xib; path = ../../Heres2uViewController.xib; sourceTree = "<group>"; };
+		DAD45E6A1667451300599A9F /* Heres2uViewController_old.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Heres2uViewController_old.xib; path = ../../Heres2uViewController_old.xib; sourceTree = "<group>"; };
 		DAD45E6F1667D62F00599A9F /* MytabViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MytabViewController.xib; path = ../../../MytabViewController.xib; sourceTree = "<group>"; };
 		DAD45E831667F6D300599A9F /* pic3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pic3.png; sourceTree = "<group>"; };
 		DAD45E841667F6D300599A9F /* pic2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pic2.png; sourceTree = "<group>"; };
@@ -670,7 +670,6 @@
 			isa = PBXGroup;
 			children = (
 				DAC5F07A1668184F004B0053 /* searchViewController.xib */,
-				DAC5F08E166819C4004B0053 /* menuViewController.xib */,
 				7A9F815317011F3200A99009 /* heres2uItemView.xib */,
 				7A9F815517011FC500A99009 /* heres2uitemView.h */,
 				7A9F815E17022F2600A99009 /* heres2uitemdelegate.h */,
@@ -682,6 +681,7 @@
 				DAC5F098166819F3004B0053 /* sendViewController.xib */,
 				DAC5F08C166819C3004B0053 /* menuViewController.h */,
 				DAC5F08D166819C3004B0053 /* menuViewController.m */,
+				DAC5F08E166819C4004B0053 /* menuViewController.xib */,
 				DAC5F091166819D9004B0053 /* paymentViewController.h */,
 				DAC5F092166819D9004B0053 /* paymentViewController.m */,
 				DAC5F093166819D9004B0053 /* paymentViewController.xib */,
@@ -690,7 +690,7 @@
 				7A9F817017038ABD00A99009 /* QBMSRequesterDelegate.h */,
 				7A9911CD16F3BFE200B1A742 /* Heres2uViewController.h */,
 				7A9911CE16F3BFE200B1A742 /* Heres2uViewController.m */,
-				DAD45E6A1667451300599A9F /* Heres2uViewController.xib */,
+				DAD45E6A1667451300599A9F /* Heres2uViewController_old.xib */,
 			);
 			name = heres2u;
 			path = views/Feed/heres2u;
@@ -1028,7 +1028,7 @@
 				DAD45E60166733FB00599A9F /* pic.png in Resources */,
 				DAD45E6216673DA100599A9F /* dot.png in Resources */,
 				DAD45E671667417100599A9F /* CheckinViewController.xib in Resources */,
-				DAD45E6C1667451300599A9F /* Heres2uViewController.xib in Resources */,
+				DAD45E6C1667451300599A9F /* Heres2uViewController_old.xib in Resources */,
 				DAD45E711667D62F00599A9F /* MytabViewController.xib in Resources */,
 				DAD45E861667F6D300599A9F /* pic3.png in Resources */,
 				DAD45E871667F6D300599A9F /* pic2.png in Resources */,
@@ -1254,6 +1254,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/FacebookSDK\"",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HERES2U/HERES2U-Prefix.pch";
@@ -1275,6 +1276,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/FacebookSDK\"",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HERES2U/HERES2U-Prefix.pch";

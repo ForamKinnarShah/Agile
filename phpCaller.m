@@ -26,9 +26,9 @@
                      [NSArray arrayWithObjects:@"UserID",@"FolloweeID",nil],@"unfollowuser",
                      [NSArray arrayWithObjects:@"UserID",@"comment",@"locationID",nil],@"postfeed",
                      [NSArray arrayWithObjects:@"UserID",@"locationID",nil],@"checkin",
-                     [NSArray arrayWithObjects:@"UserID",nil],@"getReceivedItems",
-                     [NSArray arrayWithObjects:@"UserID",nil],@"getSentItems",
-                     [NSArray arrayWithObjects:@"UserID",nil],@"getUsedItems",
+                     [NSArray arrayWithObjects:@"ID",nil],@"getReceivedItems",
+                     [NSArray arrayWithObjects:@"ID",nil],@"getSentItems",
+                     [NSArray arrayWithObjects:@"ID",nil],@"getUsedItems",
                      [NSArray arrayWithObjects:@"sendingUserID",@"receivingUserID",@"chargeAmount",@"creditTransID",@"locationID",nil],@"addTransactionRequest",nil];
     
     
@@ -36,13 +36,13 @@
                        [NSArray arrayWithObjects:@"id",nil],@"requestprofile",
                        @"followee",@"getfollowees",
                        @"follower",@"getfollowers",
-                       @"User",@"searchforusers",
+                       @"user",@"searchforusers",
                        [NSArray arrayWithObjects:@"CommenterID",@"FeedID",@"Comment", nil],@"addcomment",
                        [NSArray arrayWithObjects:@"UserID",@"FolloweeID",nil],@"followuser",
                        [NSArray arrayWithObjects:@"UserID",@"FolloweeID",nil],@"unfollowuser",
                        [NSArray arrayWithObjects:@"UserID",@"comment",@"locationID",nil],@"postfeed",
                        [NSArray arrayWithObjects:@"UserID",@"locationID",nil],@"checkin",
-                       [NSArray arrayWithObjects:@"UserID",nil],@"getReceivedItems",
+                       @"transaction",@"getReceivedItems",
                        [NSArray arrayWithObjects:@"UserID",nil],@"getSentItems",
                        [NSArray arrayWithObjects:@"UserID",nil],@"getUsedItems",
                        @"response",@"addTransactionRequest",nil];

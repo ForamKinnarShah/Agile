@@ -10,6 +10,7 @@
 
 @interface utilities : NSObject
 
+
 @property UIActivityIndicatorView *UIBlocker;
 
 -(void)startUIBlockerInView:(UIView*)view; 

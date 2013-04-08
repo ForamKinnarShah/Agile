@@ -126,7 +126,7 @@ totalTotalLbl.text = [NSString stringWithFormat:@"$%.2f",totalTotal];
     NSLog(@"credit card transaction id:%@",code);
     [[[UIAlertView alloc] initWithTitle:@"credit card authorization succeeded:" message:@"you will not be charged until recipient's item is delivered"  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
     phpCaller *php = [[phpCaller alloc] init];
-    [php invokeWebService:@"ui" forAction:@"addTransactionRequest" withParameters:[NSMutableArray arrayWithObjects:[NSGlobalConfiguration getConfigurationItem:@"ID"],[self.userInfo objectForKey:@"ID"],totalTotalLbl.text,code,@"orderID",nil]];
+    [php invokeWebService:@"ui" forAction:@"addTransactionRequest" withParameters:[NSMutableArray arrayWithObjects:[NSGlobalConfiguration getConfigurationItem:@"ID"],[self.userInfo objectForKey:@"ID"],[totalTotalLbl.text substringFromIndex:1],code,@"1",nil]];
     [self goToSend];
     
     

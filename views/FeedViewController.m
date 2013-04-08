@@ -46,6 +46,9 @@
     [self.navigationController.navigationBar setBackgroundColor:[UIColor grayColor]];
     UIBarButtonItem *searchBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(search:)];
     [self.navigationItem setRightBarButtonItem:searchBtn];
+    
+    
+    //login code
     NSString *Email=[NSGlobalConfiguration getConfigurationItem:@"Email"];
     NSString *Password=[NSGlobalConfiguration getConfigurationItem:@"Password"];
     if(!Email || !Password){
@@ -77,8 +80,11 @@
     // Dispose of any resources that can be recreated.
 }
 
--(IBAction)goToMenu:(id)sender {
+-(IBAction)goToMenu:(UIActivityView*)sender {
     menuViewController *menu = [[menuViewController alloc] initWithNibName:@"menuViewController" bundle:nil];
+    menu.userInfo = [NSMutableDictionary dictionaryWithDictionary:[feedManager getFeedAtIndex:sender.tag]];
+    menu.followeePicImg = sender.ProfilePicture.image;
+    menu.followeeNametxt = sender.UserName.text; 
     [self.navigationController pushViewController:menu animated:YES];
 }
 
@@ -109,6 +115,7 @@
 -(void) feedmanagerCompleted:(NSFeedManager *)feedmanager{
     //Load Feeds
     NSLog(@"feed manager loaded");
+    
     [self loadActivities];
 }
 -(IBAction)sheet:(id)sender {
@@ -138,6 +145,13 @@ UIActionSheet *choose = [[UIActionSheet alloc] initWithTitle:@"Menu" delegate:se
         [activity.lblLocation setText:[ItemData valueForKey:@"Title"]];
         [activity.lblTime setText:[ItemData valueForKey:@"Time"]];
         [activity setDelegate:self];
+        [activity setTag:i];
+        
+        if ([[ItemData valueForKey:@"UserID"] isEqual:[NSGlobalConfiguration getConfigurationItem:@"ID"]])
+        {
+            [activity.btnBuy removeFromSuperview]; 
+        }
+        
         NSImageLoaderToImageView *img=[[NSImageLoaderToImageView alloc] initWithURLString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[ItemData valueForKey:@"UserImage"]] ImageView:activity.ProfilePicture];
         [img start];
         
@@ -154,5 +168,10 @@ UIActionSheet *choose = [[UIActionSheet alloc] initWithTitle:@"Menu" delegate:se
     //Load Comments View Controller and PUsh it with ID
     CommentViewController *comment=[[CommentViewController alloc] initWithNibName:@"UICommentView" bundle:nil ActivityView:activity];
     [self.navigationController pushViewController:comment animated:YES];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [feedManager getFeeds]; 
 }
 @end

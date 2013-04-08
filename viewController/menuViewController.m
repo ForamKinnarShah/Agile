@@ -88,7 +88,10 @@
     
     //[button2 setBackgroundImage:[UIImage imageNamed:<#(NSString *)#>] forState:<#(UIControlState)#>]
     self.followeeName.text = self.followeeNametxt;
-    self.followeePic.image = self.followeePicImg; 
+    self.followeePic.image = self.followeePicImg;
+    
+    //self.followeeName.text =
+    
     
 }
 

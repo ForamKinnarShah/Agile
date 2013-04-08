@@ -13,6 +13,8 @@
 #import "NSImageLoaderToImageView.h"
 #import "UIActivityView.h"
 #import "CommentViewController.h"
+#import "utilities.h" 
+
 @interface ProfileViewController : UIViewController <UITabBarControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate,NSProfileProtocol,NSImageLoaderToImageViewProtocol>{
 @private
     NSInteger ProfileID;
@@ -30,6 +32,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *FollowButton;
 @property (strong, nonatomic) IBOutlet UIButton *btnFollowBack;
 @property IBOutlet UIButton *defaultViewButton;
+@property utilities *UIBlocker; 
 
 -(id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil ProfileID:(NSInteger) ID;
 @end

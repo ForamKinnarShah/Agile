@@ -120,7 +120,7 @@
 					<object class="IBUILabel" id="1021339062">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">258</int>
-						<string key="NSFrame">{{20, 184}, {101, 21}}</string>
+						<string key="NSFrame">{{20, 184}, {173, 21}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="595339105"/>
@@ -229,7 +229,7 @@
 					<object class="IBUILabel" id="149706530">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">258</int>
-						<string key="NSFrame">{{20, 241}, {88, 21}}</string>
+						<string key="NSFrame">{{20, 241}, {173, 21}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="746015961"/>
@@ -355,7 +355,6 @@
 						<string key="NSFrame">{{5, 406}, {310, 44}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIAutoresizesSubviews">NO</bool>
@@ -616,7 +615,6 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="1000081146"/>
 							<reference ref="595339105"/>
-							<reference ref="1021339062"/>
 							<reference ref="1056786227"/>
 							<reference ref="238922130"/>
 							<reference ref="149706530"/>
@@ -629,6 +627,7 @@
 							<reference ref="677263549"/>
 							<reference ref="689320029"/>
 							<reference ref="746015961"/>
+							<reference ref="1021339062"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -756,6 +755,20 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">menuViewController</string>
 					<string key="superclassName">UIViewController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="clickedSubmit:">id</string>
+						<string key="itemSelected:">UIButton</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="clickedSubmit:">
+							<string key="name">clickedSubmit:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="itemSelected:">
+							<string key="name">itemSelected:</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="button1">UIButton</string>
 						<string key="button2">UIButton</string>

@@ -117,6 +117,8 @@
 
 -(void) phpCallerFinished:(NSMutableArray*)returnData
 {
+    NSLog(@"phpCaller finished with items:%@",returnData); 
+    
     if ([segmented selectedSegmentIndex] == 0)
     {
     receivedItems = returnData;
@@ -124,14 +126,14 @@
     if ([receivedItems count] != 0)
     {
         [_defaultBtn setHidden:YES]; 
-        [self loadActivitiesWithItems:returnData];
+        [self loadActivitiesWithItems:receivedItems];
     }
 }
 
 -(void) loadActivitiesWithItems:(NSMutableArray*)items{
     //NSLog(@"Loading Activity");
     for(NSInteger i=0; i<[items count];i++){
-        orderItemView *item=[[orderItemView alloc] initWithFrame:CGRectMake(0, (i*81), 320, 81)];
+        orderItemView *item=[[orderItemView alloc] initWithFrame:CGRectMake(0, (i*81)+40, 320, 81)];
         NSDictionary *ItemData=[items objectAtIndex:i];
         item.senderNameBtn.titleLabel.text = [ItemData objectForKey:@"sendUserNameFullName"];
         item.restaurantNameLbl.text = [ItemData objectForKey:@"restaurantName"];

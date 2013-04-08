@@ -10,13 +10,14 @@
 #import "menuViewController.h"
 #import "settingsViewController.h"
 #import "checkinCommentViewController.h"
+#import "utilities.h" 
 
 @interface ProfileViewController ()
 
 @end
 
 @implementation ProfileViewController
-@synthesize ProfilePicture,FollowButton,FollowersCount,FollowersRect,FollowingCount,btnFollowBack,FollowingRect,ImageLoader,UserName,ProSroll, defaultViewButton;
+@synthesize ProfilePicture,FollowButton,FollowersCount,FollowersRect,FollowingCount,btnFollowBack,FollowingRect,ImageLoader,UserName,ProSroll, defaultViewButton, UIBlocker;
 //Initializers:
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -46,9 +47,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UIBlocker = [[utilities alloc] init];
+    [UIBlocker startUIBlockerInView:self.tabBarController.view];
+    
     Profile=[[NSProfile alloc] initWithProfileID:ProfileID];
     [Profile setDelegate:self];
     [Profile startFetching];
+    
     
     //    self.title = @"Profile";
 //    UIImage *img = [[UIImage alloc] initWithContentsOfFile:@"dot.png"];
@@ -123,6 +129,7 @@
     {
         [defaultViewButton removeFromSuperview];
     }
+    [UIBlocker stopUIBlockerInView:self.tabBarController.view];
     
     [FollowersCount setText:[NSString stringWithFormat:@"%i",[Profile Followers]]];
   [FollowingCount setText:[NSString stringWithFormat:@"%i",[Profile Following]]];
@@ -150,6 +157,12 @@
         [activity.lblTime setText:[ItemData valueForKey:@"DateCreated"]];
         [activity.ProfilePicture setImage:[ProfilePicture image]];
         [activity setDelegate:self];
+        
+        if ([[ItemData valueForKey:@"UserID"] isEqual:[NSGlobalConfiguration getConfigurationItem:@"ID"]])
+        {
+            [activity.btnBuy removeFromSuperview];
+        }
+        
         //[activity setFrame:];
         [ProSroll addSubview:activity];
         NSLog(@"added");

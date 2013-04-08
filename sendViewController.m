@@ -42,6 +42,7 @@
     //check whether session is open
     if (FBSession.activeSession.isOpen)
     {
+        NSLog(@"FB session open");
         [self checkPostingRights];
     }
     else {

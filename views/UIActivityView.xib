@@ -315,7 +315,6 @@
 						<int key="NSvFlags">274</int>
 						<string key="NSFrame">{{271, 123}, {37, 17}}</string>
 						<reference key="NSSuperview" ref="864647160"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="NSHuggingPriority">{1, 1}</string>
 						<string key="NSAntiCompressionPriority">{1, 1}</string>
