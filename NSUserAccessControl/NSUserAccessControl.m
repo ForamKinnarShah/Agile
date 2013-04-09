@@ -12,7 +12,9 @@
 +(void) RegisterUser:(NSString *)email Password:(NSString *)password ProfilePicture:(UIImage *)profilepicture  Phone:(NSString *)phone DateOfBirth:(NSString *)dob Name:(NSString *)name ZipCode:(NSString *)zip CallBackDelegate:(id)Delegate{
     NSLog(@"Registering");
     NSLog(@"Date of Birth: %@",dob);
-    NSURL *URL=[NSURL URLWithString:[NSString stringWithFormat:@"%@/?webservice=uac&action=register",[NSGlobalConfiguration URL]]];
+//    NSURL *URL=[NSURL URLWithString:[NSString stringWithFormat:@"%@/?webservice=uac&action=register",[NSGlobalConfiguration URL]]];
+
+    NSURL *URL = [NSURL URLWithString:@""];
     NSMutableURLRequest *Request=[[NSMutableURLRequest alloc] initWithURL:URL];
     [Request setHTTPMethod:@"POST"];
     NSMutableData *PostData=[[NSMutableData alloc] init];

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		20A0092016C9A7D300262D09 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20A0091F16C9A7D200262D09 /* QuartzCore.framework */; };
 		20AD13C316D1106300F0AE6E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20AD13C216D1106300F0AE6E /* CoreData.framework */; };
+		6F815F33171429F400447C25 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F815F32171429F400447C25 /* Reachability.m */; };
+		6F815F3517142BB300447C25 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F815F3417142BB300447C25 /* SystemConfiguration.framework */; };
 		7AA005C61709FFF300923E9B /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA005C51709FFF300923E9B /* FacebookSDK.framework */; };
 		7AA005CA170A002100923E9B /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA005C7170A002100923E9B /* Accounts.framework */; };
 		7AA005CB170A002100923E9B /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA005C8170A002100923E9B /* AdSupport.framework */; };
@@ -155,6 +157,9 @@
 /* Begin PBXFileReference section */
 		20A0091F16C9A7D200262D09 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		20AD13C216D1106300F0AE6E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		6F815F31171429F400447C25 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		6F815F32171429F400447C25 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		6F815F3417142BB300447C25 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		7AA005C51709FFF300923E9B /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		7AA005C7170A002100923E9B /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		7AA005C8170A002100923E9B /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
@@ -361,6 +366,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F815F3517142BB300447C25 /* SystemConfiguration.framework in Frameworks */,
 				7AA005CA170A002100923E9B /* Accounts.framework in Frameworks */,
 				7AA005CB170A002100923E9B /* AdSupport.framework in Frameworks */,
 				7AA005CC170A002100923E9B /* Social.framework in Frameworks */,
@@ -701,6 +707,9 @@
 		DAF870BD16671F0000747CDA = {
 			isa = PBXGroup;
 			children = (
+				6F815F3417142BB300447C25 /* SystemConfiguration.framework */,
+				6F815F31171429F400447C25 /* Reachability.h */,
+				6F815F32171429F400447C25 /* Reachability.m */,
 				7AA1959B1712B15B001F7A40 /* Constants.h */,
 				7AA1959C1712B15B001F7A40 /* Constants.m */,
 				7AA1959D1712B15B001F7A40 /* FollowersFollowing */,
@@ -1017,6 +1026,7 @@
 				7AA196DF1712B15C001F7A40 /* settingsViewController.m in Sources */,
 				7AA196E11712B15C001F7A40 /* supportViewController.m in Sources */,
 				7AA196E31712B15C001F7A40 /* UICheckIns.m in Sources */,
+				6F815F33171429F400447C25 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1111,7 +1121,8 @@
 		DAF870FC16671F0000747CDA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Paul Sukhanov (B5LQJ5SQ56)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Brian Rosa (J35L3P43JL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Brian Rosa (J35L3P43JL)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/FacebookSDK\"",
@@ -1125,7 +1136,8 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "43437E69-61C2-4B88-853D-B5768840F9B9";
+				PROVISIONING_PROFILE = "F351B90D-9584-447E-AC5A-2430E83370F1";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F351B90D-9584-447E-AC5A-2430E83370F1";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1133,7 +1145,8 @@
 		DAF870FD16671F0000747CDA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Paul Sukhanov (B5LQJ5SQ56)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Brian Rosa (J35L3P43JL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Brian Rosa (J35L3P43JL)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/FacebookSDK\"",
@@ -1147,7 +1160,8 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "43437E69-61C2-4B88-853D-B5768840F9B9";
+				PROVISIONING_PROFILE = "F351B90D-9584-447E-AC5A-2430E83370F1";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F351B90D-9584-447E-AC5A-2430E83370F1";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
