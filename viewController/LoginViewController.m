@@ -131,6 +131,7 @@
 
 -(void)loggingInFailed:(NSError *)error{ 
     UIAlertView *Alert=[[UIAlertView alloc] initWithTitle:@"Warning" message:@"Invalid Email or Password" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    NSLog(@"error:%@",error.localizedDescription); 
     [Alert show];
 }
 -(void)loggingInSucceeded:(NSString *)message{

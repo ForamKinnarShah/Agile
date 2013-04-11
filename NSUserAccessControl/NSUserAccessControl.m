@@ -122,9 +122,10 @@
    // NSLog(@"Finished Loading");
      //Init XMLParser
     NSTaggedURLConnection *taggedconnection=(NSTaggedURLConnection *)connection;
-   // NSLog(@"Reply:%@",[[NSString alloc] initWithData:[taggedconnection Data] encoding:NSUTF8StringEncoding]);
+    NSLog(@"Reply:%@",[[NSString alloc] initWithData:[taggedconnection Data] encoding:NSUTF8StringEncoding]);
     //NSLog(@"%i",[taggedconnection tag]);
    //NSLog(<#id, ...#>)
+    
     NSTaggedXMLParser *parser=[[NSTaggedXMLParser alloc] initWithData:[taggedconnection Data]];
     [parser setDelegate:self];
     [parser setTag:[taggedconnection tag]];

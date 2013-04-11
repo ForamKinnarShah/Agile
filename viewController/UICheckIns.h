@@ -16,4 +16,5 @@
 @property (strong, nonatomic) IBOutlet UIImageView *Picture;
 @property (nonatomic) NSInteger ID;
 @property (strong,nonatomic) id Delegate;
+@property IBOutlet UILabel *checkInLabel; 
 @end

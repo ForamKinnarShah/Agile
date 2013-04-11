@@ -9,6 +9,8 @@
 #import "CheckinViewController.h"
 #import "addViewController.h"
 #import "checkinCommentViewController.h"
+#import "menuViewController.h" 
+#import "Heres2uViewController.h" 
 
 @interface CheckinViewController ()
 
@@ -73,6 +75,13 @@
         [CheckIn.Name setText:[ItemData valueForKey:@"Title"]];
         [CheckIn.Location setText:[ItemData valueForKey:@"Address"]];
         [CheckIn setDelegate:self];
+        [CheckIn setTag:i];
+        
+        if (self.presentingViewController)
+        {
+            CheckIn.checkInLabel.text = @"buy gift here"; 
+        }
+        
         [CheckIn setID:[(NSString *)[ItemData valueForKey:@"ID"] integerValue]];
         NSImageLoaderToImageView *img=[[NSImageLoaderToImageView alloc] initWithURLString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[ItemData valueForKey:@"Image"]] ImageView:CheckIn.Picture];
         [img start];
@@ -86,7 +95,30 @@
     [alert show];
 }
 -(void)checkinRequested:(UICheckIns *)checkin{
+    
+   // NSLog(@"checkin requested");
+    
+    if (self.presentingViewController) //indicates it is being called from heres2u view controller, and should go to menu page next
+    {  NSLog(@"isBeingPresented");
+        
+        //Heres2uViewController *h2u = [self.tabBarController.viewControllers objectAtIndex:2];
+        
+        [self.delegate setRestaurantInfo:[Locations getLocationAtIndex:checkin.tag]];
+        [self dismissViewControllerAnimated:YES completion:^{
+            
+            NSLog(@"something"); 
+            if ([self.delegate respondsToSelector:@selector(loadMenuView)])
+            {
+                NSLog(@"responds to selector");
+                [self.delegate loadMenuView];
+            }
+        }];
+        //menuViewController *menu = [[menuViewController alloc] initWithNibName:@"menuViewController" bundle:nil];
+        
+    }
+    else {
     checkinCommentViewController *add = [[checkinCommentViewController alloc] initWithNibName:@"checkinCommentViewController" bundle:nil Checkin:checkin];
     [self.navigationController pushViewController:add animated:YES]
      ;}
+}
 @end

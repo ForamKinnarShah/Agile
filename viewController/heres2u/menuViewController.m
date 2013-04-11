@@ -9,6 +9,8 @@
 #import "menuViewController.h"
 #import "paymentViewController.h"
 #import "orderItem.h" 
+#import "NSImageLoaderToImageView.h"
+#import "NSGlobalConfiguration.h" 
 
 @interface menuViewController ()
 
@@ -87,10 +89,16 @@
     [button3 setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
     
     //[button2 setBackgroundImage:[UIImage imageNamed:<#(NSString *)#>] forState:<#(UIControlState)#>]
-    self.followeeName.text = self.followeeNametxt;
+   // self.followeeName.text = self.followeeNametxt;
     self.followeePic.image = self.followeePicImg;
+    NSImageLoaderToImageView *img=[[NSImageLoaderToImageView alloc] initWithURLString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[self.userInfo objectForKey:@"ImageURL"]] ImageView:self.followeePic];
+    [img start];
     
-    //self.followeeName.text =
+    NSLog(@"user info:%@",self.userInfo); 
+    self.followeeName.text = [self.userInfo objectForKey:@"FullName"];
+    
+   // NSLog(@"restaurant Info:%@",self.restaurantInfo);
+    self.restaurantName.text = [self.restaurantInfo objectForKey:@"Title"];
     
     
 }

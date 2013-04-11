@@ -10,11 +10,24 @@
 #import "phpCaller.h"
 #import "heres2uitemdelegate.h"  
 
+@protocol CheckinViewControllerDelegate;
+
 @interface Heres2uViewController : UIViewController <UITabBarControllerDelegate,UINavigationControllerDelegate, phpCallerDelegate, heres2uitemdelegate>
 
 @property NSMutableArray *friendItems; 
 @property UIActivityIndicatorView *UIBlocker;
+@property NSDictionary *restaurantInfo; 
+@property NSString *restaurantName; 
+@property int senderNumber; 
+
 
 -(IBAction)search:(id)sender;
+-(void)loadMenuView; 
+
+@end
+
+@protocol CheckinViewControllerDelegate <NSObject>
+
+-(void)loadMenuView; 
 
 @end

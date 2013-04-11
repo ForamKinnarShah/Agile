@@ -344,9 +344,9 @@
 		7AA196661712B15C001F7A40 /* supportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = supportViewController.h; sourceTree = "<group>"; };
 		7AA196671712B15C001F7A40 /* supportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = supportViewController.m; sourceTree = "<group>"; };
 		7AA196681712B15C001F7A40 /* supportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = supportViewController.xib; sourceTree = "<group>"; };
-		7AA196691712B15C001F7A40 /* UICheckIns.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICheckIns.h; sourceTree = "<group>"; };
-		7AA1966A1712B15C001F7A40 /* UICheckIns.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICheckIns.m; sourceTree = "<group>"; };
-		7AA1966B1712B15C001F7A40 /* UICheckIns.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UICheckIns.xib; sourceTree = "<group>"; };
+		7AA196691712B15C001F7A40 /* UICheckIns.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UICheckIns.h; path = ../UICheckIns.h; sourceTree = "<group>"; };
+		7AA1966A1712B15C001F7A40 /* UICheckIns.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UICheckIns.m; path = ../UICheckIns.m; sourceTree = "<group>"; };
+		7AA1966B1712B15C001F7A40 /* UICheckIns.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = UICheckIns.xib; path = ../UICheckIns.xib; sourceTree = "<group>"; };
 		7AA1966C1712B15C001F7A40 /* UICheckInsProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICheckInsProtocol.h; sourceTree = "<group>"; };
 		7AA1966D1712B15C001F7A40 /* UICommentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UICommentView.xib; sourceTree = "<group>"; };
 		DAF870C816671F0000747CDA /* HERES2U.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HERES2U.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -614,9 +614,6 @@
 				7AA196661712B15C001F7A40 /* supportViewController.h */,
 				7AA196671712B15C001F7A40 /* supportViewController.m */,
 				7AA196681712B15C001F7A40 /* supportViewController.xib */,
-				7AA196691712B15C001F7A40 /* UICheckIns.h */,
-				7AA1966A1712B15C001F7A40 /* UICheckIns.m */,
-				7AA1966B1712B15C001F7A40 /* UICheckIns.xib */,
 				7AA1966C1712B15C001F7A40 /* UICheckInsProtocol.h */,
 				7AA1966D1712B15C001F7A40 /* UICommentView.xib */,
 			);
@@ -635,6 +632,9 @@
 				7AA196281712B15C001F7A40 /* CheckinViewController.h */,
 				7AA196291712B15C001F7A40 /* CheckinViewController.m */,
 				7AA1962A1712B15C001F7A40 /* CheckinViewController.xib */,
+				7AA196691712B15C001F7A40 /* UICheckIns.h */,
+				7AA1966A1712B15C001F7A40 /* UICheckIns.m */,
+				7AA1966B1712B15C001F7A40 /* UICheckIns.xib */,
 			);
 			path = checkin;
 			sourceTree = "<group>";
@@ -1121,8 +1121,8 @@
 		DAF870FC16671F0000747CDA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Brian Rosa (J35L3P43JL)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Brian Rosa (J35L3P43JL)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Paul Sukhanov (B5LQJ5SQ56)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Paul Sukhanov (B5LQJ5SQ56)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/FacebookSDK\"",
@@ -1136,8 +1136,8 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "F351B90D-9584-447E-AC5A-2430E83370F1";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F351B90D-9584-447E-AC5A-2430E83370F1";
+				PROVISIONING_PROFILE = "ACEC031F-C0E7-4E53-9C93-0CB6F4E883CF";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "ACEC031F-C0E7-4E53-9C93-0CB6F4E883CF";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1145,8 +1145,8 @@
 		DAF870FD16671F0000747CDA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Brian Rosa (J35L3P43JL)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Brian Rosa (J35L3P43JL)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Paul Sukhanov (B5LQJ5SQ56)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Paul Sukhanov (B5LQJ5SQ56)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/FacebookSDK\"",
@@ -1160,8 +1160,8 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "F351B90D-9584-447E-AC5A-2430E83370F1";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F351B90D-9584-447E-AC5A-2430E83370F1";
+				PROVISIONING_PROFILE = "ACEC031F-C0E7-4E53-9C93-0CB6F4E883CF";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "ACEC031F-C0E7-4E53-9C93-0CB6F4E883CF";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

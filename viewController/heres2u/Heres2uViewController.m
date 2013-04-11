@@ -12,6 +12,7 @@
 #import "NSGlobalConfiguration.h"
 #import "heres2uitemView.h"
 #import "NSImageLoaderToImageView.h"
+#import "CheckinViewController.h" 
 
 @interface Heres2uViewController ()
 
@@ -61,19 +62,48 @@
 
 //heres2uitemdelegate
 -(void)giftAFriend:(heres2uitemView*)sender {
-    menuViewController *menu = [[menuViewController alloc] initWithNibName:@"menuViewController" bundle:nil];
-
-    NSLog(@"%@: name:%@",sender,sender.name.text);
     
-    menu.followeeNametxt = sender.name.text;
-    menu.followeePicImg = sender.picture.image;
+    //select Restaurant 
+    CheckinViewController *checkin = [[CheckinViewController alloc] initWithNibName:@"CheckinViewController" bundle:nil];
     
-    menu.userInfo = [friendItems objectAtIndex:sender.tag]; 
-//    menu.followeeName.text = sender.name.text;
-//    menu.followeePic.image = sender.picture.image;
+    checkin.delegate = self;
+    [self presentViewController:checkin animated:NO completion:NULL];
+    [[[UIAlertView alloc] initWithTitle:@"Select Restaurant" message:@"Please choose a restaurant at which to buy your gift!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show]; 
+    _senderNumber = sender.tag; 
+//    menuViewController *menu = [[menuViewController alloc] initWithNibName:@"menuViewController" bundle:nil];
+//
+//    NSLog(@"%@: name:%@",sender,sender.name.text);
+//    
+//    menu.followeeNametxt = sender.name.text;
+//    menu.followeePicImg = sender.picture.image;
+//    
+//    menu.userInfo = [friendItems objectAtIndex:sender.tag]; 
+////    menu.followeeName.text = sender.name.text;
+////    menu.followeePic.image = sender.picture.image;
+//    
+//    [self.navigationController pushViewController:menu animated:YES];
     
-    [self.navigationController pushViewController:menu animated:YES]; 
 }
+
+-(void)loadMenuView
+{
+    NSLog(@"loading menu"); 
+        menuViewController *menu = [[menuViewController alloc] initWithNibName:@"menuViewController" bundle:nil];
+    //
+    //    NSLog(@"%@: name:%@",sender,sender.name.text);
+    //
+    //    menu.followeeNametxt = sender.name.text;
+    //    menu.followeePicImg = sender.picture.image;
+    //
+        menu.userInfo = [friendItems objectAtIndex:_senderNumber];
+    menu.restaurantInfo = self.restaurantInfo; 
+    ////    menu.followeeName.text = sender.name.text;
+    //    menu.followeePic.image = sender.picture.image;
+    //
+        [self.navigationController pushViewController:menu animated:YES];
+  
+}
+
 -(IBAction)search:(id)sender
 {   searchViewController *search = [[searchViewController alloc] initWithNibName:@"searchViewController" bundle:nil];
     
@@ -134,6 +164,5 @@
     // NSLog(@"%i",([Profile.Feeds count]*166));
     }
 }
-
 
 @end

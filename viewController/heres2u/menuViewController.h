@@ -28,6 +28,7 @@
 @property IBOutlet UIImageView *followeePic;
 @property UIImage *followeePicImg; 
 @property IBOutlet UILabel *restaurantName; 
-@property NSMutableDictionary *userInfo; 
+@property NSMutableDictionary *userInfo;
+@property NSDictionary *restaurantInfo; 
 
 @end
