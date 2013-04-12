@@ -78,6 +78,11 @@
     self.medPricelbl.text =[NSString stringWithFormat:@"$%.2f %@",[[menu objectAtIndex:1] price],[[menu objectAtIndex:1] name]];
     self.highPricelbl.text = [NSString stringWithFormat:@"$%.2f %@",[[menu objectAtIndex:2] price],[[menu objectAtIndex:2] name]];
     selectedItems = [NSMutableArray arrayWithCapacity:0];
+    selectedIndices = [NSMutableArray arrayWithCapacity:9]; 
+    for (int i = 0; i<=[menu count];i++)
+    {
+        selectedIndices[i] = [NSNumber numberWithBool:NO];
+    }
     
     [button1 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [button1 setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
@@ -117,16 +122,84 @@
             self.lowPricelbl.text = [NSString stringWithFormat:@"$%.2f %@",[[menu objectAtIndex:0] price],[[menu objectAtIndex:0] name]];
             self.medPricelbl.text =[NSString stringWithFormat:@"$%.2f %@",[[menu objectAtIndex:1] price],[[menu objectAtIndex:1] name]];
             self.highPricelbl.text = [NSString stringWithFormat:@"$%.2f %@",[[menu objectAtIndex:2] price],[[menu objectAtIndex:2] name]];
+            
+            if ([selectedIndices[0] boolValue] == YES)
+            {
+                [button1 setSelected:YES];
+            }
+            else {
+                [button1 setSelected:NO];
+            }
+            if ([selectedIndices[1] boolValue] == YES)
+            {
+                [button2 setSelected:YES];
+            }
+            else {
+                [button2 setSelected:NO];
+            }
+            if ([selectedIndices[2] boolValue] == YES)
+            {
+                [button3 setSelected:YES];
+            }
+            else {
+                [button3 setSelected:NO];
+            }
+            
             break;
         case 1:
             self.lowPricelbl.text = [NSString stringWithFormat:@"$%.2f %@",[[menu objectAtIndex:3] price],[[menu objectAtIndex:3] name]];
             self.medPricelbl.text =[NSString stringWithFormat:@"$%.2f %@",[[menu objectAtIndex:4] price],[[menu objectAtIndex:4] name]];
             self.highPricelbl.text = [NSString stringWithFormat:@"$%.2f %@",[[menu objectAtIndex:5] price],[[menu objectAtIndex:5] name]];
+            if ([selectedIndices[3] boolValue] == YES)
+            {
+                [button1 setSelected:YES];
+            }
+            else {
+                [button1 setSelected:NO];
+            }
+            if ([selectedIndices[4] boolValue] == YES)
+            {
+                [button2 setSelected:YES];
+            }
+            else {
+                [button2 setSelected:NO];
+            }
+            if ([selectedIndices[5] boolValue] == YES)
+            {
+                [button3 setSelected:YES];
+            }
+            else {
+                [button3 setSelected:NO];
+            }
+
+            
             break;
         case 2:
             self.lowPricelbl.text = [NSString stringWithFormat:@"$%.2f %@",[[menu objectAtIndex:6] price],[[menu objectAtIndex:6] name]];
             self.medPricelbl.text =[NSString stringWithFormat:@"$%.2f %@",[[menu objectAtIndex:7] price],[[menu objectAtIndex:7] name]];
             self.highPricelbl.text = [NSString stringWithFormat:@"$%.2f %@",[[menu objectAtIndex:8] price],[[menu objectAtIndex:8] name]];
+            if ([selectedIndices[6] boolValue] == YES)
+            {
+                [button1 setSelected:YES];
+            }
+            else {
+                [button1 setSelected:NO];
+            }
+            if ([selectedIndices[7] boolValue] == YES)
+            {
+                [button2 setSelected:YES];
+            }
+            else {
+                [button2 setSelected:NO];
+            }
+            if ([selectedIndices[8] boolValue] == YES)
+            {
+                [button3 setSelected:YES];
+            }
+            else {
+                [button3 setSelected:NO];
+            }
+
             break;
         default:
             break;
@@ -176,6 +249,7 @@
     if (![sender isSelected])
     {
         [sender setSelected:YES];
+        selectedIndices[selectedIndex] = [NSNumber numberWithBool:YES];
         //[sender setSelected:YES];
         [selectedItems addObject:[menu objectAtIndex:selectedIndex]];
         NSLog(@"added %@ to selectedItems",[menu objectAtIndex:selectedIndex]);
@@ -183,7 +257,7 @@
     else {
         //[sender setHighlighted:NO];
         [sender setSelected:NO];
-        
+        selectedIndices[selectedIndex] = [NSNumber numberWithBool:NO];
         [selectedItems removeObjectIdenticalTo:[menu objectAtIndex:selectedIndex]];
     }
 
@@ -199,4 +273,9 @@
     [self.navigationController pushViewController:pay animated:YES];
 }
 
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES; 
+}
 @end

@@ -10,4 +10,10 @@
 
 @interface contactInfoViewController : UIViewController
 
+{
+    IBOutlet UITextField *nameTextField;
+    IBOutlet UITextField *emailTextField;
+    IBOutlet UITextField *phoneTextField; 
+}
+
 @end

@@ -10,9 +10,12 @@
 #import "NSLocationLoader.h"
 #import "UICheckIns.h"
 #import "NSImageLoaderToImageView.h"
+#import "utilities.h"
+
 @interface CheckinViewController : UIViewController <UITabBarControllerDelegate, UITextFieldDelegate,UINavigationControllerDelegate,NSLocationLoaderProtocol,UICheckInsProtocol>{
     @private
     NSLocationLoader *Locations;
+    utilities *UIBlocker; 
 }
 @property (strong, nonatomic) IBOutlet UIButton *FilterButton;
 @property (strong, nonatomic) IBOutlet UITextField *FilterTextBox;

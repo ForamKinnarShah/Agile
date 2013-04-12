@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface menuViewController : UIViewController
+@interface menuViewController : UIViewController <UITextFieldDelegate>
 {
     NSMutableArray *selectedItems;
     NSMutableArray *selectedIndices; 

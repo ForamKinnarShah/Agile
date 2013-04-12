@@ -47,7 +47,7 @@
     [expirationDateTextField setInputView:datePicker];
     UIToolbar *doneBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     [doneBar setItems:[NSArray arrayWithObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonItemStyleDone target:self action:@selector(textFieldShouldReturn:)]]];
-    [cardNumberTextField setInputAccessoryView:doneBar];
+    //[cardNumberTextField setInputAccessoryView:doneBar];
 }
 
 - (void)didReceiveMemoryWarning
@@ -81,20 +81,28 @@ return;
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 { [textField resignFirstResponder];
+        [self setViewMovedUp:NO];
+        //        CGRect textFrame = textField.frame;
+        //        //CGRect initialFrame = textField.frame;
+        //        CGRect finalFrame =  self.view.frame;
+        //        finalFrame.origin = CGPointMake(textFrame.origin.x, textFrame.origin.y);
+        //
+        //        [UIView animateWithDuration:0.2 animations:^{[self.view setFrame:finalFrame];}];
     return YES;
 }
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
-//    if (textField == cardNumberTextField || textField == securityCodeTextField)
-//    {
+    if (textField == cardNumberTextField || textField == securityCodeTextField)
+    {
+        [self setViewMovedUp:YES]; 
 //        CGRect textFrame = textField.frame;
 //        //CGRect initialFrame = textField.frame;
 //        CGRect finalFrame =  self.view.frame; 
 //        finalFrame.origin = CGPointMake(textFrame.origin.x, textFrame.origin.y);
 //
 //        [UIView animateWithDuration:0.2 animations:^{[self.view setFrame:finalFrame];}];
-//    }
+    }
 }
 
 -(void)datePickerPicked
@@ -112,4 +120,25 @@ return;
 //    
 //   // }
 //}
+- (void)setViewMovedUp:(BOOL)movedUp
+{
+    
+    CGRect rect = self.view.frame;
+    if (movedUp){
+        if(rect.origin.y == 0)
+            rect.origin.y = self.view.frame.origin.y - 105;
+    }
+    else{
+        if(rect.origin.y < 0)
+            rect.origin.y = self.view.frame.origin.y + 105;
+    }
+    self.view.frame = rect;
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [activeTextField resignFirstResponder];
+    [self setViewMovedUp:NO];
+}
+
 @end

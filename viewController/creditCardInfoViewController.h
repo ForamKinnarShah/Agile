@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface creditCardInfoViewController : UIViewController <UITextFieldDelegate>
-
+{
+    UITextField *activeTextField; 
+}
 @property IBOutlet UITextField *nameTextField;
 @property IBOutlet UITextField *address1TextField;
 @property IBOutlet UITextField *address2TextField;

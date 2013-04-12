@@ -12,6 +12,7 @@
 #import "MytabViewController.h"
 #import "CheckinViewController.h"
 #import "Heres2uViewController.h"
+#import "utilities.h"
 
 @interface LoginViewController ()
 
@@ -82,7 +83,8 @@
      
 
     
-    
+    UIBlocker = [[utilities alloc] init];
+    [UIBlocker startUIBlockerInView:self.view];
     //[self presentViewController:tab animated:NO completion:NULL];
     [NSUserAccessControl Login:usrname.text Password:pass.text Delegate:self];
 }
@@ -131,12 +133,14 @@
 
 -(void)loggingInFailed:(NSError *)error{ 
     UIAlertView *Alert=[[UIAlertView alloc] initWithTitle:@"Warning" message:@"Invalid Email or Password" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    NSLog(@"error:%@",error.localizedDescription); 
+    NSLog(@"error:%@",error.localizedDescription);
+    [UIBlocker stopUIBlockerInView:self.view];
     [Alert show];
 }
 -(void)loggingInSucceeded:(NSString *)message{
     [NSGlobalConfiguration setConfigurationItem:@"Email" Item:usrname.text];
     [NSGlobalConfiguration setConfigurationItem:@"Password" Item:pass.text];
+    [UIBlocker stopUIBlockerInView:self.view];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 @end

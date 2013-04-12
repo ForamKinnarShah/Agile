@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "RegistrationViewController.h"
 #import "NSUserAccessControl.h"
+#import "utilities.h"
 @interface LoginViewController : UIViewController <UITextFieldDelegate, UINavigationControllerDelegate,NSUserAccessControlProtocol>
-
+{
+    utilities *UIBlocker; 
+}
 -(IBAction)login:(id)sender;
 
 @property (strong, nonatomic) IBOutlet UITextField *usrname;

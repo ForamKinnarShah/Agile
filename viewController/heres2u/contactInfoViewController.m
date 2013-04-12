@@ -7,6 +7,7 @@
 //
 
 #import "contactInfoViewController.h"
+#import "NSGlobalConfiguration.h"
 
 @interface contactInfoViewController ()
 
@@ -26,6 +27,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [nameTextField setText:[NSGlobalConfiguration getConfigurationItem:@"FullName"]];
+    [emailTextField setText:[NSGlobalConfiguration getConfigurationItem:@"Email"]];
+    [phoneTextField setText:[NSGlobalConfiguration getConfigurationItem:@"PhoneNumber"]]; 
     // Do any additional setup after loading the view from its nib.
 }
 

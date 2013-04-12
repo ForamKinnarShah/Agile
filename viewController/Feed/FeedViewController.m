@@ -12,6 +12,7 @@
 #import "ProfileViewController.h"
 #import "checkinCommentViewController.h"
 
+
 @interface FeedViewController ()
 
 @end
@@ -41,7 +42,7 @@
    // if([NSGlobalConfiguration getConfigurationItem:@"ID"]){
     feedManager=[[NSFeedManager alloc] init];
     [feedManager setDelegate:self];
-    [feedManager getFeeds];
+    //[feedManager getFeeds];
    // }
     [self.navigationController.navigationBar setBackgroundColor:[UIColor grayColor]];
     UIBarButtonItem *searchBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(search:)];
@@ -54,18 +55,18 @@
     if(!Email || !Password){
         LoginViewController *login=[[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
         [self presentViewController:login animated:YES completion:nil];
-    }else{
-        //Attempt Login
-        [NSUserAccessControl Login:Email Password:Password Delegate:self];
-        if(!UIBlocker){
-            UIBlocker=[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-            [UIBlocker setFrame:[self.tabBarController .view frame]];
-            [UIBlocker setBackgroundColor:[UIColor grayColor]];
-            [UIBlocker setAlpha:0.8];
-            [UIBlocker setHidesWhenStopped:YES];
-            [self.tabBarController.view addSubview:UIBlocker];
-        }
-        [UIBlocker startAnimating];
+//    }else{
+//        //Attempt Login
+//        [NSUserAccessControl Login:Email Password:Password Delegate:self];
+//        if(!UIBlocker){
+//            UIBlocker=[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+//            [UIBlocker setFrame:[self.tabBarController .view frame]];
+//            [UIBlocker setBackgroundColor:[UIColor grayColor]];
+//            [UIBlocker setAlpha:0.8];
+//            [UIBlocker setHidesWhenStopped:YES];
+//            [self.tabBarController.view addSubview:UIBlocker];
+//        }
+//        [UIBlocker startAnimating];
     }
     // Custom initialization
 //    UIImage *img = [[UIImage alloc] initWithContentsOfFile:@"dot.png"];
@@ -110,12 +111,13 @@
 }
 -(void) feedmanagerFailedWithError:(NSError *)error{
     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Warning" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK"otherButtonTitles:nil];
+    [UIBlocker stopUIBlockerInView:self.tabBarController.view];
     [alert show];
 }
 -(void) feedmanagerCompleted:(NSFeedManager *)feedmanager{
     //Load Feeds
     NSLog(@"feed manager loaded");
-    
+    [UIBlocker stopUIBlockerInView:self.tabBarController.view];
     [self loadActivities];
 }
 -(IBAction)sheet:(id)sender {
@@ -129,7 +131,7 @@ UIActionSheet *choose = [[UIActionSheet alloc] initWithTitle:@"Menu" delegate:se
 }
 -(void) loggingInSucceeded:(NSString *)message{
     // Stop UI Blocked and load feed etc
-    [UIBlocker stopAnimating];
+    //[UIBlocker stopUIBlockerInView:self.tabBarController.view];
 }
 
 -(void) loadActivities{
@@ -172,6 +174,15 @@ UIActionSheet *choose = [[UIActionSheet alloc] initWithTitle:@"Menu" delegate:se
 
 -(void)viewDidAppear:(BOOL)animated
 {
-    [feedManager getFeeds]; 
+    NSString *Email=[NSGlobalConfiguration getConfigurationItem:@"Email"];
+    if (Email){ // means logged in already 
+        NSLog(@"feedManagercount:%i",[feedManager count]); 
+        if ([feedManager count] == 0) //means we haven't gotten any feeds yet
+        {
+            UIBlocker = [[utilities alloc] init];
+            [UIBlocker startUIBlockerInView:self.tabBarController.view]; 
+        }
+    [feedManager getFeeds];
+    }
 }
 @end

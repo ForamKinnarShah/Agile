@@ -40,6 +40,8 @@
     Locations=[[NSLocationLoader alloc] init];
     [Locations setDelegate:self];
     [Locations downloadLocations];
+    UIBlocker = [[utilities alloc] init];
+    [UIBlocker startUIBlockerInView:self.tabBarController.view]; 
 }
 
 - (void)didReceiveMemoryWarning
@@ -64,6 +66,8 @@
     [self.navigationController pushViewController:add animated:YES];
 }
 -(void)locationloaderCompleted:(NSLocationLoader *)loader{
+    
+    [UIBlocker stopUIBlockerInView:self.tabBarController.view]; 
     //Clear Everything in LocationsView
     for(UIView *CurrentView in LocationsView.subviews){
         [CurrentView removeFromSuperview];
@@ -92,6 +96,7 @@
 }
 -(void) locationloaderFailedWithError:(NSError *)error{
     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Warning" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [UIBlocker stopUIBlockerInView:self.tabBarController.view];
     [alert show];
 }
 -(void)checkinRequested:(UICheckIns *)checkin{

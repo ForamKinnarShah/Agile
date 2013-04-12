@@ -14,9 +14,11 @@
 #import "NSFeedManagerProtocol.h"
 #import "UIActivityView.h"
 #import "CommentViewController.h"
+#import "utilities.h"
+
 @interface FeedViewController : UIViewController <NSFeedManagerProtocol,UITabBarControllerDelegate,UINavigationControllerDelegate, UIActionSheetDelegate,NSUserAccessControlProtocol,UIActivityViewProtocol>{
     @private
-    UIActivityIndicatorView *UIBlocker;
+    utilities *UIBlocker;
     NSFeedManager *feedManager;
     NSTimer *timer;
 }

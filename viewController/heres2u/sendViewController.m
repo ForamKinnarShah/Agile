@@ -27,8 +27,14 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.navigationItem.hidesBackButton = YES;
+    [self.navigationItem setHidesBackButton:YES]; 
+    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(goBackToHeres2U)]];
 
+}
+
+-(void)goBackToHeres2U
+{
+    [self.navigationController popToRootViewControllerAnimated:YES]; 
 }
 
 - (void)didReceiveMemoryWarning

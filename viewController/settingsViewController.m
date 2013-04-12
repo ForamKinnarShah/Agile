@@ -11,6 +11,7 @@
 #import "LoginViewController.h"
 #import "supportViewController.h"
 #import "creditCardInfoViewController.h" 
+#import "contactInfoViewController.h"
 
 @interface settingsViewController ()
 
@@ -66,5 +67,11 @@
 {
     creditCardInfoViewController *credit = [[creditCardInfoViewController alloc] initWithNibName:@"creditCardInfoViewController" bundle:nil];
     [self.navigationController pushViewController:credit animated:YES]; 
+}
+
+-(IBAction)goToContactInfoPage:(id)sender
+{
+    contactInfoViewController *contact = [[contactInfoViewController alloc] initWithNibName:@"contactInfoViewController" bundle:nil];
+    [self.navigationController pushViewController:contact animated:YES]; 
 }
 @end
