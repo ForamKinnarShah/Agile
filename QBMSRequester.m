@@ -15,6 +15,10 @@
 #define APPLICATION_LOGIN @"heres2u.calarg.com"
 #define CONNECTION_TICKET @"SDK-TGT-50-osMAdr$lxIsdmbZ$V4SCzQ"
 
+#define LIVE_PAYMENT_GATEWAY_URL @"https://merchantaccount.quickbooks.com/j/AppGateway"
+#define LIVE_APPLICATION_LOGIN @"heres2u.com.calarg"
+#define LIVE_CONNECTION_TICKET @""
+
 @synthesize data, creditCardTransactionID;
 
 -(BOOL)sendChargeRequest:(NSMutableDictionary*)creditCard forAmount:(NSString*)amount
