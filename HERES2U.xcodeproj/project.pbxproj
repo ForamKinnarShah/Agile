@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		13448F9317194A3000B84B9F /* MytabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13448F9117194A3000B84B9F /* MytabViewController.m */; };
+		13448F9417194A3000B84B9F /* MytabViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13448F9217194A3000B84B9F /* MytabViewController.xib */; };
+		13448F9B17194A4200B84B9F /* MyTabUsed.m in Sources */ = {isa = PBXBuildFile; fileRef = 13448F9617194A4200B84B9F /* MyTabUsed.m */; };
+		13448F9C17194A4200B84B9F /* MyTabSent.m in Sources */ = {isa = PBXBuildFile; fileRef = 13448F9817194A4200B84B9F /* MyTabSent.m */; };
+		13448F9D17194A4200B84B9F /* MyTabXmlParse.m in Sources */ = {isa = PBXBuildFile; fileRef = 13448F9A17194A4200B84B9F /* MyTabXmlParse.m */; };
+		13448FA017194A7600B84B9F /* ImageViewLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = 13448F9F17194A7600B84B9F /* ImageViewLoading.m */; };
 		20A0092016C9A7D300262D09 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20A0091F16C9A7D200262D09 /* QuartzCore.framework */; };
 		20AD13C316D1106300F0AE6E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20AD13C216D1106300F0AE6E /* CoreData.framework */; };
 		6F815F33171429F400447C25 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F815F32171429F400447C25 /* Reachability.m */; };
@@ -118,8 +124,6 @@
 		7AA196D31712B15C001F7A40 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA196501712B15C001F7A40 /* LoginViewController.xib */; };
 		7AA196D41712B15C001F7A40 /* mainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA196521712B15C001F7A40 /* mainViewController.m */; };
 		7AA196D51712B15C001F7A40 /* mainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA196531712B15C001F7A40 /* mainViewController.xib */; };
-		7AA196D61712B15C001F7A40 /* MytabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA196561712B15C001F7A40 /* MytabViewController.m */; };
-		7AA196D71712B15C001F7A40 /* MytabViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA196571712B15C001F7A40 /* MytabViewController.xib */; };
 		7AA196D81712B15C001F7A40 /* orderItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA196591712B15C001F7A40 /* orderItemView.m */; };
 		7AA196D91712B15C001F7A40 /* orderItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA1965A1712B15C001F7A40 /* orderItemView.xib */; };
 		7AA196DA1712B15C001F7A40 /* ProfileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA1965C1712B15C001F7A40 /* ProfileView.xib */; };
@@ -155,6 +159,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		13448F9017194A3000B84B9F /* MytabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MytabViewController.h; sourceTree = "<group>"; };
+		13448F9117194A3000B84B9F /* MytabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MytabViewController.m; sourceTree = "<group>"; };
+		13448F9217194A3000B84B9F /* MytabViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MytabViewController.xib; sourceTree = "<group>"; };
+		13448F9517194A4200B84B9F /* MyTabUsed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTabUsed.h; sourceTree = "<group>"; };
+		13448F9617194A4200B84B9F /* MyTabUsed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTabUsed.m; sourceTree = "<group>"; };
+		13448F9717194A4200B84B9F /* MyTabSent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTabSent.h; sourceTree = "<group>"; };
+		13448F9817194A4200B84B9F /* MyTabSent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTabSent.m; sourceTree = "<group>"; };
+		13448F9917194A4200B84B9F /* MyTabXmlParse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTabXmlParse.h; sourceTree = "<group>"; };
+		13448F9A17194A4200B84B9F /* MyTabXmlParse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTabXmlParse.m; sourceTree = "<group>"; };
+		13448F9E17194A7600B84B9F /* ImageViewLoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewLoading.h; sourceTree = "<group>"; };
+		13448F9F17194A7600B84B9F /* ImageViewLoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewLoading.m; sourceTree = "<group>"; };
 		20A0091F16C9A7D200262D09 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		20AD13C216D1106300F0AE6E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		6F815F31171429F400447C25 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
@@ -325,9 +340,6 @@
 		7AA196511712B15C001F7A40 /* mainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mainViewController.h; sourceTree = "<group>"; };
 		7AA196521712B15C001F7A40 /* mainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mainViewController.m; sourceTree = "<group>"; };
 		7AA196531712B15C001F7A40 /* mainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mainViewController.xib; sourceTree = "<group>"; };
-		7AA196551712B15C001F7A40 /* MytabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MytabViewController.h; sourceTree = "<group>"; };
-		7AA196561712B15C001F7A40 /* MytabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MytabViewController.m; sourceTree = "<group>"; };
-		7AA196571712B15C001F7A40 /* MytabViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MytabViewController.xib; sourceTree = "<group>"; };
 		7AA196581712B15C001F7A40 /* orderItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = orderItemView.h; sourceTree = "<group>"; };
 		7AA196591712B15C001F7A40 /* orderItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = orderItemView.m; sourceTree = "<group>"; };
 		7AA1965A1712B15C001F7A40 /* orderItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = orderItemView.xib; sourceTree = "<group>"; };
@@ -684,9 +696,15 @@
 		7AA196541712B15C001F7A40 /* mytab */ = {
 			isa = PBXGroup;
 			children = (
-				7AA196551712B15C001F7A40 /* MytabViewController.h */,
-				7AA196561712B15C001F7A40 /* MytabViewController.m */,
-				7AA196571712B15C001F7A40 /* MytabViewController.xib */,
+				13448F9517194A4200B84B9F /* MyTabUsed.h */,
+				13448F9617194A4200B84B9F /* MyTabUsed.m */,
+				13448F9717194A4200B84B9F /* MyTabSent.h */,
+				13448F9817194A4200B84B9F /* MyTabSent.m */,
+				13448F9917194A4200B84B9F /* MyTabXmlParse.h */,
+				13448F9A17194A4200B84B9F /* MyTabXmlParse.m */,
+				13448F9017194A3000B84B9F /* MytabViewController.h */,
+				13448F9117194A3000B84B9F /* MytabViewController.m */,
+				13448F9217194A3000B84B9F /* MytabViewController.xib */,
 				7AA196581712B15C001F7A40 /* orderItemView.h */,
 				7AA196591712B15C001F7A40 /* orderItemView.m */,
 				7AA1965A1712B15C001F7A40 /* orderItemView.xib */,
@@ -712,6 +730,8 @@
 				6F815F32171429F400447C25 /* Reachability.m */,
 				7AA1959B1712B15B001F7A40 /* Constants.h */,
 				7AA1959C1712B15B001F7A40 /* Constants.m */,
+				13448F9E17194A7600B84B9F /* ImageViewLoading.h */,
+				13448F9F17194A7600B84B9F /* ImageViewLoading.m */,
 				7AA1959D1712B15B001F7A40 /* FollowersFollowing */,
 				7AA195AB1712B15B001F7A40 /* HERES2U */,
 				7AA195BA1712B15B001F7A40 /* images */,
@@ -933,7 +953,6 @@
 				7AA196D11712B15C001F7A40 /* LoginView.xib in Resources */,
 				7AA196D31712B15C001F7A40 /* LoginViewController.xib in Resources */,
 				7AA196D51712B15C001F7A40 /* mainViewController.xib in Resources */,
-				7AA196D71712B15C001F7A40 /* MytabViewController.xib in Resources */,
 				7AA196D91712B15C001F7A40 /* orderItemView.xib in Resources */,
 				7AA196DA1712B15C001F7A40 /* ProfileView.xib in Resources */,
 				7AA196DC1712B15C001F7A40 /* registerViewController.xib in Resources */,
@@ -942,6 +961,7 @@
 				7AA196E21712B15C001F7A40 /* supportViewController.xib in Resources */,
 				7AA196E41712B15C001F7A40 /* UICheckIns.xib in Resources */,
 				7AA196E51712B15C001F7A40 /* UICommentView.xib in Resources */,
+				13448F9417194A3000B84B9F /* MytabViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1019,7 +1039,6 @@
 				7AA196CF1712B15C001F7A40 /* sendViewController.m in Sources */,
 				7AA196D21712B15C001F7A40 /* LoginViewController.m in Sources */,
 				7AA196D41712B15C001F7A40 /* mainViewController.m in Sources */,
-				7AA196D61712B15C001F7A40 /* MytabViewController.m in Sources */,
 				7AA196D81712B15C001F7A40 /* orderItemView.m in Sources */,
 				7AA196DB1712B15C001F7A40 /* ProfileViewController.m in Sources */,
 				7AA196DD1712B15C001F7A40 /* searchViewController.m in Sources */,
@@ -1027,6 +1046,11 @@
 				7AA196E11712B15C001F7A40 /* supportViewController.m in Sources */,
 				7AA196E31712B15C001F7A40 /* UICheckIns.m in Sources */,
 				6F815F33171429F400447C25 /* Reachability.m in Sources */,
+				13448F9317194A3000B84B9F /* MytabViewController.m in Sources */,
+				13448F9B17194A4200B84B9F /* MyTabUsed.m in Sources */,
+				13448F9C17194A4200B84B9F /* MyTabSent.m in Sources */,
+				13448F9D17194A4200B84B9F /* MyTabXmlParse.m in Sources */,
+				13448FA017194A7600B84B9F /* ImageViewLoading.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

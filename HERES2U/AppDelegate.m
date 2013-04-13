@@ -26,7 +26,7 @@
       //LoginViewController *log = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
     //UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:log];
     
-    
+        
 //    UITabBarController *tab = [[UITabBarController alloc] init];
 //    ProfileViewController *prof = [[ProfileViewController alloc] initWithNibName:@"ProfileViewController" bundle:nil]; 
 //  
@@ -54,7 +54,7 @@
     
     MytabViewController *mytab = [[MytabViewController alloc] initWithNibName:@"MytabViewController" bundle:nil];
     UINavigationController *mytabNav = [[UINavigationController alloc] initWithRootViewController:mytab];
-    
+    
     CheckinViewController *check = [[CheckinViewController alloc] initWithNibName:@"CheckinViewController" bundle:nil];
     UINavigationController *checkNav = [[UINavigationController alloc] initWithRootViewController:check];
     
@@ -79,9 +79,7 @@
     [feed  setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Feed" image:[UIImage imageNamed:@"dot.png"] tag:1]];
     [h2u  setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"HERES2U" image:[UIImage imageNamed:@"dot.png"] tag:3]];
      tab.viewControllers = [NSArray arrayWithObjects:feedNav,checkNav,h2uNav,mytabNav,profNav,nil];
-    
-    
-       [self.window setRootViewController:tab];
+    [self.window setRootViewController:tab];
     [self.window makeKeyAndVisible];
     
 #if !TARGET_IPHONE_SIMULATOR
@@ -177,16 +175,23 @@
 	// Get Bundle Info for Remote Registration (handy if you have more than one app)
     NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
     NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
-    
+
 	// Check what Notifications the user has turned on.  We registered for all three, but they may have manually disabled some or all of them.
     NSUInteger rntypes = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
 	
     
-	// Set the defaults to disabled unless we find otherwise...
-    NSString *pushBadge = @"disabled";
-    NSString *pushAlert = @"disabled";
-    NSString *pushSound = @"disabled";
-	// Check what Registered Types are turned on. This is a bit tricky since if two are enabled, and one is off, it will return a number 2... not telling you which
+//	// Set the defaults to disabled unless we find otherwise...
+//    NSString *pushBadge = @"disabled";
+//    NSString *pushAlert = @"disabled";
+//    NSString *pushSound = @"disabled";
+
+    // Set the defaults to disabled unless we find otherwise...
+    NSString *pushBadge;
+    NSString *pushAlert;
+    NSString *pushSound;
+
+    
+    // Check what Registered Types are turned on. This is a bit tricky since if two are enabled, and one is off, it will return a number 2... not telling you which
     // one is actually disabled. So we are literally checking to see if rnTypes matches what is turned on, instead of by number. The "tricky" part is that the
     // single notification types will only match if they are the ONLY one enabled.  Likewise, when we are checking for a pair of notifications, it will only be
     // true if those two notifications are on.  This is why the code is written this way
@@ -234,7 +239,6 @@
     // !!! ( MUST START WITH / AND END WITH ? ).
     // !!! SAMPLE: "/path/to/apns.php?"
     NSString *urlString = [@"/APNS.php?"stringByAppendingString:@"task=register"];
-    
 	urlString = [urlString stringByAppendingString:@"&appname="];
     urlString = [urlString stringByAppendingString:appName];
     urlString = [urlString stringByAppendingString:@"&appversion="];
@@ -261,7 +265,11 @@
     
 //    urlString = [urlString stringByReplacingOccurrencesOfString:@"%20" withString:@" "];
     
-    NSString *hostUrl = @"heres2u.calarg.net";
+   // NSString *hostUrl = @"heres2u.calarg.net";
+    
+   // NSString *hostUrl = @"74.208.77.106/rts/heres2u/api/";
+    
+    NSString *hostUrl = @"http://50.62.148.155:8080/heres2u";
     
      _url= [[NSURL alloc] initWithScheme:@"http" host:hostUrl path:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
    
