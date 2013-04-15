@@ -36,7 +36,7 @@
 //    self.tabBarItem = tab;
     // Custom initialization
     // Do any additional setup after loading the view from its nib.
-    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(goToAdd:)]];
+    //[self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(goToAdd:)]];
     Locations=[[NSLocationLoader alloc] init];
     [Locations setDelegate:self];
     [Locations downloadLocations];

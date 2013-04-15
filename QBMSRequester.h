@@ -17,9 +17,11 @@
 }
 
 @property (nonatomic,retain) NSMutableData *data;
-@property NSString *creditCardTransactionID;
+@property NSString *returnID;
 @property id delegate;
 
 -(BOOL)sendChargeRequest:(NSMutableDictionary*)cardNumber forAmount:(NSString*)amount;
+-(BOOL)sendAddWalletRequestForCustomerID:(NSString*)CustID CCNumber:(NSString*)CCNumber ExpiryDate:(NSDate*)expiryDate;
+-(BOOL)sendChargeRequestWithWalletID:(NSString*)walletID customerID:(NSString*)custID forAmount:(NSString*)amount;
 
 @end

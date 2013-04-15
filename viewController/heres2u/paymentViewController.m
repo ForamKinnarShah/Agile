@@ -67,12 +67,16 @@ dessertTotalLbl.text = [NSString stringWithFormat:@"$%.2f",dessertTotal];
 feeTotalLbl.text = [NSString stringWithFormat:@"$%.2f",feeTotal];
 totalTotalLbl.text = [NSString stringWithFormat:@"$%.2f",totalTotal];
 
-    NSMutableDictionary *creditCardInfo = [NSGlobalConfiguration getConfigurationItem:@"creditCard"];
+    NSMutableArray *creditCards = [NSGlobalConfiguration getConfigurationItem:@"creditCards"];
     
-    creditCardNumber = [creditCardInfo objectForKey:@"cardNumber"]; 
-    if (!([creditCardNumber isEqualToString:@""] || !creditCardNumber))
+       
+    if ([creditCards count] != 0)
     {
-        self.creditCardLbl.text = creditCardNumber; 
+        NSMutableDictionary *creditCardInfo = [creditCards objectAtIndex:0];
+        NSString *walletID = [NSGlobalConfiguration getConfigurationItem:@"walletID"];
+        creditCardNumber = [creditCardInfo objectForKey:@"cardNumberLast4Digits"];
+        NSString *cardType = [creditCardInfo objectForKey:@"cardType"];
+        self.creditCardLbl.text = [NSString stringWithFormat:@"%@ %@",cardType,creditCardNumber];
     }
     else{
         NSLog(@"no cards found"); 
@@ -102,21 +106,23 @@ totalTotalLbl.text = [NSString stringWithFormat:@"$%.2f",totalTotal];
 -(IBAction)clickedAccept:(id)sender
 {
     //temp
-    NSMutableDictionary *creditCard = [NSGlobalConfiguration getConfigurationItem:@"creditCard"];
-    if (!creditCard)
+   // NSMutableDictionary *creditCard = [NSGlobalConfiguration getConfigurationItem:@"creditCard"];
+    NSString *walletID = [NSGlobalConfiguration getConfigurationItem:@"walletID"]; 
+    if (!walletID)
     {
         [[[UIAlertView alloc] initWithTitle:@"no cards found" message:@"please add a credit card first" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
         return; 
     }
-    creditCardNumber = @"4111111111111111";
-    [creditCard setObject:creditCardNumber forKey:@"cardNumber"]; 
+    //creditCardNumber = @"4111111111111111";
+    //[creditCard setObject:creditCardNumber forKey:@"cardNumber"];
     
     util = [[utilities alloc] init];
     [util startUIBlockerInView:self.view]; 
     
     QBMSRequester *qbms = [[QBMSRequester alloc] init];
-    qbms.delegate = self; 
-    [qbms sendChargeRequest:creditCard forAmount:[totalTotalLbl.text substringFromIndex:1]];
+    qbms.delegate = self;
+    [qbms sendChargeRequestWithWalletID:walletID customerID:[NSGlobalConfiguration getConfigurationItem:@"ID"] forAmount:[totalTotalLbl.text substringFromIndex:1]]; 
+    //[qbms sendChargeRequest:creditCard forAmount:[totalTotalLbl.text substringFromIndex:1]];
     
 }
 
@@ -124,11 +130,10 @@ totalTotalLbl.text = [NSString stringWithFormat:@"$%.2f",totalTotal];
 {
     [util stopUIBlockerInView:self.view]; 
     NSLog(@"credit card transaction id:%@",code);
-    [[[UIAlertView alloc] initWithTitle:@"credit card authorization succeeded:" message:@"you will not be charged until recipient's item is delivered"  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
+    [[[UIAlertView alloc] initWithTitle:@"credit card authorization succeeded:" message:@"A receipt has been emailed to you."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
     phpCaller *php = [[phpCaller alloc] init];
     [php invokeWebService:@"ui" forAction:@"addTransactionRequest" withParameters:[NSMutableArray arrayWithObjects:[NSGlobalConfiguration getConfigurationItem:@"ID"],[self.userInfo objectForKey:@"ID"],[totalTotalLbl.text substringFromIndex:1],code,@"1",nil]];
     [self goToSend];
-    
     
 }
 

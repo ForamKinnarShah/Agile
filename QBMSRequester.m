@@ -19,7 +19,7 @@
 #define LIVE_APPLICATION_LOGIN @"heres2u.com.calarg"
 #define LIVE_CONNECTION_TICKET @""
 
-@synthesize data, creditCardTransactionID;
+@synthesize data, returnID;
 
 -(BOOL)sendChargeRequest:(NSMutableDictionary*)creditCard forAmount:(NSString*)amount
 {
@@ -27,7 +27,7 @@
     NSDateFormatter *nsdf = [[NSDateFormatter alloc] init];
     [nsdf setDateFormat:@"yyyy-MM-ddTHH:mm:ss"];
     NSString *dateString = [nsdf stringFromDate:[NSDate date]]; 
-    NSString *transactionRequestID = @"11";
+    NSString *transactionRequestID = @"11"; //needs to be changed to actual. 
     NSString *expirationDate = [creditCard objectForKey:@"expirationDate"]; 
     
     
@@ -47,14 +47,14 @@ NSString *requestString = [NSString stringWithFormat:@"<?xml version=\"1.0\"?>\
 </SignonDesktopRq>\
 </SignonMsgsRq>\
 <QBMSXMLMsgsRq>\
-<CustomerCreditCardAuthRq>\
+<CustomerCreditCardChargeRq>\
 <TransRequestID>%@</TransRequestID>\
 <CreditCardNumber>%@</CreditCardNumber>\
 <ExpirationMonth>%@</ExpirationMonth>\
 <ExpirationYear>%@</ExpirationYear>\
 <IsCardPresent>false</IsCardPresent>\
 <Amount>%@</Amount>\
-</CustomerCreditCardAuthRq>\
+</CustomerCreditCardChargeRq>\
 </QBMSXMLMsgsRq>\
 </QBMSXML>",dateString,APPLICATION_LOGIN,CONNECTION_TICKET,transactionRequestID,[creditCard objectForKey:@"cardNumber"],expirationMonth,expirationYear,amount];
     
@@ -67,6 +67,88 @@ NSString *requestString = [NSString stringWithFormat:@"<?xml version=\"1.0\"?>\
     return YES;
     
 }
+
+-(BOOL)sendChargeRequestWithWalletID:(NSString*)walletID customerID:(NSString*)custID forAmount:(NSString*)amount
+{
+    
+    NSDateFormatter *nsdf = [[NSDateFormatter alloc] init];
+    [nsdf setDateFormat:@"yyyy-MM-ddTHH:mm:ss"];
+    NSString *dateString = [nsdf stringFromDate:[NSDate date]];
+    
+    NSString *transactionRequestID = @"11"; //needs to be changed to actual.
+    
+    NSString *requestString = [NSString stringWithFormat:@"<?xml version=\"1.0\"?>\
+                               <?qbmsxml version=\"4.5\"?>\
+                               <QBMSXML>\
+                               <SignonMsgsRq>\
+                               <SignonDesktopRq>\
+                               <ClientDateTime>%@</ClientDateTime>\
+                               <ApplicationLogin>%@</ApplicationLogin>\
+                               <ConnectionTicket>%@</ConnectionTicket>\
+                               </SignonDesktopRq>\
+                               </SignonMsgsRq>\
+                               <QBMSXMLMsgsRq>\
+                               <CustomerCreditCardWalletChargeRq>\
+                               <TransRequestID>%@</TransRequestID>\
+                               <WalletEntryID>%@</WalletEntryID>\
+                               <CustomerID>%@</CustomerID>\
+                               <Amount>%@</Amount>\
+                               </CustomerCreditCardWalletChargeRq>\
+                               </QBMSXMLMsgsRq>\
+                               </QBMSXML>",dateString,APPLICATION_LOGIN,CONNECTION_TICKET,transactionRequestID,walletID,custID,amount];
+    
+    NSMutableURLRequest *chargeRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:PAYMENT_GATEWAY_URL]];
+    [chargeRequest setHTTPMethod:@"POST"];
+    [chargeRequest setValue:@"application/x-qbmsxml" forHTTPHeaderField:@"content-type"]; 
+    [chargeRequest setHTTPBody:[requestString dataUsingEncoding:NSUTF8StringEncoding]]; 
+    
+    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:chargeRequest delegate:self startImmediately:YES]; 
+    return YES;
+    
+}
+
+-(BOOL)sendAddWalletRequestForCustomerID:(NSString*)CustID CCNumber:(NSString*)CCNumber ExpiryDate:(NSDate*)expiryDate
+{
+    NSDateFormatter *nsdf = [[NSDateFormatter alloc] init];
+    [nsdf setDateFormat:@"yyyy-MM-ddTHH:mm:ss"];
+    NSString *dateString = [nsdf stringFromDate:[NSDate date]];
+    
+NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:[NSDate date]];
+    
+    NSString *expiryMonth = [NSString stringWithFormat:@"%i",[components month]];
+    NSString *expiryYear = [NSString stringWithFormat:@"%i",[components year]];
+
+    
+    NSString *requestString = [NSString stringWithFormat:@"<?xml version=\"1.0\"?>\
+                               <?qbmsxml version=\"4.5\"?>\
+                               <QBMSXML>\
+                               <SignonMsgsRq>\
+                               <SignonDesktopRq>\
+                               <ClientDateTime>%@</ClientDateTime>\
+                               <ApplicationLogin>%@</ApplicationLogin>\
+                               <ConnectionTicket>%@</ConnectionTicket>\
+                               </SignonDesktopRq>\
+                               </SignonMsgsRq>\
+                               <QBMSXMLMsgsRq>\
+                               <CustomerCreditCardWalletAddRq>\
+                               <CustomerID>%@</CustomerID>\
+                               <CreditCardNumber>%@</CreditCardNumber>\
+                               <ExpirationMonth>%@</ExpirationMonth>\
+                               <ExpirationYear>%@</ExpirationYear>\
+                               </CustomerCreditCardWalletAddRq>\
+                               </QBMSXMLMsgsRq>\
+                               </QBMSXML>",dateString,APPLICATION_LOGIN,CONNECTION_TICKET,CustID,CCNumber,expiryMonth,expiryYear];
+    
+    NSMutableURLRequest *chargeRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:PAYMENT_GATEWAY_URL]];
+    [chargeRequest setHTTPMethod:@"POST"];
+    [chargeRequest setValue:@"application/x-qbmsxml" forHTTPHeaderField:@"content-type"]; 
+    [chargeRequest setHTTPBody:[requestString dataUsingEncoding:NSUTF8StringEncoding]]; 
+    
+    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:chargeRequest delegate:self startImmediately:YES]; 
+    return YES;
+    
+}
+
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
@@ -111,7 +193,7 @@ NSString *requestString = [NSString stringWithFormat:@"<?xml version=\"1.0\"?>\
         }
     }
 
-    else if ([elementName isEqualToString:@"CustomerCreditCardAuthRs"])
+    else if ([elementName isEqualToString:@"CustomerCreditCardChargeRs"] || [elementName isEqualToString:@"CustomerCreditCardWalletAddRs"] || [elementName isEqualToString:@"CustomerCreditCardWalletChargeRs"])
     {
         NSLog(@"attributeDict:%@",attributeDict); 
         
@@ -129,6 +211,7 @@ NSString *requestString = [NSString stringWithFormat:@"<?xml version=\"1.0\"?>\
 
         }
     }
+    
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
@@ -139,10 +222,10 @@ NSString *requestString = [NSString stringWithFormat:@"<?xml version=\"1.0\"?>\
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName 
 {
     
-    if ([elementName isEqualToString:@"CreditCardTransID"])
+    if ([elementName isEqualToString:@"CreditCardTransID"] || [elementName isEqualToString:@"WalletEntryID"])
     {
-        creditCardTransactionID = [currentString copy];
-        NSLog(@"recorded creditCardTransactionID as:%@",currentString); 
+        returnID = [currentString copy];
+        NSLog(@"recorded returnID as:%@",currentString); 
     }
 }
 
@@ -160,7 +243,7 @@ NSString *requestString = [NSString stringWithFormat:@"<?xml version=\"1.0\"?>\
 {
     if ([self.delegate respondsToSelector:@selector(QBMSRequesterDelegateFinishedWithCode:)])
     {
-        [self.delegate QBMSRequesterDelegateFinishedWithCode:creditCardTransactionID]; 
+        [self.delegate QBMSRequesterDelegateFinishedWithCode:returnID];
     }
 }
 //card authorization xml template

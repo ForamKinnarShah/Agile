@@ -8,6 +8,8 @@
 
 #import "creditCardInfoViewController.h"
 #import "NSGlobalConfiguration.h" 
+#import "QBMSRequester.h" 
+#import "utilities.h" 
 
 @interface creditCardInfoViewController ()
 
@@ -73,9 +75,16 @@
         return;
     }
     
-NSMutableDictionary *creditCardInfo = [NSMutableDictionary dictionaryWithObjects:[NSArray arrayWithObjects:nameTextField.text,address1TextField.text, address2TextField.text, cardTypeTextField.text, cardNumberTextField.text,securityCodeTextField.text,expirationDateTextField.text, nil] forKeys:[NSArray arrayWithObjects:@"nameOnCard",@"address1",@"address2",@"cardType",@"cardNumber",@"securityCode",@"expirationDate", nil]];
-[NSGlobalConfiguration setConfigurationItem:@"creditCard" Item:creditCardInfo];
-[[[UIAlertView alloc] initWithTitle:@"credit card added" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+
+//[[[UIAlertView alloc] initWithTitle:@"credit card added" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    QBMSRequester *qbms = [[QBMSRequester alloc] init];
+    [qbms sendAddWalletRequestForCustomerID:[NSGlobalConfiguration getConfigurationItem:@"ID"] CCNumber:cardNumberTextField.text ExpiryDate:datePicker.date];
+    qbms.delegate = self; 
+    if (!UIBlocker) {
+        UIBlocker = [[utilities alloc] init]; 
+    }
+    [UIBlocker startUIBlockerInView:self.tabBarController.view]; 
+    
 return;
 }
 
@@ -139,6 +148,31 @@ return;
 {
     [activeTextField resignFirstResponder];
     [self setViewMovedUp:NO];
+}
+
+-(void)QBMSRequesterDelegateFinishedWithCode:(NSString*)code
+{
+    NSMutableDictionary *creditCardInfo = [NSMutableDictionary dictionaryWithObjects:[NSArray arrayWithObjects:nameTextField.text,address1TextField.text, address2TextField.text, cardTypeTextField.text, [cardNumberTextField.text substringFromIndex:12], nil] forKeys:[NSArray arrayWithObjects:@"nameOnCard",@"address1",@"address2",@"cardType",@"cardNumberLast4Digits", nil]];
+    
+    NSMutableArray *cards = [NSGlobalConfiguration getConfigurationItem:@"creditCards"];
+    if (!cards)
+    {
+        cards = [NSMutableArray arrayWithCapacity:0]; 
+    }
+    [cards addObject:creditCardInfo]; 
+    [NSGlobalConfiguration setConfigurationItem:@"creditCards" Item:cards];
+    
+    [NSGlobalConfiguration setConfigurationItem:@"walletID" Item:code];
+    [UIBlocker stopUIBlockerInView:self.tabBarController.view];
+    [utilities showAlertWithTitle:@"Credit Card Successfully Added" Message:@"Your card has been added. You are now able to buy gifts for friends!"];
+    [self.navigationController popViewControllerAnimated:YES]; 
+}
+
+-(void)QBMSRequesterDelegateFailedWithError:(NSError*)error
+{
+    [UIBlocker stopUIBlockerInView:self.tabBarController.view];
+    [utilities showAlertWithTitle:@"Adding Credit Card Failed" Message:@"The credit card information you provided is either inaccurate or your internet connection timed out."];
+    NSLog(@"error:%@",error.localizedDescription); 
 }
 
 @end

@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "QBMSRequesterDelegate.h"
+#import "utilities.h" 
 
-@interface creditCardInfoViewController : UIViewController <UITextFieldDelegate>
+@interface creditCardInfoViewController : UIViewController <UITextFieldDelegate,QBMSRequesterDelegate>
 {
-    UITextField *activeTextField; 
+    UITextField *activeTextField;
+    utilities *UIBlocker; 
 }
 @property IBOutlet UITextField *nameTextField;
 @property IBOutlet UITextField *address1TextField;
@@ -22,6 +25,8 @@
 @property IBOutlet UITextField *expirationDateTextField; 
 @property UIDatePicker *datePicker; 
 
+
 -(IBAction)addCreditCard:(id)sender; 
+
 
 @end
