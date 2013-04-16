@@ -380,6 +380,7 @@
 		7ABD92D1171B7268001D10DE /* addCreditCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = addCreditCardViewController.h; sourceTree = "<group>"; };
 		7ABD92D2171B7268001D10DE /* addCreditCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = addCreditCardViewController.m; sourceTree = "<group>"; };
 		7ABD92D3171B7268001D10DE /* addCreditCardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = addCreditCardViewController.xib; sourceTree = "<group>"; };
+		7ABD92D8171D9EC0001D10DE /* HERES2U.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = HERES2U.entitlements; sourceTree = "<group>"; };
 		DAF870C816671F0000747CDA /* HERES2U.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HERES2U.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAF870CC16671F0000747CDA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		DAF870CE16671F0000747CDA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -459,6 +460,7 @@
 		7AA195AB1712B15B001F7A40 /* HERES2U */ = {
 			isa = PBXGroup;
 			children = (
+				7ABD92D8171D9EC0001D10DE /* HERES2U.entitlements */,
 				7AA195AC1712B15B001F7A40 /* AppDelegate.h */,
 				7AA195AD1712B15B001F7A40 /* AppDelegate.m */,
 				7AA195AE1712B15B001F7A40 /* Default-568h@2x.png */,
@@ -1148,6 +1150,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Brian Rosa (J35L3P43JL)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1163,6 +1166,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "F351B90D-9584-447E-AC5A-2430E83370F1";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1176,6 +1180,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Brian Rosa (J35L3P43JL)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1184,6 +1189,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "F351B90D-9584-447E-AC5A-2430E83370F1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1192,8 +1198,9 @@
 		DAF870FC16671F0000747CDA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ronak Shah (7X9526XYFS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ronak Shah (7X9526XYFS)";
+				CODE_SIGN_ENTITLEMENTS = HERES2U/HERES2U.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Brian Rosa (J35L3P43JL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Brian Rosa (J35L3P43JL)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/FacebookSDK\"",
@@ -1207,8 +1214,8 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "B82AFEF5-E439-4FBA-B517-219FB419BB2F";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B82AFEF5-E439-4FBA-B517-219FB419BB2F";
+				PROVISIONING_PROFILE = "F351B90D-9584-447E-AC5A-2430E83370F1";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F351B90D-9584-447E-AC5A-2430E83370F1";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1216,8 +1223,9 @@
 		DAF870FD16671F0000747CDA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ronak Shah (7X9526XYFS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ronak Shah (7X9526XYFS)";
+				CODE_SIGN_ENTITLEMENTS = HERES2U/HERES2U.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Brian Rosa (J35L3P43JL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Brian Rosa (J35L3P43JL)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/FacebookSDK\"",
@@ -1231,8 +1239,8 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "B82AFEF5-E439-4FBA-B517-219FB419BB2F";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B82AFEF5-E439-4FBA-B517-219FB419BB2F";
+				PROVISIONING_PROFILE = "F351B90D-9584-447E-AC5A-2430E83370F1";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F351B90D-9584-447E-AC5A-2430E83370F1";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
