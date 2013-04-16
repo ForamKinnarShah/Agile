@@ -13,13 +13,16 @@
 
 @synthesize arrayData,arrayTransactionsID,arrayLocationID,arrayLocationImage,arrayLocationName,arrayMiles,arrayPrice,arraySenderID,arraySenderName,arrayStatus;
 @synthesize isTransactionsID,isLocationID,isLocationImage,isLocationName,isMiles,isPrice,isSenderID,isSenderName,isStatus;
-
+@synthesize rawData; 
 
 -(id)initWithURL:(NSURL*)parseURL{
     @try {
         NSLog(@"parseURL : %@",parseURL);
         
         NSString *Items=[[NSString alloc] initWithContentsOfURL:parseURL encoding:NSUTF8StringEncoding error:nil];
+        
+        NSLog(@"Items:%@",Items);
+        
         NSXMLParser *nsXmlParser=[[NSXMLParser alloc] initWithData:[Items dataUsingEncoding:NSUTF8StringEncoding]];
       
         dicReceived = [[NSMutableDictionary alloc] init];
@@ -54,6 +57,63 @@
         
     }
 }
+
+//-(id)initWithURL:(NSURL*)parseURL{
+//    @try {
+//        NSLog(@"parseURL : %@",parseURL);
+//        
+//        NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:parseURL];
+//        req.HTTPMethod = @"POST";
+//        rawData = [NSMutableData data]; 
+//        [[NSURLConnection alloc] initWithRequest:req delegate:self startImmediately:YES];
+//    }
+//    @catch (NSException *exception) {
+//        
+//    }
+//}
+
+-(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data{
+    [rawData appendData:data];
+}
+-(void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
+//    SEL ErrorSelector=@selector(phpCallerFailedWithError:);
+//    if([delegate respondsToSelector:ErrorSelector]){
+//        [delegate phpCallerFailed:error];
+//    }
+    NSLog(@"connection failed:%@",error.localizedDescription);
+}
+-(void) connectionDidFinishLoading:(NSURLConnection *)connection{
+    //XML PARSER:
+    NSLog(@"connection finished loading with response:%@",[[NSString alloc] initWithData:rawData encoding:NSUTF8StringEncoding]);
+    dicReceived = [[NSMutableDictionary alloc] init];
+    
+    strMutableElement = [[NSMutableString alloc] init];
+    
+    self.arrayData = [[NSMutableArray alloc] init];
+    self.arrayLocationID = [[NSMutableArray alloc] init];
+    self.arrayLocationImage = [[NSMutableArray alloc] init];
+    self.arrayLocationName = [[NSMutableArray alloc] init];
+    self.arrayMiles = [[NSMutableArray alloc] init];
+    self.arrayPrice = [[NSMutableArray alloc] init];
+    self.arraySenderID = [[NSMutableArray alloc] init];
+    self.arraySenderName = [[NSMutableArray alloc] init];
+    self.arrayStatus = [[NSMutableArray alloc] init];
+    self.arrayTransactionsID = [[NSMutableArray alloc] init];
+    
+    NSXMLParser *nsXmlParser = [[NSXMLParser alloc] initWithData:rawData]; 
+    // set delegate
+    [nsXmlParser setDelegate:self];
+    // parsing...
+    BOOL success = [nsXmlParser parse];
+    // test the result
+    if (success) {
+        
+    } else {
+        NSLog(@"Error parsing document!");
+    }
+    
+}
+
 
 -(void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict{
     @try {

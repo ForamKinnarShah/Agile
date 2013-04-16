@@ -11,6 +11,7 @@
 #import "settingsViewController.h"
 #import "checkinCommentViewController.h"
 #import "utilities.h" 
+#import "NSGlobalConfiguration.h"
 
 @interface ProfileViewController ()
 
@@ -40,7 +41,7 @@
 //Delegates
 -(void)viewDidAppear:(BOOL)animated{
     NSLog(@"Profile ID:%i",ProfileID);
-    Profile=[[NSProfile alloc] initWithProfileID:ProfileID];
+    //Profile=[[NSProfile alloc] initWithProfileID:ProfileID];
     [Profile setDelegate:self];
     [Profile startFetching];
 }
@@ -51,6 +52,7 @@
     UIBlocker = [[utilities alloc] init];
     [UIBlocker startUIBlockerInView:self.tabBarController.view];
     
+    ProfileID = [[NSGlobalConfiguration getConfigurationItem:@"ID"] intValue];
     Profile=[[NSProfile alloc] initWithProfileID:ProfileID];
     [Profile setDelegate:self];
     [Profile startFetching];

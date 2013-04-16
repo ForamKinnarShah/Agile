@@ -141,11 +141,25 @@ UIActionSheet *choose = [[UIActionSheet alloc] initWithTitle:@"Menu" delegate:se
         NSDictionary *ItemData=[feedManager getFeedAtIndex:i];
         NSLog(@"itemData:%@",ItemData); 
         
-         [activity setID:[(NSString *)[ItemData valueForKey:@"FeedID"] integerValue]];
+        [activity setID:[(NSString *)[ItemData valueForKey:@"FeedID"] integerValue]];
         [activity.UserName setText:[ItemData valueForKey:@"FullName"]];
         [activity.lblComment setText:[ItemData valueForKey:@"UserComment"]];
         [activity.lblLocation setText:[ItemData valueForKey:@"Title"]];
+        
+        NSString *time = [ItemData valueForKey:@"Time"];
+        NSDateFormatter *format = [[NSDateFormatter alloc] init];
+        [format setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        NSDate *timeDate = [format dateFromString:time];
+        NSCalendar *cal = [NSCalendar currentCalendar];
+        NSDateComponents *hour = [cal components:NSHourCalendarUnit fromDate:[NSDate date] toDate:timeDate options:0];
+        NSDateComponents *minutes = [cal components:NSMinuteCalendarUnit fromDate:[NSDate date] toDate:timeDate options:0]; 
+        
+        NSTimeInterval interval = [[NSDate date] timeIntervalSinceDate:timeDate];
+        int hoursDiff = interval / 3600;
+        
         [activity.lblTime setText:[ItemData valueForKey:@"Time"]];
+       // [activity.lblTime setText:[NSString stringWithFormat:@"%i",hoursDiff]];
+
         [activity setDelegate:self];
         [activity setTag:i];
         
@@ -185,4 +199,6 @@ UIActionSheet *choose = [[UIActionSheet alloc] initWithTitle:@"Menu" delegate:se
     [feedManager getFeeds];
     }
 }
+
+
 @end

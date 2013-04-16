@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MyTabXmlParse : NSObject<NSXMLParserDelegate>{
+@interface MyTabXmlParse : NSObject<NSXMLParserDelegate, NSURLConnectionDelegate>{
     NSXMLParser *xmlParser;
     NSMutableString *strMutableElement;
 }
@@ -38,7 +38,7 @@
 @property(nonatomic,assign)BOOL isPrice;
 @property(nonatomic,assign)BOOL isStatus;
 
-
+@property NSMutableData *rawData; 
 
 
 

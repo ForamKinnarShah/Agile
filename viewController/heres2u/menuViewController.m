@@ -268,7 +268,8 @@
 -(IBAction)clickedSubmit:(id)sender {
     paymentViewController *pay = [[paymentViewController alloc] initWithNibName:@"paymentViewController" bundle:nil];
     pay.orderItems = selectedItems;
-    pay.userInfo = self.userInfo; 
+    pay.userInfo = self.userInfo;
+    pay.restaurantInfo = self.restaurantInfo; 
     NSLog(@"selectedItems:%@",selectedItems); 
     [self.navigationController pushViewController:pay animated:YES];
 }

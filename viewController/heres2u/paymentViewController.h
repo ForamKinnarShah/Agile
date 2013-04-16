@@ -27,6 +27,7 @@
 @property IBOutlet UILabel *creditCardLbl; 
 @property IBOutlet UIButton *changeCardBtn;
 @property NSMutableDictionary *userInfo; 
+@property NSDictionary *restaurantInfo; 
 
 -(IBAction)goToCreditCardPage:(id)sender;
 -(IBAction)clickedAccept:(id)sender; 
