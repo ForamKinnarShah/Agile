@@ -32,4 +32,13 @@
 @property int remoteHostStatus;
 @property (nonatomic, strong) NSURL *url; // url to register device
 
+// Share Appdelegate instance
++(AppDelegate*)sharedInstance;
+
+// stores userid
+@property (nonatomic, strong) NSString *strUserID;
+
+// stores device token
+@property (nonatomic, strong) NSData *dataDeviceToken;
+
 @end

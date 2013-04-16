@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MyTabXmlParse : NSObject<NSXMLParserDelegate, NSURLConnectionDelegate>{
+@interface MyTabXmlParse : NSObject<NSXMLParserDelegate>{
     NSXMLParser *xmlParser;
     NSMutableString *strMutableElement;
 }
@@ -27,6 +27,9 @@
 @property(nonatomic,strong)NSMutableArray *arraySenderName;
 @property(nonatomic,strong)NSMutableArray *arrayPrice;
 @property(nonatomic,strong)NSMutableArray *arrayStatus;
+@property(nonatomic,strong)NSMutableArray *arrayCoupancode;
+@property(nonatomic,strong)NSMutableArray *arrayLatitude;
+@property(nonatomic,strong)NSMutableArray *arrayLongitude;
 
 @property(nonatomic,assign)BOOL isTransactionsID;
 @property(nonatomic,assign)BOOL isLocationID;
@@ -37,11 +40,9 @@
 @property(nonatomic,assign)BOOL isSenderName;
 @property(nonatomic,assign)BOOL isPrice;
 @property(nonatomic,assign)BOOL isStatus;
-
-@property NSMutableData *rawData; 
-
-
-
+@property(nonatomic,assign)BOOL isCoupancode;
+@property(nonatomic,assign)BOOL isLatitude;
+@property(nonatomic,assign)BOOL isLongitude;
 
 
 @end

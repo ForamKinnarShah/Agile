@@ -137,10 +137,120 @@
     [UIBlocker stopUIBlockerInView:self.view];
     [Alert show];
 }
+
 -(void)loggingInSucceeded:(NSString *)message{
     [NSGlobalConfiguration setConfigurationItem:@"Email" Item:usrname.text];
     [NSGlobalConfiguration setConfigurationItem:@"Password" Item:pass.text];
     [UIBlocker stopUIBlockerInView:self.view];
+    
+//    // -----------------------------Push Notification
+//	
+//	// Get Bundle Info for Remote Registration (handy if you have more than one app)
+//    NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
+//    NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+//    
+//	// Check what Notifications the user has turned on.  We registered for all three, but they may have manually disabled some or all of them.
+//    NSUInteger rntypes = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
+//    
+//    // Set the defaults to disabled unless we find otherwise...
+//    NSString *pushBadge;
+//    NSString *pushAlert;
+//    NSString *pushSound;
+//    
+//    // Check what Registered Types are turned on. This is a bit tricky since if two are enabled, and one is off, it will return a number 2... not telling you which
+//    // one is actually disabled. So we are literally checking to see if rnTypes matches what is turned on, instead of by number. The "tricky" part is that the
+//    // single notification types will only match if they are the ONLY one enabled.  Likewise, when we are checking for a pair of notifications, it will only be
+//    // true if those two notifications are on.  This is why the code is written this way
+//    if(rntypes == UIRemoteNotificationTypeBadge)
+//        pushBadge = @"enabled";
+//    else if(rntypes == UIRemoteNotificationTypeAlert)
+//        pushAlert = @"enabled";
+//    else if(rntypes == UIRemoteNotificationTypeSound)
+//        pushSound = @"enabled";
+//    else if(rntypes == ( UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert))
+//    {
+//        pushBadge = @"enabled";
+//        pushAlert = @"enabled";
+//    }
+//    else if(rntypes == ( UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound))
+//    {
+//        pushBadge = @"enabled";
+//        pushSound = @"enabled";
+//    }
+//    else if(rntypes == ( UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound))
+//    {
+//        pushAlert = @"enabled";
+//        pushSound = @"enabled";
+//    }
+//    else if(rntypes == ( UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound))
+//    {
+//        pushBadge = @"enabled";
+//        pushAlert = @"enabled";
+//        pushSound = @"enabled";
+//    }
+//	
+//	// Get the users Device Model, Display Name, Unique ID, Token & Version Number
+//    UIDevice *dev = [UIDevice currentDevice];
+//    NSString *deviceUuid = dev.uniqueIdentifier;
+//    NSString *deviceName = dev.name;
+//    NSString *deviceModel = dev.model;
+//    NSString *deviceSystemVersion = dev.systemVersion;
+//	
+//	// Prepare the Device Token for Registration (remove spaces and < >)
+//    NSString *deviceToken_Push = [[[[[AppDelegate sharedInstance].dataDeviceToken description]
+//                                    stringByReplacingOccurrencesOfString:@"<"withString:@""]
+//                                   stringByReplacingOccurrencesOfString:@">" withString:@""]
+//                                  stringByReplacingOccurrencesOfString: @" " withString: @""];
+//	
+//	// !!! CHANGE "/apns.php?" TO THE PATH TO WHERE apns.php IS INSTALLED
+//    // !!! ( MUST START WITH / AND END WITH ? ).
+//    // !!! SAMPLE: "/path/to/apns.php?"
+//    NSString *urlString = [@"/APNS.php?"stringByAppendingString:@"task=register"];
+//	urlString = [urlString stringByAppendingString:@"&appname="];
+//    urlString = [urlString stringByAppendingString:appName];
+//    urlString = [urlString stringByAppendingString:@"&appversion="];
+//    urlString = [urlString stringByAppendingString:appVersion];
+//    urlString = [urlString stringByAppendingString:@"&deviceuid="];
+//    urlString = [urlString stringByAppendingString:deviceUuid];
+//    urlString = [urlString stringByAppendingString:@"&devicetoken="];
+//    urlString = [urlString stringByAppendingString:deviceToken_Push];
+//    urlString = [urlString stringByAppendingString:@"&devicename="];
+//    urlString = [urlString stringByAppendingString:deviceName];
+//    urlString = [urlString stringByAppendingString:@"&devicemodel="];
+//    urlString = [urlString stringByAppendingString:deviceModel];
+//    urlString = [urlString stringByAppendingString:@"&deviceversion="];
+//    urlString = [urlString stringByAppendingString:deviceSystemVersion];
+//    urlString = [urlString stringByAppendingString:@"&pushbadge="];
+//    urlString = [urlString stringByAppendingString:pushBadge];
+//    urlString = [urlString stringByAppendingString:@"&pushalert="];
+//    urlString = [urlString stringByAppendingString:pushAlert];
+//    urlString = [urlString stringByAppendingString:@"&pushsound="];
+//    urlString = [urlString stringByAppendingString:pushSound];
+//    urlString = [urlString stringByAppendingString:@"&uid="];
+//    urlString = [urlString stringByAppendingString:[AppDelegate sharedInstance].strUserID];
+//    
+//    //    urlString = [urlString stringByReplacingOccurrencesOfString:@"%20" withString:@" "];
+//    
+//    // NSString *hostUrl = @"heres2u.calarg.net";
+//    
+//    // NSString *hostUrl = @"74.208.77.106/rts/heres2u/api/";
+//    
+//    NSString *hostUrl = @"50.62.148.155:8080/heres2u/api/";
+//    
+//    [AppDelegate sharedInstance].url = [[NSURL alloc] initWithScheme:@"http" host:hostUrl path:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+//    
+//    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[AppDelegate sharedInstance].url];
+//    NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+//    NSLog(@"Register URL: %@", [AppDelegate sharedInstance].url);
+//    NSLog(@"Return Data: %@", returnData);
+//    
+//    NSString *s=[[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+//    
+//    NSLog(@"Response String ==-========================================================================================================================================================== %@",s);
+//    
+//    
+//    //  -----Completion of notification
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 @end

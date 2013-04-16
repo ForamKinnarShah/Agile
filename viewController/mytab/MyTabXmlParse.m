@@ -11,18 +11,15 @@
 
 @implementation MyTabXmlParse
 
-@synthesize arrayData,arrayTransactionsID,arrayLocationID,arrayLocationImage,arrayLocationName,arrayMiles,arrayPrice,arraySenderID,arraySenderName,arrayStatus;
-@synthesize isTransactionsID,isLocationID,isLocationImage,isLocationName,isMiles,isPrice,isSenderID,isSenderName,isStatus;
-@synthesize rawData; 
+@synthesize arrayData,arrayTransactionsID,arrayLocationID,arrayLocationImage,arrayLocationName,arrayMiles,arrayPrice,arraySenderID,arraySenderName,arrayStatus,arrayCoupancode,arrayLatitude,arrayLongitude;
+@synthesize isTransactionsID,isLocationID,isLocationImage,isLocationName,isMiles,isPrice,isSenderID,isSenderName,isStatus,isCoupancode,isLatitude,isLongitude;
+
 
 -(id)initWithURL:(NSURL*)parseURL{
     @try {
         NSLog(@"parseURL : %@",parseURL);
         
         NSString *Items=[[NSString alloc] initWithContentsOfURL:parseURL encoding:NSUTF8StringEncoding error:nil];
-        
-        NSLog(@"Items:%@",Items);
-        
         NSXMLParser *nsXmlParser=[[NSXMLParser alloc] initWithData:[Items dataUsingEncoding:NSUTF8StringEncoding]];
       
         dicReceived = [[NSMutableDictionary alloc] init];
@@ -39,7 +36,9 @@
         self.arraySenderName = [[NSMutableArray alloc] init];
         self.arrayStatus = [[NSMutableArray alloc] init];
         self.arrayTransactionsID = [[NSMutableArray alloc] init];
-        
+        self.arrayCoupancode = [[NSMutableArray alloc] init];
+        self.arrayLatitude = [[NSMutableArray alloc] init];
+        self.arrayLongitude = [[NSMutableArray alloc] init];
         
         // set delegate
         [nsXmlParser setDelegate:self];
@@ -57,63 +56,6 @@
         
     }
 }
-
-//-(id)initWithURL:(NSURL*)parseURL{
-//    @try {
-//        NSLog(@"parseURL : %@",parseURL);
-//        
-//        NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:parseURL];
-//        req.HTTPMethod = @"POST";
-//        rawData = [NSMutableData data]; 
-//        [[NSURLConnection alloc] initWithRequest:req delegate:self startImmediately:YES];
-//    }
-//    @catch (NSException *exception) {
-//        
-//    }
-//}
-
--(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data{
-    [rawData appendData:data];
-}
--(void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
-//    SEL ErrorSelector=@selector(phpCallerFailedWithError:);
-//    if([delegate respondsToSelector:ErrorSelector]){
-//        [delegate phpCallerFailed:error];
-//    }
-    NSLog(@"connection failed:%@",error.localizedDescription);
-}
--(void) connectionDidFinishLoading:(NSURLConnection *)connection{
-    //XML PARSER:
-    NSLog(@"connection finished loading with response:%@",[[NSString alloc] initWithData:rawData encoding:NSUTF8StringEncoding]);
-    dicReceived = [[NSMutableDictionary alloc] init];
-    
-    strMutableElement = [[NSMutableString alloc] init];
-    
-    self.arrayData = [[NSMutableArray alloc] init];
-    self.arrayLocationID = [[NSMutableArray alloc] init];
-    self.arrayLocationImage = [[NSMutableArray alloc] init];
-    self.arrayLocationName = [[NSMutableArray alloc] init];
-    self.arrayMiles = [[NSMutableArray alloc] init];
-    self.arrayPrice = [[NSMutableArray alloc] init];
-    self.arraySenderID = [[NSMutableArray alloc] init];
-    self.arraySenderName = [[NSMutableArray alloc] init];
-    self.arrayStatus = [[NSMutableArray alloc] init];
-    self.arrayTransactionsID = [[NSMutableArray alloc] init];
-    
-    NSXMLParser *nsXmlParser = [[NSXMLParser alloc] initWithData:rawData]; 
-    // set delegate
-    [nsXmlParser setDelegate:self];
-    // parsing...
-    BOOL success = [nsXmlParser parse];
-    // test the result
-    if (success) {
-        
-    } else {
-        NSLog(@"Error parsing document!");
-    }
-    
-}
-
 
 -(void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict{
     @try {
@@ -145,6 +87,17 @@
         else if([elementName isEqualToString:@"Status"]){
             isStatus = YES;
         }
+        else if([elementName isEqualToString:@"Latitude"]){
+            isLatitude = YES;
+        }
+        else if([elementName isEqualToString:@"Longitude"]){
+            isLongitude = YES;
+        }
+        else if([elementName isEqualToString:@"CouponCode"]){
+            isCoupancode = YES;
+        }
+
+        
     }
     @catch (NSException *exception) {
         
@@ -192,6 +145,20 @@
             [self.arrayStatus addObject:[NSString stringWithFormat:@"%@",strMutableElement]];
             NSLog(@"arrayStatus : %@",arrayStatus);
         }
+        else if(isLatitude){
+            [self.arrayLatitude addObject:[NSString stringWithFormat:@"%@",strMutableElement]];
+            NSLog(@"arrayLatitude : %@",arrayLatitude);
+        }
+        else if(isLongitude){
+            [self.arrayLongitude addObject:[NSString stringWithFormat:@"%@",strMutableElement]];
+            NSLog(@"arrayLongitude : %@",arrayLongitude);
+        }
+        else if(isCoupancode){
+            [self.arrayCoupancode addObject:[NSString stringWithFormat:@"%@",strMutableElement]];
+            NSLog(@"arrayCoupancode : %@",arrayCoupancode);
+        }
+        
+
     }
     @catch (NSException *exception) {
         
@@ -236,7 +203,22 @@
             isStatus = NO;
             [dicReceived setValue:self.arrayStatus forKey:@"Status"];
         }
+        else if(isLatitude){
+            isLatitude = NO;
+            [dicReceived setValue:self.arrayLatitude forKey:@"Latitude"];
+        }
+        else if(isLongitude){
+            isLongitude = NO;
+            [dicReceived setValue:self.arrayLongitude forKey:@"Longitude"];
+        }
+        else if(isCoupancode){
+            isCoupancode = NO;
+            [dicReceived setValue:self.arrayCoupancode forKey:@"CoupanCode"];
+        }
+        
 
+
+        
     }
     @catch (NSException *exception) {
         

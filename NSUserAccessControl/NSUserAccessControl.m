@@ -184,9 +184,13 @@
             [parser abortParsing];
         }else{
             if([taggedparser Tag]==NSUserAccessControlTypeLoginUser){
-                if(![string isEqualToString:@""] && ![string isEqualToString:@"\n"]){
+                if(![string isEqualToString:@""] && ![string isEqualToString:@"\n"])
+                {
                     NSLog(@"Saving %@ as %@",string,[taggedparser lastTag]);
                     [NSGlobalConfiguration setConfigurationItem:[taggedparser lastTag] Item:string];
+                
+                    if ([[taggedparser lastTag] isEqualToString:@"ID"])
+                        [AppDelegate sharedInstance].strUserID = string;
                 }
             }
         }

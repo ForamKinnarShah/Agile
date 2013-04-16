@@ -13,7 +13,8 @@
     return [NSString stringWithFormat:@"http://%@",[self Host]];
 }
 +(NSString *)Host{
-    return @"heres2u.calarg.net";
+    return @"50.62.148.155:8080/heres2u/api/";
+    //return @"heres2u.calarg.net";
 }
 +(void)setConfigurationItem:(NSString *)key Item:(id)item{
     NSUserDefaults *Defaults=[NSUserDefaults standardUserDefaults];

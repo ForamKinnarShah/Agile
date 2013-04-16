@@ -14,18 +14,49 @@
 #import "MyTabXmlParse.h"
 #import "MyTabSent.h"
 #import "MyTabUsed.h"
+#import "SayThanksXML.h"
+#import "ReceiptViewController.h"
+#import <CoreLocation/CoreLocation.h>
+#import <MessageUI/MessageUI.h>
+#import "AppDelegate.h"
 
-@interface MytabViewController : UIViewController <UITabBarControllerDelegate,UINavigationControllerDelegate, UIActionSheetDelegate, phpCallerDelegate>
+
+@interface MytabViewController : UIViewController <UITabBarControllerDelegate,UINavigationControllerDelegate, UIActionSheetDelegate, phpCallerDelegate,UIAlertViewDelegate,CLLocationManagerDelegate,MFMailComposeViewControllerDelegate>
 {
+    
+    AppDelegate *appDelegate;
     IBOutlet UISegmentedControl *segmented;
     IBOutlet UITableView *objTableView;
     int selectedSegment;
     
+    IBOutlet UIView *popView;
+    IBOutlet UIButton *btnClose;
+    IBOutlet UILabel *lblReceCode;
+    
     MyTabXmlParse *myparser;
     MyTabSent *myTabSent;
     MyTabUsed *myTabUsed;
+    SayThanksXML *sayThanksXML;
+    
     BOOL isSent;
     BOOL isUsed;
+    
+    int selectedRow;
+    CLLocationManager *locationManager;
+    
+    BOOL isLatLong;
+    
+    NSString *currentLat;
+    NSString *currentLong;
+    NSString *resName;
+
+    NSString *hostURl;
+    
+    int ReceivedIndex;
+    int SentIndex;
+    int UsedIndex;
+    NSString *uId;
+    
 }
 
 @property(nonatomic,retain) phpCaller *caller;
@@ -46,6 +77,10 @@
 @property(nonatomic,retain)NSMutableArray *arraySenderName;
 @property(nonatomic,retain)NSMutableArray *arrayPrice;
 @property(nonatomic,retain)NSMutableArray *arrayStatus;
+@property(nonatomic,retain)NSMutableArray *arrayCoupanNumber;
+@property(nonatomic,retain)NSMutableArray *arrayLatitude;
+@property(nonatomic,retain)NSMutableArray *arrayLongitude;
+
 
 @property(nonatomic,retain)NSMutableArray *arrayData1;
 @property(nonatomic,retain)NSMutableArray *arrayTransactionsID1;
@@ -68,6 +103,10 @@
 @property(nonatomic,retain)NSMutableArray *arraySenderName2;
 @property(nonatomic,retain)NSMutableArray *arrayPrice2;
 @property(nonatomic,retain)NSMutableArray *arrayStatus2;
+@property(nonatomic,retain)NSMutableArray *arraySayThanks2;
 
+
+//method
+-(IBAction)btnClose_Click:(id)sender;
 
 @end

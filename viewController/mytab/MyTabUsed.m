@@ -10,8 +10,8 @@
 
 @implementation MyTabUsed
 
-@synthesize arrayData,arrayLocationID,arrayLocationImage,arrayLocationName,arrayMiles,arrayPrice,arraySenderID,arraySenderName,arrayStatus,arrayTransactionsID;
-@synthesize isTransactionsID,isLocationID,isLocationImage,isLocationName,isMiles,isPrice,isSenderID,isSenderName,isStatus;
+@synthesize arrayData,arrayLocationID,arrayLocationImage,arrayLocationName,arrayMiles,arrayPrice,arraySenderID,arraySenderName,arrayStatus,arrayTransactionsID,arraySayThanks;
+@synthesize isTransactionsID,isLocationID,isLocationImage,isLocationName,isMiles,isPrice,isSenderID,isSenderName,isStatus,isSayThanks;
 
 
 -(id)initWithURL:(NSURL*)parseURL{
@@ -34,7 +34,7 @@
         self.arraySenderName = [[NSMutableArray alloc] init];
         self.arrayStatus = [[NSMutableArray alloc] init];
         self.arrayTransactionsID = [[NSMutableArray alloc] init];
-        
+        self.arraySayThanks = [[NSMutableArray alloc] init];
         
         // set delegate
         [nsXmlParser setDelegate:self];
@@ -56,7 +56,7 @@
 -(void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict{
     @try {
         NSLog(@"didStartElement elementName : %@",elementName);
-        if([elementName isEqualToString:@"Transaction"]){
+        if([elementName isEqualToString:@"TransactionID"]){
             isTransactionsID = YES;
         }
         else if([elementName isEqualToString:@"LocationID"]){
@@ -83,6 +83,9 @@
         else if([elementName isEqualToString:@"Status"]){
             isStatus = YES;
         }
+        else if([elementName isEqualToString:@"SayThanks"]){
+            isSayThanks = YES;
+        }
     }
     @catch (NSException *exception) {
         
@@ -93,8 +96,10 @@
     @try {
         NSLog(@"foundCharacters string : %@",string);
         strMutableElement = [string copy];
-        
-        if(isLocationID){
+        if(isTransactionsID){
+            [arrayTransactionsID addObject:[NSString stringWithFormat:@"%@",strMutableElement]];
+        }
+        else if(isLocationID){
             [arrayLocationID addObject:[NSString stringWithFormat:@"%@",strMutableElement]];
         }
         else if(isLocationImage){
@@ -118,6 +123,9 @@
         else if(isStatus){
             [arrayStatus addObject:[NSString stringWithFormat:@"%@",strMutableElement]];
         }
+        else if(isSayThanks){
+            [arraySayThanks addObject:[NSString stringWithFormat:@"%@",strMutableElement]];
+        }
     }
     @catch (NSException *exception) {
         
@@ -126,7 +134,12 @@
 
 -(void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName{
     @try {
-        if(isLocationID){
+        
+        if(isTransactionsID){
+            isTransactionsID = NO;
+            [dicUsed setValue:arrayTransactionsID forKey:@"TransactionId"];
+        }
+        else if(isLocationID){
             isLocationID = NO;
             [dicUsed setValue:arrayLocationID forKey:@"LocationID"];
         }
@@ -158,6 +171,11 @@
             isStatus = NO;
             [dicUsed setValue:arrayStatus forKey:@"Status"];
         }
+        else if(isSayThanks){
+            isSayThanks = NO;
+            [dicUsed setValue:arraySayThanks forKey:@"SayThanksId"];
+        }
+        
         
     }
     @catch (NSException *exception) {

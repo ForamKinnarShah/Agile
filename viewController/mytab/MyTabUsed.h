@@ -27,6 +27,7 @@
 @property(nonatomic,strong)NSMutableArray *arraySenderName;
 @property(nonatomic,strong)NSMutableArray *arrayPrice;
 @property(nonatomic,strong)NSMutableArray *arrayStatus;
+@property(nonatomic,strong)NSMutableArray *arraySayThanks;
 
 @property(nonatomic,assign)BOOL isTransactionsID;
 @property(nonatomic,assign)BOOL isLocationID;
@@ -37,5 +38,6 @@
 @property(nonatomic,assign)BOOL isSenderName;
 @property(nonatomic,assign)BOOL isPrice;
 @property(nonatomic,assign)BOOL isStatus;
+@property(nonatomic,assign)BOOL isSayThanks;
 
 @end
