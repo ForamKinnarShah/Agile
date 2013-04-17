@@ -81,8 +81,6 @@
     
 //    tab.viewControllers = [NSArray arrayWithObjects:feed,check,h2u,mytab,prof,nil];
      
-
-    
     UIBlocker = [[utilities alloc] init];
     [UIBlocker startUIBlockerInView:self.view];
     //[self presentViewController:tab animated:NO completion:NULL];

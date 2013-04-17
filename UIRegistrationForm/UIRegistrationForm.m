@@ -291,6 +291,7 @@
                     }
                     [Phone setTextColor:[UIColor grayColor]];
                     [Phone setInputAccessoryView:AccessoryView];
+                    [Phone setKeyboardType:UIKeyboardTypeNumberPad];
                     [Phone addTarget:self action:@selector(textFieldDismissed:) forControlEvents:UIControlEventEditingDidEnd];
                     [Phone setPlaceholder:@"Phone"];
                     [Phone addTarget:self action:@selector(textFieldSelected:) forControlEvents:UIControlEventEditingDidBegin];
