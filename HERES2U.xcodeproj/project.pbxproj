@@ -19,6 +19,15 @@
 		134AB79E171D59D800F179E4 /* MyTabXmlParse.m in Sources */ = {isa = PBXBuildFile; fileRef = 134AB79D171D59D800F179E4 /* MyTabXmlParse.m */; };
 		134AB7E4171D5EC300F179E4 /* imageClose.png in Resources */ = {isa = PBXBuildFile; fileRef = 134AB7E3171D5EC300F179E4 /* imageClose.png */; };
 		134AB7F1171D6E2F00F179E4 /* SayThanksXML.m in Sources */ = {isa = PBXBuildFile; fileRef = 134AB7F0171D6E2E00F179E4 /* SayThanksXML.m */; };
+		134E4C2C171E737900257321 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 134E4C2B171E737900257321 /* EGORefreshTableHeaderView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		134E4C36171E7E2600257321 /* blackArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 134E4C2E171E7E2600257321 /* blackArrow.png */; };
+		134E4C37171E7E2600257321 /* blackArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 134E4C2F171E7E2600257321 /* blackArrow@2x.png */; };
+		134E4C38171E7E2600257321 /* blueArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 134E4C30171E7E2600257321 /* blueArrow.png */; };
+		134E4C39171E7E2600257321 /* blueArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 134E4C31171E7E2600257321 /* blueArrow@2x.png */; };
+		134E4C3A171E7E2600257321 /* grayArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 134E4C32171E7E2600257321 /* grayArrow.png */; };
+		134E4C3B171E7E2600257321 /* grayArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 134E4C33171E7E2600257321 /* grayArrow@2x.png */; };
+		134E4C3C171E7E2600257321 /* whiteArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 134E4C34171E7E2600257321 /* whiteArrow.png */; };
+		134E4C3D171E7E2600257321 /* whiteArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 134E4C35171E7E2600257321 /* whiteArrow@2x.png */; };
 		20A0092016C9A7D300262D09 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20A0091F16C9A7D200262D09 /* QuartzCore.framework */; };
 		20AD13C316D1106300F0AE6E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20AD13C216D1106300F0AE6E /* CoreData.framework */; };
 		6F815F33171429F400447C25 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F815F32171429F400447C25 /* Reachability.m */; };
@@ -186,6 +195,16 @@
 		134AB7E3171D5EC300F179E4 /* imageClose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = imageClose.png; sourceTree = "<group>"; };
 		134AB7EF171D6E2E00F179E4 /* SayThanksXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SayThanksXML.h; sourceTree = "<group>"; };
 		134AB7F0171D6E2E00F179E4 /* SayThanksXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SayThanksXML.m; sourceTree = "<group>"; };
+		134E4C2A171E737900257321 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EGORefreshTableHeaderView.h; path = PullRefresh/EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
+		134E4C2B171E737900257321 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EGORefreshTableHeaderView.m; path = PullRefresh/EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
+		134E4C2E171E7E2600257321 /* blackArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackArrow.png; sourceTree = "<group>"; };
+		134E4C2F171E7E2600257321 /* blackArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blackArrow@2x.png"; sourceTree = "<group>"; };
+		134E4C30171E7E2600257321 /* blueArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueArrow.png; sourceTree = "<group>"; };
+		134E4C31171E7E2600257321 /* blueArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blueArrow@2x.png"; sourceTree = "<group>"; };
+		134E4C32171E7E2600257321 /* grayArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grayArrow.png; sourceTree = "<group>"; };
+		134E4C33171E7E2600257321 /* grayArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grayArrow@2x.png"; sourceTree = "<group>"; };
+		134E4C34171E7E2600257321 /* whiteArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteArrow.png; sourceTree = "<group>"; };
+		134E4C35171E7E2600257321 /* whiteArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteArrow@2x.png"; sourceTree = "<group>"; };
 		20A0091F16C9A7D200262D09 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		20AD13C216D1106300F0AE6E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		6F815F31171429F400447C25 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
@@ -380,7 +399,6 @@
 		7ABD92D1171B7268001D10DE /* addCreditCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = addCreditCardViewController.h; sourceTree = "<group>"; };
 		7ABD92D2171B7268001D10DE /* addCreditCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = addCreditCardViewController.m; sourceTree = "<group>"; };
 		7ABD92D3171B7268001D10DE /* addCreditCardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = addCreditCardViewController.xib; sourceTree = "<group>"; };
-		7ABD92D8171D9EC0001D10DE /* HERES2U.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = HERES2U.entitlements; sourceTree = "<group>"; };
 		DAF870C816671F0000747CDA /* HERES2U.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HERES2U.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAF870CC16671F0000747CDA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		DAF870CE16671F0000747CDA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -437,6 +455,30 @@
 			path = mytab;
 			sourceTree = "<group>";
 		};
+		134E4C28171E736700257321 /* PulltoRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				134E4C2A171E737900257321 /* EGORefreshTableHeaderView.h */,
+				134E4C2B171E737900257321 /* EGORefreshTableHeaderView.m */,
+			);
+			name = PulltoRefresh;
+			sourceTree = "<group>";
+		};
+		134E4C2D171E7E1B00257321 /* Pulldown images */ = {
+			isa = PBXGroup;
+			children = (
+				134E4C2E171E7E2600257321 /* blackArrow.png */,
+				134E4C2F171E7E2600257321 /* blackArrow@2x.png */,
+				134E4C30171E7E2600257321 /* blueArrow.png */,
+				134E4C31171E7E2600257321 /* blueArrow@2x.png */,
+				134E4C32171E7E2600257321 /* grayArrow.png */,
+				134E4C33171E7E2600257321 /* grayArrow@2x.png */,
+				134E4C34171E7E2600257321 /* whiteArrow.png */,
+				134E4C35171E7E2600257321 /* whiteArrow@2x.png */,
+			);
+			name = "Pulldown images";
+			sourceTree = "<group>";
+		};
 		7AA1959D1712B15B001F7A40 /* FollowersFollowing */ = {
 			isa = PBXGroup;
 			children = (
@@ -460,7 +502,6 @@
 		7AA195AB1712B15B001F7A40 /* HERES2U */ = {
 			isa = PBXGroup;
 			children = (
-				7ABD92D8171D9EC0001D10DE /* HERES2U.entitlements */,
 				7AA195AC1712B15B001F7A40 /* AppDelegate.h */,
 				7AA195AD1712B15B001F7A40 /* AppDelegate.m */,
 				7AA195AE1712B15B001F7A40 /* Default-568h@2x.png */,
@@ -480,6 +521,7 @@
 		7AA195BA1712B15B001F7A40 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				134E4C2D171E7E1B00257321 /* Pulldown images */,
 				134AB7E3171D5EC300F179E4 /* imageClose.png */,
 				7AA195BB1712B15B001F7A40 /* 489px-Magnifying_glass_icon.svg_.png */,
 				7AA195BC1712B15B001F7A40 /* appetizer.png */,
@@ -766,6 +808,7 @@
 		DAF870BD16671F0000747CDA = {
 			isa = PBXGroup;
 			children = (
+				134E4C28171E736700257321 /* PulltoRefresh */,
 				134AB78F171D4D8E00F179E4 /* MessageUI.framework */,
 				134AB78C171D4D8800F179E4 /* CoreLocation.framework */,
 				6F815F3417142BB300447C25 /* SystemConfiguration.framework */,
@@ -1008,6 +1051,14 @@
 				134AB798171D4E1200F179E4 /* MytabViewController.xib in Resources */,
 				134AB79A171D4E1200F179E4 /* ReceiptViewController.xib in Resources */,
 				134AB7E4171D5EC300F179E4 /* imageClose.png in Resources */,
+				134E4C36171E7E2600257321 /* blackArrow.png in Resources */,
+				134E4C37171E7E2600257321 /* blackArrow@2x.png in Resources */,
+				134E4C38171E7E2600257321 /* blueArrow.png in Resources */,
+				134E4C39171E7E2600257321 /* blueArrow@2x.png in Resources */,
+				134E4C3A171E7E2600257321 /* grayArrow.png in Resources */,
+				134E4C3B171E7E2600257321 /* grayArrow@2x.png in Resources */,
+				134E4C3C171E7E2600257321 /* whiteArrow.png in Resources */,
+				134E4C3D171E7E2600257321 /* whiteArrow@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1100,6 +1151,7 @@
 				134AB799171D4E1200F179E4 /* ReceiptViewController.m in Sources */,
 				134AB79E171D59D800F179E4 /* MyTabXmlParse.m in Sources */,
 				134AB7F1171D6E2F00F179E4 /* SayThanksXML.m in Sources */,
+				134E4C2C171E737900257321 /* EGORefreshTableHeaderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1198,7 +1250,7 @@
 		DAF870FC16671F0000747CDA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = HERES2U/HERES2U.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Brian Rosa (J35L3P43JL)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Brian Rosa (J35L3P43JL)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1223,7 +1275,7 @@
 		DAF870FD16671F0000747CDA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = HERES2U/HERES2U.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Brian Rosa (J35L3P43JL)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Brian Rosa (J35L3P43JL)";
 				FRAMEWORK_SEARCH_PATHS = (

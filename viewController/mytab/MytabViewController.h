@@ -19,9 +19,11 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MessageUI/MessageUI.h>
 #import "AppDelegate.h"
+#import "EGORefreshTableHeaderView.h"
 
 
-@interface MytabViewController : UIViewController <UITabBarControllerDelegate,UINavigationControllerDelegate, UIActionSheetDelegate, phpCallerDelegate,UIAlertViewDelegate,CLLocationManagerDelegate,MFMailComposeViewControllerDelegate>
+
+@interface MytabViewController : UIViewController <UITabBarControllerDelegate,UINavigationControllerDelegate, UIActionSheetDelegate, phpCallerDelegate,UIAlertViewDelegate,CLLocationManagerDelegate,MFMailComposeViewControllerDelegate,EGORefreshTableHeaderDelegate>
 {
     
     AppDelegate *appDelegate;
@@ -57,6 +59,11 @@
     int UsedIndex;
     NSString *uId;
     
+    //PullController
+    EGORefreshTableHeaderView *_refreshHeaderView;
+    //  Reloading var should really be your tableviews datasource
+    //  Putting it here for demo purposes
+    BOOL _reloading;
 }
 
 @property(nonatomic,retain) phpCaller *caller;
@@ -108,5 +115,10 @@
 
 //method
 -(IBAction)btnClose_Click:(id)sender;
+
+//reload data methods
+- (void)reloadTableViewDataSource;
+- (void)doneLoadingTableViewData;
+
 
 @end

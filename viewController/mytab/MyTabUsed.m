@@ -42,7 +42,8 @@
         BOOL success = [nsXmlParser parse];
         // test the result
         if (success) {
-            
+            NSLog(@"success.");
+            return (id)dicUsed;
         } else {
             NSLog(@"Error parsing document!");
         }

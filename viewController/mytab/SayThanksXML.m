@@ -28,7 +28,8 @@
         BOOL success = [nsXmlParser parse];
         // test the result
         if (success) {
-            
+            NSLog(@"success.");
+            return (id)dicSayThanks;
         } else {
             NSLog(@"Error parsing document!");
         }
@@ -68,7 +69,7 @@
     @try {
         if(isSayThanks){
             isSayThanks = NO;
-            [dicSayThanks setValue:arraySayThanks forKey:@"SayThanksId"];
+            [dicSayThanks setValue:self.arraySayThanks forKey:@"SayThanksId"];
         }
     }
     @catch (NSException *exception) {

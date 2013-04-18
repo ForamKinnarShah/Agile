@@ -42,6 +42,18 @@
     
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
+    if (_refreshHeaderView == nil) {
+		
+		EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - objTableView.bounds.size.height, self.view.frame.size.width, objTableView.bounds.size.height)];
+		view.delegate = self;
+		[objTableView addSubview:view];
+		_refreshHeaderView = view;
+		
+	}
+	
+	//  update the last update date
+	[_refreshHeaderView refreshLastUpdatedDate];
+    
     isLatLong = NO;
     
     ReceivedIndex = 1;
@@ -107,56 +119,64 @@
     [self performSelector:@selector(callReceivedData) withObject:nil afterDelay:1.0];
 }
 -(void)callReceivedData{
-    
-    uId = (NSString *)[NSGlobalConfiguration getConfigurationItem:@"ID"];
-    NSLog(@"uId : %@",uId);
-    
-    if(isLatLong){
-        isLatLong = NO;
-        //http://50.62.148.155:8080/heres2u/api/index.php?webservice=ui&action=getreceiveditems&ID=33&Page=1&Lat=-33.7501&Long=18.4533
-        NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@index.php?webservice=ui&action=getreceiveditems&ID=%@&Page=%d&Lat=-%@&Long=%@",hostURl,uId,ReceivedIndex,currentLat,currentLong]];
-        NSLog(@" : %@",url);
-        myparser = [[MyTabXmlParse alloc] initWithURL:url];
+    @try {
+        uId = (NSString *)[NSGlobalConfiguration getConfigurationItem:@"ID"];
+        NSLog(@"uId : %@",uId);
         
-        //    NSLog(@"arrayTransactionsID : %@",myparser.arrayTransactionsID);
-        //    self.arrayTransactionsID = myparser.arrayTransactionsID;
-        //dictTransaction
-        NSLog(@"dicReceived: %@",dicReceived);
-        
-        /*self.arrayLocationID = [dicReceived valueForKey:@"LocationID"];
-         self.arrayLocationImage = [dicReceived valueForKey:@"LocationImage"];
-         self.arrayLocationName = [dicReceived valueForKey:@"LocationName"];
-         self.arrayMiles = [dicReceived valueForKey:@"Miles"];
-         self.arrayPrice = [dicReceived valueForKey:@"Price"];
-         self.arrayStatus = [dicReceived valueForKey:@"Status"];
-         self.arraySenderID = [dicReceived valueForKey:@"senderId"];
-         self.arraySenderName  = [dicReceived valueForKey:@"senderName"];*/
-        
-        NSArray *arrayCouynt = [dicReceived valueForKey:@"LocationID"];
-        for(int i=0;i<arrayCouynt.count;i++){
-            [self.arrayLocationID  addObject:[[dicReceived valueForKey:@"LocationID"] objectAtIndex:i]];
-            [self.arrayLocationImage addObject:[[dicReceived valueForKey:@"LocationImage"]objectAtIndex:i]];
-            [self.arrayLocationName addObject:[[dicReceived valueForKey:@"LocationName"] objectAtIndex:i]];
-            [self.arrayMiles addObject:[[dicReceived valueForKey:@"Miles"] objectAtIndex:i]];
-            [self.arrayPrice addObject:[[dicReceived valueForKey:@"Price"] objectAtIndex:i]];
-            [self.arrayStatus addObject:[[dicReceived valueForKey:@"Status"] objectAtIndex:i]];
-            [self.arraySenderID addObject:[[dicReceived valueForKey:@"senderId"] objectAtIndex:i]];
-            [self.arraySenderName  addObject:[[dicReceived valueForKey:@"senderName"] objectAtIndex:i]];
-            [self.arrayCoupanNumber  addObject:[[dicReceived valueForKey:@"CoupanCode"] objectAtIndex:i]];
-            [self.arrayLongitude  addObject:[[dicReceived valueForKey:@"Latitude"] objectAtIndex:i]];
-            [self.arrayLatitude  addObject:[[dicReceived valueForKey:@"Longitude"] objectAtIndex:i]];
+        if(isLatLong){
+            isLatLong = NO;
+            //http://50.62.148.155:8080/heres2u/api/index.php?webservice=ui&action=getreceiveditems&ID=33&Page=1&Lat=-33.7501&Long=18.4533
+            
+            NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@index.php?webservice=ui&action=getreceiveditems&ID=%@&Page=%d&Lat=-%@&Long=%@",hostURl,uId,ReceivedIndex,currentLat,currentLong]];
+            NSLog(@" : %@",url);
+            
+            [dicReceived removeAllObjects];
+            myparser = [[MyTabXmlParse alloc] initWithURL:url];
+            NSLog(@"dicReceived: %@",dicReceived);
+            
+            [self.arrayLocationID  removeAllObjects];
+            [self.arrayLocationImage removeAllObjects];
+            [self.arrayLocationName removeAllObjects];
+            [self.arrayMiles removeAllObjects];
+            [self.arrayPrice removeAllObjects];
+            [self.arrayStatus removeAllObjects];
+            [self.arraySenderID removeAllObjects];
+            [self.arraySenderName  removeAllObjects];
+            [self.arrayCoupanNumber  removeAllObjects];
+            [self.arrayLongitude  removeAllObjects];
+            [self.arrayLatitude  removeAllObjects];
+            
+            NSArray *arrayCouynt = [dicReceived valueForKey:@"LocationID"];
+            for(int i=0;i<arrayCouynt.count;i++){
+                //    NSLog(@"arrayTransactionsID : %@",myparser.arrayTransactionsID);
+                //    self.arrayTransactionsID = myparser.arrayTransactionsID;
+                [self.arrayLocationID  addObject:[[dicReceived valueForKey:@"LocationID"] objectAtIndex:i]];
+                [self.arrayLocationImage addObject:[[dicReceived valueForKey:@"LocationImage"]objectAtIndex:i]];
+                [self.arrayLocationName addObject:[[dicReceived valueForKey:@"LocationName"] objectAtIndex:i]];
+                [self.arrayMiles addObject:[[dicReceived valueForKey:@"Miles"] objectAtIndex:i]];
+                [self.arrayPrice addObject:[[dicReceived valueForKey:@"Price"] objectAtIndex:i]];
+                [self.arrayStatus addObject:[[dicReceived valueForKey:@"Status"] objectAtIndex:i]];
+                [self.arraySenderID addObject:[[dicReceived valueForKey:@"senderId"] objectAtIndex:i]];
+                [self.arraySenderName  addObject:[[dicReceived valueForKey:@"senderName"] objectAtIndex:i]];
+                [self.arrayCoupanNumber  addObject:[[dicReceived valueForKey:@"CoupanCode"] objectAtIndex:i]];
+                [self.arrayLongitude  addObject:[[dicReceived valueForKey:@"Latitude"] objectAtIndex:i]];
+                [self.arrayLatitude  addObject:[[dicReceived valueForKey:@"Longitude"] objectAtIndex:i]];
+            }
+            [objTableView reloadData];
+            
+            if(dicReceived.count==0){
+                UIAlertView *alertReceived = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"No Data Found." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+                [alertReceived show];
+            }
         }
-        [objTableView reloadData];
-        
-        if(dicReceived.count==0){
-            UIAlertView *alertReceived = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"No Data Found." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
-            [alertReceived show];
+        else{
+            [self performSelector:@selector(callReceivedData) withObject:nil afterDelay:2.0];
         }
+
     }
-    else{
-        [self performSelector:@selector(callReceivedData) withObject:nil afterDelay:2.0];
+    @catch (NSException *exception) {
+        NSLog(@"exception : %@",exception);
     }
-    
 }
 
 -(IBAction)goToProfile:(id)sender {
@@ -249,14 +269,14 @@
             
             //dictTransaction
             NSLog(@"dicSent: %@",dicSent);
-            /*self.arrayLocationID1 = [dicSent valueForKey:@"LocationID"];
-             self.arrayLocationImage1 = [dicSent valueForKey:@"LocationImage"];
-             self.arrayLocationName1 = [dicSent valueForKey:@"LocationName"];
-             self.arrayMiles1 = [dicSent valueForKey:@"Miles"];
-             self.arrayPrice1 = [dicSent valueForKey:@"Price"];
-             self.arrayStatus1 = [dicSent valueForKey:@"Status"];
-             self.arraySenderID1 = [dicSent valueForKey:@"senderId"];
-             self.arraySenderName1 = [dicSent valueForKey:@"senderName"];*/
+            [self.arrayLocationID1  removeAllObjects];
+            [self.arrayLocationImage1 removeAllObjects];
+            [self.arrayLocationName1 removeAllObjects];
+            [self.arrayMiles1 removeAllObjects];
+            [self.arrayPrice1 removeAllObjects];
+            [self.arrayStatus1 removeAllObjects];
+            [self.arraySenderID1 removeAllObjects];
+            [self.arraySenderName1  removeAllObjects];
             
             NSLog(@"count : %d",dicSent.count);
             NSArray *arrayCouynt = [dicSent valueForKey:@"LocationID"];
@@ -306,7 +326,7 @@
              self.arraySenderID2 = [dicUsed valueForKey:@"senderId"];
              self.arraySenderName2 = [dicUsed valueForKey:@"senderName"];*/
             
-            [self.arrayTransactionsID removeAllObjects];
+            [self.arrayTransactionsID2 removeAllObjects];
             [self.arrayLocationID2  removeAllObjects];
             [self.arrayLocationImage2  removeAllObjects];
             [self.arrayLocationName2  removeAllObjects];
@@ -382,15 +402,88 @@
     [(UIScrollView *)self.view setContentSize:CGSizeMake(320, ([items count]*85))];
     // NSLog(@"%i",([Profile.Feeds count]*166));
 }
+
+
+#pragma mark -
+#pragma mark Data Source Loading / Reloading Methods
+
+- (void)reloadTableViewDataSource{
+	
+	//  should be calling your tableviews data source model to reload
+	//  put here just for demo
+	_reloading = YES;
+   
+    if(selectedSegment==0){
+        [self performSelector:@selector(callReceivedData) withObject:nil afterDelay:2.0];
+    }
+    else if (selectedSegment==1 || selectedSegment==2){
+        if(selectedSegment==1){
+            isSent=NO;
+        }
+        else{
+            isUsed=NO;
+        }
+        [self segmentControlChanged];
+    }
+   
+	
+}
+
+- (void)doneLoadingTableViewData{
+	
+	//  model should call this when its done loading
+	_reloading = NO;
+	[_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:objTableView];
+	
+}
+
+
+#pragma mark -
+#pragma mark UIScrollViewDelegate Methods
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+	
+	[_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
+    
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+	
+	[_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
+	
+}
+
+
+#pragma mark -
+#pragma mark EGORefreshTableHeaderDelegate Methods
+
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
+	
+	[self reloadTableViewDataSource];
+	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:5.0];
+	
+}
+
+- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view{
+	
+	return _reloading; // should return if data source model is reloading
+	
+}
+
+- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
+	
+	return [NSDate date]; // should return date data source was last changed
+	
+}
+
+
+
+
 #pragma mark - CLLocationManagerDelegate
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
     NSLog(@"didFailWithError: %@", error);
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"MAP" message:@"Select your location and press it for 4 second." delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-    [alert show];
-    
     
     
     UIAlertView *errorAlert = [[UIAlertView alloc]
@@ -514,7 +607,6 @@
 -(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
     if (error) {
         NSLog(@"Error");
-        
     } else {
         NSLog(@"Success");
         [self dismissViewControllerAnimated:YES completion:nil];
@@ -741,7 +833,6 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Say Thanks",@"File a Complaint", nil];
         alert.tag=3;
         [alert show];
-        
     }
     @catch (NSException *exception) {
         
@@ -749,7 +840,7 @@
 }
 
 
-
+///http://50.62.148.155:8080/heres2u/api/addtransactionrequest.php?sendingUserID=24&receivingUserID=33&chargeAmount=5.5&creditTransID=1&locationID=1
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     @try {
         NSLog(@"btnIndex : %d",buttonIndex);

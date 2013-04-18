@@ -22,7 +22,9 @@
         NSString *Items=[[NSString alloc] initWithContentsOfURL:parseURL encoding:NSUTF8StringEncoding error:nil];
         NSXMLParser *nsXmlParser=[[NSXMLParser alloc] initWithData:[Items dataUsingEncoding:NSUTF8StringEncoding]];
       
-        dicReceived = [[NSMutableDictionary alloc] init];
+        if(!dicReceived){
+            dicReceived = [[NSMutableDictionary alloc] init];
+        }
         
         strMutableElement = [[NSMutableString alloc] init];
        
@@ -46,14 +48,15 @@
         BOOL success = [nsXmlParser parse];
         // test the result
         if (success) {
-            
+            NSLog(@"success.");
+            return (id)dicReceived;
         } else {
             NSLog(@"Error parsing document!");
         }
     
     }
     @catch (NSException *exception) {
-        
+        NSLog(@"exception : %@",exception);
     }
 }
 
@@ -107,8 +110,17 @@
 -(void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string{
     @try {
         NSLog(@"foundCharacters string : %@",string);
+        string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        NSLog(@"foundCharacters string : %@",string);
+        if(!string || [string isEqualToString:@""] || [string isEqualToString:@" "] || string==NULL || string==nil || string==Nil){
+            strMutableElement = [NSString stringWithFormat:@"No Data"];
+        }
         strMutableElement = [string copy];
-
+        NSLog(@"strMutableElement.length :%d",strMutableElement.length);
+//        if([strMutableElement isEqualToString:@" "]){
+//            strMutableElement = [NSString stringWithFormat:@"No Data"];
+//        }
+        
         if(isTransactionsID){
             [self.arrayTransactionsID addObject:[NSString stringWithFormat:@"%@",strMutableElement]];
             NSLog(@"arrayTransactionsID : %@",self.arrayTransactionsID);
@@ -146,10 +158,18 @@
             NSLog(@"arrayStatus : %@",arrayStatus);
         }
         else if(isLatitude){
+            NSLog(@"strMutableElement : %@",strMutableElement);
+            if([strMutableElement isEqualToString:@""]){
+                strMutableElement = [NSString stringWithFormat:@"00.0000"];
+            }
             [self.arrayLatitude addObject:[NSString stringWithFormat:@"%@",strMutableElement]];
             NSLog(@"arrayLatitude : %@",arrayLatitude);
         }
         else if(isLongitude){
+            NSLog(@"strMutableElement : %@",strMutableElement);
+            if([strMutableElement isEqualToString:@""]){
+                strMutableElement = [NSString stringWithFormat:@"00.0000"];
+            }
             [self.arrayLongitude addObject:[NSString stringWithFormat:@"%@",strMutableElement]];
             NSLog(@"arrayLongitude : %@",arrayLongitude);
         }
@@ -161,7 +181,7 @@
 
     }
     @catch (NSException *exception) {
-        
+        NSLog(@"exception : %@",exception);
     }
 }
 
@@ -215,13 +235,10 @@
             isCoupancode = NO;
             [dicReceived setValue:self.arrayCoupancode forKey:@"CoupanCode"];
         }
-        
-
-
-        
+    
     }
     @catch (NSException *exception) {
-        
+        NSLog(@"exception : %@",exception);
     }
 }
 
