@@ -23,7 +23,7 @@
         UIBarButtonItem *Flexiblity=[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
         Register=[[UIBarButtonItem alloc] initWithTitle:@"Register" style:UIBarButtonItemStyleBordered target:self action:nil];
         NSArray *TBButtons=[[NSArray alloc] initWithObjects:BackButton,Flexiblity,Register, nil];
-        [NavigationBar setItems:TBButtons];
+        [NavigationBar setItems:TBButtons]; 
         AccessoryView=[[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
         [AccessoryView setTintColor:[UIColor grayColor]];
         UIBarButtonItem *BtnDone=[[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(dismissKeyboard:)];

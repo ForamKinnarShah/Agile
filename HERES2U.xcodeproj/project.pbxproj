@@ -32,6 +32,9 @@
 		20AD13C316D1106300F0AE6E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20AD13C216D1106300F0AE6E /* CoreData.framework */; };
 		6F815F33171429F400447C25 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F815F32171429F400447C25 /* Reachability.m */; };
 		6F815F3517142BB300447C25 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F815F3417142BB300447C25 /* SystemConfiguration.framework */; };
+		6FC50969171FE61D003CA7FC /* LostPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC50967171FE61D003CA7FC /* LostPasswordVC.m */; };
+		6FC5096A171FE61D003CA7FC /* LostPasswordVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FC50968171FE61D003CA7FC /* LostPasswordVC.xib */; };
+		6FC5096E17202886003CA7FC /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC5096D17202886003CA7FC /* MBProgressHUD.m */; };
 		7AA005C61709FFF300923E9B /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA005C51709FFF300923E9B /* FacebookSDK.framework */; };
 		7AA005CA170A002100923E9B /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA005C7170A002100923E9B /* Accounts.framework */; };
 		7AA005CB170A002100923E9B /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA005C8170A002100923E9B /* AdSupport.framework */; };
@@ -210,6 +213,11 @@
 		6F815F31171429F400447C25 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		6F815F32171429F400447C25 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		6F815F3417142BB300447C25 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		6FC50966171FE61D003CA7FC /* LostPasswordVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LostPasswordVC.h; sourceTree = "<group>"; };
+		6FC50967171FE61D003CA7FC /* LostPasswordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LostPasswordVC.m; sourceTree = "<group>"; };
+		6FC50968171FE61D003CA7FC /* LostPasswordVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LostPasswordVC.xib; sourceTree = "<group>"; };
+		6FC5096C17202886003CA7FC /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		6FC5096D17202886003CA7FC /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		7AA005C51709FFF300923E9B /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		7AA005C7170A002100923E9B /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		7AA005C8170A002100923E9B /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
@@ -480,6 +488,36 @@
 			name = "Pulldown images";
 			sourceTree = "<group>";
 		};
+		6FC50964171FE594003CA7FC /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				7AA1964D1712B15C001F7A40 /* LoginView.xib */,
+				7AA1964E1712B15C001F7A40 /* LoginViewController.h */,
+				7AA1964F1712B15C001F7A40 /* LoginViewController.m */,
+				7AA196501712B15C001F7A40 /* LoginViewController.xib */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		6FC50965171FE5CF003CA7FC /* Lost Password */ = {
+			isa = PBXGroup;
+			children = (
+				6FC50966171FE61D003CA7FC /* LostPasswordVC.h */,
+				6FC50967171FE61D003CA7FC /* LostPasswordVC.m */,
+				6FC50968171FE61D003CA7FC /* LostPasswordVC.xib */,
+			);
+			name = "Lost Password";
+			sourceTree = "<group>";
+		};
+		6FC5096B17202885003CA7FC /* HUD */ = {
+			isa = PBXGroup;
+			children = (
+				6FC5096C17202886003CA7FC /* MBProgressHUD.h */,
+				6FC5096D17202886003CA7FC /* MBProgressHUD.m */,
+			);
+			path = HUD;
+			sourceTree = "<group>";
+		};
 		7AA1959D1712B15B001F7A40 /* FollowersFollowing */ = {
 			isa = PBXGroup;
 			children = (
@@ -678,6 +716,8 @@
 		7AA196201712B15C001F7A40 /* viewController */ = {
 			isa = PBXGroup;
 			children = (
+				6FC50965171FE5CF003CA7FC /* Lost Password */,
+				6FC50964171FE594003CA7FC /* Login */,
 				7AA196211712B15C001F7A40 /* checkin */,
 				7ABD92D1171B7268001D10DE /* addCreditCardViewController.h */,
 				7ABD92D2171B7268001D10DE /* addCreditCardViewController.m */,
@@ -688,10 +728,6 @@
 				7AA1962E1712B15C001F7A40 /* Empty.xib */,
 				7AA1962F1712B15C001F7A40 /* Feed */,
 				7AA196391712B15C001F7A40 /* heres2u */,
-				7AA1964D1712B15C001F7A40 /* LoginView.xib */,
-				7AA1964E1712B15C001F7A40 /* LoginViewController.h */,
-				7AA1964F1712B15C001F7A40 /* LoginViewController.m */,
-				7AA196501712B15C001F7A40 /* LoginViewController.xib */,
 				7AA196541712B15C001F7A40 /* mytab */,
 				134AB79B171D4E2700F179E4 /* ReceiptViewController */,
 				7AA1965B1712B15C001F7A40 /* profile */,
@@ -806,6 +842,7 @@
 		DAF870BD16671F0000747CDA = {
 			isa = PBXGroup;
 			children = (
+				6FC5096B17202885003CA7FC /* HUD */,
 				7ABD92E3171FBC9D001D10DE /* AddressBook.framework */,
 				7ABD92E4171FBC9E001D10DE /* AddressBookUI.framework */,
 				134E4C28171E736700257321 /* PulltoRefresh */,
@@ -1058,6 +1095,7 @@
 				134E4C3B171E7E2600257321 /* grayArrow@2x.png in Resources */,
 				134E4C3C171E7E2600257321 /* whiteArrow.png in Resources */,
 				134E4C3D171E7E2600257321 /* whiteArrow@2x.png in Resources */,
+				6FC5096A171FE61D003CA7FC /* LostPasswordVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1150,6 +1188,8 @@
 				134AB79E171D59D800F179E4 /* MyTabXmlParse.m in Sources */,
 				134AB7F1171D6E2F00F179E4 /* SayThanksXML.m in Sources */,
 				134E4C2C171E737900257321 /* EGORefreshTableHeaderView.m in Sources */,
+				6FC50969171FE61D003CA7FC /* LostPasswordVC.m in Sources */,
+				6FC5096E17202886003CA7FC /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1249,8 +1289,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Brian Rosa (J35L3P43JL)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Brian Rosa (J35L3P43JL)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/FacebookSDK\"",
@@ -1264,8 +1304,8 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "F351B90D-9584-447E-AC5A-2430E83370F1";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F351B90D-9584-447E-AC5A-2430E83370F1";
+				PROVISIONING_PROFILE = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1274,8 +1314,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Brian Rosa (J35L3P43JL)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Brian Rosa (J35L3P43JL)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/FacebookSDK\"",
@@ -1289,8 +1329,8 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "F351B90D-9584-447E-AC5A-2430E83370F1";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F351B90D-9584-447E-AC5A-2430E83370F1";
+				PROVISIONING_PROFILE = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -14,6 +14,8 @@
 
 +(void) RegisterUser:(NSString *)email Password:(NSString *)password ProfilePicture:(UIImage *)profilepicture Phone:(NSString *)phone DateOfBirth:(NSString *)dob Name:(NSString *)name ZipCode:(NSString *)zip CallBackDelegate:(id)Delegate;
 +(void) Login:(NSString *)email Password:(NSString *)password Delegate:(id) Delegate;
++(void) LostPassword:(NSString *)email Delegate:(id) Delegate;
+
 @end
 //NSTaggedURLConnection *RegisterConnection;
 //typedef enum NSInteger NSUserAccessControlRequestType;

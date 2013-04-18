@@ -23,7 +23,8 @@
     }
     return self;
 }
--(void) RegistrationButtonPressed{
+-(void) RegistrationButtonPressed
+{
     //NSUserAccessControl *RR=[[NSUserAccessControl alloc] init];
     NSDateFormatter *format=[[NSDateFormatter alloc] init];
     [format setDateFormat:@"MM/dd/yyyy"];
@@ -41,7 +42,6 @@
             return;
         }
     }
-    
     [NSUserAccessControl RegisterUser:[form.Email text]  Password:[form.Password text] ProfilePicture:[form currentProfilePicture] Phone:[form.Phone text] DateOfBirth:DOB Name:[form.Name text] ZipCode:[form.ZipCode text] CallBackDelegate:self];
 }
 -(void) registrationDidBegin:(NSTaggedURLConnection *)connection{

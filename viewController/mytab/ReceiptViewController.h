@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ReceiptViewController : UIViewController
+@interface ReceiptViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>{
+    
+    IBOutlet UITableView *objTableView;
+}
+
+@property(nonatomic,retain)NSMutableArray *arrayData;
 
 @end

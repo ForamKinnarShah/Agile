@@ -13,6 +13,7 @@
 #import "CheckinViewController.h"
 #import "Heres2uViewController.h"
 #import "utilities.h"
+#import "LostPasswordVC.h"
 
 @interface LoginViewController ()
 
@@ -77,6 +78,12 @@
     [UIBlocker startUIBlockerInView:self.view];
     //[self presentViewController:tab animated:NO completion:NULL];
     [NSUserAccessControl Login:usrname.text Password:pass.text Delegate:self];
+}
+
+- (IBAction)LostPassword:(id)sender
+{
+    LostPasswordVC *lpvc = [[LostPasswordVC alloc] initWithNibName:@"LostPasswordVC" bundle:nil];
+    [self presentViewController:lpvc animated:YES completion:nil];
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -242,9 +249,9 @@
     
     NSLog(@"Response String ==-========================================================================================================================================================== %@",s);
     
-    
     //  -----Completion of notification
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
 @end

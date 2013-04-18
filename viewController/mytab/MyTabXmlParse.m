@@ -28,6 +28,7 @@
         
         strMutableElement = [[NSMutableString alloc] init];
        
+        self.arrayTransactionsID = [[NSMutableArray alloc] init];
         self.arrayData = [[NSMutableArray alloc] init];
         self.arrayLocationID = [[NSMutableArray alloc] init];
         self.arrayLocationImage = [[NSMutableArray alloc] init];
@@ -37,7 +38,6 @@
         self.arraySenderID = [[NSMutableArray alloc] init];
         self.arraySenderName = [[NSMutableArray alloc] init];
         self.arrayStatus = [[NSMutableArray alloc] init];
-        self.arrayTransactionsID = [[NSMutableArray alloc] init];
         self.arrayCoupancode = [[NSMutableArray alloc] init];
         self.arrayLatitude = [[NSMutableArray alloc] init];
         self.arrayLongitude = [[NSMutableArray alloc] init];

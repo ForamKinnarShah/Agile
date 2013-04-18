@@ -85,6 +85,29 @@
     [Connection setCallBackDelegate:Delegate];
     [Connection setTag:NSUserAccessControlTypeLoginUser];
 }
+
++(void) LostPassword:(NSString *)email Delegate:(id) Delegate
+{
+//    NSMutableData *POSTData=[[NSMutableData alloc] init];
+//    NSString *Boundary=@"-------435543efdg43r32efdtwe465464";
+//    [POSTData appendData:[@"--" dataUsingEncoding:NSUTF8StringEncoding]];
+//    [POSTData appendData:[Boundary dataUsingEncoding:NSUTF8StringEncoding]];
+//    [POSTData appendData:[@"\r\nContent-Disposition:form-data;name=\"email\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+//    [POSTData appendData:[email dataUsingEncoding:NSUTF8StringEncoding]];
+//    [POSTData appendData:[@"\r\n--" dataUsingEncoding:NSUTF8StringEncoding]];
+//    [POSTData appendData:[Boundary dataUsingEncoding:NSUTF8StringEncoding]];
+//    [POSTData appendData:[@"--\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+//    NSURL *URL=[NSURL URLWithString:[NSString stringWithFormat:@"%@?webservice=lostpassword",[NSGlobalConfiguration URL]]];
+//    NSMutableURLRequest *Request=[[NSMutableURLRequest alloc] initWithURL:URL];
+//    [Request setHTTPBody:POSTData];
+//    [Request setHTTPMethod:@"POST"];
+//    [Request setValue:[NSString stringWithFormat:@"multipart/form-data;boundary=%@",Boundary] forHTTPHeaderField:@"Content-Type"];
+//    [Request setValue:[NSString stringWithFormat:@"%i",[POSTData length]] forHTTPHeaderField:@"Content-Length"];
+//    NSTaggedURLConnection *Connection=[[NSTaggedURLConnection alloc] initWithRequest:Request delegate:self];
+//    [Connection setCallBackDelegate:Delegate];
+//    [Connection setTag:NSUserAccessControlTypeLoginUser];
+}
+
 +(void) connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite{
     NSTaggedURLConnection *taggedconnection=(NSTaggedURLConnection *)connection;
     if([taggedconnection tag]==NSUserAccessControlTypeRegisterUser){

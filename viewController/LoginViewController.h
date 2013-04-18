@@ -15,6 +15,7 @@
     utilities *UIBlocker; 
 }
 -(IBAction)login:(id)sender;
+- (IBAction)LostPassword:(id)sender;
 
 @property (strong, nonatomic) IBOutlet UITextField *usrname;
 @property (strong, nonatomic) IBOutlet UITextField *pass;

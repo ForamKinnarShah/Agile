@@ -20,6 +20,7 @@
 #import <MessageUI/MessageUI.h>
 #import "AppDelegate.h"
 #import "EGORefreshTableHeaderView.h"
+#import "MBProgressHUD.h"
 
 
 
@@ -111,6 +112,8 @@
 @property(nonatomic,retain)NSMutableArray *arrayPrice2;
 @property(nonatomic,retain)NSMutableArray *arrayStatus2;
 @property(nonatomic,retain)NSMutableArray *arraySayThanks2;
+
+@property(nonatomic,retain)MBProgressHUD *HUD;
 
 
 //method

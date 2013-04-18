@@ -69,8 +69,8 @@
     checkin.navigationController.navigationBar.topItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:centerImageName]];
 
     checkin.delegate = self;
-    [self.navigationController pushViewController:checkin animated:YES];
-   // [self presentViewController:checkin animated:NO completion:NULL];
+   // [self.navigationController pushViewController:checkin animated:YES];
+    [self presentViewController:checkin animated:NO completion:NULL];
     [[[UIAlertView alloc] initWithTitle:@"Select Restaurant" message:@"Please choose a restaurant at which to buy your gift!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show]; 
     _senderNumber = sender.tag; 
 //    menuViewController *menu = [[menuViewController alloc] initWithNibName:@"menuViewController" bundle:nil];

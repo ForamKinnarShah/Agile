@@ -15,8 +15,15 @@
 -(id)initWithURL:(NSURL*)parseURL{
     @try {
         NSLog(@"parseURL : %@",parseURL);
+//        NSString *Items=[[NSString alloc] initWithContentsOfURL:parseURL encoding:NSUTF8StringEncoding error:nil];
+//        NSLog(@"items %@",Items);
+//        NSData *xmlData = [[NSData alloc] initWithContentsOfURL:parseURL];
+//        NSXMLParser *nsXmlParser=[[NSXMLParser alloc] initWithData:xmlData];
+//        NSXMLParser *nsXmlParser=[[NSXMLParser alloc] initWithData:[Items dataUsingEncoding:NSUTF8StringEncoding]];
+        
         NSString *Items=[[NSString alloc] initWithContentsOfURL:parseURL encoding:NSUTF8StringEncoding error:nil];
-        NSXMLParser *nsXmlParser=[[NSXMLParser alloc] initWithData:[Items dataUsingEncoding:NSUTF8StringEncoding]];
+        NSData *xmlData = [[Items stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] dataUsingEncoding:NSUTF8StringEncoding];
+        NSXMLParser *nsXmlParser=[[NSXMLParser alloc] initWithData:xmlData];
         
         dicSayThanks = [[NSMutableDictionary alloc] init];        
         strMutableElement = [[NSMutableString alloc] init];
@@ -30,7 +37,7 @@
         if (success) {
             NSLog(@"success.");
             return (id)dicSayThanks;
-        } else {
+        } else {    
             NSLog(@"Error parsing document!");
         }
     }
@@ -42,7 +49,7 @@
 -(void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict{
     @try {
         NSLog(@"didStartElement elementName : %@",elementName);
-        if([elementName isEqualToString:@"SuccessMessage"]){
+        if([elementName isEqualToString:@"successmessage"]){
             isSayThanks = YES;
         }
     }
@@ -75,6 +82,10 @@
     @catch (NSException *exception) {
         
     }
+}
+
+- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
+    NSLog(@"%@",[parseError description]);
 }
 
 @end

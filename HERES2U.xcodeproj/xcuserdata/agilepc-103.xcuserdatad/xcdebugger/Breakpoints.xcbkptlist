@@ -18,25 +18,12 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "viewController/LoginViewController.m"
-         timestampString = "387783122.016351"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "84"
-         endingLineNumber = "84"
-         landmarkName = "-login:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "NSUserAccessControl/NSUserAccessControl.m"
-         timestampString = "387783808.816534"
+         timestampString = "387974929.473528"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "106"
-         endingLineNumber = "106"
+         startingLineNumber = "129"
+         endingLineNumber = "129"
          landmarkName = "+connection:didFailWithError:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -45,11 +32,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "NSUserAccessControl/NSUserAccessControl.m"
-         timestampString = "387785032.683193"
+         timestampString = "387974929.473528"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "214"
-         endingLineNumber = "214"
+         startingLineNumber = "237"
+         endingLineNumber = "237"
          landmarkName = "+parser:validationErrorOccurred:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -58,37 +45,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "NSUserAccessControl/NSUserAccessControl.m"
-         timestampString = "387785032.683193"
+         timestampString = "387974929.473528"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "199"
-         endingLineNumber = "199"
-         landmarkName = "+parser:foundCharacters:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "NSUserAccessControl/NSUserAccessControl.m"
-         timestampString = "387784562.79242"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "146"
-         endingLineNumber = "146"
-         landmarkName = "+parserDidEndDocument:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "NSUserAccessControl/NSUserAccessControl.m"
-         timestampString = "387784564.757535"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "139"
-         endingLineNumber = "139"
+         startingLineNumber = "162"
+         endingLineNumber = "162"
          landmarkName = "+connection:canAuthenticateAgainstProtectionSpace:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -97,11 +58,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "NSUserAccessControl/NSUserAccessControl.m"
-         timestampString = "387784567.093565"
+         timestampString = "387974929.473528"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "135"
-         endingLineNumber = "135"
+         startingLineNumber = "158"
+         endingLineNumber = "158"
          landmarkName = "+connection:didReceiveAuthenticationChallenge:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -109,26 +70,13 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "NSUserAccessControl/NSUserAccessControl.m"
-         timestampString = "387785026.162087"
+         filePath = "viewController/LoginViewController.m"
+         timestampString = "387979657.641843"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "188"
-         endingLineNumber = "188"
-         landmarkName = "+parser:foundCharacters:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "NSGlobalConfiguration.m"
-         timestampString = "387785199.900289"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "18"
-         endingLineNumber = "18"
-         landmarkName = "+setConfigurationItem:Item:"
+         startingLineNumber = "139"
+         endingLineNumber = "139"
+         landmarkName = "-loggingInSucceeded:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

@@ -24,6 +24,7 @@
         
         strMutableElement = [[NSMutableString alloc] init];
         
+        self.arrayTransactionsID = [[NSMutableArray alloc] init];
         self.arrayData = [[NSMutableArray alloc] init];
         self.arrayLocationID = [[NSMutableArray alloc] init];
         self.arrayLocationImage = [[NSMutableArray alloc] init];
@@ -33,7 +34,7 @@
         self.arraySenderID = [[NSMutableArray alloc] init];
         self.arraySenderName = [[NSMutableArray alloc] init];
         self.arrayStatus = [[NSMutableArray alloc] init];
-        self.arrayTransactionsID = [[NSMutableArray alloc] init];
+        
         
         
         // set delegate
@@ -57,7 +58,7 @@
 -(void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict{
     @try {
         NSLog(@"didStartElement elementName : %@",elementName);
-        if([elementName isEqualToString:@"Transaction"]){
+        if([elementName isEqualToString:@"TransactionID"]){
             isTransactionsID = YES;
         }
         else if([elementName isEqualToString:@"LocationID"]){
@@ -94,8 +95,17 @@
     @try {
         NSLog(@"foundCharacters string : %@",string);
         strMutableElement = [string copy];
-        
-        if(isLocationID){
+/*        string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        if(!string || [string isEqualToString:@""] || [string isEqualToString:@" "] || string==NULL || string==nil || string==Nil || strMutableElement.length==0){
+            strMutableElement = [NSString stringWithFormat:@"No Data"];
+        }
+        strMutableElement = [string copy];*/
+               
+        if(isTransactionsID){
+            [self.arrayTransactionsID addObject:[NSString stringWithFormat:@"%@",strMutableElement]];
+            NSLog(@"arrayTransactionsID : %@",self.arrayTransactionsID);
+        }
+        else if(isLocationID){
             [arrayLocationID addObject:[NSString stringWithFormat:@"%@",strMutableElement]];
             NSLog(@"arrayLocationID : %@",arrayLocationID);
         }
@@ -135,7 +145,11 @@
 
 -(void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName{
     @try {
-        if(isLocationID){
+        if(isTransactionsID){
+            isTransactionsID = NO;
+            [dicSent setValue:self.arrayTransactionsID forKey:@"TransactionsID"];
+        }
+        else if(isLocationID){
             isLocationID = NO;
             [dicSent setValue:arrayLocationID forKey:@"LocationID"];
         }
