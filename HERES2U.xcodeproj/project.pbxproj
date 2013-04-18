@@ -137,8 +137,6 @@
 		7AA196D11712B15C001F7A40 /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA1964D1712B15C001F7A40 /* LoginView.xib */; };
 		7AA196D21712B15C001F7A40 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA1964F1712B15C001F7A40 /* LoginViewController.m */; };
 		7AA196D31712B15C001F7A40 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA196501712B15C001F7A40 /* LoginViewController.xib */; };
-		7AA196D41712B15C001F7A40 /* mainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA196521712B15C001F7A40 /* mainViewController.m */; };
-		7AA196D51712B15C001F7A40 /* mainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA196531712B15C001F7A40 /* mainViewController.xib */; };
 		7AA196D81712B15C001F7A40 /* orderItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA196591712B15C001F7A40 /* orderItemView.m */; };
 		7AA196D91712B15C001F7A40 /* orderItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA1965A1712B15C001F7A40 /* orderItemView.xib */; };
 		7AA196DA1712B15C001F7A40 /* ProfileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA1965C1712B15C001F7A40 /* ProfileView.xib */; };
@@ -155,6 +153,8 @@
 		7AA196E51712B15C001F7A40 /* UICommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA1966D1712B15C001F7A40 /* UICommentView.xib */; };
 		7ABD92D4171B7268001D10DE /* addCreditCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABD92D2171B7268001D10DE /* addCreditCardViewController.m */; };
 		7ABD92D5171B7268001D10DE /* addCreditCardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ABD92D3171B7268001D10DE /* addCreditCardViewController.xib */; };
+		7ABD92E1171F75BD001D10DE /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ABD92DF171F75BB001D10DE /* AddressBook.framework */; };
+		7ABD92E2171F75BD001D10DE /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ABD92E0171F75BC001D10DE /* AddressBookUI.framework */; };
 		DAF870CD16671F0000747CDA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAF870CC16671F0000747CDA /* UIKit.framework */; };
 		DAF870CF16671F0000747CDA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAF870CE16671F0000747CDA /* Foundation.framework */; };
 		DAF870D116671F0000747CDA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAF870D016671F0000747CDA /* CoreGraphics.framework */; };
@@ -372,9 +372,6 @@
 		7AA1964E1712B15C001F7A40 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		7AA1964F1712B15C001F7A40 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		7AA196501712B15C001F7A40 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
-		7AA196511712B15C001F7A40 /* mainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mainViewController.h; sourceTree = "<group>"; };
-		7AA196521712B15C001F7A40 /* mainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mainViewController.m; sourceTree = "<group>"; };
-		7AA196531712B15C001F7A40 /* mainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mainViewController.xib; sourceTree = "<group>"; };
 		7AA196581712B15C001F7A40 /* orderItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = orderItemView.h; sourceTree = "<group>"; };
 		7AA196591712B15C001F7A40 /* orderItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = orderItemView.m; sourceTree = "<group>"; };
 		7AA1965A1712B15C001F7A40 /* orderItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = orderItemView.xib; sourceTree = "<group>"; };
@@ -399,6 +396,12 @@
 		7ABD92D1171B7268001D10DE /* addCreditCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = addCreditCardViewController.h; sourceTree = "<group>"; };
 		7ABD92D2171B7268001D10DE /* addCreditCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = addCreditCardViewController.m; sourceTree = "<group>"; };
 		7ABD92D3171B7268001D10DE /* addCreditCardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = addCreditCardViewController.xib; sourceTree = "<group>"; };
+<<<<<<< Updated upstream
+=======
+		7ABD92D8171D9EC0001D10DE /* HERES2U.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = HERES2U.entitlements; sourceTree = "<group>"; };
+		7ABD92DF171F75BB001D10DE /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		7ABD92E0171F75BC001D10DE /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+>>>>>>> Stashed changes
 		DAF870C816671F0000747CDA /* HERES2U.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HERES2U.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAF870CC16671F0000747CDA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		DAF870CE16671F0000747CDA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -416,6 +419,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7ABD92E1171F75BD001D10DE /* AddressBook.framework in Frameworks */,
+				7ABD92E2171F75BD001D10DE /* AddressBookUI.framework in Frameworks */,
 				134AB790171D4D8E00F179E4 /* MessageUI.framework in Frameworks */,
 				134AB78D171D4D8800F179E4 /* CoreLocation.framework in Frameworks */,
 				6F815F3517142BB300447C25 /* SystemConfiguration.framework in Frameworks */,
@@ -691,9 +696,6 @@
 				7AA1964E1712B15C001F7A40 /* LoginViewController.h */,
 				7AA1964F1712B15C001F7A40 /* LoginViewController.m */,
 				7AA196501712B15C001F7A40 /* LoginViewController.xib */,
-				7AA196511712B15C001F7A40 /* mainViewController.h */,
-				7AA196521712B15C001F7A40 /* mainViewController.m */,
-				7AA196531712B15C001F7A40 /* mainViewController.xib */,
 				7AA196541712B15C001F7A40 /* mytab */,
 				134AB79B171D4E2700F179E4 /* ReceiptViewController */,
 				7AA1965B1712B15C001F7A40 /* profile */,
@@ -808,7 +810,12 @@
 		DAF870BD16671F0000747CDA = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< Updated upstream
 				134E4C28171E736700257321 /* PulltoRefresh */,
+=======
+				7ABD92DF171F75BB001D10DE /* AddressBook.framework */,
+				7ABD92E0171F75BC001D10DE /* AddressBookUI.framework */,
+>>>>>>> Stashed changes
 				134AB78F171D4D8E00F179E4 /* MessageUI.framework */,
 				134AB78C171D4D8800F179E4 /* CoreLocation.framework */,
 				6F815F3417142BB300447C25 /* SystemConfiguration.framework */,
@@ -1038,7 +1045,6 @@
 				7AA196D01712B15C001F7A40 /* sendViewController.xib in Resources */,
 				7AA196D11712B15C001F7A40 /* LoginView.xib in Resources */,
 				7AA196D31712B15C001F7A40 /* LoginViewController.xib in Resources */,
-				7AA196D51712B15C001F7A40 /* mainViewController.xib in Resources */,
 				7AA196D91712B15C001F7A40 /* orderItemView.xib in Resources */,
 				7AA196DA1712B15C001F7A40 /* ProfileView.xib in Resources */,
 				7AA196DC1712B15C001F7A40 /* registerViewController.xib in Resources */,
@@ -1135,7 +1141,6 @@
 				7AA196CD1712B15C001F7A40 /* paymentViewController.m in Sources */,
 				7AA196CF1712B15C001F7A40 /* sendViewController.m in Sources */,
 				7AA196D21712B15C001F7A40 /* LoginViewController.m in Sources */,
-				7AA196D41712B15C001F7A40 /* mainViewController.m in Sources */,
 				7AA196D81712B15C001F7A40 /* orderItemView.m in Sources */,
 				7AA196DB1712B15C001F7A40 /* ProfileViewController.m in Sources */,
 				7AA196DD1712B15C001F7A40 /* searchViewController.m in Sources */,
