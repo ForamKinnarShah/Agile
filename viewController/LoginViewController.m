@@ -74,7 +74,7 @@
 //    tab.viewControllers = [NSArray arrayWithObjects:feed,check,h2u,mytab,prof,nil];
      
     UIBlocker = [[utilities alloc] init];
-    [UIBlocker startUIBlockerInView:self.view];
+    [UIBlocker startUIBlockerInView:self.navigationController.view];
     //[self presentViewController:tab animated:NO completion:NULL];
     [NSUserAccessControl Login:usrname.text Password:pass.text Delegate:self];
 }
@@ -125,16 +125,20 @@
 {
     UIAlertView *Alert=[[UIAlertView alloc] initWithTitle:@"Warning" message:@"Invalid Email or Password" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     NSLog(@"error:%@",error.localizedDescription);
-    [UIBlocker stopUIBlockerInView:self.view];
+    [UIBlocker stopUIBlockerInView:self.navigationController.view];
     [Alert show];
 }
 
 -(void)loggingInSucceeded:(NSString *)message{
     [NSGlobalConfiguration setConfigurationItem:@"Email" Item:usrname.text];
     [NSGlobalConfiguration setConfigurationItem:@"Password" Item:pass.text];
+<<<<<<< Updated upstream
     [NSGlobalConfiguration setConfigurationItem:@"ID" Item:[AppDelegate sharedInstance].strUserID];
     
     [UIBlocker stopUIBlockerInView:self.view];
+=======
+    [UIBlocker stopUIBlockerInView:self.navigationController.view];
+>>>>>>> Stashed changes
     
     // -----------------------------Push Notification
 	
