@@ -14,7 +14,11 @@
     IBOutlet UIButton *fbButton;
     IBOutlet UIButton *emailButton;
     IBOutlet UIButton *SMSButton;
-    IBOutlet UITextField *messageTextField; 
+    IBOutlet UITextField *messageTextField;
+    IBOutlet UIButton *submitButton;
+    IBOutlet UIButton *buttonF;
+    IBOutlet UIButton *buttonT;
+    IBOutlet UIButton *buttonG; 
 }
 
 @end

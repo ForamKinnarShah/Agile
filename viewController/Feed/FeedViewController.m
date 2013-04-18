@@ -29,7 +29,6 @@
 }
 -(void) checkActivity{
     if([NSGlobalConfiguration getConfigurationItem:@"ID"]){
-       // [feedManager ]
         [feedManager getFeeds];
     }
 }
@@ -136,6 +135,17 @@ UIActionSheet *choose = [[UIActionSheet alloc] initWithTitle:@"Menu" delegate:se
 
 -(void) loadActivities{
     //NSLog(@"Loading Activity");
+    
+    if ([feedManager count] == 0)
+    {
+        defaultLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.origin.y, 300, 50)];
+        defaultLabel.text = @"You have no feed activity yet. Check-in somewhere or add some friends!";
+        [self.view addSubview:defaultLabel]; 
+    }
+    else{
+        [defaultLabel removeFromSuperview]; 
+    }
+    
     for(NSInteger i=0; i<[feedManager count];i++){
         UIActivityView *activity=[[UIActivityView alloc] initWithFrame:CGRectMake(0, (i*166), 320, 156)];
         NSDictionary *ItemData=[feedManager getFeedAtIndex:i];

@@ -30,6 +30,14 @@
     [self.navigationItem setHidesBackButton:YES]; 
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(goBackToHeres2U)]];
 
+    for (UIButton *button in [NSArray arrayWithObjects:fbButton,SMSButton,emailButton,buttonF,buttonT,buttonG, nil])
+    {
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
+        [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside]; 
+    }
+    
+    
 }
 
 -(void)goBackToHeres2U
@@ -53,10 +61,15 @@
     }
     else {
         [FBSession.activeSession openWithCompletionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
-            if (!error)
+            
+            if (FBSession.activeSession.isOpen)
             {
-                [self checkPostingRights];
+                [self checkPostingRights]; 
             }
+//            if (!error)
+//            {
+//                [self checkPostingRights];
+//            }
             else{
                 NSLog(@"could not open new session. error:%@",error.localizedDescription);
             }
@@ -137,4 +150,13 @@
     return YES; 
 }
 
+-(IBAction)buttonClicked:(UIButton*)sender
+{
+    [sender setSelected:YES]; 
+}
+
+-(IBAction)submitButtonClicked:(id)sender
+{
+    NSString *message = messageTextField.text;
+}
 @end

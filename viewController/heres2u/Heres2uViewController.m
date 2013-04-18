@@ -148,7 +148,7 @@
     else {
         
     for(NSInteger i=0; i<[friendItems count];i++){
-        heres2uitemView *friend=[[heres2uitemView alloc] initWithFrame:CGRectMake(10, (i*81), 320, 81)];
+        heres2uitemView *friend=[[heres2uitemView alloc] initWithFrame:CGRectMake(5, (i*81), 320, 81)];
         NSDictionary *ItemData=[friendItems objectAtIndex:i];
         friend.name.text = [ItemData objectForKey:@"FullName"];
         friend.tag = i;
