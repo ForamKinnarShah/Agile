@@ -53,48 +53,55 @@
 
 -(IBAction)FBButtonClicked:(id)sender
 {
-    //check whether session is open
-    if (FBSession.activeSession.isOpen)
-    {
-        NSLog(@"FB session open");
-        [self checkPostingRights];
+    //if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
+    if (FBSession.activeSession.isOpen){
+        // get friend details & display friend picker
+        if (![FBSession.activeSession.permissions containsObject:@"publish_actions"])
+        {
+            [FBSession.activeSession reauthorizeWithPublishPermissions:[NSArray arrayWithObjects:@"publish_actions",@"publish_stream",@"manage_friendlists", nil]
+                                                       defaultAudience:FBSessionDefaultAudienceFriends completionHandler:^(FBSession *session, NSError *error) {
+                                                           if (!error)
+                                                           {
+                                                               [self postToFB];
+                                                           }
+                                                           else {
+                                                               NSLog(@"error:%@",error);
+                                                           }
+                                                       }];
+        }
     }
     else {
-        [FBSession.activeSession openWithCompletionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+        // No, display the login page.
+        [FBSession openActiveSessionWithPublishPermissions:[NSArray arrayWithObject:@"publish_stream"] defaultAudience:FBSessionDefaultAudienceFriends allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
             
-            if (FBSession.activeSession.isOpen)
-            {
-                [self checkPostingRights]; 
+            if (!error){
+                [self postToFB];
             }
-//            if (!error)
-//            {
-//                [self checkPostingRights];
-//            }
-            else{
-                NSLog(@"could not open new session. error:%@",error.localizedDescription);
+            else {
+                NSLog(@"error:%@",error); 
             }
         }];
     }
 }
 
--(void)checkPostingRights
-{
-   if ([FBSession.activeSession.permissions containsObject:@"publish_stream"])
-   {
-       [self postToFB];
-   }
-   else {
-    
-       [FBSession.activeSession reauthorizeWithPublishPermissions:[NSArray arrayWithObject:@"publish_stream"] defaultAudience:FBSessionDefaultAudienceFriends completionHandler:^(FBSession *session, NSError *error) {
-           if (!error) {
-           [self postToFB];
-           }
-           else {
-               NSLog(@"authorizing publish permissions failed. error:%@",error.localizedDescription);
-           }
-       }];
-   }
-}
+//-(void)checkPostingRights
+//{
+//   if ([FBSession.activeSession.permissions containsObject:@"publish_stream"])
+//   {
+//       [self postToFB];
+//   }
+//   else {
+//    
+//       [FBSession.activeSession reauthorizeWithPublishPermissions:[NSArray arrayWithObject:@"publish_stream"] defaultAudience:FBSessionDefaultAudienceFriends completionHandler:^(FBSession *session, NSError *error) {
+//           if (!error) {
+//           [self postToFB];
+//           }
+//           else {
+//               NSLog(@"authorizing publish permissions failed. error:%@",error.localizedDescription);
+//           }
+//       }];
+//   }
+//}
 
 -(void)postToFB
 {
@@ -104,9 +111,9 @@
     
     NSMutableDictionary *postParams =
     [[NSMutableDictionary alloc] initWithObjectsAndKeys:
-     @"", @"link",
+     @"http://www.link.com", @"link",
      //thumbnail.image, @"source",
-     @"pictureURL",@"picture",
+     //@"pictureURL",@"picture",
      //@"Icon.png",@"picture",
      @"name", @"name",
      messageString, @"caption",
@@ -126,6 +133,7 @@
              alertText = [NSString stringWithFormat:
                           @"error: domain = %@, code = %d",
                           error.domain, error.code];
+             NSLog(@"error:%@",error); 
          } else {
              alertText = [NSString stringWithFormat:
                           @"Succesfully posted to wall!, id: %@",
@@ -142,6 +150,11 @@
           show];
      }];
   
+}
+
+-(void)feedDialog
+{
+    
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField

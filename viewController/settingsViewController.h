@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "NSGlobalConfiguration.h"
-@interface settingsViewController : UIViewController
+#import <MessageUI/MessageUI.h>
+
+@interface settingsViewController : UIViewController <MFMailComposeViewControllerDelegate>
+
+@property UITabBarController *tabBarC;
 
 -(IBAction)goToCreditCardInfoPage:(id)sender; 
 

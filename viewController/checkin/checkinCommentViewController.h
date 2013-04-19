@@ -10,7 +10,7 @@
 #import "UICheckIns.h"
 #import "NSGlobalConfiguration.h"
 #import "NSUserInterfaceCommands.h"
-@interface checkinCommentViewController : UIViewController<NSUserInterfaceCommandsProtocol>{
+@interface checkinCommentViewController : UIViewController<NSUserInterfaceCommandsProtocol, UITabBarControllerDelegate>{
     @private
     UICheckIns *Checkin;
 }
@@ -19,5 +19,6 @@
 @property (strong, nonatomic) IBOutlet UIButton *POSTButton;
 @property (strong, nonatomic) IBOutlet UILabel *lblTitle;
 @property (strong, nonatomic) IBOutlet UIButton *UserImage;
+@property UITabBarController *tabBar; 
 -(id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil Checkin:(UICheckIns *)checkin;
 @end

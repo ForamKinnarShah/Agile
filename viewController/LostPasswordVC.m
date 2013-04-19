@@ -7,7 +7,7 @@
 //
 
 #import "LostPasswordVC.h"
-
+#import "NSGlobalConfiguration.h"
 @interface LostPasswordVC ()
 
 @end
@@ -53,7 +53,15 @@
 
 - (IBAction)Submit:(id)sender
 {
-    [NSUserAccessControl LostPassword:_txtEmail.text Delegate:self];
+    //[NSUserAccessControl LostPassword:_txtEmail.text Delegate:self];
+    NSString *URLString = [[NSString stringWithFormat:@"%@resetpassword.php?Email=%@",[NSGlobalConfiguration URL],_txtEmail.text] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    NSURL *url = [[NSURL alloc] initWithString:URLString];
+    NSLog(@" : %@",url);
+    
+    NSString *response = [[NSString alloc] initWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+    NSLog(@"response:%@",response);
+    [_txtEmail resignFirstResponder]; 
 }
 
 #pragma mark
@@ -65,4 +73,9 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
 @end

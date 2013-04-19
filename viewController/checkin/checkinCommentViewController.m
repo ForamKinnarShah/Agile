@@ -7,6 +7,7 @@
 //
 
 #import "checkinCommentViewController.h"
+#import "FeedViewController.h" 
 
 @interface checkinCommentViewController ()
 
@@ -51,6 +52,10 @@
 -(void) userinterfaceCommandSucceeded:(NSString *)message{
     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Success" message:@"Successfully Checked In." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
+    [self.navigationController popViewControllerAnimated:YES]; 
+    NSLog(@"tabBarController:%@",self.tabBarController); 
+    //[[[self.navigationController.viewControllers objectAtIndex:0] tabBarController] setSelectedIndex:0];
+    [self.tabBar setSelectedIndex:0]; 
 }
 - (void)didReceiveMemoryWarning
 {

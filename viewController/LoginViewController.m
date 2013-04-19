@@ -74,8 +74,13 @@
     
 //    tab.viewControllers = [NSArray arrayWithObjects:feed,check,h2u,mytab,prof,nil];
      
-    UIBlocker = [[utilities alloc] init];
-    [UIBlocker startUIBlockerInView:self.view];
+    UIBlocker=[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    [UIBlocker setFrame:self.presentingViewController.view.frame];
+    [UIBlocker setBackgroundColor:[UIColor grayColor]];
+    [UIBlocker setAlpha:0.8];
+    [UIBlocker setHidesWhenStopped:YES];
+    [self.view addSubview:UIBlocker];
+    [UIBlocker startAnimating];
     //[self presentViewController:tab animated:NO completion:NULL];
     [NSUserAccessControl Login:usrname.text Password:pass.text Delegate:self];
 }
@@ -132,7 +137,7 @@
 {
     UIAlertView *Alert=[[UIAlertView alloc] initWithTitle:@"Warning" message:@"Invalid Email or Password" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     NSLog(@"error:%@",error.localizedDescription);
-    [UIBlocker stopUIBlockerInView:self.view];
+    [UIBlocker stopAnimating];
     [Alert show];
 }
 
@@ -141,7 +146,7 @@
     [NSGlobalConfiguration setConfigurationItem:@"Password" Item:pass.text];
     [NSGlobalConfiguration setConfigurationItem:@"ID" Item:[AppDelegate sharedInstance].strUserID];
     
-    [UIBlocker stopUIBlockerInView:self.view];
+    [UIBlocker stopAnimating];
     
     // -----------------------------Push Notification
 	

@@ -14,6 +14,8 @@
 
 @implementation searchViewController
 
+@synthesize selectedFriends;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -40,7 +42,7 @@
     //if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
     if (FBSession.activeSession.isOpen){
         // get friend details & display friend picker
-        if (![FBSession.activeSession.permissions containsObject:@"publish_stream"])
+        if (![FBSession.activeSession.permissions containsObject:@"publish_actions"])
         {
             [FBSession.activeSession reauthorizeWithPublishPermissions:[NSArray arrayWithObjects:@"publish_actions",@"publish_stream",@"manage_friendlists", nil] 
  defaultAudience:FBSessionDefaultAudienceFriends completionHandler:^(FBSession *session, NSError *error) {
@@ -98,18 +100,21 @@
 -(void)postToFriends
 {
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:@"Try out Heres2U!",@"name",
+                                                                      @"http://www.mylink.com",@"link",
+                                                                      @"This is a cool new app I'm trying out. You should try it too!",@"description",
+                                                                      @"caption here",@"caption",
                             nil];
     
     for (NSDictionary<FBGraphUser> *user in self.selectedFriends)
     {
         NSLog(@"postPath:%@/feed",user.id); 
-        [FBRequestConnection startWithGraphPath:[NSString stringWithFormat:@"%@/feed",user.id] parameters:params HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        [FBRequestConnection startWithGraphPath:[NSString stringWithFormat:@"/%@/feed",user.id] parameters:params HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
             if (!error)
             {
                 NSLog(@"post worked for user:%@",user.id); 
             }
             else {
-                NSLog(@"error:%@",error.localizedDescription); 
+                NSLog(@"error:%@",error);
             }
         }]; 
     }

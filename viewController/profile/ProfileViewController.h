@@ -33,6 +33,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *btnFollowBack;
 @property IBOutlet UIButton *defaultViewButton;
 @property utilities *UIBlocker; 
+@property UIView *SourceSelector;
 
 -(id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil ProfileID:(NSInteger) ID;
 @end

@@ -35,4 +35,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(IBAction)submitClicked:(id)sender
+{
+    MFMailComposeViewController *mf = [[MFMailComposeViewController alloc] init];
+    [mf setSubject:@"Request for new restaurant"];
+    NSMutableString *messageBody = [[NSMutableString alloc] init];
+    
+    for (UITextField *field in collection)
+    {
+        
+    }
+    //[mf setMessageBody:@" isHTML: ]
+}
 @end

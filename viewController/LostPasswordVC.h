@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "NSUserAccessControl.h"
 
-@interface LostPasswordVC : UIViewController
+@interface LostPasswordVC : UIViewController <UITextFieldDelegate>
 @property (strong, nonatomic) IBOutlet UITextField *txtEmail;
 - (IBAction)Submit:(id)sender;
 

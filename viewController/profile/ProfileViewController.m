@@ -18,7 +18,7 @@
 @end
 
 @implementation ProfileViewController
-@synthesize ProfilePicture,FollowButton,FollowersCount,FollowersRect,FollowingCount,btnFollowBack,FollowingRect,ImageLoader,UserName,ProSroll, defaultViewButton, UIBlocker;
+@synthesize ProfilePicture,FollowButton,FollowersCount,FollowersRect,FollowingCount,btnFollowBack,FollowingRect,ImageLoader,UserName,ProSroll, defaultViewButton, UIBlocker, SourceSelector;
 //Initializers:
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,8 +33,6 @@
     self=[super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if(self){
         ProfileID=ID;
-       
-        
     }
     return self;
 }
@@ -43,6 +41,7 @@
     NSLog(@"Profile ID:%i",ProfileID);
     //Profile=[[NSProfile alloc] initWithProfileID:ProfileID];
     [Profile setDelegate:self];
+    ProfileID = [[NSGlobalConfiguration getConfigurationItem:@"ID"] intValue];
     [Profile startFetching];
 }
 - (void)viewDidLoad
@@ -55,7 +54,7 @@
     ProfileID = [[NSGlobalConfiguration getConfigurationItem:@"ID"] intValue];
     Profile=[[NSProfile alloc] initWithProfileID:ProfileID];
     [Profile setDelegate:self];
-    [Profile startFetching];
+    //[Profile startFetching];
     
     
     //    self.title = @"Profile";
@@ -79,6 +78,8 @@
     UITapGestureRecognizer *FollowersTapCount=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(FollowersPressed:)];
     [FollowersCount addGestureRecognizer:FollowersTapCount];
     [FollowersCount setUserInteractionEnabled:YES];
+    [ProfilePicture addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectPhoto:)]];
+    [ProfilePicture setUserInteractionEnabled:YES]; 
     
     
 }
@@ -113,7 +114,7 @@
 
 -(IBAction)goToSettings:(id)sender {
          settingsViewController *settings = [[settingsViewController alloc] initWithNibName:@"settingsViewController" bundle:nil];
-         
+         [settings setTabBarC:self.tabBarController]; 
          [self.navigationController pushViewController:settings animated:YES];
 }
 
@@ -150,7 +151,7 @@
 -(void) loadActivities{
    // NSLog(@"Loading Activity");
     for(NSInteger i=0; i<[Profile.Feeds count];i++){
-        UIActivityView *activity=[[UIActivityView alloc] initWithFrame:CGRectMake(0, (i*166), 320, 156)];
+        UIActivityView *activity=[[UIActivityView alloc] initWithFrame:CGRectMake(0, (i*166)+120, 320, 156)];
         NSDictionary *ItemData=[Profile.Feeds objectAtIndex:i];
         [activity setID:[(NSString *)[ItemData valueForKey:@"FeedID"] integerValue]];
         [activity.UserName setText:[ItemData valueForKey:@"FullName"]];
@@ -170,7 +171,7 @@
         NSLog(@"added");
     }
     [ProSroll setScrollEnabled:YES];
-    [ProSroll setContentSize:CGSizeMake(320, ([Profile.Feeds count]*156))];
+    [ProSroll setContentSize:CGSizeMake(0, ([Profile.Feeds count]*156)+120)];
     NSLog(@"%i",([Profile.Feeds count]*156));
 }
 -(void)activityviewRequestComment:(UIActivityView *)activity{
@@ -184,6 +185,98 @@
 }
 -(void)imageviewloaderLoadingCompleted:(NSImageLoaderToImageView *)loader{
     [ImageLoader stopAnimating];
+}
+
+-(void)clearView
+{
+    
+}
+
+-(void) selectPhoto:(UIGestureRecognizer *)gesture{
+    NSLog(@"select photo"); 
+    if(!SourceSelector){
+        SourceSelector=[[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, 320, 216)];
+        [SourceSelector setBackgroundColor:[UIColor grayColor]];
+        //UIButton *CameraButton=[[UIButton alloc] initWithFrame:CGRectMake(12, 12, 296, 44)];
+        UIButton *CameraButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [CameraButton setFrame:CGRectMake(12, 12, 296, 44)];
+        [CameraButton addTarget:self action:@selector(takePicture:) forControlEvents:UIControlEventTouchUpInside];
+        [CameraButton setTitle:@"Take a Photo" forState:UIControlStateNormal];
+        [CameraButton setTintColor:[UIColor grayColor]];
+        UIButton *GalleryButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];//[[UIButton alloc] initWithFrame:CGRectMake(12, 68, 296, 44)];
+        [GalleryButton setFrame:CGRectMake(12, 68, 296, 44)];
+        [GalleryButton setTitle:@"Choose from Gallery" forState:UIControlStateNormal];
+        [GalleryButton setTintColor:[UIColor grayColor]];
+        [GalleryButton addTarget:self action:@selector(selectFromLibrary:) forControlEvents:UIControlEventTouchUpInside];
+        UIButton *CancelButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];//[[UIButton alloc] initWithFrame:CGRectMake(12, 80, 296, 44)];
+        [CancelButton setFrame:CGRectMake(12, 124, 296, 44)];
+        [CancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
+        //UIToolbar *back=[[UIToolbar alloc] initWithFrame:CancelButton.frame];
+        [CancelButton setTintColor:[UIColor grayColor]];
+        [CancelButton addTarget:self action:@selector(cancelPhotoSet:) forControlEvents:UIControlEventTouchUpInside];
+        if(![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+            [CameraButton setEnabled:NO];
+        }
+        [SourceSelector addSubview:CameraButton];
+        [SourceSelector addSubview:GalleryButton];
+        [SourceSelector addSubview:CancelButton];
+    }
+    CGRect FinalFrame=CGRectMake(0, self.view.frame.size.height-216, 320, 216);
+    [self.view addSubview:SourceSelector];
+    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionAllowAnimatedContent animations:^{
+        [SourceSelector setFrame:FinalFrame];
+    }completion:nil];
+    //[self dismissKeyboard:nil];
+}
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    UIImage *PickedImage=[info objectForKey:UIImagePickerControllerOriginalImage];
+    ProfilePicture.image=[PickedImage copy];
+    if ([picker sourceType]==UIImagePickerControllerSourceTypeCamera) {
+        //NSLog(@"Saved Image");
+        UIImageWriteToSavedPhotosAlbum(PickedImage, nil, nil, nil);
+    }
+    CGSize newSize=PickedImage.size;
+    if (PickedImage.size.height>PickedImage.size.width) {
+        CGFloat Height=620.0;
+        CGFloat Width= (620.0*PickedImage.size.width)/PickedImage.size.height;
+        newSize.height=Height;
+        newSize.width=Width;
+    }else{
+        CGFloat Width=620.0;
+        CGFloat Height=(620.0*PickedImage.size.height)/PickedImage.size.width;
+        newSize.width=Width;
+        newSize.height=Height;
+    }
+    UIGraphicsBeginImageContext(newSize);
+    [PickedImage drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *ScaledImage=UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    [ProfilePicture setImage:ScaledImage];
+    [picker dismissModalViewControllerAnimated:YES];
+    [self cancelPhotoSet:nil];
+}
+-(IBAction)takePicture:(id)sender{
+    UIImagePickerController *controller=[[UIImagePickerController alloc] init];
+    [controller setSourceType:UIImagePickerControllerSourceTypeCamera];
+    [controller setShowsCameraControls:YES];
+    [controller setDelegate:self];
+    [self presentModalViewController:controller animated:YES];
+}
+-(IBAction)selectFromLibrary:(id)sender{
+    NSLog(@"Select picture");
+    UIImagePickerController *controller=[[UIImagePickerController alloc] init];
+    [controller setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+    [controller setDelegate:self];
+    //[controller setShowsCameraControls:YES];
+    [self presentModalViewController:controller animated:YES];
+}
+-(IBAction)cancelPhotoSet:(id)sender{
+    CGRect Final=CGRectMake(0, self.view.frame.size.height, 320, 216);
+    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionAllowAnimatedContent animations:^{
+        [SourceSelector setFrame:Final];
+    }completion:^(BOOL finished){
+        [SourceSelector removeFromSuperview];
+    }];
 }
 
 @end

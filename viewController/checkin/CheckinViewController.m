@@ -36,12 +36,17 @@
 //    self.tabBarItem = tab;
     // Custom initialization
     // Do any additional setup after loading the view from its nib.
-    //[self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(goToAdd:)]];
+    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(goToAdd:)]];
     Locations=[[NSLocationLoader alloc] init];
     [Locations setDelegate:self];
-    [Locations downloadLocations];
+    //[Locations downloadLocations];
     UIBlocker = [[utilities alloc] init];
     [UIBlocker startUIBlockerInView:self.tabBarController.view]; 
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [Locations downloadLocations]; 
 }
 
 - (void)didReceiveMemoryWarning
@@ -123,6 +128,7 @@
     }
     else {
     checkinCommentViewController *add = [[checkinCommentViewController alloc] initWithNibName:@"checkinCommentViewController" bundle:nil Checkin:checkin];
+        add.tabBar = self.tabBarController; 
     [self.navigationController pushViewController:add animated:YES]
      ;}
 }

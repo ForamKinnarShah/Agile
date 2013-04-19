@@ -83,7 +83,7 @@
 -(IBAction)goToMenu:(UIActivityView*)sender {
     menuViewController *menu = [[menuViewController alloc] initWithNibName:@"menuViewController" bundle:nil];
     menu.userInfo = [NSMutableDictionary dictionaryWithDictionary:[feedManager getFeedAtIndex:sender.tag]];
-    menu.followeePicImg = sender.ProfilePicture.image;
+    menu.followeePic.image = sender.ProfilePicture.image;
     menu.followeeNametxt = sender.UserName.text; 
     [self.navigationController pushViewController:menu animated:YES];
 }

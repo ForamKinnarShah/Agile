@@ -227,35 +227,6 @@
     // Dispose of any resources that can be recreated.
 }
 
--(IBAction)buttonPressed:(id)sender {
-    
-    //UIActionSheet *choose = [[UIActionSheet alloc] init];
-    //choose.title = @"Menu";
-    //choose.delegate = self;
-    
-    if ([segmented selectedSegmentIndex] == 0) {
-                
-    UIActionSheet *choose = [[UIActionSheet alloc] initWithTitle:@"Menu" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"USE GIFT", @"Say Thanks!",@"Navigate here", @"File a complaint", nil];
-        [choose showInView:self.view];
-
-    }
-    else if ([segmented selectedSegmentIndex] == 1) {
-        UIActionSheet *choose = [[UIActionSheet alloc] initWithTitle:@"Menu" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"USE GIFT", @"Receipt", @"File a complaint", nil];
-        [choose showInView:self.view];
-    }
-    else if ([segmented selectedSegmentIndex] == 2) {
-        UIActionSheet *choose = [[UIActionSheet alloc] initWithTitle:@"Menu" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"USE GIFT", @"Say Thanks!",@"Receipt", @"File a complaint", nil];
-        [choose showInView:self.view];
-    }
-    
-//[choose showInView:self.view];
-    
-}
-
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
-}
-
 -(void)segmentControlChanged
 {
     NSLog(@"[segmented selectedSegmentIndex] : %d",[segmented selectedSegmentIndex]);
@@ -397,45 +368,45 @@
     }
 }
 
--(void) phpCallerFailed:(NSError *)error
-{
-    [utilities showAlertWithTitle:@"loading failed" Message:nil];
-}
+//-(void) phpCallerFailed:(NSError *)error
+//{
+//    [utilities showAlertWithTitle:@"loading failed" Message:nil];
+//}
 
--(void) phpCallerFinished:(NSMutableArray*)returnData
-{
-    NSLog(@"phpCaller finished with items:%@",returnData);
-    
-    if ([segmented selectedSegmentIndex] == 0)
-    {
-        receivedItems = returnData;
-    }
-    if ([receivedItems count] != 0)
-    {
-        [_defaultBtn setHidden:YES]; 
-        [self loadActivitiesWithItems:receivedItems];
-    }
-}
-
--(void) loadActivitiesWithItems:(NSMutableArray*)items{
-    //NSLog(@"Loading Activity");
-    for(NSInteger i=0; i<[items count];i++){
-        
-        orderItemView *item=[[orderItemView alloc] initWithFrame:CGRectMake(0, (i*81)+40, 320, 81)];
-        NSDictionary *ItemData=[items objectAtIndex:i];
-        item.senderNameBtn.titleLabel.text = [ItemData objectForKey:@"sendUserNameFullName"];
-        item.restaurantNameLbl.text = [ItemData objectForKey:@"restaurantName"];
-        item.itemNameLbl.text = [NSString stringWithFormat:@"%@ %@",[ItemData objectForKey:@"itemPrice"],[ItemData objectForKey:@"itemName"]]; 
-       // NSImageLoaderToImageView *img=[[NSImageLoaderToImageView alloc] initWithURLString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[ItemData valueForKey:@"ImageURL"]] ImageView:friend.picture];
-        //[img start];
-        [item setDelegate:self];
-        [self.view addSubview:item];
-        // NSLog(@"added");
-    }
-    [(UIScrollView *)self.view setScrollEnabled:YES];
-    [(UIScrollView *)self.view setContentSize:CGSizeMake(320, ([items count]*85))];
-    // NSLog(@"%i",([Profile.Feeds count]*166));
-}
+//-(void) phpCallerFinished:(NSMutableArray*)returnData
+//{
+//    NSLog(@"phpCaller finished with items:%@",returnData);
+//    
+//    if ([segmented selectedSegmentIndex] == 0)
+//    {
+//        receivedItems = returnData;
+//    }
+//    if ([receivedItems count] != 0)
+//    {
+//        [_defaultBtn setHidden:YES]; 
+//        [self loadActivitiesWithItems:receivedItems];
+//    }
+//}
+//
+//-(void) loadActivitiesWithItems:(NSMutableArray*)items{
+//    //NSLog(@"Loading Activity");
+//    for(NSInteger i=0; i<[items count];i++){
+//        
+//        orderItemView *item=[[orderItemView alloc] initWithFrame:CGRectMake(0, (i*81)+40, 320, 81)];
+//        NSDictionary *ItemData=[items objectAtIndex:i];
+//        item.senderNameBtn.titleLabel.text = [ItemData objectForKey:@"sendUserNameFullName"];
+//        item.restaurantNameLbl.text = [ItemData objectForKey:@"restaurantName"];
+//        item.itemNameLbl.text = [NSString stringWithFormat:@"%@ %@",[ItemData objectForKey:@"itemPrice"],[ItemData objectForKey:@"itemName"]]; 
+//       // NSImageLoaderToImageView *img=[[NSImageLoaderToImageView alloc] initWithURLString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[ItemData valueForKey:@"ImageURL"]] ImageView:friend.picture];
+//        //[img start];
+//        [item setDelegate:self];
+//        [self.view addSubview:item];
+//        // NSLog(@"added");
+//    }
+//    [(UIScrollView *)self.view setScrollEnabled:YES];
+//    [(UIScrollView *)self.view setContentSize:CGSizeMake(320, ([items count]*85))];
+//    // NSLog(@"%i",([Profile.Feeds count]*166));
+//}
 
 
 
@@ -568,12 +539,12 @@
        
         [composer setSubject:[NSString stringWithFormat:@"complaint from : %@",resName]];
         
-        if(selectedSegment==0){
+        if(selectedSegment==1){
             NSMutableString *messageBody = [[NSMutableString alloc] initWithString:@"<html><body>"];
             NSLog(@"arrayTransactionsID : %@",self.arrayTransactionsID);
             [messageBody appendString:[NSString stringWithFormat:@"Transaction Id: %@</br>",[arrayTransactionsID objectAtIndex:selectedRow]]];
             [messageBody appendString:[NSString stringWithFormat:@"Sender Name: %@</br>",[arraySenderName objectAtIndex:selectedRow]]];
-            [messageBody appendString:[NSString stringWithFormat:@"Receiver Name: %@</br>",[arraySenderName objectAtIndex:selectedRow]]];
+            [messageBody appendString:[NSString stringWithFormat:@"Receiver Name: %@</br>",[NSGlobalConfiguration getConfigurationItem:@"FullName"]]];
             [messageBody appendString:[NSString stringWithFormat:@"Location : %@</br>",[arrayLocationName objectAtIndex:selectedRow]]];
             [messageBody appendString:[NSString stringWithFormat:@"Amount: %@\n",[arrayPrice objectAtIndex:selectedRow]]];
             [messageBody appendString:[NSString stringWithFormat:@"Coupon Code: %@\n",[arrayCoupanNumber objectAtIndex:selectedRow]]];
@@ -583,16 +554,37 @@
         [composer setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
         [self presentViewController:composer animated:YES completion:nil];
     }
+    else {
+        NSLog(@"controller cannot send mail"); 
+    }
 }
 
 -(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
-    if (error) {
-        NSLog(@"Error");
-    } else {
-        NSLog(@"Success");
-        [self dismissViewControllerAnimated:YES completion:nil];
-           
+    if (error)
+    {
+        NSLog(@"error:%@",error);
     }
+    
+    if (result == MFMailComposeResultSent)
+    {
+        [self showAlertMessage:@"Message was queued in outbox. Will send if/when connected to email" withTitle:@"Email Sent"];
+    }
+    else if (result == MFMailComposeErrorCodeSendFailed || result == MFMailComposeResultFailed)
+    {
+        [self showAlertMessage:@"" withTitle:@"message sending failed"];
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void)showAlertMessage:(NSString *)message withTitle:(NSString *)title
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
+                                                        message:message
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+    [alertView show];
 }
 
 -(IBAction)btnClose_Click:(id)sender{
@@ -718,10 +710,12 @@
         [cell addSubview:lblPersonName];
         
         UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(5, 50, 310, 32)];
-        bottomView.layer.cornerRadius = 5.0;
+        //bottomView.layer.cornerRadius = 5.0;
         bottomView.clipsToBounds = YES;
-        bottomView.layer.borderColor = [UIColor blackColor].CGColor;
-        bottomView.layer.borderWidth = 2.0;
+        //bottomView.layer.borderColor = [UIColor blackColor].CGColor;
+        //bottomView.layer.borderWidth = 2.0;
+        bottomView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"dot-green.png"]];
+        bottomView.alpha = 0.7; 
         [cell addSubview:bottomView];
         
         UILabel *lblPrice = [[UILabel alloc] initWithFrame:CGRectMake(5, 2, 150, 30)];
@@ -869,7 +863,7 @@
                 NSMutableArray *receData = [[NSMutableArray alloc] init];
                 [receData addObject:[self.arrayTransactionsID1 objectAtIndex:selectedRow]];
                 [receData addObject:[self.arraySenderName1 objectAtIndex:selectedRow]];
-                [receData addObject:[self.arraySenderName1 objectAtIndex:selectedRow]];
+                [receData addObject:[NSGlobalConfiguration getConfigurationItem:@"FullName"]];
                 [receData addObject:[self.arrayLocationName1 objectAtIndex:selectedRow]];
                 [receData addObject:[self.arrayPrice1 objectAtIndex:selectedRow]];
                 

@@ -12,7 +12,7 @@
 #import "utilities.h"
 @interface LoginViewController : UIViewController <UITextFieldDelegate, UINavigationControllerDelegate,NSUserAccessControlProtocol>
 {
-    utilities *UIBlocker; 
+    UIActivityIndicatorView *UIBlocker;
 }
 -(IBAction)login:(id)sender;
 - (IBAction)LostPassword:(id)sender;

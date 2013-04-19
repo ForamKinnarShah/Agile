@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 
 @interface addViewController : UIViewController
+
+{
+    IBOutletCollection(UITextField)NSArray * collection;
+}
+
+-(IBAction)submitClicked:(id)sender;
 
 @end
