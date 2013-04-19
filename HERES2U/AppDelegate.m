@@ -13,6 +13,7 @@
 #import "MytabViewController.h" 
 #import "CheckinViewController.h" 
 #import "Heres2uViewController.h"
+#import <AudioToolbox/AudioToolbox.h>
 
 
 @implementation AppDelegate
@@ -47,7 +48,7 @@
     // ------------------
 
     NSString *centerImageName = @"logo_small.png";
-    UITabBarController *tab = [[UITabBarController alloc] init];
+    tab = [[UITabBarController alloc] init];
 
     ProfileViewController *prof = [[ProfileViewController alloc] initWithNibName:@"ProfileView" bundle:nil ProfileID:[(NSString *)[NSGlobalConfiguration getConfigurationItem:@"ID"] integerValue]];
     UINavigationController *profNav = [[UINavigationController alloc] initWithRootViewController:prof];
@@ -172,6 +173,68 @@
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     NSLog(@"Fail to register for remote notifications: %@", error);
 }
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    
+    NSString *alertMsg;
+    NSString *badge;
+    NSString *sound;
+    
+//    NSDictionary *dic_push=[[NSDictionary alloc]initWithDictionary:userInfo];
+    
+    if( [[userInfo objectForKey:@"aps"] objectForKey:@"alert"] != NULL)
+    {
+        alertMsg = [[userInfo objectForKey:@"aps"] objectForKey:@"alert"];
+    }
+    else
+    {    alertMsg = @"{no alert message in dictionary}";
+    }
+    
+    if( [[userInfo objectForKey:@"aps"] objectForKey:@"badge"] != NULL)
+    {
+        badge = [[userInfo objectForKey:@"aps"] objectForKey:@"badge"];
+    }
+    else
+    {    badge = @"{no badge number in dictionary}";
+    }
+    
+    if( [[userInfo objectForKey:@"aps"] objectForKey:@"sound"] != NULL)
+    {
+        sound = [[userInfo objectForKey:@"aps"] objectForKey:@"sound"];
+    }
+    else
+    {    sound = @"{no sound in dictionary}";
+    }
+    
+    AudioServicesPlaySystemSound (kSystemSoundID_Vibrate);
+    
+  //  NSString* alert_msg = [NSString stringWithFormat:@"APNS message '%@' was just received.", alertMsg];
+    
+    UIAlertView *alert_push = [[UIAlertView alloc] initWithTitle:@"Here2U"
+                                            message:alertMsg
+                                           delegate:self
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+    alert_push.tag=1;
+    [alert_push show];
+        
+    //[self.viewController reloadInputViews];
+    
+    // NSString *badge = [userInfo objectForKey:@"badge"];
+    //[alert release];
+    
+}
+
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+    @try {
+        [tab setSelectedIndex:3];
+    }
+    @catch (NSException *exception) {
+        
+    }
+}
+
 
 #pragma mark
 #pragma mark -----------------class shared instance-------------------

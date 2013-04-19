@@ -10,6 +10,9 @@
 		13448F9B17194A4200B84B9F /* MyTabUsed.m in Sources */ = {isa = PBXBuildFile; fileRef = 13448F9617194A4200B84B9F /* MyTabUsed.m */; };
 		13448F9C17194A4200B84B9F /* MyTabSent.m in Sources */ = {isa = PBXBuildFile; fileRef = 13448F9817194A4200B84B9F /* MyTabSent.m */; };
 		13448FA017194A7600B84B9F /* ImageViewLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = 13448F9F17194A7600B84B9F /* ImageViewLoading.m */; };
+		1348F1AF1721350C00DAF391 /* Image_not_available.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1348F1AE1721350B00DAF391 /* Image_not_available.jpg */; };
+		1348F1B2172135CE00DAF391 /* Loading.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1348F1B1172135CE00DAF391 /* Loading.jpg */; };
+		1348F1B41721467E00DAF391 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1348F1B31721467E00DAF391 /* AudioToolbox.framework */; };
 		134AB78D171D4D8800F179E4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 134AB78C171D4D8800F179E4 /* CoreLocation.framework */; };
 		134AB790171D4D8E00F179E4 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 134AB78F171D4D8E00F179E4 /* MessageUI.framework */; };
 		134AB797171D4E1200F179E4 /* MytabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 134AB792171D4E1200F179E4 /* MytabViewController.m */; };
@@ -185,6 +188,9 @@
 		13448F9817194A4200B84B9F /* MyTabSent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTabSent.m; sourceTree = "<group>"; };
 		13448F9E17194A7600B84B9F /* ImageViewLoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewLoading.h; sourceTree = "<group>"; };
 		13448F9F17194A7600B84B9F /* ImageViewLoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewLoading.m; sourceTree = "<group>"; };
+		1348F1AE1721350B00DAF391 /* Image_not_available.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Image_not_available.jpg; sourceTree = "<group>"; };
+		1348F1B1172135CE00DAF391 /* Loading.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Loading.jpg; sourceTree = "<group>"; };
+		1348F1B31721467E00DAF391 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		134AB78C171D4D8800F179E4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		134AB78F171D4D8E00F179E4 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		134AB791171D4E1200F179E4 /* MytabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MytabViewController.h; sourceTree = "<group>"; };
@@ -423,6 +429,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1348F1B41721467E00DAF391 /* AudioToolbox.framework in Frameworks */,
 				7ABD92E5171FBC9E001D10DE /* AddressBook.framework in Frameworks */,
 				7ABD92E6171FBC9E001D10DE /* AddressBookUI.framework in Frameworks */,
 				134AB790171D4D8E00F179E4 /* MessageUI.framework in Frameworks */,
@@ -842,6 +849,9 @@
 		DAF870BD16671F0000747CDA = {
 			isa = PBXGroup;
 			children = (
+				1348F1B31721467E00DAF391 /* AudioToolbox.framework */,
+				1348F1AE1721350B00DAF391 /* Image_not_available.jpg */,
+				1348F1B1172135CE00DAF391 /* Loading.jpg */,
 				6FC5096B17202885003CA7FC /* HUD */,
 				7ABD92E3171FBC9D001D10DE /* AddressBook.framework */,
 				7ABD92E4171FBC9E001D10DE /* AddressBookUI.framework */,
@@ -1096,6 +1106,8 @@
 				134E4C3C171E7E2600257321 /* whiteArrow.png in Resources */,
 				134E4C3D171E7E2600257321 /* whiteArrow@2x.png in Resources */,
 				6FC5096A171FE61D003CA7FC /* LostPasswordVC.xib in Resources */,
+				1348F1AF1721350C00DAF391 /* Image_not_available.jpg in Resources */,
+				1348F1B2172135CE00DAF391 /* Loading.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1240,8 +1252,8 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Brian Rosa (J35L3P43JL)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1256,7 +1268,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "F351B90D-9584-447E-AC5A-2430E83370F1";
+				PROVISIONING_PROFILE = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1270,8 +1283,8 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Brian Rosa (J35L3P43JL)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1279,7 +1292,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "F351B90D-9584-447E-AC5A-2430E83370F1";
+				PROVISIONING_PROFILE = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1289,8 +1303,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Brian Rosa (J35L3P43JL)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Brian Rosa (J35L3P43JL)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/FacebookSDK\"",
@@ -1304,8 +1318,8 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "F351B90D-9584-447E-AC5A-2430E83370F1";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F351B90D-9584-447E-AC5A-2430E83370F1";
+				PROVISIONING_PROFILE = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1314,8 +1328,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Brian Rosa (J35L3P43JL)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Brian Rosa (J35L3P43JL)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/FacebookSDK\"",
@@ -1329,8 +1343,8 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "F351B90D-9584-447E-AC5A-2430E83370F1";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F351B90D-9584-447E-AC5A-2430E83370F1";
+				PROVISIONING_PROFILE = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

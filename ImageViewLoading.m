@@ -82,7 +82,7 @@
                     }
                 }
                 else{
-                    self.image = [UIImage imageNamed:@"imgnotfound.png"];
+                    self.image = [UIImage imageNamed:@"Image_not_available.jpg"];
                     
                 }
                 

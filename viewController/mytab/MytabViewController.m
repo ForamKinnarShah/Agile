@@ -41,6 +41,11 @@
     self.title = @"MyTab";
     // Do any additional setup after loading the view from its nib.
     
+    isReceivedStop = NO;
+    isSentStop = NO;
+    isUsedStop = NO;
+    
+    
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
     if (_refreshHeaderView == nil) {
@@ -117,7 +122,18 @@
     self.arrayStatus2 = [[NSMutableArray alloc] init];
     self.arraySayThanks2 = [[NSMutableArray alloc] init];
     
-    [self performSelector:@selector(callReceivedData) withObject:nil afterDelay:1.0];
+    [self performSelector:@selector(startLoading) withObject:nil afterDelay:1.0];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    @try {
+        isSent = NO;
+        isUsed = NO;
+    }
+    @catch (NSException *exception) {
+        
+    }
 }
 
 -(void)startLoading{
@@ -143,12 +159,13 @@
     }
     else{
         //segmentControlChanged
-        [self.HUD showWhileExecuting:@selector(newSegment) onTarget:self withObject:nil animated:YES];
+        //[self.HUD showWhileExecuting:@selector(segmentControlChanged) onTarget:self withObject:nil animated:YES];
     }
 }
 
 -(void)stopLoading{
     [self.HUD hide:YES];
+    [MBProgressHUD hideHUDForView:appDelegate.window animated:YES];
     [self.HUD removeFromSuperview];
 }
 
@@ -170,20 +187,16 @@
             [dicReceived removeAllObjects];
             myparser = [[MyTabXmlParse alloc] initWithURL:url];
             NSLog(@"dicReceived: %@",dicReceived);
+            if(dicReceived.count==0){
+                [self stopLoading];
+                UIAlertView *alertReceived = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"No Gift's Found!" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+                [alertReceived show];
+
+                return;
+            }
             
-            [self.arrayLocationID  removeAllObjects];
-            [self.arrayLocationImage removeAllObjects];
-            [self.arrayLocationName removeAllObjects];
-            [self.arrayMiles removeAllObjects];
-            [self.arrayPrice removeAllObjects];
-            [self.arrayStatus removeAllObjects];
-            [self.arraySenderID removeAllObjects];
-            [self.arraySenderName  removeAllObjects];
-            [self.arrayCoupanNumber  removeAllObjects];
-            [self.arrayLongitude  removeAllObjects];
-            [self.arrayLatitude  removeAllObjects];
             
-            NSArray *arrayCouynt = [dicReceived valueForKey:@"LocationID"];
+            NSArray *arrayCouynt = [dicReceived valueForKey:@"TransactionsID"];
             for(int i=0;i<arrayCouynt.count;i++){
                 [self.arrayTransactionsID addObject:[[dicReceived valueForKey:@"TransactionsID"] objectAtIndex:i]];
                 [self.arrayLocationID  addObject:[[dicReceived valueForKey:@"LocationID"] objectAtIndex:i]];
@@ -202,12 +215,16 @@
             
             [self stopLoading];
             if(dicReceived.count==0){
-                UIAlertView *alertReceived = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"No Data Found." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+                isReceivedStop = YES;
+                UIAlertView *alertReceived = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"No More Data Found!" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
                 [alertReceived show];
+            }
+            else{
+                isReceivedStop = NO;
             }
         }
         else{
-            [self performSelector:@selector(callReceivedData) withObject:nil afterDelay:2.0];
+            [self performSelector:@selector(callReceivedData) withObject:nil afterDelay:1.0];
         }
 
     }
@@ -215,6 +232,7 @@
         NSLog(@"exception : %@",exception);
     }
 }
+
 
 -(IBAction)goToProfile:(id)sender {
     ProfileViewController *menu = [[ProfileViewController alloc] initWithNibName:@"ProfileViewController" bundle:nil];
@@ -232,136 +250,132 @@
     NSLog(@"[segmented selectedSegmentIndex] : %d",[segmented selectedSegmentIndex]);
     selectedSegment = [segmented selectedSegmentIndex];
     
+    [self startLoading];
     if ([segmented selectedSegmentIndex] == 0)
     {
-        /* NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"mytab_received" ofType:@"xml"];
-         NSURL *url = [[NSURL alloc] initFileURLWithPath:bundlePath];
-         
-         myparser = [[MyTabXmlParse alloc] initWithURL:url];
-         
-         //        NSLog(@"arrayTransactionsID : %@",arrayTransactionsID);
-         //        self.arrayTransactionsID = myparser.arrayTransactionsID;
-         
-         //dictTransaction
-         NSLog(@"dicReceived: %@",dicReceived);
-         
-         self.arrayLocationID = [dicReceived valueForKey:@"LocationID"];
-         self.arrayLocationImage = [dicReceived valueForKey:@"LocationImage"];
-         self.arrayLocationName = [dicReceived valueForKey:@"LocationName"];
-         self.arrayMiles = [dicReceived valueForKey:@"Miles"];
-         self.arrayPrice = [dicReceived valueForKey:@"Price"];
-         self.arrayStatus = [dicReceived valueForKey:@"Status"];
-         self.arraySenderID = [dicReceived valueForKey:@"senderId"];
-         self.arraySenderName  = [dicReceived valueForKey:@"senderName"];
-         
-         
-         //        [util startUIBlockerInView:self.view];
-         //        [caller invokeWebService:@"ui" forAction:@"getReceivedItems" withParameters:[NSMutableArray arrayWithObject:[NSGlobalConfiguration getConfigurationItem:@"ID"]]];*/
+        [objTableView reloadData];
     }
     else if ([segmented selectedSegmentIndex] == 1)
     {
         
         if(!isSent){
             isSent = YES;
-            //            NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"mytab_sent" ofType:@"xml"];
-            //            NSURL *url = [[NSURL alloc] initFileURLWithPath:bundlePath];
-            
             //http://50.62.148.155:8080/heres2u/api/index.php?webservice=ui&action=getsentitems&ID=36&Page=1&Lat=-33.7501&Long=18.4533
-            
-            NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@index.php?webservice=ui&action=getsentitems&ID=%@&Page=%d&Lat=%@&Long=%@",hostURl,uId,SentIndex,currentLat,currentLong]];
-            
-            myTabSent = [[MyTabSent alloc] initWithURL:url];
-            
-            //dictTransaction
-            NSLog(@"dicSent: %@",dicSent);
-            [self.arrayTransactionsID1 removeAllObjects];
-            [self.arrayLocationID1  removeAllObjects];
-            [self.arrayLocationImage1 removeAllObjects];
-            [self.arrayLocationName1 removeAllObjects];
-            [self.arrayMiles1 removeAllObjects];
-            [self.arrayPrice1 removeAllObjects];
-            [self.arrayStatus1 removeAllObjects];
-            [self.arraySenderID1 removeAllObjects];
-            [self.arraySenderName1  removeAllObjects];
-            
-            NSLog(@"count : %d",dicSent.count);
-            NSArray *arrayCouynt = [dicSent valueForKey:@"LocationID"];
-            for(int i=0;i<arrayCouynt.count;i++){
-                NSLog(@"I : %d",i);
-                [self.arrayTransactionsID1  addObject:[[dicSent valueForKey:@"TransactionsID"] objectAtIndex:i]];
-                [self.arrayLocationID1  addObject:[[dicSent valueForKey:@"LocationID"] objectAtIndex:i]];
-                [self.arrayLocationImage1 addObject:[[dicSent valueForKey:@"LocationImage"]objectAtIndex:i]];
-                [self.arrayLocationName1 addObject:[[dicSent valueForKey:@"LocationName"] objectAtIndex:i]];
-                [self.arrayMiles1 addObject:[[dicSent valueForKey:@"Miles"] objectAtIndex:i]];
-                [self.arrayPrice1 addObject:[[dicSent valueForKey:@"Price"] objectAtIndex:i]];
-                [self.arrayStatus1 addObject:[[dicSent valueForKey:@"Status"] objectAtIndex:i]];
-                [self.arraySenderID1 addObject:[[dicSent valueForKey:@"senderId"] objectAtIndex:i]];
-                [self.arraySenderName1  addObject:[[dicSent valueForKey:@"senderName"] objectAtIndex:i]];
-            }
-            
-            if(dicSent.count==0){
-                UIAlertView *alertReceived = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"No Data Found." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
-                [alertReceived show];
-            }
+            [self performSelector:@selector(callSegment1) withObject:self afterDelay:0.5];
             
         }
-        //        [util startUIBlockerInView:self.view];
-        //        [caller invokeWebService:@"ui" forAction:@"getSentItems" withParameters:[NSMutableArray arrayWithObject:[NSGlobalConfiguration getConfigurationItem:@"ID"]]];
+        else{
+            [objTableView reloadData];
+            [self stopLoading];
+        }
     }
     else if ([segmented selectedSegmentIndex] == 2)
     {
         if(!isUsed){
             isUsed = YES;
-            //http://50.62.148.155:8080/heres2u/api/index.php?webservice=ui&action=getuseditems&ID=37&Page=1&Lat=-33.7501&Long=18.4533
-            NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@index.php?webservice=ui&action=getuseditems&ID=%@&Page=%d&Lat=%@&Long=%@",hostURl,uId,UsedIndex,currentLat,currentLong]];
-            NSLog(@"url : %@",url);
-            myTabUsed = [[MyTabUsed alloc] initWithURL:url];
-            //dictTransaction
-            NSLog(@"dicReceived: %@",dicUsed);
-            
-            [self.arrayTransactionsID2 removeAllObjects];
-            [self.arrayLocationID2  removeAllObjects];
-            [self.arrayLocationImage2  removeAllObjects];
-            [self.arrayLocationName2  removeAllObjects];
-            [self.arrayMiles2  removeAllObjects];
-            [self.arrayPrice2  removeAllObjects];
-            [self.arrayStatus2  removeAllObjects];
-            [self.arraySenderID2  removeAllObjects];
-            [self.arraySenderName2  removeAllObjects];
-            [self.arraySayThanks2  removeAllObjects];
-            
-            NSArray *arrayCouynt = [dicUsed valueForKey:@"LocationID"];
-            for(int i=0;i<arrayCouynt.count;i++){
-                [self.arrayTransactionsID2  addObject:[[dicUsed valueForKey:@"TransactionId"] objectAtIndex:i]];
-                [self.arrayLocationID2  addObject:[[dicUsed valueForKey:@"LocationID"] objectAtIndex:i]];
-                [self.arrayLocationImage2 addObject:[[dicUsed valueForKey:@"LocationImage"]objectAtIndex:i]];
-                [self.arrayLocationName2 addObject:[[dicUsed valueForKey:@"LocationName"] objectAtIndex:i]];
-                [self.arrayMiles2 addObject:[[dicUsed valueForKey:@"Miles"] objectAtIndex:i]];
-                [self.arrayPrice2 addObject:[[dicUsed valueForKey:@"Price"] objectAtIndex:i]];
-                [self.arrayStatus2 addObject:[[dicUsed valueForKey:@"Status"] objectAtIndex:i]];
-                [self.arraySenderID2 addObject:[[dicUsed valueForKey:@"senderId"] objectAtIndex:i]];
-                [self.arraySenderName2  addObject:[[dicUsed valueForKey:@"senderName"] objectAtIndex:i]];
-                [self.arraySayThanks2 addObject:[[dicUsed valueForKey:@"SayThanksId"] objectAtIndex:i]];
-            }
-            
-            if(dicUsed.count==0){
-                UIAlertView *alertReceived = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"No Data Found." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
-                [alertReceived show];
-            }
+            [self performSelector:@selector(callSegment2) withObject:self afterDelay:0.5];
         }
-        
-        //        [util startUIBlockerInView:self.view];
-        //        [caller invokeWebService:@"ui" forAction:@"getUsedItems" withParameters:[NSMutableArray arrayWithObject:[NSGlobalConfiguration getConfigurationItem:@"ID"]]];
+        else{
+            [objTableView reloadData];
+            [self stopLoading];
+        }
     }
-    [objTableView reloadData];
-
-    
 }
 
--(void)newSegment{
+-(void)callSegment1{
     @try {
+        NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@index.php?webservice=ui&action=getsentitems&ID=%@&Page=%d&Lat=%@&Long=%@",hostURl,uId,SentIndex,currentLat,currentLong]];
         
+        myTabSent = [[MyTabSent alloc] initWithURL:url];
+        
+        //dictTransaction
+        NSLog(@"dicSent: %@",dicSent);
+        NSLog(@"count : %d",dicSent.count);
+        
+        if(dicSent.count==0){
+             [self stopLoading];
+            segmented.selectedSegmentIndex = 0;
+             UIAlertView *alertReceived = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"No Sent Data Found!" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+            [alertReceived show];
+            return;
+        }
+
+        
+        NSArray *arrayCouynt = [dicSent valueForKey:@"TransactionsID"];
+        for(int i=0;i<arrayCouynt.count;i++){
+            NSLog(@"I : %d",i);
+            [self.arrayTransactionsID1  addObject:[[dicSent valueForKey:@"TransactionsID"] objectAtIndex:i]];
+            [self.arrayLocationID1  addObject:[[dicSent valueForKey:@"LocationID"] objectAtIndex:i]];
+            [self.arrayLocationImage1 addObject:[[dicSent valueForKey:@"LocationImage"]objectAtIndex:i]];
+            [self.arrayLocationName1 addObject:[[dicSent valueForKey:@"LocationName"] objectAtIndex:i]];
+            [self.arrayMiles1 addObject:[[dicSent valueForKey:@"Miles"] objectAtIndex:i]];
+            [self.arrayPrice1 addObject:[[dicSent valueForKey:@"Price"] objectAtIndex:i]];
+            [self.arrayStatus1 addObject:[[dicSent valueForKey:@"Status"] objectAtIndex:i]];
+            [self.arraySenderID1 addObject:[[dicSent valueForKey:@"senderId"] objectAtIndex:i]];
+            [self.arraySenderName1  addObject:[[dicSent valueForKey:@"senderName"] objectAtIndex:i]];
+        }
+        
+        if(dicSent.count==0){
+            isSentStop = YES;
+            UIAlertView *alertReceived = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"No More Data Found!" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+            [alertReceived show];
+        }
+        else{
+            isSentStop = NO;
+        }
+        [objTableView reloadData];
         [self stopLoading];
+        
+    }
+    @catch (NSException *exception) {
+        
+    }
+}
+
+
+-(void)callSegment2{
+    @try {
+        //http://50.62.148.155:8080/heres2u/api/index.php?webservice=ui&action=getuseditems&ID=37&Page=1&Lat=-33.7501&Long=18.4533
+        NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@index.php?webservice=ui&action=getuseditems&ID=%@&Page=%d&Lat=%@&Long=%@",hostURl,uId,UsedIndex,currentLat,currentLong]];
+        NSLog(@"url : %@",url);
+        myTabUsed = [[MyTabUsed alloc] initWithURL:url];
+        //dictTransaction
+        NSLog(@"dicReceived: %@",dicUsed);
+        if(dicUsed.count==0){
+            [self stopLoading];
+            segmented.selectedSegmentIndex = 1;
+            
+            UIAlertView *alertReceived = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"No Used Data Found!" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+            [alertReceived show];
+            return;
+        }
+        
+        NSArray *arrayCouynt = [dicUsed valueForKey:@"TransactionId"];
+        for(int i=0;i<arrayCouynt.count;i++){
+            [self.arrayTransactionsID2  addObject:[[dicUsed valueForKey:@"TransactionId"] objectAtIndex:i]];
+            [self.arrayLocationID2  addObject:[[dicUsed valueForKey:@"LocationID"] objectAtIndex:i]];
+            [self.arrayLocationImage2 addObject:[[dicUsed valueForKey:@"LocationImage"]objectAtIndex:i]];
+            [self.arrayLocationName2 addObject:[[dicUsed valueForKey:@"LocationName"] objectAtIndex:i]];
+            [self.arrayMiles2 addObject:[[dicUsed valueForKey:@"Miles"] objectAtIndex:i]];
+            [self.arrayPrice2 addObject:[[dicUsed valueForKey:@"Price"] objectAtIndex:i]];
+            [self.arrayStatus2 addObject:[[dicUsed valueForKey:@"Status"] objectAtIndex:i]];
+            [self.arraySenderID2 addObject:[[dicUsed valueForKey:@"senderId"] objectAtIndex:i]];
+            [self.arraySenderName2  addObject:[[dicUsed valueForKey:@"senderName"] objectAtIndex:i]];
+            [self.arraySayThanks2 addObject:[[dicUsed valueForKey:@"SayThanksId"] objectAtIndex:i]];
+        }
+        
+        if(dicUsed.count==0){
+            isUsedStop = YES;
+            
+            UIAlertView *alertReceived = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"No More Data Found !" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+            [alertReceived show];
+        }
+        else{
+            isUsedStop = NO;
+        }
+        [objTableView reloadData];
+        [self stopLoading];
+
     }
     @catch (NSException *exception) {
         
@@ -419,15 +433,56 @@
 	//  put here just for demo
 	_reloading = YES;
    
+    
+    
     if(selectedSegment==0){
+        ReceivedIndex=1;
+        
+        [self.arrayLocationID  removeAllObjects];
+        [self.arrayLocationImage removeAllObjects];
+        [self.arrayLocationName removeAllObjects];
+        [self.arrayMiles removeAllObjects];
+        [self.arrayPrice removeAllObjects];
+        [self.arrayStatus removeAllObjects];
+        [self.arraySenderID removeAllObjects];
+        [self.arraySenderName  removeAllObjects];
+        [self.arrayCoupanNumber  removeAllObjects];
+        [self.arrayLongitude  removeAllObjects];
+        [self.arrayLatitude  removeAllObjects];
+        
         [self performSelector:@selector(callReceivedData) withObject:nil afterDelay:2.0];
     }
     else if (selectedSegment==1 || selectedSegment==2){
         if(selectedSegment==1){
             isSent=NO;
+            SentIndex=1;
+            
+            [self.arrayTransactionsID1 removeAllObjects];
+            [self.arrayLocationID1  removeAllObjects];
+            [self.arrayLocationImage1 removeAllObjects];
+            [self.arrayLocationName1 removeAllObjects];
+            [self.arrayMiles1 removeAllObjects];
+            [self.arrayPrice1 removeAllObjects];
+            [self.arrayStatus1 removeAllObjects];
+            [self.arraySenderID1 removeAllObjects];
+            [self.arraySenderName1  removeAllObjects];
+
         }
         else{
             isUsed=NO;
+             UsedIndex=1;
+            
+            [self.arrayTransactionsID2 removeAllObjects];
+            [self.arrayLocationID2  removeAllObjects];
+            [self.arrayLocationImage2  removeAllObjects];
+            [self.arrayLocationName2  removeAllObjects];
+            [self.arrayMiles2  removeAllObjects];
+            [self.arrayPrice2  removeAllObjects];
+            [self.arrayStatus2  removeAllObjects];
+            [self.arraySenderID2  removeAllObjects];
+            [self.arraySenderName2  removeAllObjects];
+            [self.arraySayThanks2  removeAllObjects];
+
         }
         [self segmentControlChanged];
     }
@@ -603,13 +658,13 @@
     int count;
     
     if(selectedSegment==0){
-        count = [arrayLocationName count];
+        count = [self.arrayTransactionsID count];
     }
     else if(selectedSegment==1){
-        count = [arrayLocationName1 count];
+        count = [self.arrayTransactionsID1 count];
     }
     else if(selectedSegment==2){
-        count = [arrayLocationName2 count];
+        count = [self.arrayTransactionsID2 count];
     }
     
     return count;
@@ -644,25 +699,19 @@
         
         NSString *strImageUrl;
         if(selectedSegment==0){
-            strImageUrl = [NSString stringWithFormat:@"%@",[self.arrayLocationImage objectAtIndex:indexPath.row]];
+            strImageUrl = [NSString stringWithFormat:@"%@%@",hostURl,[self.arrayLocationImage objectAtIndex:indexPath.row]];
         }
         else if(selectedSegment==1){
-            strImageUrl = [NSString stringWithFormat:@"%@",[self.arrayLocationImage1 objectAtIndex:indexPath.row]];
+            strImageUrl = [NSString stringWithFormat:@"%@%@",hostURl,[self.arrayLocationImage1 objectAtIndex:indexPath.row]];
         }
         else if(selectedSegment==2){
-            strImageUrl = [NSString stringWithFormat:@"%@",[self.arrayLocationImage2 objectAtIndex:indexPath.row]];
+            strImageUrl = [NSString stringWithFormat:@"%@%@",hostURl,[self.arrayLocationImage2 objectAtIndex:indexPath.row]];
         }
-        
+        NSLog(@"strImageUrl : %@",strImageUrl);
         
         ImageViewLoading *imgView = [[ImageViewLoading alloc] initWithFrame:CGRectMake(5, 5, 70, 70) ImageUrl:strImageUrl];
         [cell addSubview:imgView];
         
-        /*UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 70, 70)];
-//        [imageView setBackgroundColor:[UIColor redColor]];
-        imageView.clipsToBounds = YES;
-        imageView.layer.borderColor = [UIColor blackColor].CGColor;
-        imageView.layer.borderWidth = 1.0;
-        [cell addSubview:imageView];*/
         
         UILabel *lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(80, 0, 200, 30)];
         if(selectedSegment==0){
@@ -680,9 +729,9 @@
         [lblTitle setFont:[UIFont boldSystemFontOfSize:15.0]];
         [cell addSubview:lblTitle];
         
-        UILabel *lblDistance = [[UILabel alloc] initWithFrame:CGRectMake(265, 0, 50, 30)];
+        UILabel *lblDistance = [[UILabel alloc] initWithFrame:CGRectMake(240, 3, 100, 30)];
         if(selectedSegment==0){
-            [lblDistance setText:[NSString stringWithFormat:@"%@",[self.arrayMiles objectAtIndex:indexPath.row]]];
+            [lblDistance setText:[NSString stringWithFormat:@"%@ m",[self.arrayMiles objectAtIndex:indexPath.row]]];
         }
         else if(selectedSegment==1){
             [lblDistance setText:[NSString stringWithFormat:@"%@",[self.arrayMiles1 objectAtIndex:indexPath.row]]];
@@ -692,6 +741,7 @@
         }
         [lblDistance setBackgroundColor:[UIColor clearColor]];
         [lblDistance setTextColor:[UIColor blackColor]];
+        [lblDistance setFont:[UIFont systemFontOfSize:9.0]];
         [cell addSubview:lblDistance];
         
         UILabel *lblPersonName = [[UILabel alloc] initWithFrame:CGRectMake(80, 20, 200, 30)];
@@ -705,7 +755,7 @@
             [lblPersonName setText:[NSString stringWithFormat:@"%@",[self.arraySenderName2 objectAtIndex:indexPath.row]]];
         }
         [lblPersonName setBackgroundColor:[UIColor clearColor]];
-        [lblPersonName setTextColor:[UIColor blueColor]];
+        [lblPersonName setTextColor:[UIColor redColor]];
         [lblPersonName setFont:[UIFont systemFontOfSize:14.0]];
         [cell addSubview:lblPersonName];
         
@@ -720,25 +770,26 @@
         
         UILabel *lblPrice = [[UILabel alloc] initWithFrame:CGRectMake(5, 2, 150, 30)];
         if(selectedSegment==0){
-            [lblPrice setText:[NSString stringWithFormat:@"%@",[self.arrayPrice objectAtIndex:indexPath.row]]];
+            [lblPrice setText:[NSString stringWithFormat:@"%@$",[self.arrayPrice objectAtIndex:indexPath.row]]];
         }
         else if(selectedSegment==1){
-            [lblPrice setText:[NSString stringWithFormat:@"%@",[self.arrayPrice1 objectAtIndex:indexPath.row]]];
+            [lblPrice setText:[NSString stringWithFormat:@"%@$",[self.arrayPrice1 objectAtIndex:indexPath.row]]];
         }
         else if(selectedSegment==2){
-            [lblPrice setText:[NSString stringWithFormat:@"%@",[self.arrayPrice2 objectAtIndex:indexPath.row]]];
+            [lblPrice setText:[NSString stringWithFormat:@"%@$",[self.arrayPrice2 objectAtIndex:indexPath.row]]];
         }
         [lblPrice setBackgroundColor:[UIColor clearColor]];
-        [lblPrice setTextColor:[UIColor blackColor]];
-        [lblPrice setFont:[UIFont systemFontOfSize:15.0]];
+        [lblPrice setTextColor:[UIColor whiteColor]];
+        [lblPrice setFont:[UIFont boldSystemFontOfSize:15.0]];
         [bottomView addSubview:lblPrice];
         
         
         UIButton *btnUseOrSent = [UIButton buttonWithType:UIButtonTypeCustom];
-        btnUseOrSent.frame = CGRectMake(150, 2, 170, 30);
-        btnUseOrSent.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-        [btnUseOrSent setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        btnUseOrSent.frame = CGRectMake(150, 2, 150, 30);
+        btnUseOrSent.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        [btnUseOrSent setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         btnUseOrSent.tag = indexPath.row;
+        btnUseOrSent.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
         if(selectedSegment==0){
             [btnUseOrSent setTitle:@"USE" forState:UIControlStateNormal];
             [btnUseOrSent addTarget:self action:@selector(callAlertViewPopup1:) forControlEvents:UIControlEventTouchUpInside];
@@ -756,7 +807,7 @@
                 btnUseOrSent.enabled = true;
             }
             else{
-                btnTitle = @"THANKS SENT!";
+                 btnTitle = @"THANKS SENT!";
                 btnUseOrSent.enabled = false;
             }
             [btnUseOrSent setTitle:btnTitle forState:UIControlStateNormal];
@@ -764,6 +815,32 @@
         }
         [bottomView addSubview:btnUseOrSent];
         
+        if(selectedSegment==0){
+            if(indexPath.row==self.arrayTransactionsID.count-1 && self.arrayTransactionsID.count>3){
+                if(!isReceivedStop){
+                    ReceivedIndex++;
+                    [self startLoading];
+                }
+            }
+        }
+        else if(selectedSegment==1){
+            if(indexPath.row==self.arrayTransactionsID1.count-1 && self.arrayTransactionsID1.count>3){
+                if(isSent && !isSentStop){
+                    isSent = NO;
+                    SentIndex++;
+                    [self segmentControlChanged];
+                }
+            }
+        }
+        else if(selectedSegment==2){
+            if(indexPath.row==self.arrayTransactionsID2.count-1 && self.arrayTransactionsID2.count>3){
+                if(isUsed && !isUsedStop){
+                    isUsed = NO;
+                    UsedIndex++;
+                    [self segmentControlChanged];
+                }
+            }
+        }
     }
     return cell;
     
@@ -848,18 +925,7 @@
         else if(alertView.tag==2){
             if(buttonIndex==1){
                 ReceiptViewController *reciptViewController = [[ReceiptViewController alloc] initWithNibName:@"ReceiptViewController" bundle:nil];
-//               //
-//                [self.arrayTransactionsID1  addObject:[[dicSent valueForKey:@"TransactionsID"] objectAtIndex:i]];
-//                [self.arrayLocationID1  addObject:[[dicSent valueForKey:@"LocationID"] objectAtIndex:i]];
-//                [self.arrayLocationImage1 addObject:[[dicSent valueForKey:@"LocationImage"]objectAtIndex:i]];
-//                [self.arrayLocationName1 addObject:[[dicSent valueForKey:@"LocationName"] objectAtIndex:i]];
-//                [self.arrayMiles1 addObject:[[dicSent valueForKey:@"Miles"] objectAtIndex:i]];
-//                [self.arrayPrice1 addObject:[[dicSent valueForKey:@"Price"] objectAtIndex:i]];
-//                [self.arrayStatus1 addObject:[[dicSent valueForKey:@"Status"] objectAtIndex:i]];
-//                [self.arraySenderID1 addObject:[[dicSent valueForKey:@"senderId"] objectAtIndex:i]];
-//                [self.arraySenderName1  addObject:[[dicSent valueForKey:@"senderName"] objectAtIndex:i]];
-//                //
-                
+          
                 NSMutableArray *receData = [[NSMutableArray alloc] init];
                 [receData addObject:[self.arrayTransactionsID1 objectAtIndex:selectedRow]];
                 [receData addObject:[self.arraySenderName1 objectAtIndex:selectedRow]];
@@ -877,52 +943,79 @@
         }
         else if(alertView.tag==3){
             if(buttonIndex==1){
-                
-                NSLog(@"self.arrayTransactionsID2 : %@",self.arrayTransactionsID2);
-                NSLog(@"selectedRow: %d",selectedRow);
-                
-                int strTransactionId = [[NSString stringWithFormat:@"%@",[self.arrayTransactionsID2 objectAtIndex:selectedRow]] integerValue];
-                NSLog(@"strTransactionId : %d",strTransactionId);
-                //http://50.62.148.155:8080/heres2u/api/saythanks.php?TransactionID=1
-              
-                NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@saythanks.php?TransactionID=%d",hostURl,strTransactionId]];
-                
-                //http://50.62.148.155:8080/heres2u/api/dummy.php
-//                NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://50.62.148.155:8080/heres2u/api/dummy.php"]];
-                NSLog(@"url : %@",url);
-                sayThanksXML = [[SayThanksXML alloc] initWithURL:url];
-                
-//                /[dicSayThanks setValue:arraySayThanks forKey:@"SayThanksId"];
-                NSArray *arrayCount = [dicSayThanks valueForKey:@"SayThanksId"];
-                NSLog(@"%@",arrayCount);
-                int thanksId = [[arrayCount objectAtIndex:0] integerValue];
-                NSLog(@"%d",thanksId);
-                
-                
-                NSString *msg;
-                if(thanksId==0){
-                  msg = @"Thanks not sent";  
-                }
-                else if(thanksId==1){
-                    msg = @"Thanks sent Successfully";                    
-                }
-                else{
-                    msg = @"Something Wrong!";
-                }
-                
-                UIAlertView *alertThanks = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:msg delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-                [alertThanks show];
-                
-//                if(thanksId==1){
-//                    [self segmentControlChanged];
-//                }
-                
+                [self performSelector:@selector(sayThanks) withObject:self afterDelay:0.5];
+                               
             }
             else if(buttonIndex==2){
                 resName = [NSString stringWithFormat:@"%@",[self.arrayLocationName objectAtIndex:selectedRow]];
                 [self btnEmail_click];
             }
         }
+        else if(alertView.tag==4){
+            isUsed = NO;
+            UsedIndex=1;
+            
+            [self.arrayTransactionsID2 removeAllObjects];
+            [self.arrayLocationID2  removeAllObjects];
+            [self.arrayLocationImage2  removeAllObjects];
+            [self.arrayLocationName2  removeAllObjects];
+            [self.arrayMiles2  removeAllObjects];
+            [self.arrayPrice2  removeAllObjects];
+            [self.arrayStatus2  removeAllObjects];
+            [self.arraySenderID2  removeAllObjects];
+            [self.arraySenderName2  removeAllObjects];
+            [self.arraySayThanks2  removeAllObjects];
+            
+            [self performSelector:@selector(segmentControlChanged) withObject:self afterDelay:0.5];
+        }
+    }
+    @catch (NSException *exception) {
+        
+    }
+}
+
+-(void)sayThanks{
+    @try {
+        NSLog(@"self.arrayTransactionsID2 : %@",self.arrayTransactionsID2);
+        NSLog(@"selectedRow: %d",selectedRow);
+        [self startLoading];
+        int strTransactionId = [[NSString stringWithFormat:@"%@",[self.arrayTransactionsID2 objectAtIndex:selectedRow]] integerValue];
+        NSLog(@"strTransactionId : %d",strTransactionId);
+        //http://50.62.148.155:8080/heres2u/api/saythanks.php?TransactionID=1
+        
+        NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@saythanks.php?TransactionID=%d",hostURl,strTransactionId]];
+        
+        //http://50.62.148.155:8080/heres2u/api/dummy.php
+        //                NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://50.62.148.155:8080/heres2u/api/dummy.php"]];
+        NSLog(@"url : %@",url);
+        sayThanksXML = [[SayThanksXML alloc] initWithURL:url];
+        
+        //                /[dicSayThanks setValue:arraySayThanks forKey:@"SayThanksId"];
+        NSArray *arrayCount = [dicSayThanks valueForKey:@"SayThanksId"];
+        NSLog(@"%@",arrayCount);
+        int thanksId = [[arrayCount objectAtIndex:0] integerValue];
+        NSLog(@"%d",thanksId);
+        
+        
+        NSString *msg;
+        if(thanksId==0){
+            msg = @"Thanks not sent";
+        }
+        else if(thanksId==1){
+            msg = @"Thanks sent Successfully";
+        }
+        else{
+            msg = @"Something Wrong!";
+        }
+        [self stopLoading];
+        
+        UIAlertView *alertThanks = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:msg delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        if(thanksId==1){
+            alertThanks.tag=4;
+            alertThanks.delegate = self;
+        }
+        [alertThanks show];
+
     }
     @catch (NSException *exception) {
         

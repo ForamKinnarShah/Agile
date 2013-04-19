@@ -56,8 +56,14 @@
     NSString *hostURl;
     
     int ReceivedIndex;
+    BOOL isReceivedStop;
+    
     int SentIndex;
+    BOOL isSentStop;
+    
     int UsedIndex;
+    BOOL isUsedStop;
+
     NSString *uId;
     
     //PullController

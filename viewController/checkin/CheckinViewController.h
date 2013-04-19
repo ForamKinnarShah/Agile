@@ -22,4 +22,6 @@
 @property (strong, nonatomic) IBOutlet UIScrollView *LocationsView;
 @property id delegate; //for modal presentation from heres2u controller
 
+
+
 @end

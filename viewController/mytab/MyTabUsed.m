@@ -17,8 +17,11 @@
 -(id)initWithURL:(NSURL*)parseURL{
     @try {
         NSLog(@"parseURL : %@",parseURL);
+//        NSString *Items=[[NSString alloc] initWithContentsOfURL:parseURL encoding:NSUTF8StringEncoding error:nil];
+//        NSXMLParser *nsXmlParser=[[NSXMLParser alloc] initWithData:[Items dataUsingEncoding:NSUTF8StringEncoding]];
         NSString *Items=[[NSString alloc] initWithContentsOfURL:parseURL encoding:NSUTF8StringEncoding error:nil];
-        NSXMLParser *nsXmlParser=[[NSXMLParser alloc] initWithData:[Items dataUsingEncoding:NSUTF8StringEncoding]];
+        NSData *xmlData = [[Items stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] dataUsingEncoding:NSUTF8StringEncoding];
+        NSXMLParser *nsXmlParser=[[NSXMLParser alloc] initWithData:xmlData];
         
         dicUsed = [[NSMutableDictionary alloc] init];
         

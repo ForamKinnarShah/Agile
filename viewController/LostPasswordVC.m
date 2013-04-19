@@ -55,7 +55,7 @@
 {
     //[NSUserAccessControl LostPassword:_txtEmail.text Delegate:self];
     NSString *URLString = [[NSString stringWithFormat:@"%@resetpassword.php?Email=%@",[NSGlobalConfiguration URL],_txtEmail.text] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
+    NSLog(@"URLString : %@",URLString);
     NSURL *url = [[NSURL alloc] initWithString:URLString];
     NSLog(@" : %@",url);
     
