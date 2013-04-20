@@ -12,8 +12,13 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import "AppDelegate.h" 
+
+//dictionery for mytab data
 NSMutableDictionary *dicReceived;
 NSMutableDictionary *dicSent;
 NSMutableDictionary *dicUsed;
 NSMutableDictionary *dicSayThanks;
+
+
+
 #endif

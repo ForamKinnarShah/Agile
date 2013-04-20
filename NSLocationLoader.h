@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "NSGlobalConfiguration.h"
 #import "NSLocationLoaderProtocol.h"
+
 @interface NSLocationLoader : NSObject<NSURLConnectionDataDelegate,NSURLConnectionDelegate,NSXMLParserDelegate>{
     @private
     NSMutableData *RawData;

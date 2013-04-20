@@ -62,11 +62,13 @@
     }
 }
 -(void) parser:(NSXMLParser *)parser foundCharacters:(NSString *)string{
+    
     if(ShouldThrowError){
         NSMutableDictionary *errorDict=[[NSMutableDictionary alloc] init];
         [errorDict setValue:string forKey:NSLocalizedDescriptionKey];
         NSError *error=[[NSError alloc] initWithDomain:@"Heres2u" code:201 userInfo:errorDict];
         SEL ErrorSelector=@selector(locationloaderFailedWithError:);
+       
         if([Delegate respondsToSelector:ErrorSelector]){
             [Delegate locationloaderFailedWithError:error];
         }
@@ -83,12 +85,14 @@
         [Delegate locationloaderCompleted:self];
     }
 }
--(void) parser:(NSXMLParser *)parser validationErrorOccurred:(NSError *)validationError{
+
+-(void)parser:(NSXMLParser *)parser validationErrorOccurred:(NSError *)validationError{
     SEL ErrorSelector=@selector(locationloaderFailedWithError:);
     if([Delegate respondsToSelector:ErrorSelector]){
         [Delegate locationloaderFailedWithError:validationError];
     }
 }
+
 -(void) parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError{
     SEL ErrorSelector=@selector(locationloaderFailedWithError:);
     if([Delegate respondsToSelector:ErrorSelector]){

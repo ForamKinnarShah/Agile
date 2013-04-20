@@ -15,12 +15,17 @@
 @interface CheckinViewController : UIViewController <UITabBarControllerDelegate, UITextFieldDelegate,UINavigationControllerDelegate,NSLocationLoaderProtocol,UICheckInsProtocol>{
     @private
     NSLocationLoader *Locations;
-    utilities *UIBlocker; 
+    utilities *UIBlocker;
+    
+    IBOutlet UIButton *btnMap;
 }
 @property (strong, nonatomic) IBOutlet UIButton *FilterButton;
 @property (strong, nonatomic) IBOutlet UITextField *FilterTextBox;
 @property (strong, nonatomic) IBOutlet UIScrollView *LocationsView;
 @property id delegate; //for modal presentation from heres2u controller
+
+-(IBAction)btnMap_Click:(id)sender;
+
 
 
 

@@ -122,14 +122,13 @@
     self.arrayStatus2 = [[NSMutableArray alloc] init];
     self.arraySayThanks2 = [[NSMutableArray alloc] init];
     
-    [self performSelector:@selector(startLoading) withObject:nil afterDelay:1.0];
+    [self performSelector:@selector(callReceivedData) withObject:nil afterDelay:1.0];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     @try {
-        isSent = NO;
-        isUsed = NO;
+        
     }
     @catch (NSException *exception) {
         
@@ -155,10 +154,10 @@
     //[self performSelectorInBackground:@selector(doLogin) withObject:nil];
     if(selectedSegment==0){
        // [self.HUD showWhileExecuting:@selector(callReceivedData) onTarget:self withObject:nil animated:YES];
-        [self.HUD show:YES];
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self callReceivedData];
-        }); 
+//        [self.HUD show:YES];
+//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        [self callReceivedData];
+//        });
     }
     else{
         //segmentControlChanged
@@ -180,7 +179,7 @@
         NSLog(@"uId : %@",uId);
         
         if(isLatLong){
-//            [self startLoading];
+            [self startLoading];
             
             //http://50.62.148.155:8080/heres2u/api/index.php?webservice=ui&action=getreceiveditems&ID=33&Page=1&Lat=-33.7501&Long=18.4533
             
@@ -222,12 +221,12 @@
             }
             [objTableView reloadData];
             
-            ////[self performSelectorOnMainThread:@selector(stopLoading) withObject:nil waitUntilDone:YES];
+//            [self performSelectorOnMainThread:@selector(stopLoading) withObject:nil waitUntilDone:YES];
 
-            dispatch_async(dispatch_get_main_queue(), ^{
+//            dispatch_async(dispatch_get_main_queue(), ^{
                 [self stopLoading];
-            }); 
-                           
+//            }); 
+            
             if(dicReceived.count==0){
                 isReceivedStop = YES;
                 UIAlertView *alertReceived = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"No More Data Found!" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
@@ -268,15 +267,13 @@
     if ([segmented selectedSegmentIndex] == 0)
     {
         [objTableView reloadData];
+        [self stopLoading];
     }
     else if ([segmented selectedSegmentIndex] == 1)
     {
-        
-        if(!isSent){
+        if(!isSent ){
             isSent = YES;
-            //http://50.62.148.155:8080/heres2u/api/index.php?webservice=ui&action=getsentitems&ID=36&Page=1&Lat=-33.7501&Long=18.4533
             [self performSelector:@selector(callSegment1) withObject:self afterDelay:0.5];
-            
         }
         else{
             [objTableView reloadData];
@@ -284,7 +281,7 @@
         }
     }
     else if ([segmented selectedSegmentIndex] == 2)
-    {
+    {   
         if(!isUsed){
             isUsed = YES;
             [self performSelector:@selector(callSegment2) withObject:self afterDelay:0.5];
@@ -352,15 +349,16 @@
         //http://50.62.148.155:8080/heres2u/api/index.php?webservice=ui&action=getuseditems&ID=37&Page=1&Lat=-33.7501&Long=18.4533
         NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@index.php?webservice=ui&action=getuseditems&ID=%@&Page=%d&Lat=%@&Long=%@",hostURl,uId,UsedIndex,currentLat,currentLong]];
         NSLog(@"url : %@",url);
+       
         myTabUsed = [[MyTabUsed alloc] initWithURL:url];
         //dictTransaction
         NSLog(@"dicReceived: %@",dicUsed);
         if(dicUsed.count==0){
             [self stopLoading];
-            segmented.selectedSegmentIndex = 1;
-            
+            [objTableView reloadData];
             UIAlertView *alertReceived = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"No Used Data Found!" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
             [alertReceived show];
+            
             return;
         }
         
