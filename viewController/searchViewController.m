@@ -14,7 +14,7 @@
 
 @implementation searchViewController
 
-@synthesize selectedFriends;
+@synthesize selectedFriends, selectedContacts;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -128,6 +128,24 @@
 
 -(IBAction)findOnContacts:(id)sender
 {
-    
+    ABPeoplePickerNavigationController *abpp = [[ABPeoplePickerNavigationController alloc] init];
+    abpp.peoplePickerDelegate = self; 
+    [self presentViewController:abpp animated:YES completion:nil]; 
+}
+
+- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person
+{
+    [selectedContacts addObject:(__bridge id)(person)];
+    return YES;
+}
+
+- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier
+{
+    return YES; 
+}
+
+- (void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 @end

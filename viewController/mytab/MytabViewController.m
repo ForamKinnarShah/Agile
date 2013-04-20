@@ -141,12 +141,11 @@
     // The hud will dispable all input on the view (use the higest view possible in the view hierarchy)
 	self.HUD = [[MBProgressHUD alloc] initWithView:appDelegate.window];
 	self.HUD.animationType = MBProgressHUDAnimationZoom;
-    
 	// Add HUD to screen
 	[appDelegate.window addSubview:self.HUD];
 	
 	// Regisete for HUD callbacks so we can remove it from the window at the right time
-	//HUD.delegate = self;
+	HUD.delegate = self;
 	
 	self.HUD.labelText = @"Loading";
     [self.HUD show:YES];
@@ -155,7 +154,11 @@
     
     //[self performSelectorInBackground:@selector(doLogin) withObject:nil];
     if(selectedSegment==0){
-        [self.HUD showWhileExecuting:@selector(callReceivedData) onTarget:self withObject:nil animated:YES];
+       // [self.HUD showWhileExecuting:@selector(callReceivedData) onTarget:self withObject:nil animated:YES];
+        [self.HUD show:YES];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self callReceivedData];
+        }); 
     }
     else{
         //segmentControlChanged
@@ -188,9 +191,15 @@
             myparser = [[MyTabXmlParse alloc] initWithURL:url];
             NSLog(@"dicReceived: %@",dicReceived);
             if(dicReceived.count==0){
-                [self stopLoading];
-                UIAlertView *alertReceived = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"No Gift's Found!" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
-                [alertReceived show];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self stopLoading];
+                });
+
+                //[self performSelectorOnMainThread:@selector(stopLoading) withObject:nil waitUntilDone:YES];
+                
+                UIAlertView *alertReceived = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"No Gifts Found!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alertReceived performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:YES];
 
                 return;
             }
@@ -213,7 +222,12 @@
             }
             [objTableView reloadData];
             
-            [self stopLoading];
+            ////[self performSelectorOnMainThread:@selector(stopLoading) withObject:nil waitUntilDone:YES];
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self stopLoading];
+            }); 
+                           
             if(dicReceived.count==0){
                 isReceivedStop = YES;
                 UIAlertView *alertReceived = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"No More Data Found!" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];

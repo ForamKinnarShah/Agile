@@ -24,7 +24,7 @@
 
 
 
-@interface MytabViewController : UIViewController <UITabBarControllerDelegate,UINavigationControllerDelegate, UIActionSheetDelegate, phpCallerDelegate,UIAlertViewDelegate,CLLocationManagerDelegate,MFMailComposeViewControllerDelegate,EGORefreshTableHeaderDelegate>
+@interface MytabViewController : UIViewController <UITabBarControllerDelegate,UINavigationControllerDelegate, UIActionSheetDelegate, phpCallerDelegate,UIAlertViewDelegate,CLLocationManagerDelegate,MFMailComposeViewControllerDelegate,EGORefreshTableHeaderDelegate, MBProgressHUDDelegate>
 {
     
     AppDelegate *appDelegate;

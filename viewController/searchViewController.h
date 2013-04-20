@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import <AddressBook/AddressBook.h>
+#import <AddressBookUI/AddressBookUI.h>
 
-
-@interface searchViewController : UIViewController
+@interface searchViewController : UIViewController <ABPeoplePickerNavigationControllerDelegate>
 {
     NSArray *selectedFriends; 
 }
 
-@property NSArray *selectedFriends; 
+@property NSArray *selectedFriends;
+@property NSMutableArray *selectedContacts;
 @end
