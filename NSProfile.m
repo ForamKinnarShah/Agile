@@ -20,7 +20,7 @@
 -(void) setProfileID:(NSInteger)ID{
     ProfileID=ID;
     //Refetch;
-    [self startFetching];
+    //[self startFetching];
 }
 //Private Functions:
 -(void) startFetching{

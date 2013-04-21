@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
 
-@interface addViewController : UIViewController
+@interface addViewController : UIViewController <MFMailComposeViewControllerDelegate>
 
 {
     IBOutletCollection(UITextField)NSArray * collection;
 }
+@property UITextField *activeTextField;
 
 -(IBAction)submitClicked:(id)sender;
 

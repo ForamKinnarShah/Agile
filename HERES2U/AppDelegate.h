@@ -11,6 +11,8 @@
 #import "Reachability.h"
 #import <FacebookSDK/FacebookSDK.h>
 
+extern NSString *const logOutNotification;
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UINavigationControllerDelegate, NSURLConnectionDelegate, UIAlertViewDelegate>
 {
     NSManagedObjectModel *managedObjectModel;

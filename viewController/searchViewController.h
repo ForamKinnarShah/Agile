@@ -10,8 +10,9 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
+#import <MessageUI/MessageUI.h>
 
-@interface searchViewController : UIViewController <ABPeoplePickerNavigationControllerDelegate>
+@interface searchViewController : UIViewController <ABPeoplePickerNavigationControllerDelegate,FBFriendPickerDelegate, MFMessageComposeViewControllerDelegate>
 {
     NSArray *selectedFriends; 
 }

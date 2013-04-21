@@ -9,10 +9,9 @@
 #import "settingsViewController.h"
 #import "searchViewController.h"
 #import "LoginViewController.h"
-#import "supportViewController.h"
 #import "addCreditCardViewController.h"
 #import "contactInfoViewController.h"
-
+#import "ProfileViewController.h"
 
 @interface settingsViewController ()
 
@@ -44,10 +43,6 @@
     // Dispose of any resources that can be recreated.
 }
 
--(IBAction)goToSupport:(id)sender {
-    supportViewController *menu = [[supportViewController alloc] initWithNibName:@"supportViewController" bundle:nil];
-    [self.navigationController pushViewController:menu animated:YES];
-}
 
 -(IBAction)goToSearch:(id)sender {
     searchViewController *menu = [[searchViewController alloc] initWithNibName:@"searchViewController" bundle:nil];
@@ -60,11 +55,18 @@
     [NSGlobalConfiguration setConfigurationItem:@"ID" Item:nil];
     [NSGlobalConfiguration setConfigurationItem:@"FullName" Item:nil];
     
-    
     LoginViewController *login=[[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
     [self presentViewController:login animated:YES completion:nil];
     [self.navigationController popViewControllerAnimated:NO];
     [self.tabBarC setSelectedIndex:0];
+//    for (__strong UINavigationController *VC in self.tabBarController.viewControllers)
+//    {
+////        if (![VC.viewControllers[0] isKindOfClass:[ProfileViewController class]])
+////             {
+//        UIViewController *vcontr = VC.viewControllers[0];
+//             //}
+//    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:logOutNotification object:nil]; 
     
 }
 

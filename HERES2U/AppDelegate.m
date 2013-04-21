@@ -15,7 +15,7 @@
 #import "Heres2uViewController.h"
 #import <AudioToolbox/AudioToolbox.h>
 
-
+NSString * const logOutNotification = @"logOutNotification";
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

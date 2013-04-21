@@ -35,6 +35,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clearView) name:logOutNotification object:nil]; 
     timer=[NSTimer timerWithTimeInterval:5 target:self selector:@selector(checkActivity) userInfo:nil repeats:YES];
     //[[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes ];
     self.title = @"Feed";
@@ -210,5 +211,11 @@ UIActionSheet *choose = [[UIActionSheet alloc] initWithTitle:@"Menu" delegate:se
     }
 }
 
-
+-(void)clearView
+{
+    for (UIView *activity in self.view.subviews)
+    {
+        [activity removeFromSuperview]; 
+    }
+}
 @end

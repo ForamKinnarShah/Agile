@@ -14,6 +14,8 @@
 
 @implementation sendViewController
 
+@synthesize selectedFriends;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -62,10 +64,10 @@
                                                        defaultAudience:FBSessionDefaultAudienceFriends completionHandler:^(FBSession *session, NSError *error) {
                                                            if (!error)
                                                            {
-                                                               [self postToFB];
+                                                               [self loadFriends];
                                                            }
                                                            else {
-                                                               NSLog(@"error:%@",error);
+                                                               NSLog(@"error:%@",error.localizedDescription);
                                                            }
                                                        }];
         }
@@ -75,13 +77,43 @@
         [FBSession openActiveSessionWithPublishPermissions:[NSArray arrayWithObject:@"publish_stream"] defaultAudience:FBSessionDefaultAudienceFriends allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
             
             if (!error){
-                [self postToFB];
+                [self loadFriends]; 
             }
             else {
-                NSLog(@"error:%@",error); 
+                NSLog(@"error:%@",error.localizedDescription); 
             }
         }];
     }
+}
+
+-(void)loadFriends
+{
+    
+    FBFriendPickerViewController *friendPicker = [[FBFriendPickerViewController alloc] init];
+    
+    // Set up the friend picker to sort and display names the same way as the
+    // iOS Address Book does.
+    
+    // Need to call ABAddressBookCreate in order for the next two calls to do anything.
+    ABAddressBookCreate();
+    ABPersonSortOrdering sortOrdering = ABPersonGetSortOrdering();
+    ABPersonCompositeNameFormat nameFormat = ABPersonGetCompositeNameFormat();
+    
+    friendPicker.sortOrdering = (sortOrdering == kABPersonSortByFirstName) ? FBFriendSortByFirstName : FBFriendSortByLastName;
+    friendPicker.displayOrdering = (nameFormat == kABPersonCompositeNameFormatFirstNameFirst) ? FBFriendDisplayByFirstName : FBFriendDisplayByLastName;
+    
+    [friendPicker loadData];
+    friendPicker.delegate = self;
+    [friendPicker presentModallyFromViewController:self
+                                          animated:YES
+                                           handler:^(FBViewController *sender, BOOL donePressed) {
+                                               
+                                               if (donePressed) {
+                                                   self.selectedFriends = friendPicker.selection;
+                                                   [self FeedDialog];
+                                               }
+                                           }];
+    return;
 }
 
 //-(void)checkPostingRights
@@ -103,58 +135,82 @@
 //   }
 //}
 
--(void)postToFB
+
+-(void)FeedDialog
 {
-    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    NSString *messageString = messageTextField.text; 
-    
-    NSMutableDictionary *postParams =
-    [[NSMutableDictionary alloc] initWithObjectsAndKeys:
-     @"http://www.link.com", @"link",
-     //thumbnail.image, @"source",
-     //@"pictureURL",@"picture",
-     //@"Icon.png",@"picture",
-     @"name", @"name",
-     messageString, @"caption",
-     @" ", @"description",
+    NSDictionary<FBGraphUser> *user =  selectedFriends[0];
+    NSString *selectedID = user.id;
+    NSMutableDictionary *params =
+    [NSMutableDictionary dictionaryWithObjectsAndKeys:
+     @"Heres2U iPhone App", @"name",
+     @"Tagline here.", @"caption",
+     @"Description here.", @"description",
+     @"http://www.myapp.com", @"link",
+     @"http://www.image-link-here.com", @"picture",
+     selectedID,@"to",
      nil];
-        
-    [FBRequestConnection
-     startWithGraphPath:@"/me/feed"
-     parameters:postParams
-     HTTPMethod:@"POST"
-     completionHandler:^(FBRequestConnection *connection,
-                         id result,
-                         NSError *error) {
-         NSString *alertText; 
-         
+    
+    // Invoke the dialog
+    [FBWebDialogs presentFeedDialogModallyWithSession:nil
+                                           parameters:params
+                                              handler:
+     ^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
          if (error) {
-             alertText = [NSString stringWithFormat:
-                          @"error: domain = %@, code = %d",
-                          error.domain, error.code];
-             NSLog(@"error:%@",error); 
+             // Error launching the dialog or publishing a story.
+             NSLog(@"Error publishing story.");
          } else {
-             alertText = [NSString stringWithFormat:
-                          @"Succesfully posted to wall!, id: %@",
-                          [result objectForKey:@"id"]];
+             if (result == FBWebDialogResultDialogNotCompleted) {
+                 // User clicked the "x" icon
+                 NSLog(@"User canceled story publishing.");
+             } else {
+                 // Handle the publish feed callback
+                 NSDictionary *urlParams = [self parseURLParams:[resultURL query]];
+                 if (![urlParams valueForKey:@"post_id"]) {
+                     // User clicked the Cancel button
+                     NSLog(@"User canceled story publishing.");
+                 } else {
+                     // User clicked the Share button
+                     NSString *msg = [NSString stringWithFormat:
+                                      @"Posted story, id: %@",
+                                      [urlParams valueForKey:@"post_id"]];
+                     NSLog(@"%@", msg);
+                     // Show the result in an alert
+                     [[[UIAlertView alloc] initWithTitle:@"Result"
+                                                 message:msg
+                                                delegate:nil
+                                       cancelButtonTitle:@"OK!"
+                                       otherButtonTitles:nil]
+                      show];
+                 }
+             }
          }
-         // Show the result in an alert
-         
-         //[MBProgressHUD hideHUDForView:self.view animated:YES];
-         [[[UIAlertView alloc] initWithTitle:@"Result"
-                                     message:alertText
-                                    delegate:self
-                           cancelButtonTitle:@"OK!"
-                           otherButtonTitles:nil]
-          show];
      }];
-  
 }
 
--(void)feedDialog
+- (NSDictionary*)parseURLParams:(NSString *)query {
+    NSArray *pairs = [query componentsSeparatedByString:@"&"];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    for (NSString *pair in pairs) {
+        NSArray *kv = [pair componentsSeparatedByString:@"="];
+        NSString *val =
+        [[kv objectAtIndex:1]
+         stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        [params setObject:val forKey:[kv objectAtIndex:0]];
+    }
+    return params;
+}
+
+- (void)friendPickerViewControllerSelectionDidChange:(FBFriendPickerViewController *)friendPicker;
 {
-    
+    if ([friendPicker.selection count] >0)
+    {
+        self.selectedFriends = friendPicker.selection;
+        [self dismissViewControllerAnimated:YES completion:^{
+            [self FeedDialog];
+        }];
+    }
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField

@@ -42,11 +42,13 @@
     //Profile=[[NSProfile alloc] initWithProfileID:ProfileID];
     [Profile setDelegate:self];
     ProfileID = [[NSGlobalConfiguration getConfigurationItem:@"ID"] intValue];
+    Profile.ProfileID = ProfileID; 
     [Profile startFetching];
 }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clearView) name:logOutNotification object:nil]; 
     
     UIBlocker = [[utilities alloc] init];
     [UIBlocker startUIBlockerInView:self.tabBarController.view];
@@ -160,6 +162,7 @@
         [activity.lblTime setText:[ItemData valueForKey:@"DateCreated"]];
         [activity.ProfilePicture setImage:[ProfilePicture image]];
         [activity setDelegate:self];
+        [activity setTag:i+1];
         
         if ([[ItemData valueForKey:@"UserID"] isEqual:[NSGlobalConfiguration getConfigurationItem:@"ID"]])
         {
@@ -185,11 +188,6 @@
 }
 -(void)imageviewloaderLoadingCompleted:(NSImageLoaderToImageView *)loader{
     [ImageLoader stopAnimating];
-}
-
--(void)clearView
-{
-    
 }
 
 -(void) selectPhoto:(UIGestureRecognizer *)gesture{
@@ -279,4 +277,14 @@
     }];
 }
 
+-(void)clearView
+{
+    for (UIActivityView *activity in ProSroll.subviews)
+    {
+        if (activity.tag)
+        {
+            [activity removeFromSuperview]; 
+        }
+    }
+}
 @end

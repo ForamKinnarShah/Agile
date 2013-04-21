@@ -148,4 +148,13 @@
     [self.navigationController pushViewController:add animated:YES]
      ;}
 }
+
+-(NSArray*)sortLocationsByDistance
+{
+    for(NSInteger i=0;i<[Locations count];i++)
+    {
+        
+    }
+}
+
 @end

@@ -12,7 +12,10 @@
 
 @end
 
+#define APP_LINK  @"LINK"
+
 @implementation searchViewController
+
 
 @synthesize selectedFriends, selectedContacts;
 
@@ -72,6 +75,7 @@
 
 -(void)loadFriends
 {
+    
     FBFriendPickerViewController *friendPicker = [[FBFriendPickerViewController alloc] init];
     
     // Set up the friend picker to sort and display names the same way as the
@@ -86,12 +90,14 @@
     friendPicker.displayOrdering = (nameFormat == kABPersonCompositeNameFormatFirstNameFirst) ? FBFriendDisplayByFirstName : FBFriendDisplayByLastName;
     
     [friendPicker loadData];
+    friendPicker.delegate = self; 
     [friendPicker presentModallyFromViewController:self
                                           animated:YES
                                            handler:^(FBViewController *sender, BOOL donePressed) {
+                                               
                                                if (donePressed) {
                                                    self.selectedFriends = friendPicker.selection;
-                                                   [self postToFriends]; 
+                                                   [self FeedDialog];
                                                }
                                            }];
     return;
@@ -121,6 +127,83 @@
     
 }
 
+-(void)FeedDialog
+{
+
+    NSDictionary<FBGraphUser> *user =  selectedFriends[0];
+    NSString *selectedID = user.id;
+    NSMutableDictionary *params =
+    [NSMutableDictionary dictionaryWithObjectsAndKeys:
+     @"Heres2U iPhone App", @"name",
+     @"Tagline here.", @"caption",
+     @"Description here.", @"description",
+     @"http://www.myapp.com", @"link",
+     @"http://www.image-link-here.com", @"picture",
+     selectedID,@"to",
+     nil];
+    
+    // Invoke the dialog
+    [FBWebDialogs presentFeedDialogModallyWithSession:nil
+                                           parameters:params
+                                              handler:
+     ^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
+         if (error) {
+             // Error launching the dialog or publishing a story.
+             NSLog(@"Error publishing story.");
+         } else {
+             if (result == FBWebDialogResultDialogNotCompleted) {
+                 // User clicked the "x" icon
+                 NSLog(@"User canceled story publishing.");
+             } else {
+                 // Handle the publish feed callback
+                 NSDictionary *urlParams = [self parseURLParams:[resultURL query]];
+                 if (![urlParams valueForKey:@"post_id"]) {
+                     // User clicked the Cancel button
+                     NSLog(@"User canceled story publishing.");
+                 } else {
+                     // User clicked the Share button
+                     NSString *msg = [NSString stringWithFormat:
+                                      @"Posted story, id: %@",
+                                      [urlParams valueForKey:@"post_id"]];
+                     NSLog(@"%@", msg);
+                     // Show the result in an alert
+                     [[[UIAlertView alloc] initWithTitle:@"Result"
+                                                 message:msg
+                                                delegate:nil
+                                       cancelButtonTitle:@"OK!"
+                                       otherButtonTitles:nil]
+                      show];
+                 }
+             }
+         }
+     }];
+}
+
+- (NSDictionary*)parseURLParams:(NSString *)query {
+    NSArray *pairs = [query componentsSeparatedByString:@"&"];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    for (NSString *pair in pairs) {
+        NSArray *kv = [pair componentsSeparatedByString:@"="];
+        NSString *val =
+        [[kv objectAtIndex:1]
+         stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        [params setObject:val forKey:[kv objectAtIndex:0]];
+    }
+    return params;
+}
+
+- (void)friendPickerViewControllerSelectionDidChange:(FBFriendPickerViewController *)friendPicker;
+{
+  if ([friendPicker.selection count] >0)
+  {
+      self.selectedFriends = friendPicker.selection; 
+      [self dismissViewControllerAnimated:YES completion:^{
+          [self FeedDialog]; 
+      }];
+  }
+}
+
 -(IBAction)findOnGPlus:(id)sender
 {
     
@@ -128,9 +211,11 @@
 
 -(IBAction)findOnContacts:(id)sender
 {
-    ABPeoplePickerNavigationController *abpp = [[ABPeoplePickerNavigationController alloc] init];
-    abpp.peoplePickerDelegate = self; 
-    [self presentViewController:abpp animated:YES completion:nil]; 
+    [self shareWithSMS:self]; 
+    
+//    ABPeoplePickerNavigationController *abpp = [[ABPeoplePickerNavigationController alloc] init];
+//    abpp.peoplePickerDelegate = self; 
+//    [self presentViewController:abpp animated:YES completion:nil]; 
 }
 
 - (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person
@@ -147,5 +232,49 @@
 - (void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)shareWithSMS:(id)sender
+{
+    if ([MFMessageComposeViewController canSendText])
+    {
+        
+        MFMessageComposeViewController *mcvc = [[MFMessageComposeViewController alloc] init];
+        [mcvc setBody:[NSString stringWithFormat:@"Wanna try a fun app? %@",APP_LINK]];
+        mcvc.messageComposeDelegate = self;
+        [self presentViewController:mcvc animated:YES completion:NULL];
+    }
+    else {
+        [self showAlertMessage:@"device cannot currently send text messages" withTitle:@"cannot send text messages"];
+    }
+}
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+    if (result == MessageComposeResultFailed)
+    {
+        [self dismissViewControllerAnimated:YES completion:^{
+            [self showAlertMessage:@"" withTitle:@"message send failure"];
+        }];
+    }
+    else if (result == MessageComposeResultCancelled)
+    {
+        [self dismissViewControllerAnimated:YES completion:NULL];
+    }
+    else if (result == MessageComposeResultSent)
+    {
+        [self dismissViewControllerAnimated:YES completion:^{
+            [self showAlertMessage:@"" withTitle:@"message sent"];
+        }];
+    }
+}
+
+- (void)showAlertMessage:(NSString *)message withTitle:(NSString *)title
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
+                                                        message:message
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+    [alertView show];
 }
 @end

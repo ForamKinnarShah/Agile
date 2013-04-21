@@ -34,6 +34,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clearView) name:logOutNotification object:nil];
+    
     self.title = @"HERES2U";
     // Custom initialization
     [self.navigationController.navigationBar setBackgroundColor:[UIColor grayColor]];
@@ -168,5 +170,11 @@
     }
 }
 
-
+-(void)clearView
+{
+    for (UIView *friend in self.view.subviews)
+    {
+        [friend removeFromSuperview]; 
+    }
+}
 @end
