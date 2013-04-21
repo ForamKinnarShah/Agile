@@ -143,11 +143,7 @@
     NSString *selectedID = user.id;
     NSMutableDictionary *params =
     [NSMutableDictionary dictionaryWithObjectsAndKeys:
-     @"Heres2U iPhone App", @"name",
-     @"Tagline here.", @"caption",
-     @"Description here.", @"description",
-     @"http://www.myapp.com", @"link",
-     @"http://www.image-link-here.com", @"picture",
+     [NSString stringWithFormat:@"I bought you a gift at %@ using the Heres2U iPhone app. You should go pick it up!",[self.restaurantInfo objectForKey:@"Title"]],@"message",
      selectedID,@"to",
      nil];
     
@@ -228,4 +224,93 @@
 {
     NSString *message = messageTextField.text;
 }
+
+-(IBAction)sendWithSMS:(id)sender
+{
+    if ([MFMessageComposeViewController canSendText])
+    {
+        
+        MFMessageComposeViewController *mcvc = [[MFMessageComposeViewController alloc] init];
+        [mcvc setBody:[NSString stringWithFormat:@"I just bought you a gift at %@ using the Heres2u iPhone app. you should go pick it up!",[self.restaurantInfo objectForKey:@"Title"]]];
+        mcvc.messageComposeDelegate = self;
+        [self presentViewController:mcvc animated:YES completion:NULL];
+    }
+    else {
+        [self showAlertMessage:@"device cannot currently send text messages" withTitle:@"cannot send text messages"];
+    }
+}
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+    if (result == MessageComposeResultFailed)
+    {
+        [self dismissViewControllerAnimated:YES completion:^{
+            [self showAlertMessage:@"" withTitle:@"message send failure"];
+        }];
+    }
+    else if (result == MessageComposeResultCancelled)
+    {
+        [self dismissViewControllerAnimated:YES completion:NULL];
+    }
+    else if (result == MessageComposeResultSent)
+    {
+        [self dismissViewControllerAnimated:YES completion:^{
+            [self showAlertMessage:@"" withTitle:@"message sent"];
+        }];
+    }
+}
+
+-(IBAction)sendWithEmail:(id)sender{
+    
+    
+    MFMailComposeViewController *composer=[[MFMailComposeViewController alloc]init];
+    [composer setMailComposeDelegate:self];
+    
+    if ([MFMailComposeViewController canSendMail]) {
+        //[composer setToRecipients:[NSArray arrayWithObjects:@"support@heres2uapp.com", nil]];
+        
+        [composer setSubject:@"I just bought you a gift!"];
+        
+        NSMutableString *messageBody = [[NSMutableString alloc] initWithString:@"<html><body>"];
+        
+        [messageBody appendString:[NSString stringWithFormat:@"I just bought you a gift at %@ using the Heres2u iPhone app. you should go pick it up!",[self.restaurantInfo objectForKey:@"Title"]]];
+        
+        [messageBody appendString:@"</body></html>"];
+        [composer setMessageBody:messageBody isHTML:YES];
+        
+        [composer setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+        [self presentViewController:composer animated:YES completion:nil];
+    }
+    else {
+        NSLog(@"controller cannot send mail");
+    }
+}
+
+-(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
+    if (error)
+    {
+        NSLog(@"error:%@",error);
+    }
+    
+    if (result == MFMailComposeResultSent)
+    {
+        [self showAlertMessage:@"Message was queued in outbox. Will send if/when connected to email" withTitle:@"Email Sent"];
+    }
+    else if (result == MFMailComposeErrorCodeSendFailed || result == MFMailComposeResultFailed)
+    {
+        [self showAlertMessage:@"" withTitle:@"message sending failed"];
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void)showAlertMessage:(NSString *)message withTitle:(NSString *)title
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
+                                                        message:message
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+    [alertView show];
+}
+
 @end

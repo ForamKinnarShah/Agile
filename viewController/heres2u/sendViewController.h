@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import <AddressBook/AddressBook.h>
+#import <MessageUI/MessageUI.h>
 
-@interface sendViewController : UIViewController <UINavigationControllerDelegate, UITextFieldDelegate, FBFriendPickerDelegate>
+@interface sendViewController : UIViewController <UINavigationControllerDelegate, UITextFieldDelegate, FBFriendPickerDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate>
 {
     IBOutlet UIButton *fbButton;
     IBOutlet UIButton *emailButton;
@@ -22,5 +23,7 @@
     IBOutlet UIButton *buttonG; 
 }
 
-@property NSMutableArray *selectedFriends; 
+@property NSMutableArray *selectedFriends;
+@property NSDictionary *restaurantInfo;
+
 @end

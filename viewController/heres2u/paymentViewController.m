@@ -94,6 +94,7 @@ totalTotalLbl.text = [NSString stringWithFormat:@"$%.2f",totalTotal];
 
 -(void)goToSend{
     sendViewController *send = [[sendViewController alloc] initWithNibName:@"sendViewController" bundle:nil];
+    send.restaurantInfo = self.restaurantInfo; 
     [self.navigationController pushViewController:send animated:YES];
 }
 
