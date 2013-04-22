@@ -14,7 +14,7 @@
 
 @implementation mapViewController
 
-@synthesize mapView, annotations;
+@synthesize mapView, annotations, locations;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -27,7 +27,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self annotateMapViewWithLocations:annotations]; 
+    [self annotateMapViewWithLocations:locations];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -60,5 +60,13 @@
     NSLog(@"annotationCoord:%f %f",annotationCoord.longitude,annotationCoord.latitude);
     //mapView.region = MKCoordinateRegionMakeWithDistance(annotationCoord, 50,50);
  
+}
+
+-(IBAction)doneButtonClicked:(id)sender
+{
+    if ([self.delegate respondsToSelector:@selector(mapViewControllerClickedDoneButton)])
+    {
+        [self.delegate mapViewControllerClickedDoneButton]; 
+    }
 }
 @end

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import "mapViewControllerDelegate.h" 
 
 @interface mapViewController : UIViewController
 
@@ -18,6 +19,8 @@
 }
 @property IBOutlet MKMapView *mapView;
 @property NSMutableArray *annotations;
+@property NSArray *locations; 
+@property id delegate;
 
 -(void)annotateMapViewWithLocations:(NSArray*)sortedLocations;
 

@@ -13,8 +13,9 @@
 #import "utilities.h"
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
+#import "mapViewControllerDelegate.h"
 
-@interface CheckinViewController : UIViewController <UITabBarControllerDelegate, UITextFieldDelegate,UINavigationControllerDelegate,NSLocationLoaderProtocol,UICheckInsProtocol, CLLocationManagerDelegate>{
+@interface CheckinViewController : UIViewController <UITabBarControllerDelegate, UITextFieldDelegate,UINavigationControllerDelegate,NSLocationLoaderProtocol,UICheckInsProtocol, CLLocationManagerDelegate, mapViewControllerDelegate>{
     @private
     NSLocationLoader *Locations;
     utilities *UIBlocker;

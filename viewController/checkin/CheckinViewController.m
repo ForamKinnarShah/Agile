@@ -82,10 +82,17 @@
 {
     
     mapViewController *mapVC = [[mapViewController alloc] initWithNibName:@"mapViewController" bundle:nil];
-    [mapVC annotateMapViewWithLocations:sortedLocations]; 
+    mapVC.locations = sortedLocations;
+    mapVC.delegate = self; 
+    //[mapVC annotateMapViewWithLocations:sortedLocations];
     [self presentViewController:mapVC animated:YES completion:NULL];
     //[mapVC annotateMapViewWithLocations:sortedLocations];
     
+}
+
+-(void)mapViewControllerClickedDoneButton
+{
+    [self dismissViewControllerAnimated:YES completion:NULL]; 
 }
 
 -(void)locationloaderCompleted:(NSLocationLoader *)loader{
@@ -192,7 +199,18 @@
     {
        NSString *locationLong = [[Locations getLocationAtIndex:i] objectForKey:@"Longitude"];
        NSString *locationLat = [[Locations getLocationAtIndex:i] objectForKey:@"Latitude"];
-        float distanceFromLocation = sqrtf( powf( (currentLocation.coordinate.latitude - [locationLat intValue]),2) + powf( (currentLocation.coordinate.longitude - [locationLong intValue]),2));
+        
+        //Haversine formala for calculating distance in miles between two long/lat coordinates
+        float dLongRadians = ([locationLong floatValue] - currentLocation.coordinate.longitude) * 3.141596 / 180;
+        float dlatRadians = ([locationLat floatValue] - currentLocation.coordinate.latitude) * 3.141596 / 180;
+        float lat1 = [locationLat floatValue] * 3.141596/180;
+        float lat2 = currentLocation.coordinate.latitude * 3.141596 / 180;
+        
+        float a = sinf(dlatRadians/2) * sinf(dlatRadians/2) + sinf(dLongRadians/2) * sinf(dLongRadians/2) * cosf(lat1) * cosf(lat2);
+        float c = 2 * atan2f(sqrtf(a), sqrtf((1-a)));
+        float distanceFromLocation = c * 3959;
+        
+        //float distanceFromLocation = sqrtf( powf( (currentLocation.coordinate.latitude - [locationLat floatValue]),2) + powf( (currentLocation.coordinate.longitude - [locationLong floatValue]),2));
         NSDictionary *dic = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[NSNumber numberWithFloat:distanceFromLocation], [NSNumber numberWithInt:i],nil] forKeys:[NSArray arrayWithObjects:@"distance",@"index", nil]]; 
         [distances addObject:dic];
     }
@@ -210,5 +228,6 @@
     }
     return sortedLocations; 
 }
+
 
 @end

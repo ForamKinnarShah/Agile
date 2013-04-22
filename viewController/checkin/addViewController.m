@@ -37,6 +37,7 @@
 
 -(IBAction)submitClicked:(id)sender
 {
+    [(UIScrollView*)self.view setContentSize:self.view.frame.size];
     
     MFMailComposeViewController *mf = [[MFMailComposeViewController alloc] init];
     mf.mailComposeDelegate = self; 
