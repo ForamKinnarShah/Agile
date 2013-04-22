@@ -30,5 +30,7 @@
 @property IBOutlet UILabel *restaurantName; 
 @property NSMutableDictionary *userInfo;
 @property NSDictionary *restaurantInfo; 
+@property IBOutlet UILabel *timeLabel; 
+@property NSString *timeLabelText; 
 
 @end

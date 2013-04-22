@@ -31,6 +31,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [(UIScrollView*)self.view setContentSize:self.view.bounds.size];
     // Do any additional setup after loading the view from its nib.
     NSMutableDictionary *creditCardInfo = [NSGlobalConfiguration getConfigurationItem:@"creditCard"];
     if (creditCardInfo)

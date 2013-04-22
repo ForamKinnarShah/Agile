@@ -29,6 +29,7 @@
 
 - (void)viewDidLoad
 {
+    [(UIScrollView*)self.view setContentSize:self.view.bounds.size];
     creditCards = [NSGlobalConfiguration getConfigurationItem:@"creditCards"];
     NSLog(@"cards:%@",creditCards);
     if (!creditCards)

@@ -40,7 +40,7 @@
 //#define HIGH_PRICE_DESSERT_ITEM_PRICE 10
 
 
-@synthesize segmentedControl = _segmentedControl, button1, button2, button3,followeePic,followeeName;
+@synthesize segmentedControl = _segmentedControl, button1, button2, button3,followeePic,followeeName, timeLabelText;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -54,6 +54,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [(UIScrollView*)self.view setContentSize:self.view.bounds.size]; 
     // Do any additional setup after loading the view from its nib.
     [_segmentedControl addTarget:self
      
@@ -74,9 +75,9 @@
 
     
     // initial settings for segmented control 
-    self.lowPricelbl.text = [NSString stringWithFormat:@"$%.2f %@",[[menu objectAtIndex:0] price],[[menu objectAtIndex:0] name]];
-    self.medPricelbl.text =[NSString stringWithFormat:@"$%.2f %@",[[menu objectAtIndex:1] price],[[menu objectAtIndex:1] name]];
-    self.highPricelbl.text = [NSString stringWithFormat:@"$%.2f %@",[[menu objectAtIndex:2] price],[[menu objectAtIndex:2] name]];
+    self.lowPricelbl.text = [NSString stringWithFormat:@"$%.0f %@",[[menu objectAtIndex:0] price],[[menu objectAtIndex:0] name]];
+    self.medPricelbl.text =[NSString stringWithFormat:@"$%.0f %@",[[menu objectAtIndex:1] price],[[menu objectAtIndex:1] name]];
+    self.highPricelbl.text = [NSString stringWithFormat:@"$%.0f %@",[[menu objectAtIndex:2] price],[[menu objectAtIndex:2] name]];
     selectedItems = [NSMutableArray arrayWithCapacity:0];
     selectedIndices = [NSMutableArray arrayWithCapacity:9]; 
     for (int i = 0; i<=[menu count];i++)
@@ -101,7 +102,7 @@
     
     NSLog(@"user info:%@",self.userInfo); 
     self.followeeName.text = [self.userInfo objectForKey:@"FullName"];
-    
+    self.timeLabel.text = self.timeLabelText; 
    // NSLog(@"restaurant Info:%@",self.restaurantInfo);
     self.restaurantName.text = [self.restaurantInfo objectForKey:@"Title"];
     
@@ -119,9 +120,9 @@
 {
     switch (self.segmentedControl.selectedSegmentIndex) {
         case 0:
-            self.lowPricelbl.text = [NSString stringWithFormat:@"$%.2f %@",[[menu objectAtIndex:0] price],[[menu objectAtIndex:0] name]];
-            self.medPricelbl.text =[NSString stringWithFormat:@"$%.2f %@",[[menu objectAtIndex:1] price],[[menu objectAtIndex:1] name]];
-            self.highPricelbl.text = [NSString stringWithFormat:@"$%.2f %@",[[menu objectAtIndex:2] price],[[menu objectAtIndex:2] name]];
+            self.lowPricelbl.text = [NSString stringWithFormat:@"$%.0f %@",[[menu objectAtIndex:0] price],[[menu objectAtIndex:0] name]];
+            self.medPricelbl.text =[NSString stringWithFormat:@"$%.0f %@",[[menu objectAtIndex:1] price],[[menu objectAtIndex:1] name]];
+            self.highPricelbl.text = [NSString stringWithFormat:@"$%.0f %@",[[menu objectAtIndex:2] price],[[menu objectAtIndex:2] name]];
             
             if ([selectedIndices[0] boolValue] == YES)
             {
@@ -147,9 +148,9 @@
             
             break;
         case 1:
-            self.lowPricelbl.text = [NSString stringWithFormat:@"$%.2f %@",[[menu objectAtIndex:3] price],[[menu objectAtIndex:3] name]];
-            self.medPricelbl.text =[NSString stringWithFormat:@"$%.2f %@",[[menu objectAtIndex:4] price],[[menu objectAtIndex:4] name]];
-            self.highPricelbl.text = [NSString stringWithFormat:@"$%.2f %@",[[menu objectAtIndex:5] price],[[menu objectAtIndex:5] name]];
+            self.lowPricelbl.text = [NSString stringWithFormat:@"$%.0f %@",[[menu objectAtIndex:3] price],[[menu objectAtIndex:3] name]];
+            self.medPricelbl.text =[NSString stringWithFormat:@"$%.0f %@",[[menu objectAtIndex:4] price],[[menu objectAtIndex:4] name]];
+            self.highPricelbl.text = [NSString stringWithFormat:@"$%.0f %@",[[menu objectAtIndex:5] price],[[menu objectAtIndex:5] name]];
             if ([selectedIndices[3] boolValue] == YES)
             {
                 [button1 setSelected:YES];
@@ -175,9 +176,9 @@
             
             break;
         case 2:
-            self.lowPricelbl.text = [NSString stringWithFormat:@"$%.2f %@",[[menu objectAtIndex:6] price],[[menu objectAtIndex:6] name]];
-            self.medPricelbl.text =[NSString stringWithFormat:@"$%.2f %@",[[menu objectAtIndex:7] price],[[menu objectAtIndex:7] name]];
-            self.highPricelbl.text = [NSString stringWithFormat:@"$%.2f %@",[[menu objectAtIndex:8] price],[[menu objectAtIndex:8] name]];
+            self.lowPricelbl.text = [NSString stringWithFormat:@"$%.0f %@",[[menu objectAtIndex:6] price],[[menu objectAtIndex:6] name]];
+            self.medPricelbl.text =[NSString stringWithFormat:@"$%.0f %@",[[menu objectAtIndex:7] price],[[menu objectAtIndex:7] name]];
+            self.highPricelbl.text = [NSString stringWithFormat:@"$%.0f %@",[[menu objectAtIndex:8] price],[[menu objectAtIndex:8] name]];
             if ([selectedIndices[6] boolValue] == YES)
             {
                 [button1 setSelected:YES];

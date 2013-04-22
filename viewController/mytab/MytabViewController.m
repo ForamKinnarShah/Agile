@@ -216,8 +216,8 @@
                 [self.arraySenderID addObject:[[dicReceived valueForKey:@"senderId"] objectAtIndex:i]];
                 [self.arraySenderName  addObject:[[dicReceived valueForKey:@"senderName"] objectAtIndex:i]];
                 [self.arrayCoupanNumber  addObject:[[dicReceived valueForKey:@"CoupanCode"] objectAtIndex:i]];
-                [self.arrayLongitude  addObject:[[dicReceived valueForKey:@"Latitude"] objectAtIndex:i]];
-                [self.arrayLatitude  addObject:[[dicReceived valueForKey:@"Longitude"] objectAtIndex:i]];
+                [self.arrayLongitude  addObject:[[dicReceived valueForKey:@"Longitude"] objectAtIndex:i]];
+                [self.arrayLatitude  addObject:[[dicReceived valueForKey:@"Latitude"] objectAtIndex:i]];
             }
             [objTableView reloadData];
             

@@ -35,6 +35,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [(UIScrollView*)self.view setContentSize:self.view.bounds.size];
+
     // Do any additional setup after loading the view from its nib.
     float drinkTotal;
     float foodTotal;

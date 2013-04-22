@@ -21,7 +21,8 @@
     utilities *UIBlocker;
     NSFeedManager *feedManager;
     NSTimer *timer;
-    UILabel *defaultLabel; 
+    UILabel *defaultLabel;
+    CGFloat length; 
 }
 -(IBAction)search:(id)sender;
 

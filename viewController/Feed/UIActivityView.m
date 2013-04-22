@@ -10,12 +10,20 @@
 
 @implementation UIActivityView
 @synthesize Delegate;
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)frame andView:(NSInteger)viewNumber
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        NSArray *Items=[[NSBundle mainBundle] loadNibNamed:@"UIActivityView" owner:self options:nil];
+        NSArray *Items; 
+        if (viewNumber == 0)
+        {
+        Items=[[NSBundle mainBundle] loadNibNamed:@"UIActivityView" owner:self options:nil];
+    }
+    else {
+        Items=[[NSBundle mainBundle] loadNibNamed:@"UIActivityView2" owner:self options:nil];
+
+    }
         UIActivityView *activity=[Items objectAtIndex:0];
         [self addSubview:activity];
     }

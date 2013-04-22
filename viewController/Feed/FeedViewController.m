@@ -35,6 +35,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    length = 0; 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clearView) name:logOutNotification object:nil]; 
     timer=[NSTimer timerWithTimeInterval:5 target:self selector:@selector(checkActivity) userInfo:nil repeats:YES];
     //[[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes ];
@@ -84,8 +85,10 @@
 -(IBAction)goToMenu:(UIActivityView*)sender {
     menuViewController *menu = [[menuViewController alloc] initWithNibName:@"menuViewController" bundle:nil];
     menu.userInfo = [NSMutableDictionary dictionaryWithDictionary:[feedManager getFeedAtIndex:sender.tag]];
-    menu.followeePic.image = sender.ProfilePicture.image;
-    menu.followeeNametxt = sender.UserName.text; 
+    //menu.restaurantInfo = [NSMutableDictionary dictionaryWithObject:[[feedManager getFeedAtIndex:sender.tag] objectForKey:@"locationID"] forKey:@"ID"];
+    menu.followeePicImg = sender.ProfilePicture.image;
+    menu.followeeNametxt = sender.UserName.text;
+    menu.timeLabelText = sender.lblTime.text;
     [self.navigationController pushViewController:menu animated:YES];
 }
 
@@ -118,6 +121,7 @@
     //Load Feeds
     NSLog(@"feed manager loaded");
     [UIBlocker stopUIBlockerInView:self.tabBarController.view];
+    length = 0; 
     [self loadActivities];
 }
 -(IBAction)sheet:(id)sender {
@@ -148,9 +152,19 @@ UIActionSheet *choose = [[UIActionSheet alloc] initWithTitle:@"Menu" delegate:se
     }
     
     for(NSInteger i=0; i<[feedManager count];i++){
-        UIActivityView *activity=[[UIActivityView alloc] initWithFrame:CGRectMake(0, (i*166), 320, 156)];
+        
         NSDictionary *ItemData=[feedManager getFeedAtIndex:i];
-        NSLog(@"itemData:%@",ItemData); 
+        UIActivityView *activity; 
+        if (![[ItemData objectForKey:@"UserComment"] isEqualToString:@""])
+             {
+                 activity=[[UIActivityView alloc] initWithFrame:CGRectMake(0, length+10, 320, 156) andView:0];
+                 length = length + 156; 
+             }
+        else {
+            activity=[[UIActivityView alloc] initWithFrame:CGRectMake(0, length+10, 320, 128) andView:1];
+            length = length + 124;
+        }
+        NSLog(@"itemData:%@",ItemData);
         
         [activity setID:[(NSString *)[ItemData valueForKey:@"FeedID"] integerValue]];
         [activity.UserName setText:[ItemData valueForKey:@"FullName"]];
@@ -164,11 +178,51 @@ UIActionSheet *choose = [[UIActionSheet alloc] initWithTitle:@"Menu" delegate:se
         NSCalendar *cal = [NSCalendar currentCalendar];
         NSDateComponents *hour = [cal components:NSHourCalendarUnit fromDate:[NSDate date] toDate:timeDate options:0];
         NSDateComponents *minutes = [cal components:NSMinuteCalendarUnit fromDate:[NSDate date] toDate:timeDate options:0]; 
+                
+        int offset = [[NSTimeZone localTimeZone] secondsFromGMT];
+        //PST is -28800 s, PDT - 25200. This is the timestamp our server gives to check-ins and must be adjusted for other time zones. 
+        NSLog(@"offest:%i",offset); 
+        NSTimeZone* systemTimeZone = [NSTimeZone systemTimeZone];
+        BOOL dstIsOn = [systemTimeZone isDaylightSavingTime];
+        int adjustSeconds; 
+        if (dstIsOn){
+         adjustSeconds = offset + 25200;
+        }
+        else {
+             adjustSeconds = offset + 28800;
+        }
         
         NSTimeInterval interval = [[NSDate date] timeIntervalSinceDate:timeDate];
-        int hoursDiff = interval / 3600;
+        NSTimeInterval adjusted = interval - adjustSeconds;
+        float minutesDiff = adjusted / 60;
+        float hoursDiff = minutesDiff/60;
+        float daysDiff = hoursDiff/24;
+        float monthsDiff = daysDiff/30;
         
-        [activity.lblTime setText:[ItemData valueForKey:@"Time"]];
+        if (minutesDiff < 1)
+        {
+            [activity.lblTime setText:@"less than 1 minute ago"];
+        }
+        else if (minutesDiff > 1 && hoursDiff < 1)
+        {
+            [activity.lblTime setText:[NSString stringWithFormat:@"%.0f minutes ago",minutesDiff]]; 
+        }
+        else if (hoursDiff > 1 && daysDiff < 1)
+        {
+            [activity.lblTime setText:[NSString stringWithFormat:@"%.0f hours ago",hoursDiff]];
+
+        }
+        else if (daysDiff >1 && monthsDiff < 1)
+        {
+            [activity.lblTime setText:[NSString stringWithFormat:@"%.0f days ago",daysDiff]];
+            
+        }
+        else {
+            [activity.lblTime setText:[NSString stringWithFormat:@"%.0f months ago",monthsDiff]];
+ 
+        }
+        
+        //[activity.lblTime setText:[ItemData valueForKey:@"Time"]];
        // [activity.lblTime setText:[NSString stringWithFormat:@"%i",hoursDiff]];
 
         [activity setDelegate:self];
@@ -188,7 +242,7 @@ UIActionSheet *choose = [[UIActionSheet alloc] initWithTitle:@"Menu" delegate:se
        // NSLog(@"added");
     }
     [(UIScrollView *)self.view setScrollEnabled:YES];
-    [(UIScrollView *)self.view setContentSize:CGSizeMake(320, ([feedManager count]*156))];
+    [(UIScrollView *)self.view setContentSize:CGSizeMake(320, length)];
    // NSLog(@"%i",([Profile.Feeds count]*166));
 }
 -(void)activityviewRequestComment:(UIActivityView *)activity{

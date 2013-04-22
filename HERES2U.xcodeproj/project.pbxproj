@@ -41,6 +41,11 @@
 		7A4217741723AB9800697822 /* FBUserSettingsViewResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7A4217731723AB9700697822 /* FBUserSettingsViewResources.bundle */; };
 		7A4217781723B2E700697822 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4217771723B2E700697822 /* FacebookSDK.framework */; };
 		7A42177A1723B45C00697822 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4217791723B45C00697822 /* Security.framework */; };
+		7A42177C1724851B00697822 /* commentCloud.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A42177B1724851B00697822 /* commentCloud.png */; };
+		7A42177E1724954B00697822 /* UIActivityView2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A42177D1724954A00697822 /* UIActivityView2.xib */; };
+		7A4217801724AED200697822 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A42177F1724AED100697822 /* MapKit.framework */; };
+		7A4217841724BA8A00697822 /* mapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A4217821724BA8900697822 /* mapViewController.m */; };
+		7A4217851724BA8A00697822 /* mapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A4217831724BA8A00697822 /* mapViewController.xib */; };
 		7AA005CA170A002100923E9B /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA005C7170A002100923E9B /* Accounts.framework */; };
 		7AA005CB170A002100923E9B /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA005C8170A002100923E9B /* AdSupport.framework */; };
 		7AA005CC170A002100923E9B /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA005C9170A002100923E9B /* Social.framework */; };
@@ -226,6 +231,12 @@
 		7A4217731723AB9700697822 /* FBUserSettingsViewResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FBUserSettingsViewResources.bundle; path = FacebookSDK/FacebookSDK.framework/Versions/A/Resources/FBUserSettingsViewResources.bundle; sourceTree = "<group>"; };
 		7A4217771723B2E700697822 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		7A4217791723B45C00697822 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		7A42177B1724851B00697822 /* commentCloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = commentCloud.png; path = images/commentCloud.png; sourceTree = SOURCE_ROOT; };
+		7A42177D1724954A00697822 /* UIActivityView2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UIActivityView2.xib; sourceTree = "<group>"; };
+		7A42177F1724AED100697822 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		7A4217811724BA8900697822 /* mapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mapViewController.h; sourceTree = "<group>"; };
+		7A4217821724BA8900697822 /* mapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mapViewController.m; sourceTree = "<group>"; };
+		7A4217831724BA8A00697822 /* mapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mapViewController.xib; sourceTree = "<group>"; };
 		7AA005C7170A002100923E9B /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		7AA005C8170A002100923E9B /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		7AA005C9170A002100923E9B /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
@@ -426,6 +437,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A4217801724AED200697822 /* MapKit.framework in Frameworks */,
 				7A42177A1723B45C00697822 /* Security.framework in Frameworks */,
 				1348F1B41721467E00DAF391 /* AudioToolbox.framework in Frameworks */,
 				7ABD92E5171FBC9E001D10DE /* AddressBook.framework in Frameworks */,
@@ -760,6 +772,9 @@
 				7AA196271712B15C001F7A40 /* checkinCommentViewController.xib */,
 				7AA196281712B15C001F7A40 /* CheckinViewController.h */,
 				7AA196291712B15C001F7A40 /* CheckinViewController.m */,
+				7A4217811724BA8900697822 /* mapViewController.h */,
+				7A4217821724BA8900697822 /* mapViewController.m */,
+				7A4217831724BA8A00697822 /* mapViewController.xib */,
 				7AA1962A1712B15C001F7A40 /* CheckinViewController.xib */,
 				7AA196691712B15C001F7A40 /* UICheckIns.h */,
 				7AA1966A1712B15C001F7A40 /* UICheckIns.m */,
@@ -775,10 +790,12 @@
 				7AA196311712B15C001F7A40 /* CommentViewController.m */,
 				7AA196321712B15C001F7A40 /* FeedViewController.h */,
 				7AA196331712B15C001F7A40 /* FeedViewController.m */,
+				7A42177B1724851B00697822 /* commentCloud.png */,
 				7AA196341712B15C001F7A40 /* FeedViewController.xib */,
 				7AA196351712B15C001F7A40 /* UIActivityView.h */,
 				7AA196361712B15C001F7A40 /* UIActivityView.m */,
 				7AA196371712B15C001F7A40 /* UIActivityView.xib */,
+				7A42177D1724954A00697822 /* UIActivityView2.xib */,
 				7AA196381712B15C001F7A40 /* UIActivityViewProtocol.h */,
 			);
 			path = Feed;
@@ -844,6 +861,7 @@
 		DAF870BD16671F0000747CDA = {
 			isa = PBXGroup;
 			children = (
+				7A42177F1724AED100697822 /* MapKit.framework */,
 				7A4217791723B45C00697822 /* Security.framework */,
 				7A4217771723B2E700697822 /* FacebookSDK.framework */,
 				7A4217731723AB9700697822 /* FBUserSettingsViewResources.bundle */,
@@ -1103,6 +1121,9 @@
 				1348F1AF1721350C00DAF391 /* Image_not_available.jpg in Resources */,
 				1348F1B2172135CE00DAF391 /* Loading.jpg in Resources */,
 				7A4217741723AB9800697822 /* FBUserSettingsViewResources.bundle in Resources */,
+				7A42177C1724851B00697822 /* commentCloud.png in Resources */,
+				7A42177E1724954B00697822 /* UIActivityView2.xib in Resources */,
+				7A4217851724BA8A00697822 /* mapViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1196,6 +1217,7 @@
 				134E4C2C171E737900257321 /* EGORefreshTableHeaderView.m in Sources */,
 				6FC50969171FE61D003CA7FC /* LostPasswordVC.m in Sources */,
 				6FC5096E17202886003CA7FC /* MBProgressHUD.m in Sources */,
+				7A4217841724BA8A00697822 /* mapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1246,8 +1268,8 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Brian Rosa (J35L3P43JL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Brian Rosa (J35L3P43JL)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1262,8 +1284,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
+				PROVISIONING_PROFILE = "C9680FDC-877F-4E71-B0CC-EFDAA85B0563";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C9680FDC-877F-4E71-B0CC-EFDAA85B0563";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1277,8 +1299,8 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Brian Rosa (J35L3P43JL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Brian Rosa (J35L3P43JL)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1286,8 +1308,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
+				PROVISIONING_PROFILE = "C9680FDC-877F-4E71-B0CC-EFDAA85B0563";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C9680FDC-877F-4E71-B0CC-EFDAA85B0563";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1297,8 +1319,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Brian Rosa (J35L3P43JL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Brian Rosa (J35L3P43JL)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/FacebookSDK\"",
@@ -1312,8 +1334,8 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
+				PROVISIONING_PROFILE = "C9680FDC-877F-4E71-B0CC-EFDAA85B0563";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "ADCD926E-3808-40C0-B082-A989FF5BBD9D";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1322,8 +1344,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Brian Rosa (J35L3P43JL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Brian Rosa (J35L3P43JL)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/FacebookSDK\"",
@@ -1337,8 +1359,9 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
+				PROVISIONING_PROFILE = "C9680FDC-877F-4E71-B0CC-EFDAA85B0563";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "ADCD926E-3808-40C0-B082-A989FF5BBD9D";
+				VALIDATE_PRODUCT = NO;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
