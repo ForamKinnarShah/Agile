@@ -15,18 +15,18 @@
    // NSLog(Items);
     NSXMLParser *parser=[[NSXMLParser alloc] initWithData:[Items dataUsingEncoding:NSUTF8StringEncoding]];
     [parser setDelegate:self];
-    Data=[[NSMutableArray alloc] init];
+    _Data=[[NSMutableArray alloc] init];
     [parser parse];
 }
 -(NSInteger) count{
-    return [Data count];
+    return [_Data count];
 }
 -(NSDictionary *) getCommentAtIndex:(NSInteger)index{
-    return [Data objectAtIndex:index];
+    return [_Data objectAtIndex:index];
 }
 -(void) parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict{
     if([[elementName lowercaseString] isEqualToString:@"comment"] ){
-        [Data addObject:attributeDict];
+        [_Data addObject:attributeDict];
     }else{
         if([elementName isEqualToString:@"ServerReply"]){
             encounteredServerReply=YES;

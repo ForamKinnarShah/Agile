@@ -19,6 +19,7 @@ NSMutableDictionary *dicSent;
 NSMutableDictionary *dicUsed;
 NSMutableDictionary *dicSayThanks;
 
+BOOL isParseFailed;
 
 
 #endif

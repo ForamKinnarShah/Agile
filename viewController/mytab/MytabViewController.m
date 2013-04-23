@@ -48,6 +48,7 @@
     
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
+        
     if (_refreshHeaderView == nil) {
 		
 		EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - objTableView.bounds.size.height, self.view.frame.size.width, objTableView.bounds.size.height)];
@@ -122,7 +123,8 @@
     self.arrayStatus2 = [[NSMutableArray alloc] init];
     self.arraySayThanks2 = [[NSMutableArray alloc] init];
     
-    [self performSelector:@selector(callReceivedData) withObject:nil afterDelay:1.0];
+    [self callReceivedData];
+    //[self performSelector:@selector(callReceivedData) withObject:nil afterDelay:1.0];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -152,17 +154,17 @@
     
     
     //[self performSelectorInBackground:@selector(doLogin) withObject:nil];
-    if(selectedSegment==0){
-       // [self.HUD showWhileExecuting:@selector(callReceivedData) onTarget:self withObject:nil animated:YES];
+//    if(selectedSegment==0){
+//       // [self.HUD showWhileExecuting:@selector(callReceivedData) onTarget:self withObject:nil animated:YES];
 //        [self.HUD show:YES];
 //        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 //        [self callReceivedData];
 //        });
-    }
-    else{
-        //segmentControlChanged
-        //[self.HUD showWhileExecuting:@selector(segmentControlChanged) onTarget:self withObject:nil animated:YES];
-    }
+//    }
+//    else{
+//        //segmentControlChanged
+//        //[self.HUD showWhileExecuting:@selector(segmentControlChanged) onTarget:self withObject:nil animated:YES];
+//    }
 }
 
 -(void)stopLoading{
@@ -190,17 +192,21 @@
             myparser = [[MyTabXmlParse alloc] initWithURL:url];
             NSLog(@"dicReceived: %@",dicReceived);
             if(dicReceived.count==0){
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
+                if(isParseFailed){
+                    isParseFailed = NO;
+                    [objTableView reloadData];
                     [self stopLoading];
-                });
-
-                //[self performSelectorOnMainThread:@selector(stopLoading) withObject:nil waitUntilDone:YES];
-                
-                UIAlertView *alertReceived = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"No Gifts Found!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                [alertReceived performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:YES];
-
-                return;
+                    return;
+                }
+                else{
+                    [objTableView reloadData];
+                    [self stopLoading];
+                    
+                    UIAlertView *alertReceived = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"No Gifts Found!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    [alertReceived performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:YES];
+                    
+                    return;
+                }
             }
             
             
@@ -216,18 +222,19 @@
                 [self.arraySenderID addObject:[[dicReceived valueForKey:@"senderId"] objectAtIndex:i]];
                 [self.arraySenderName  addObject:[[dicReceived valueForKey:@"senderName"] objectAtIndex:i]];
                 [self.arrayCoupanNumber  addObject:[[dicReceived valueForKey:@"CoupanCode"] objectAtIndex:i]];
-                [self.arrayLongitude  addObject:[[dicReceived valueForKey:@"Longitude"] objectAtIndex:i]];
-                [self.arrayLatitude  addObject:[[dicReceived valueForKey:@"Latitude"] objectAtIndex:i]];
+                [self.arrayLongitude  addObject:[[dicReceived valueForKey:@"Latitude"] objectAtIndex:i]];
+                [self.arrayLatitude  addObject:[[dicReceived valueForKey:@"Longitude"] objectAtIndex:i]];
             }
             [objTableView reloadData];
-            
+            [self stopLoading];
 //            [self performSelectorOnMainThread:@selector(stopLoading) withObject:nil waitUntilDone:YES];
 
 //            dispatch_async(dispatch_get_main_queue(), ^{
-                [self stopLoading];
+                
 //            }); 
             
             if(dicReceived.count==0){
+                
                 isReceivedStop = YES;
                 UIAlertView *alertReceived = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"No More Data Found!" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
                 [alertReceived show];
@@ -304,11 +311,20 @@
         NSLog(@"count : %d",dicSent.count);
         
         if(dicSent.count==0){
-             [self stopLoading];
-            segmented.selectedSegmentIndex = 0;
-             UIAlertView *alertReceived = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"No Sent Data Found!" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
-            [alertReceived show];
-            return;
+            if(isParseFailed){
+                isParseFailed = NO;
+                [objTableView reloadData];
+                [self stopLoading];
+                return;
+            }
+            else{
+                [objTableView reloadData];
+                [self stopLoading];
+                
+                 UIAlertView *alertReceived = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"No Sent Data Found!" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+                [alertReceived show];
+                return;
+            }
         }
 
         
@@ -333,8 +349,7 @@
         }
         else{
             isSentStop = NO;
-        }
-        [objTableView reloadData];
+        }           [objTableView reloadData];
         [self stopLoading];
         
     }
@@ -354,12 +369,20 @@
         //dictTransaction
         NSLog(@"dicReceived: %@",dicUsed);
         if(dicUsed.count==0){
-            [self stopLoading];
-            [objTableView reloadData];
-            UIAlertView *alertReceived = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"No Used Data Found!" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
-            [alertReceived show];
-            
-            return;
+            if(isParseFailed){
+                isParseFailed = NO;
+                [objTableView reloadData];
+                [self stopLoading];
+                return;
+            }
+            else{
+                [objTableView reloadData];
+                [self stopLoading];
+                
+                UIAlertView *alertReceived = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"No Used Data Found!" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+                [alertReceived show];
+                return;
+            }
         }
         
         NSArray *arrayCouynt = [dicUsed valueForKey:@"TransactionId"];
@@ -444,12 +467,10 @@
 	//  should be calling your tableviews data source model to reload
 	//  put here just for demo
 	_reloading = YES;
-   
-    
-    
+       
     if(selectedSegment==0){
         ReceivedIndex=1;
-        
+        [self.arrayTransactionsID removeAllObjects];
         [self.arrayLocationID  removeAllObjects];
         [self.arrayLocationImage removeAllObjects];
         [self.arrayLocationName removeAllObjects];
@@ -533,7 +554,7 @@
 - (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
 	
 	[self reloadTableViewDataSource];
-	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:5.0];
+	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:2.0];
 	
 }
 
@@ -548,8 +569,6 @@
 	return [NSDate date]; // should return date data source was last changed
 	
 }
-
-
 
 
 #pragma mark - CLLocationManagerDelegate
@@ -678,7 +697,7 @@
     else if(selectedSegment==2){
         count = [self.arrayTransactionsID2 count];
     }
-    
+    NSLog(@"count : %d",count);
     return count;
 }
 
@@ -688,173 +707,179 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString *cellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    cell = nil;
-    if(cell==nil){
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        
-        /*
-        self.arrayLocationID = [dicReceived valueForKey:@"LocationID"];
-        self.arrayLocationImage = [dicReceived valueForKey:@"LocationImage"];
-        self.arrayLocationName = [dicReceived valueForKey:@"LocationName"];
-        self.arrayMiles = [dicReceived valueForKey:@"Miles"];
-        self.arrayPrice = [dicReceived valueForKey:@"Price"];
-        self.arrayStatus = [dicReceived valueForKey:@"Status"];
-        self.arraySenderID = [dicReceived valueForKey:@"senderId"];
-        self.arraySenderName  = [dicReceived valueForKey:@"senderName"];
-        */
-        
-        NSString *strImageUrl;
-        if(selectedSegment==0){
-            strImageUrl = [NSString stringWithFormat:@"%@%@",hostURl,[self.arrayLocationImage objectAtIndex:indexPath.row]];
-        }
-        else if(selectedSegment==1){
-            strImageUrl = [NSString stringWithFormat:@"%@%@",hostURl,[self.arrayLocationImage1 objectAtIndex:indexPath.row]];
-        }
-        else if(selectedSegment==2){
-            strImageUrl = [NSString stringWithFormat:@"%@%@",hostURl,[self.arrayLocationImage2 objectAtIndex:indexPath.row]];
-        }
-        NSLog(@"strImageUrl : %@",strImageUrl);
-        
-        ImageViewLoading *imgView = [[ImageViewLoading alloc] initWithFrame:CGRectMake(5, 5, 70, 70) ImageUrl:strImageUrl];
-        [cell addSubview:imgView];
-        
-        
-        UILabel *lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(80, 0, 200, 30)];
-        if(selectedSegment==0){
-            [lblTitle setText:[NSString stringWithFormat:@"%@",[self.arrayLocationName objectAtIndex:indexPath.row]]];
-        }
-        else if(selectedSegment==1){
-            [lblTitle setText:[NSString stringWithFormat:@"%@",[self.arrayLocationName1 objectAtIndex:indexPath.row]]];
-        }
-        else if(selectedSegment==2){
-            [lblTitle setText:[NSString stringWithFormat:@"%@",[self.arrayLocationName2 objectAtIndex:indexPath.row]]];
-        }
-        
-        [lblTitle setBackgroundColor:[UIColor clearColor]];
-        [lblTitle setTextColor:[UIColor blackColor]];
-        [lblTitle setFont:[UIFont boldSystemFontOfSize:15.0]];
-        [cell addSubview:lblTitle];
-        
-        UILabel *lblDistance = [[UILabel alloc] initWithFrame:CGRectMake(240, 3, 100, 30)];
-        if(selectedSegment==0){
-            [lblDistance setText:[NSString stringWithFormat:@"%@ m",[self.arrayMiles objectAtIndex:indexPath.row]]];
-        }
-        else if(selectedSegment==1){
-            [lblDistance setText:[NSString stringWithFormat:@"%@",[self.arrayMiles1 objectAtIndex:indexPath.row]]];
-        }
-        else if(selectedSegment==2){
-            [lblDistance setText:[NSString stringWithFormat:@"%@",[self.arrayMiles2 objectAtIndex:indexPath.row]]];
-        }
-        [lblDistance setBackgroundColor:[UIColor clearColor]];
-        [lblDistance setTextColor:[UIColor blackColor]];
-        [lblDistance setFont:[UIFont systemFontOfSize:9.0]];
-        [cell addSubview:lblDistance];
-        
-        UILabel *lblPersonName = [[UILabel alloc] initWithFrame:CGRectMake(80, 20, 200, 30)];
-        if(selectedSegment==0){
-            [lblPersonName setText:[NSString stringWithFormat:@"%@",[self.arraySenderName objectAtIndex:indexPath.row]]];
-        }
-        else if(selectedSegment==1){
-            [lblPersonName setText:[NSString stringWithFormat:@"%@",[self.arraySenderName1 objectAtIndex:indexPath.row]]];
-        }
-        else if(selectedSegment==2){
-            [lblPersonName setText:[NSString stringWithFormat:@"%@",[self.arraySenderName2 objectAtIndex:indexPath.row]]];
-        }
-        [lblPersonName setBackgroundColor:[UIColor clearColor]];
-        [lblPersonName setTextColor:[UIColor redColor]];
-        [lblPersonName setFont:[UIFont systemFontOfSize:14.0]];
-        [cell addSubview:lblPersonName];
-        
-        UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(5, 50, 310, 32)];
-        //bottomView.layer.cornerRadius = 5.0;
-        bottomView.clipsToBounds = YES;
-        //bottomView.layer.borderColor = [UIColor blackColor].CGColor;
-        //bottomView.layer.borderWidth = 2.0;
-        bottomView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"dot-green.png"]];
-        bottomView.alpha = 0.7; 
-        [cell addSubview:bottomView];
-        
-        UILabel *lblPrice = [[UILabel alloc] initWithFrame:CGRectMake(5, 2, 150, 30)];
-        if(selectedSegment==0){
-            [lblPrice setText:[NSString stringWithFormat:@"%@$",[self.arrayPrice objectAtIndex:indexPath.row]]];
-        }
-        else if(selectedSegment==1){
-            [lblPrice setText:[NSString stringWithFormat:@"%@$",[self.arrayPrice1 objectAtIndex:indexPath.row]]];
-        }
-        else if(selectedSegment==2){
-            [lblPrice setText:[NSString stringWithFormat:@"%@$",[self.arrayPrice2 objectAtIndex:indexPath.row]]];
-        }
-        [lblPrice setBackgroundColor:[UIColor clearColor]];
-        [lblPrice setTextColor:[UIColor whiteColor]];
-        [lblPrice setFont:[UIFont boldSystemFontOfSize:15.0]];
-        [bottomView addSubview:lblPrice];
-        
-        
-        UIButton *btnUseOrSent = [UIButton buttonWithType:UIButtonTypeCustom];
-        btnUseOrSent.frame = CGRectMake(150, 2, 150, 30);
-        btnUseOrSent.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-        [btnUseOrSent setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        btnUseOrSent.tag = indexPath.row;
-        btnUseOrSent.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
-        if(selectedSegment==0){
-            [btnUseOrSent setTitle:@"USE" forState:UIControlStateNormal];
-            [btnUseOrSent addTarget:self action:@selector(callAlertViewPopup1:) forControlEvents:UIControlEventTouchUpInside];
-        }
-        else if(selectedSegment==1){
-            [btnUseOrSent setTitle:@"SENT" forState:UIControlStateNormal];
-            [btnUseOrSent addTarget:self action:@selector(callAlertViewPopup2:) forControlEvents:UIControlEventTouchUpInside];
+    @try {
+        NSString *cellIdentifier = @"Cell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        cell = nil;
+        if(cell==nil){
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
             
-        }
-        else if(selectedSegment==2){
-            NSString *strSayThanks = [NSString stringWithFormat:@"%@",[self.arraySayThanks2 objectAtIndex:indexPath.row]];
-            NSString *btnTitle;
-            if([strSayThanks isEqualToString:@"0"]){
-                btnTitle = @"Say Thanks.";
-                btnUseOrSent.enabled = true;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            
+            /*
+             self.arrayLocationID = [dicReceived valueForKey:@"LocationID"];
+             self.arrayLocationImage = [dicReceived valueForKey:@"LocationImage"];
+             self.arrayLocationName = [dicReceived valueForKey:@"LocationName"];
+             self.arrayMiles = [dicReceived valueForKey:@"Miles"];
+             self.arrayPrice = [dicReceived valueForKey:@"Price"];
+             self.arrayStatus = [dicReceived valueForKey:@"Status"];
+             self.arraySenderID = [dicReceived valueForKey:@"senderId"];
+             self.arraySenderName  = [dicReceived valueForKey:@"senderName"];
+             */
+            
+            NSString *strImageUrl;
+            if(selectedSegment==0){
+                strImageUrl = [NSString stringWithFormat:@"%@%@",hostURl,[self.arrayLocationImage objectAtIndex:indexPath.row]];
             }
-            else{
-                 btnTitle = @"THANKS SENT!";
-                btnUseOrSent.enabled = false;
+            else if(selectedSegment==1){
+                strImageUrl = [NSString stringWithFormat:@"%@%@",hostURl,[self.arrayLocationImage1 objectAtIndex:indexPath.row]];
             }
-            [btnUseOrSent setTitle:btnTitle forState:UIControlStateNormal];
-            [btnUseOrSent addTarget:self action:@selector(callAlertViewPopup3:) forControlEvents:UIControlEventTouchUpInside];
-        }
-        [bottomView addSubview:btnUseOrSent];
-        
-        if(selectedSegment==0){
-            if(indexPath.row==self.arrayTransactionsID.count-1 && self.arrayTransactionsID.count>3){
-                if(!isReceivedStop){
-                    ReceivedIndex++;
-                    [self startLoading];
+            else if(selectedSegment==2){
+                strImageUrl = [NSString stringWithFormat:@"%@%@",hostURl,[self.arrayLocationImage2 objectAtIndex:indexPath.row]];
+            }
+            NSLog(@"self.arrayLocationImage : %@",self.arrayLocationImage);
+            NSLog(@"indexPath.row : %d",indexPath.row);
+            NSLog(@"strImageUrl : %@",strImageUrl);
+            
+            ImageViewLoading *imgView = [[ImageViewLoading alloc] initWithFrame:CGRectMake(5, 5, 70, 70) ImageUrl:strImageUrl];
+            [cell addSubview:imgView];
+            
+            
+            UILabel *lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(80, 0, 200, 30)];
+            if(selectedSegment==0){
+                [lblTitle setText:[NSString stringWithFormat:@"%@",[self.arrayLocationName objectAtIndex:indexPath.row]]];
+            }
+            else if(selectedSegment==1){
+                [lblTitle setText:[NSString stringWithFormat:@"%@",[self.arrayLocationName1 objectAtIndex:indexPath.row]]];
+            }
+            else if(selectedSegment==2){
+                [lblTitle setText:[NSString stringWithFormat:@"%@",[self.arrayLocationName2 objectAtIndex:indexPath.row]]];
+            }
+            
+            [lblTitle setBackgroundColor:[UIColor clearColor]];
+            [lblTitle setTextColor:[UIColor blackColor]];
+            [lblTitle setFont:[UIFont boldSystemFontOfSize:15.0]];
+            [cell addSubview:lblTitle];
+            
+            UILabel *lblDistance = [[UILabel alloc] initWithFrame:CGRectMake(240, 3, 100, 30)];
+            if(selectedSegment==0){
+                [lblDistance setText:[NSString stringWithFormat:@"%@ m",[self.arrayMiles objectAtIndex:indexPath.row]]];
+            }
+            else if(selectedSegment==1){
+                [lblDistance setText:[NSString stringWithFormat:@"%@",[self.arrayMiles1 objectAtIndex:indexPath.row]]];
+            }
+            else if(selectedSegment==2){
+                [lblDistance setText:[NSString stringWithFormat:@"%@",[self.arrayMiles2 objectAtIndex:indexPath.row]]];
+            }
+            [lblDistance setBackgroundColor:[UIColor clearColor]];
+            [lblDistance setTextColor:[UIColor blackColor]];
+            [lblDistance setFont:[UIFont systemFontOfSize:9.0]];
+            [cell addSubview:lblDistance];
+            
+            UILabel *lblPersonName = [[UILabel alloc] initWithFrame:CGRectMake(80, 20, 200, 30)];
+            if(selectedSegment==0){
+                [lblPersonName setText:[NSString stringWithFormat:@"%@",[self.arraySenderName objectAtIndex:indexPath.row]]];
+            }
+            else if(selectedSegment==1){
+                [lblPersonName setText:[NSString stringWithFormat:@"%@",[self.arraySenderName1 objectAtIndex:indexPath.row]]];
+            }
+            else if(selectedSegment==2){
+                [lblPersonName setText:[NSString stringWithFormat:@"%@",[self.arraySenderName2 objectAtIndex:indexPath.row]]];
+            }
+            [lblPersonName setBackgroundColor:[UIColor clearColor]];
+            [lblPersonName setTextColor:[UIColor redColor]];
+            [lblPersonName setFont:[UIFont systemFontOfSize:14.0]];
+            [cell addSubview:lblPersonName];
+            
+            UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(5, 50, 310, 32)];
+            //bottomView.layer.cornerRadius = 5.0;
+            bottomView.clipsToBounds = YES;
+            //bottomView.layer.borderColor = [UIColor blackColor].CGColor;
+            //bottomView.layer.borderWidth = 2.0;
+            bottomView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"dot-green.png"]];
+            bottomView.alpha = 0.7;
+            [cell addSubview:bottomView];
+            
+            UILabel *lblPrice = [[UILabel alloc] initWithFrame:CGRectMake(5, 2, 150, 30)];
+            if(selectedSegment==0){
+                [lblPrice setText:[NSString stringWithFormat:@"%@$",[self.arrayPrice objectAtIndex:indexPath.row]]];
+            }
+            else if(selectedSegment==1){
+                [lblPrice setText:[NSString stringWithFormat:@"%@$",[self.arrayPrice1 objectAtIndex:indexPath.row]]];
+            }
+            else if(selectedSegment==2){
+                [lblPrice setText:[NSString stringWithFormat:@"%@$",[self.arrayPrice2 objectAtIndex:indexPath.row]]];
+            }
+            [lblPrice setBackgroundColor:[UIColor clearColor]];
+            [lblPrice setTextColor:[UIColor whiteColor]];
+            [lblPrice setFont:[UIFont boldSystemFontOfSize:15.0]];
+            [bottomView addSubview:lblPrice];
+            
+            
+            UIButton *btnUseOrSent = [UIButton buttonWithType:UIButtonTypeCustom];
+            btnUseOrSent.frame = CGRectMake(150, 2, 150, 30);
+            btnUseOrSent.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+            [btnUseOrSent setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            btnUseOrSent.tag = indexPath.row;
+            btnUseOrSent.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
+            if(selectedSegment==0){
+                [btnUseOrSent setTitle:@"USE" forState:UIControlStateNormal];
+                [btnUseOrSent addTarget:self action:@selector(callAlertViewPopup1:) forControlEvents:UIControlEventTouchUpInside];
+            }
+            else if(selectedSegment==1){
+                [btnUseOrSent setTitle:@"SENT" forState:UIControlStateNormal];
+                [btnUseOrSent addTarget:self action:@selector(callAlertViewPopup2:) forControlEvents:UIControlEventTouchUpInside];
+                
+            }
+            else if(selectedSegment==2){
+                NSString *strSayThanks = [NSString stringWithFormat:@"%@",[self.arraySayThanks2 objectAtIndex:indexPath.row]];
+                NSString *btnTitle;
+                if([strSayThanks isEqualToString:@"0"]){
+                    btnTitle = @"Say Thanks.";
+                    btnUseOrSent.enabled = true;
+                }
+                else{
+                    btnTitle = @"THANKS SENT!";
+                    btnUseOrSent.enabled = false;
+                }
+                [btnUseOrSent setTitle:btnTitle forState:UIControlStateNormal];
+                [btnUseOrSent addTarget:self action:@selector(callAlertViewPopup3:) forControlEvents:UIControlEventTouchUpInside];
+            }
+            [bottomView addSubview:btnUseOrSent];
+            
+            if(selectedSegment==0){
+                if(indexPath.row==self.arrayTransactionsID.count-1 && self.arrayTransactionsID.count>3){
+                    if(!isReceivedStop){
+                        ReceivedIndex++;
+                        [self startLoading];
+                    }
+                }
+            }
+            else if(selectedSegment==1){
+                if(indexPath.row==self.arrayTransactionsID1.count-1 && self.arrayTransactionsID1.count>3){
+                    if(isSent && !isSentStop){
+                        isSent = NO;
+                        SentIndex++;
+                        [self segmentControlChanged];
+                    }
+                }
+            }
+            else if(selectedSegment==2){
+                if(indexPath.row==self.arrayTransactionsID2.count-1 && self.arrayTransactionsID2.count>3){
+                    if(isUsed && !isUsedStop){
+                        isUsed = NO;
+                        UsedIndex++;
+                        [self segmentControlChanged];
+                    }
                 }
             }
         }
-        else if(selectedSegment==1){
-            if(indexPath.row==self.arrayTransactionsID1.count-1 && self.arrayTransactionsID1.count>3){
-                if(isSent && !isSentStop){
-                    isSent = NO;
-                    SentIndex++;
-                    [self segmentControlChanged];
-                }
-            }
-        }
-        else if(selectedSegment==2){
-            if(indexPath.row==self.arrayTransactionsID2.count-1 && self.arrayTransactionsID2.count>3){
-                if(isUsed && !isUsedStop){
-                    isUsed = NO;
-                    UsedIndex++;
-                    [self segmentControlChanged];
-                }
-            }
-        }
+        return cell;
     }
-    return cell;
+    @catch (NSException *exception) {
+        NSLog(@"NSException : %@",exception);
+    }
     
 }
 

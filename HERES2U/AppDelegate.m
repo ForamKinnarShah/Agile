@@ -81,8 +81,7 @@ NSString * const logOutNotification = @"logOutNotification";
     [h2u  setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"HERES2U" image:[UIImage imageNamed:@"dot.png"] tag:3]];
      tab.viewControllers = [NSArray arrayWithObjects:feedNav,checkNav,h2uNav,mytabNav,profNav,nil];
     
-    
-       [self.window setRootViewController:tab];
+    [self.window setRootViewController:tab];
     [self.window makeKeyAndVisible];
     
 #if !TARGET_IPHONE_SIMULATOR

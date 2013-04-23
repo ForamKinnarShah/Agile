@@ -55,6 +55,10 @@
             return (id)dicReceived;
         } else {
             NSLog(@"Error parsing document!");
+            isParseFailed = YES;
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"Error parsing document!" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+            [alert show];
+            return NULL;
         }
     
     }

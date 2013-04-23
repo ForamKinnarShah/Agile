@@ -12,13 +12,16 @@
 #import "checkinCommentViewController.h"
 #import "utilities.h" 
 #import "NSGlobalConfiguration.h"
+#import "ASIHTTPRequest.h"
+#import "ASIFormDataRequest.h"
+#import "JSON.h"
 
 @interface ProfileViewController ()
 
 @end
 
 @implementation ProfileViewController
-@synthesize ProfilePicture,FollowButton,FollowersCount,FollowersRect,FollowingCount,btnFollowBack,FollowingRect,ImageLoader,UserName,ProSroll, defaultViewButton, UIBlocker, SourceSelector;
+@synthesize FollowButton,FollowersCount,FollowersRect,FollowingCount,btnFollowBack,FollowingRect,ImageLoader,UserName,ProSroll, defaultViewButton, UIBlocker, SourceSelector;
 //Initializers:
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -80,8 +83,8 @@
     UITapGestureRecognizer *FollowersTapCount=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(FollowersPressed:)];
     [FollowersCount addGestureRecognizer:FollowersTapCount];
     [FollowersCount setUserInteractionEnabled:YES];
-    [ProfilePicture addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectPhoto:)]];
-    [ProfilePicture setUserInteractionEnabled:YES]; 
+    [_ProfilePicture addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectPhoto:)]];
+    [_ProfilePicture setUserInteractionEnabled:YES];
     
     
 }
@@ -144,7 +147,7 @@
         [FollowButton setUserInteractionEnabled:NO];
         [btnFollowBack setUserInteractionEnabled:NO];
     }
-    NSImageLoaderToImageView *Loader=[[NSImageLoaderToImageView alloc] initWithURLString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[Profile ImageURL]] ImageView:ProfilePicture];
+    NSImageLoaderToImageView *Loader=[[NSImageLoaderToImageView alloc] initWithURLString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[Profile ImageURL]] ImageView:[AppDelegate sharedInstance].ProfilePicture_global];
     [Loader setDelegate:self];
     [ImageLoader startAnimating];
     [Loader start];
@@ -164,7 +167,7 @@
         [activity.lblComment setText:[ItemData valueForKey:@"UserComment"]];
         [activity.lblLocation setText:[ItemData valueForKey:@"Location"]];
         [activity.lblTime setText:[ItemData valueForKey:@"DateCreated"]];
-        [activity.ProfilePicture setImage:[ProfilePicture image]];
+        [activity.ProfilePicture setImage:[_ProfilePicture image]];
         [activity setDelegate:self];
         [activity setTag:i+1];
         
@@ -229,13 +232,64 @@
     }completion:nil];
     //[self dismissKeyboard:nil];
 }
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
     UIImage *PickedImage=[info objectForKey:UIImagePickerControllerOriginalImage];
-    ProfilePicture.image=[PickedImage copy];
-    if ([picker sourceType]==UIImagePickerControllerSourceTypeCamera) {
+    _ProfilePicture.image=[PickedImage copy];
+
+    [AppDelegate sharedInstance].ProfilePicture_global.image = _ProfilePicture.image;
+
+    if ([picker sourceType]==UIImagePickerControllerSourceTypeCamera)
+    {
         //NSLog(@"Saved Image");
         UIImageWriteToSavedPhotosAlbum(PickedImage, nil, nil, nil);
     }
+    
+    
+    if ([picker sourceType]==UIImagePickerControllerSourceTypeCamera)
+    {
+        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+        // Request to save the image to camera roll
+        [library writeImageToSavedPhotosAlbum:[PickedImage CGImage] orientation:(ALAssetOrientation)[PickedImage imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error){
+            if (error) {
+                NSLog(@"error");
+            } else {
+                NSLog(@"url %@", assetURL);
+                NSURL *imagePath = assetURL;
+                NSString *name = [NSString stringWithFormat:@"%@",imagePath];
+                NSLog(@"name : %@",name);
+                NSArray *listItems = [name componentsSeparatedByString:@"="];
+                NSLog(@"listItems : %@",listItems);
+                NSString *imgName = [listItems objectAtIndex:listItems.count-2];
+                imgName = [NSString stringWithFormat:@"%@.png",imgName];
+                NSString *extention = [listItems objectAtIndex:listItems.count-1];
+                
+                    img1 = PickedImage;
+                    imgName1 = imgName;
+                    imgExt1 = extention;
+                }
+        }];
+        
+    }
+    else
+    {
+        NSURL *imagePath = [info objectForKey:@"UIImagePickerControllerReferenceURL"];
+        NSString *name = [NSString stringWithFormat:@"%@",imagePath];
+        NSLog(@"name : %@",name);
+        NSArray *listItems = [name componentsSeparatedByString:@"="];
+        NSLog(@"listItems : %@",listItems);
+        NSString *imgName = [listItems objectAtIndex:listItems.count-2];
+        imgName = [NSString stringWithFormat:@"%@.png",imgName];
+        NSString *extention = [listItems objectAtIndex:listItems.count-1];
+        
+            img1 = PickedImage;
+            imgName1 = imgName;
+            imgExt1 = extention;
+            
+    }
+    
+    
+    
     CGSize newSize=PickedImage.size;
     if (PickedImage.size.height>PickedImage.size.width) {
         CGFloat Height=620.0;
@@ -252,10 +306,47 @@
     [PickedImage drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
     UIImage *ScaledImage=UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    [ProfilePicture setImage:ScaledImage];
-    [picker dismissModalViewControllerAnimated:YES];
+    
+    // ------- Upload image over the server for specific user
+    
+    NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@updateuserimage.php",[NSGlobalConfiguration URL]]];
+    ASIFormDataRequest *request = [[ASIFormDataRequest alloc]initWithURL:URL];
+    [request setDelegate:self];
+    [request addPostValue:[NSGlobalConfiguration getConfigurationItem:@"Email"] forKey:@"Email"];
+
+    if(ScaledImage)
+    {
+        NSData *imageData1 = UIImageJPEGRepresentation(ScaledImage, 100);
+        [request setData:imageData1 withFileName:imgName1 andContentType:@"image/jpeg" forKey:@"ProfilePicture"];
+    }
+    
+    [request setDidFinishSelector:@selector(returnSuccessfulPost:)];
+    [request setDidFailSelector:@selector(failedPost:)];
+    [request startAsynchronous];
+    
+    // --------------------------------------
+    
+    [_ProfilePicture setImage:ScaledImage];
+    [picker dismissViewControllerAnimated:YES completion:nil];
     [self cancelPhotoSet:nil];
 }
+
+-(void)failedPost:(ASIHTTPRequest*)requestor
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Post Unsuccessful." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+    [alert show];
+}
+
+-(void)returnSuccessfulPost:(ASIHTTPRequest*)requestor{
+    
+    NSString *strResponse = [requestor responseString];
+    NSError *error;
+    SBJSON *json = [SBJSON new];
+    NSDictionary *dict = [json objectWithString:strResponse error:&error];
+    NSLog(@"dict: %@",dict);
+}
+
+
 -(IBAction)takePicture:(id)sender{
     UIImagePickerController *controller=[[UIImagePickerController alloc] init];
     [controller setSourceType:UIImagePickerControllerSourceTypeCamera];

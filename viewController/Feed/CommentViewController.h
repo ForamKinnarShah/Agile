@@ -23,5 +23,10 @@
 @property (strong, nonatomic) IBOutlet UIScrollView *CommentsScroll;
 @property (strong, nonatomic) IBOutlet UILabel *MainComment;
 @property (strong, nonatomic) IBOutlet UITextField *CommentText;
+
+// stores value for comments
+@property (strong, nonatomic) NSMutableArray *arrComment;
+@property (strong, nonatomic) IBOutlet UITableView *tblComment;
+
 -(id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil ActivityView:(UIActivityView *)activity;
 @end

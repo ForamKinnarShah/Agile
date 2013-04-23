@@ -31,8 +31,9 @@
     return self;
 }
 - (IBAction)PostComment:(id)sender {
-    if(![CommentText.text isEqualToString:@""]){
-    [NSUserInterfaceCommands addComment:[(NSString *)[NSGlobalConfiguration getConfigurationItem:@"ID"] integerValue] Comment:[CommentText text] FeedID:[internal ID] CallbackDelegate:self];
+    if(![CommentText.text isEqualToString:@""])
+    {
+        [NSUserInterfaceCommands addComment:[(NSString *)[NSGlobalConfiguration getConfigurationItem:@"ID"] integerValue] Comment:[CommentText text] FeedID:[internal ID] CallbackDelegate:self];
     }
 }
 
@@ -40,6 +41,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
     [Title setText:[internal.lblLocation text]];
     [ProfilePicture setImage:[internal.ProfilePicture image]];
     [Time setText:[internal.lblTime text]];
@@ -54,17 +56,20 @@
     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Warning" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
 }
+
 -(void) userinterfaceCommandSucceeded:(NSString *)message{
     //Add Current Comment
     NSLog(@"Succeeded");
     CGSize Size=CommentsScroll.contentSize;
+    
     UIComment *Comment=[[UIComment alloc]init];
     [Comment.Comment setText:[CommentText text]];
     [Comment.FullName setText:[NSGlobalConfiguration getConfigurationItem:@"FullName"]];
-    [Comment setFrame:CGRectMake(0, Size.height, 320, 100)];
+    [Comment setFrame:CGRectMake(0, Size.height, 309, 100)];
     [CommentsScroll addSubview:Comment];
-    [CommentsScroll setContentSize:CGSizeMake(320, Size.height+105)];
-    [CommentsScroll setScrollEnabled:YES];
+    [CommentsScroll setContentSize:CGSizeMake(CommentsScroll.frame.size.width, Size.height+105)];
+    [CommentsScroll setScrollEnabled:NO ];
+    [CommentsScroll setBackgroundColor:[UIColor yellowColor]];
     [self textFieldShouldReturn:CommentText];
 }
 - (void)didReceiveMemoryWarning
@@ -115,8 +120,14 @@
 
     }
 }
--(void)commentsLoaded:(NSCommentLoader *)loader{
+-(void)commentsLoaded:(NSCommentLoader *)loader
+{
     NSLog(@"Successfully loaded comments %i",[loader count]);
+
+    NSLog(@"comments >> %@",loader.Data);
+    
+    _arrComment = [[NSMutableArray alloc] initWithArray:loader.Data];
+
     for(NSInteger i=0;i<[loader count];i++){
         NSDictionary *ItemData=[loader getCommentAtIndex:i];
         UIComment *Comment=[[UIComment alloc]init];
@@ -124,9 +135,34 @@
         [Comment.FullName setText:[ItemData valueForKey:@"FullName"]];
         [Comment setFrame:CGRectMake(0, (i*100), 320, 100)];
         [CommentsScroll addSubview:Comment];
-      //  NSLog([ItemData valueForKey:@"Comment"]);
-       // NSLog([ItemData valueForKey:@"FullName"]);
+        NSLog(@"ItemData >> %@",ItemData);
     }
     [CommentsScroll setContentSize:CGSizeMake(320, [loader count]*105)];
+    [_tblComment reloadData];
 }
+
+#pragma mark
+#pragma mark tableview 
+
+#pragma mark tableview datasource 
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [_arrComment count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *cellIdentifier = @"Cell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.textLabel.text = [[_arrComment objectAtIndex:indexPath.row] valueForKey:@"Comment"];
+    cell.detailTextLabel.text = [[_arrComment objectAtIndex:indexPath.row] valueForKey:@"FullName"];
+  
+    return cell;
+}
+
+
 @end

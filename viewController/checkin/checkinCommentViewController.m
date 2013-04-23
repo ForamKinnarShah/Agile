@@ -41,6 +41,16 @@
     
     // Do any additional setup after loading the view from its nib.
 }
+
+-(void)viewWillAppear:(BOOL)animated{
+    @try {
+        [CommentField becomeFirstResponder];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"exception : %@",exception);
+    }
+}
+
 - (IBAction)PostFeed:(id)sender {
     [NSUserInterfaceCommands PostFeed:[(NSString *)[NSGlobalConfiguration getConfigurationItem:@"ID"] integerValue] Comment:[CommentField text] LocationID:[Checkin ID] CallbackDelegate:self];
     

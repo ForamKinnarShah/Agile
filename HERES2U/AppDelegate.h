@@ -45,4 +45,7 @@ extern NSString *const logOutNotification;
 // stores device token
 @property (nonatomic, strong) NSData *dataDeviceToken;
 
+// stores profile picture
+@property (strong, nonatomic) IBOutlet UIImageView *ProfilePicture_global;
+
 @end

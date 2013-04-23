@@ -11,19 +11,18 @@
 #import "UICheckIns.h"
 #import "NSImageLoaderToImageView.h"
 #import "utilities.h"
-#import <CoreLocation/CoreLocation.h>
-#import <MapKit/MapKit.h>
-#import "mapViewControllerDelegate.h"
 
-@interface CheckinViewController : UIViewController <UITabBarControllerDelegate, UITextFieldDelegate,UINavigationControllerDelegate,NSLocationLoaderProtocol,UICheckInsProtocol, CLLocationManagerDelegate, mapViewControllerDelegate>{
+@interface CheckinViewController : UIViewController <UITabBarControllerDelegate, UITextFieldDelegate,UINavigationControllerDelegate,NSLocationLoaderProtocol,UICheckInsProtocol>{
     @private
+    
     NSLocationLoader *Locations;
     utilities *UIBlocker;
-    CLLocationManager *locationManager; 
-    IBOutlet UIButton *btnMap;
-    CLLocation *currentLocation;
-    NSMutableArray *sortedLocations;
     
+    IBOutlet UIButton *btnMap;
+    
+    NSMutableArray *arrayTitle;
+    NSMutableArray *arrayFindNumber;
+
 }
 @property (strong, nonatomic) IBOutlet UIButton *FilterButton;
 @property (strong, nonatomic) IBOutlet UITextField *FilterTextBox;

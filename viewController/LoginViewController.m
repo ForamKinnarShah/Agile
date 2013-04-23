@@ -107,9 +107,6 @@
         //[self performSelector:@selector(login:)];
         [self login:nil]; 
     }
-    
-    
-    
     return YES;
 }
 -(BOOL) textFieldShouldEndEditing:(UITextField *)textField{
@@ -218,7 +215,8 @@
                                     stringByReplacingOccurrencesOfString:@"<"withString:@""]
                                    stringByReplacingOccurrencesOfString:@">" withString:@""]
                                   stringByReplacingOccurrencesOfString: @" " withString: @""];
-	NSLog(@"deviceToken_Push before >> %@",deviceToken_Push);
+
+    //	NSLog(@"deviceToken_Push before >> %@",deviceToken_Push);
 	// !!! CHANGE "/apns.php?" TO THE PATH TO WHERE apns.php IS INSTALLED
     // !!! ( MUST START WITH / AND END WITH ? ).
     // !!! SAMPLE: "/path/to/apns.php?"

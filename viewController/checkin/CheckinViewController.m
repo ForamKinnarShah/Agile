@@ -11,7 +11,6 @@
 #import "checkinCommentViewController.h"
 #import "menuViewController.h" 
 #import "Heres2uViewController.h" 
-#import "mapViewController.h"
 
 @interface CheckinViewController ()
 
@@ -19,7 +18,6 @@
 
 @implementation CheckinViewController
 @synthesize FilterButton,FilterTextBox,LocationsView;
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -32,10 +30,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    locationManager = [[CLLocationManager alloc] init];
-    locationManager.delegate = self;
-    locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
-    [locationManager startUpdatingLocation];
 //    self.title = @"Check-in";
 //    UIImage *img = [[UIImage alloc] initWithContentsOfFile:@"dot.png"];
 //    UITabBarItem *tab = [[UITabBarItem alloc] initWithTitle:self.title image:img tag:2];
@@ -47,11 +41,24 @@
     [Locations setDelegate:self];
     //[Locations downloadLocations];
     UIBlocker = [[utilities alloc] init];
-    [UIBlocker startUIBlockerInView:self.tabBarController.view]; 
+    [UIBlocker startUIBlockerInView:self.tabBarController.view];
+
+    arrayTitle = [[NSMutableArray alloc]init];
+    arrayFindNumber = [[NSMutableArray alloc]init];
+
+    // Set notification for when textfield is edited
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchForText) name:UITextFieldTextDidChangeNotification object:nil];
+
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    FilterTextBox.text =@"";
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
+    
     [Locations downloadLocations]; 
 }
 
@@ -62,11 +69,121 @@
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
-{ [textField resignFirstResponder];
+{
+    [textField resignFirstResponder];
     NSLog(@"fiterText:%@",FilterTextBox.text);
+    
+    if([textField.text isEqualToString:@""] || textField.text.length==0){
+        [self locationloaderCompleted:nil];
+    }
+        
+    return YES;
+}
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField{
+    @try {
+        [textField resignFirstResponder];
+        [self locationloaderCompleted:nil];
+        
+    }
+    @catch (NSException *exception) {
+        
+    }
+    return YES;
+}
+
+
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+   
+    NSLog(@"textField.text.length : %d",textField.text.length);
+    
+    
     
     return YES;
 }
+
+-(void)searchForText{
+    @try {
+        NSLog(@"arrayTitle : %@",arrayTitle);
+        NSLog(@"textField.text.length : %d",FilterTextBox.text.length);
+        NSLog(@"%@",FilterTextBox.text);
+        
+        // For string kind of values:
+        for(UIView *CurrentView in LocationsView.subviews){
+            [CurrentView removeFromSuperview];
+        }
+        
+        NSArray *results=nil;
+        NSLog(@"arrayTitle count : %d",arrayTitle.count);
+        NSLog(@"Locations count : %d",Locations.count);
+        
+        for(NSInteger i=0;i<[Locations count];i++){
+            
+            //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", FilterTextBox.text];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self CONTAINS[c] %@", FilterTextBox.text];
+            results = [arrayTitle filteredArrayUsingPredicate:predicate];
+            NSLog(@"results : %@",results);
+        }
+        
+        
+        int count1=0;
+        int y=0;
+        BOOL isMatch;
+        
+        for(int i=0; i<results.count; i++){
+            isMatch = NO;
+            NSString *strArrayTitle = [NSString stringWithFormat:@"%@",[results objectAtIndex:i]];
+            NSLog(@"strArrayTitle : %@",strArrayTitle);
+            
+            
+            NSDictionary *ItemData1=[Locations getLocationAtIndex:i];
+            
+            for(int k=0;k<=ItemData1.count;k++){
+                NSLog(@"ItemData1.count : %d",ItemData1.count);
+                if(isMatch){
+                    break;
+                }
+                
+                NSDictionary *ItemData=[Locations getLocationAtIndex:k];
+                NSString *strItemTitle = [NSString stringWithFormat:@"%@",[ItemData valueForKey:@"Title"]];
+                
+                if([strItemTitle isEqualToString:strArrayTitle]){
+                    
+                    count1++;
+                    UICheckIns *CheckIn=[[UICheckIns alloc] initWithFrame:CGRectMake(0, y, 0, 0)];
+                    [CheckIn.Distance setText:@"0.0 m"];
+                    [CheckIn.Name setText:[ItemData valueForKey:@"Title"]];
+                    
+                    [CheckIn.Location setText:[NSString stringWithFormat:@"%@",[ItemData valueForKey:@"Address"]]];
+                    [CheckIn setDelegate:self];
+                    [CheckIn setTag:i];
+                    
+                    if (self.presentingViewController)
+                    {
+                        CheckIn.checkInLabel.text = @"buy gift here";
+                    }
+                    
+                    [CheckIn setID:[(NSString *)[ItemData valueForKey:@"ID"] integerValue]];
+                    NSImageLoaderToImageView *img=[[NSImageLoaderToImageView alloc] initWithURLString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[ItemData valueForKey:@"Image"]] ImageView:CheckIn.Picture];
+                    [img start];
+                    //                    LocationsView.frame = CGRectMake(0, y, 320, 100);
+                    [LocationsView addSubview:CheckIn];
+                    y+=100;
+                    isMatch = YES;
+                }
+            }
+        }
+        [LocationsView setContentSize:CGSizeMake(320, ((count1+1)*100))];
+        [LocationsView setScrollEnabled:YES];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"NSException : %@",exception);
+    }
+
+}
+
+
+
      
 -(IBAction)goToAdd:(id)sender {
          addViewController *add = [[addViewController alloc] initWithNibName:@"addViewController" bundle:nil];
@@ -80,19 +197,12 @@
 
 -(IBAction)btnMap_Click:(id)sender
 {
-    
-    mapViewController *mapVC = [[mapViewController alloc] initWithNibName:@"mapViewController" bundle:nil];
-    mapVC.locations = sortedLocations;
-    mapVC.delegate = self; 
-    //[mapVC annotateMapViewWithLocations:sortedLocations];
-    [self presentViewController:mapVC animated:YES completion:NULL];
-    //[mapVC annotateMapViewWithLocations:sortedLocations];
-    
-}
-
--(void)mapViewControllerClickedDoneButton
-{
-    [self dismissViewControllerAnimated:YES completion:NULL]; 
+    @try {
+        
+    }
+    @catch (NSException *exception) {
+        
+    }
 }
 
 -(void)locationloaderCompleted:(NSLocationLoader *)loader{
@@ -102,17 +212,19 @@
     for(UIView *CurrentView in LocationsView.subviews){
         [CurrentView removeFromSuperview];
     }
+    [arrayTitle removeAllObjects];
     
-    sortedLocations = [self sortLocationsByDistance];
-    
-    for(NSInteger i=0;i<[sortedLocations count];i++){
-        NSDictionary *ItemData=[sortedLocations objectAtIndex:i];
+    for(NSInteger i=0;i<[Locations count];i++){
+        NSDictionary *ItemData=[Locations getLocationAtIndex:i];
         NSLog(@"ItemData : %@",ItemData);
         
         UICheckIns *CheckIn=[[UICheckIns alloc] initWithFrame:CGRectMake(0, (100*i), 0, 0)];
-        [CheckIn.Distance setText:[NSString stringWithFormat:@"%i mi",[[ItemData objectForKey:@"distance"] intValue]]];
+        [CheckIn.Distance setText:@"0.0 m"];
         [CheckIn.Name setText:[ItemData valueForKey:@"Title"]];
-        [CheckIn.Location setText:[ItemData valueForKey:@"Address"]];
+        
+        [arrayTitle addObject:[ItemData valueForKey:@"Title"]];
+        
+        [CheckIn.Location setText:[NSString stringWithFormat:@"%@",[ItemData valueForKey:@"Address"]]];
         [CheckIn setDelegate:self];
         [CheckIn setTag:i];
         
@@ -162,72 +274,4 @@
     [self.navigationController pushViewController:add animated:YES]
      ;}
 }
-
-#pragma mark - CLLocationManagerDelegate
-
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
-    NSLog(@"didFailWithError: %@", error);
-    
-    
-    UIAlertView *errorAlert = [[UIAlertView alloc]
-                               initWithTitle:@"Error!" message:@"Failed to Get Your Location. Please Turn on your device location services." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [errorAlert show];
-}
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
-{
-    //NSLog(@"didUpdateToLocation: %@", newLocation);
-    currentLocation = newLocation;
-    
-    NSString *currentLat = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.latitude];
-    NSString *currentLong = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude];
-    
-   // NSLog(@"strLat : %@",currentLat);
-   // NSLog(@"strLat : %@",currentLong);
-    
-    // Reverse Geocoding
-    //NSLog(@"Resolving the Address");
-    
-}
-
--(NSMutableArray*)sortLocationsByDistance
-{
-    NSMutableArray *distances = [NSMutableArray arrayWithCapacity:0]; 
-    
-    for(NSInteger i=0;i<[Locations count];i++)
-    {
-       NSString *locationLong = [[Locations getLocationAtIndex:i] objectForKey:@"Longitude"];
-       NSString *locationLat = [[Locations getLocationAtIndex:i] objectForKey:@"Latitude"];
-        
-        //Haversine formala for calculating distance in miles between two long/lat coordinates
-        float dLongRadians = ([locationLong floatValue] - currentLocation.coordinate.longitude) * 3.141596 / 180;
-        float dlatRadians = ([locationLat floatValue] - currentLocation.coordinate.latitude) * 3.141596 / 180;
-        float lat1 = [locationLat floatValue] * 3.141596/180;
-        float lat2 = currentLocation.coordinate.latitude * 3.141596 / 180;
-        
-        float a = sinf(dlatRadians/2) * sinf(dlatRadians/2) + sinf(dLongRadians/2) * sinf(dLongRadians/2) * cosf(lat1) * cosf(lat2);
-        float c = 2 * atan2f(sqrtf(a), sqrtf((1-a)));
-        float distanceFromLocation = c * 3959;
-        
-        //float distanceFromLocation = sqrtf( powf( (currentLocation.coordinate.latitude - [locationLat floatValue]),2) + powf( (currentLocation.coordinate.longitude - [locationLong floatValue]),2));
-        NSDictionary *dic = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[NSNumber numberWithFloat:distanceFromLocation], [NSNumber numberWithInt:i],nil] forKeys:[NSArray arrayWithObjects:@"distance",@"index", nil]]; 
-        [distances addObject:dic];
-    }
-    NSSortDescriptor *sortByName = [NSSortDescriptor sortDescriptorWithKey:@"distance"
-                                                                 ascending:NO];
-    NSArray *sortDescriptors = [NSArray arrayWithObject:sortByName];
-    NSArray *sortedDicArray = [distances sortedArrayUsingDescriptors:sortDescriptors];
-    NSMutableArray *sortedLocations= [NSMutableArray arrayWithCapacity:0];
-    for (NSDictionary *dic in sortedDicArray)
-    {
-        int index = [[dic objectForKey:@"index"] intValue]; 
-        NSMutableDictionary *location = [[Locations getLocationAtIndex:index] mutableCopy];
-        [location setObject:[dic objectForKey:@"distance"] forKey:@"distance"]; 
-        [sortedLocations addObject:location];
-    }
-    return sortedLocations; 
-}
-
-
 @end

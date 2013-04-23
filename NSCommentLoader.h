@@ -13,9 +13,10 @@
 <NSXMLParserDelegate>{
     @private
    BOOL encounteredServerReply;
-    NSMutableArray *Data;
 }
 @property (strong, nonatomic) id Delegate;
+@property (strong, nonatomic) NSMutableArray *Data;
+
 -(void) getCommentsForFeed:(NSInteger)FeedID;
 -(NSInteger) count;
 -(NSDictionary *) getCommentAtIndex:(NSInteger)index;

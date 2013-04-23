@@ -14,12 +14,16 @@
 #import "UIActivityView.h"
 #import "CommentViewController.h"
 #import "utilities.h" 
+#import "AssetsLibrary/AssetsLibrary.h"
 
 @interface ProfileViewController : UIViewController <UITabBarControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate,NSProfileProtocol,NSImageLoaderToImageViewProtocol>{
 @private
     NSInteger ProfileID;
     NSProfile *Profile;
-    float contentLength; 
+    float contentLength;
+    NSString *imgName1;
+    NSString *imgExt1;
+    UIImage *img1;
 }
 @property (strong, nonatomic) IBOutlet UIScrollView *ProSroll;
 @property (strong, nonatomic) IBOutlet UIImageView *ProfilePicture;

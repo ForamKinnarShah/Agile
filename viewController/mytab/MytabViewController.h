@@ -41,6 +41,7 @@
     MyTabUsed *myTabUsed;
     SayThanksXML *sayThanksXML;
     
+    BOOL isReceived;
     BOOL isSent;
     BOOL isUsed;
     

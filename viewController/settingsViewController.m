@@ -49,25 +49,10 @@
     [self.navigationController pushViewController:menu animated:YES];
 }
 
--(IBAction)logOut:(id)sender {
-    [NSGlobalConfiguration setConfigurationItem:@"Email" Item:nil];
-    [NSGlobalConfiguration setConfigurationItem:@"Password" Item:nil];
-    [NSGlobalConfiguration setConfigurationItem:@"ID" Item:nil];
-    [NSGlobalConfiguration setConfigurationItem:@"FullName" Item:nil];
-    
-    LoginViewController *login=[[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
-    [self presentViewController:login animated:YES completion:nil];
-    [self.navigationController popViewControllerAnimated:NO];
-    [self.tabBarC setSelectedIndex:0];
-//    for (__strong UINavigationController *VC in self.tabBarController.viewControllers)
-//    {
-////        if (![VC.viewControllers[0] isKindOfClass:[ProfileViewController class]])
-////             {
-//        UIViewController *vcontr = VC.viewControllers[0];
-//             //}
-//    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:logOutNotification object:nil]; 
-    
+-(IBAction)logOut:(id)sender
+{
+    UIAlertView *alLogout = [[UIAlertView alloc] initWithTitle:@"Here's to you" message:@"Are you sure you want to log out?" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Log out",@"Cancel", nil];
+    [alLogout show];
 }
 
 -(IBAction)goToCreditCardInfoPage:(id)sender
@@ -139,6 +124,33 @@
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];
     [alertView show];
+}
+
+#pragma mark
+#pragma mark alertview delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
+{
+    if (buttonIndex == 0)
+    {
+        [NSGlobalConfiguration setConfigurationItem:@"Email" Item:nil];
+        [NSGlobalConfiguration setConfigurationItem:@"Password" Item:nil];
+        [NSGlobalConfiguration setConfigurationItem:@"ID" Item:nil];
+        [NSGlobalConfiguration setConfigurationItem:@"FullName" Item:nil];
+        
+        LoginViewController *login=[[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+        [self presentViewController:login animated:YES completion:nil];
+        [self.navigationController popViewControllerAnimated:NO];
+        [self.tabBarC setSelectedIndex:0];
+        //    for (__strong UINavigationController *VC in self.tabBarController.viewControllers)
+        //    {
+        ////        if (![VC.viewControllers[0] isKindOfClass:[ProfileViewController class]])
+        ////             {
+        //        UIViewController *vcontr = VC.viewControllers[0];
+        //             //}
+        //    }
+        [[NSNotificationCenter defaultCenter] postNotificationName:logOutNotification object:nil];
+    }
 }
 
 @end
