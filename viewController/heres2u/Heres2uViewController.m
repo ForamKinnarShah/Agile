@@ -20,7 +20,7 @@
 
 @implementation Heres2uViewController
 
-@synthesize friendItems, UIBlocker;
+@synthesize friendItems, UIBlocker,selectedImage;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -71,6 +71,8 @@
     checkin.navigationController.navigationBar.topItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:centerImageName]];
 
     checkin.delegate = self;
+    selectedImage = sender.picture.image;
+    
    // [self.navigationController pushViewController:checkin animated:YES];
     [self presentViewController:checkin animated:NO completion:NULL];
     [[[UIAlertView alloc] initWithTitle:@"Select Restaurant" message:@"Please choose a restaurant at which to buy your gift!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show]; 
@@ -103,7 +105,7 @@
         menu.userInfo = [friendItems objectAtIndex:_senderNumber];
     menu.restaurantInfo = self.restaurantInfo; 
     ////    menu.followeeName.text = sender.name.text;
-    //    menu.followeePic.image = sender.picture.image;
+    menu.followeePicImg = selectedImage; 
     //
         [self.navigationController pushViewController:menu animated:YES];
   

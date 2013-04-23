@@ -19,7 +19,7 @@
 @property NSDictionary *restaurantInfo; 
 @property NSString *restaurantName; 
 @property int senderNumber; 
-
+@property UIImage *selectedImage; 
 
 -(IBAction)search:(id)sender;
 -(void)loadMenuView; 

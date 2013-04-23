@@ -85,7 +85,7 @@
 -(IBAction)goToMenu:(UIActivityView*)sender {
     menuViewController *menu = [[menuViewController alloc] initWithNibName:@"menuViewController" bundle:nil];
     menu.userInfo = [NSMutableDictionary dictionaryWithDictionary:[feedManager getFeedAtIndex:sender.tag]];
-    //menu.restaurantInfo = [NSMutableDictionary dictionaryWithObject:[[feedManager getFeedAtIndex:sender.tag] objectForKey:@"locationID"] forKey:@"ID"];
+    menu.restaurantInfo = [NSMutableDictionary dictionaryWithObjects:[[feedManager getFeedAtIndex:sender.tag] objectsForKeys:[NSArray arrayWithObjects:@"locationID",@"Title", nil] notFoundMarker:@"none"] forKeys:[NSArray arrayWithObjects:@"ID",@"Title",nil]];
     menu.followeePicImg = sender.ProfilePicture.image;
     menu.followeeNametxt = sender.UserName.text;
     menu.timeLabelText = sender.lblTime.text;
@@ -170,6 +170,8 @@ UIActionSheet *choose = [[UIActionSheet alloc] initWithTitle:@"Menu" delegate:se
         [activity.UserName setText:[ItemData valueForKey:@"FullName"]];
         [activity.lblComment setText:[ItemData valueForKey:@"UserComment"]];
         [activity.lblLocation setText:[ItemData valueForKey:@"Title"]];
+        activity.commentNumberLabel.text = [ItemData valueForKey:@"nComments"]; 
+        [activity setTag:i]; 
         
         NSString *time = [ItemData valueForKey:@"Time"];
         NSDateFormatter *format = [[NSDateFormatter alloc] init];
@@ -181,7 +183,7 @@ UIActionSheet *choose = [[UIActionSheet alloc] initWithTitle:@"Menu" delegate:se
                 
         int offset = [[NSTimeZone localTimeZone] secondsFromGMT];
         //PST is -28800 s, PDT - 25200. This is the timestamp our server gives to check-ins and must be adjusted for other time zones. 
-        NSLog(@"offest:%i",offset); 
+       // NSLog(@"offest:%i",offset);
         NSTimeZone* systemTimeZone = [NSTimeZone systemTimeZone];
         BOOL dstIsOn = [systemTimeZone isDaylightSavingTime];
         int adjustSeconds; 
@@ -236,8 +238,6 @@ UIActionSheet *choose = [[UIActionSheet alloc] initWithTitle:@"Menu" delegate:se
         NSImageLoaderToImageView *img=[[NSImageLoaderToImageView alloc] initWithURLString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[ItemData valueForKey:@"UserImage"]] ImageView:activity.ProfilePicture];
         [img start];
         
-      //  [activity.ProfilePicture setImage:[ProfilePicture image]];
-        //[activity setFrame:];
         [self.view addSubview:activity];
        // NSLog(@"added");
     }

@@ -19,6 +19,7 @@
 @private
     NSInteger ProfileID;
     NSProfile *Profile;
+    float contentLength; 
 }
 @property (strong, nonatomic) IBOutlet UIScrollView *ProSroll;
 @property (strong, nonatomic) IBOutlet UIImageView *ProfilePicture;

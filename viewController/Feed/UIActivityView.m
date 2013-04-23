@@ -36,11 +36,11 @@
     }
 }
 
--(IBAction)buyWasClicked:(id)sender
+-(IBAction)buyWasClicked:(UIButton*)sender
 {
     if ([Delegate respondsToSelector:@selector(goToMenu:)])
     {
-        [Delegate goToMenu:self]; 
+        [Delegate goToMenu:self];
     }
 }
 /*

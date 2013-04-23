@@ -7,14 +7,19 @@
 //
 
 #import "sendViewController.h"
+#import "MBProgressHUD.h"
+#import "GTLPlusConstants.h"
 
 @interface sendViewController ()
 
 @end
 
+static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
+
 @implementation sendViewController
 
-@synthesize selectedFriends;
+
+@synthesize selectedFriends,accountStore;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -313,6 +318,181 @@
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];
     [alertView show];
+}
+
+-(IBAction)postWithTwitter_v2:(id)sender
+{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
+    {
+        
+        
+        self.accountStore = [[ACAccountStore alloc] init];
+        
+        ACAccountType *twitterAccountType = [self.accountStore
+                                             
+                                             accountTypeWithAccountTypeIdentifier:
+                                             
+                                             ACAccountTypeIdentifierTwitter];
+        
+        [self.accountStore
+         
+         requestAccessToAccountsWithType:twitterAccountType
+         
+         options:NULL
+         
+         completion:^(BOOL granted, NSError *error) {
+             
+             if (granted) {
+                 
+                 
+                 
+                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                     //  Step 2:  Create a request
+                     
+                     NSArray *twitterAccounts =
+                     
+                     [self.accountStore accountsWithAccountType:twitterAccountType];
+                     
+                     NSURL *url = [NSURL URLWithString:@"https://api.twitter.com"
+                                   
+                                   @"/1.1/statuses/update.json"];
+                     
+                     
+                     ACAccount *twAccount = [twitterAccounts lastObject];
+                     
+                     NSDictionary *params = @{@"status" : [NSString stringWithFormat:@"I just gifted a friend at %@ using the Heres2U iPhone app!",[self.restaurantInfo objectForKey:@"Title"]],
+                                              
+                                              @"trim_user" : @"1",
+                                              
+                                              };
+                     
+                     SLRequest *request =
+                     
+                     [SLRequest requestForServiceType:SLServiceTypeTwitter
+                      
+                                        requestMethod:SLRequestMethodPOST
+                      
+                                                  URL:url
+                      
+                                           parameters:params];
+                     
+                     
+                     
+                     //  Attach an account to the request
+                     
+                     [request setAccount:[twitterAccounts lastObject]];
+                     
+                     
+                     
+                     //  Step 3:  Execute the request
+                     
+                     [request performRequestWithHandler:^(NSData *responseData,
+                                                          
+                                                          NSHTTPURLResponse *urlResponse,
+                                                          
+                                                          NSError *error) {
+                         
+                         if (responseData) {
+                             
+                             if (urlResponse.statusCode >= 200 && urlResponse.statusCode < 300) {
+                                 
+                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                     [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                     
+                                     [self showAlertMessage:@"Link successfully posted to Twitter" withTitle:@"Success"];
+                                 });
+                                 NSLog(@"posted?");
+                             }
+                             
+                             else {
+                                 
+                                 // The server did not respond successfully... were we rate-limited?
+                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                     [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                     [self showAlertMessage:@"Please check whether you have recently posted a message for the same video. " withTitle:@"Link not posted"];
+                                 });
+                                 
+                                 NSLog(@"The response status code is %d", urlResponse.statusCode);
+                                 
+                             }
+                             
+                         }
+                         
+                     }];
+                     
+                 });
+                 
+             }
+             
+             else {
+                 [MBProgressHUD hideHUDForView:self.view animated:YES];
+                 
+                 // Access was not granted, or an error occurred
+                 
+                 NSLog(@"%@", [error localizedDescription]);
+                 
+             }
+             
+         }];
+    }
+    else {
+        [MBProgressHUD hideHUDForView:self.view animated:YES]; 
+        [self showAlertMessage:@"Please go to Settings>Twitter and sign into Twitter account for sharing with this button" withTitle:@"Please sign into twitter"];
+        
+    }
+    
+}
+
+- (IBAction) shareWithGooglePlus:(id)sender {
+    
+    GPPSignIn *signIn = [GPPSignIn sharedInstance];
+    // You previously set kClientID in the "Initialize the Google+ client" step
+    signIn.clientID = kClientId;
+    signIn.scopes = [NSArray arrayWithObjects:
+                     kGTLAuthScopePlusLogin, // defined in GTLPlusConstants.h
+                     nil];
+    signIn.delegate = self;
+    
+    if (![signIn trySilentAuthentication])
+    {
+        [signIn authenticate];
+    }
+}
+
+- (void)finishedWithAuth: (GTMOAuth2Authentication *)auth
+                   error: (NSError *) error
+{
+    if (error)
+    {
+        NSLog(@"Received error %@ and auth object %@",error, auth);
+    }
+    else {
+        [self realSharing];
+    }
+}
+
+-(void)realSharing{
+    NSLog(@"attempting sharing via google+");
+    [GPPShare sharedInstance].delegate = self;
+    id<GPPShareBuilder> shareBuilder = [[GPPShare sharedInstance] shareDialog];
+    
+    [shareBuilder setTitle:@"Heres2U!" description:[NSString stringWithFormat:@"I just bought someone a gift at %@ using the Heres2U iPhone app!",[self.restaurantInfo objectForKey:@"Title"]] thumbnailURL:[NSURL URLWithString:@"http://50.62.148.155:8080/heres2u/images/logo.png"]];
+    //[shareBuilder setContentDeepLinkID:[NSString stringWithFormat:@"http://www.google.com"]];
+    
+    // This line will manually fill out the title, description, and thumbnail of the
+    // item you're sharing.
+    [shareBuilder open];
+}
+
+- (void)finishedSharing: (BOOL)shared {
+    if (shared) {
+        [self showAlertMessage:@"Shared link on google+!" withTitle:@"successfully shared"];
+        NSLog(@"User successfully shared!");
+    } else {
+        NSLog(@"User didn't share.");
+    }
 }
 
 @end

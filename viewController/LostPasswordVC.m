@@ -30,6 +30,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    UIBlocker = [[utilities alloc] init]; 
     // Do any additional setup after loading the view from its nib.
     // allow user to enter email address
     [_txtEmail becomeFirstResponder];
@@ -54,13 +55,16 @@
 - (IBAction)Submit:(id)sender
 {
     //[NSUserAccessControl LostPassword:_txtEmail.text Delegate:self];
+    
     NSString *URLString = [[NSString stringWithFormat:@"%@resetpassword.php?Email=%@",[NSGlobalConfiguration URL],_txtEmail.text] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSLog(@"URLString : %@",URLString);
     NSURL *url = [[NSURL alloc] initWithString:URLString];
-    NSLog(@" : %@",url);
+    
+    [UIBlocker performSelectorOnMainThread:@selector(startUIBlockerInView:) withObject:self.navigationController.view waitUntilDone:NO];
     
     NSString *response = [[NSString alloc] initWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
     NSLog(@"response:%@",response);
+    [UIBlocker stopUIBlockerInView:self.navigationController.view]; 
     [_txtEmail resignFirstResponder]; 
 }
 

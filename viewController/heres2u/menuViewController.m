@@ -97,8 +97,8 @@
     //[button2 setBackgroundImage:[UIImage imageNamed:<#(NSString *)#>] forState:<#(UIControlState)#>]
    // self.followeeName.text = self.followeeNametxt;
     self.followeePic.image = self.followeePicImg;
-    NSImageLoaderToImageView *img=[[NSImageLoaderToImageView alloc] initWithURLString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[self.userInfo objectForKey:@"ImageURL"]] ImageView:self.followeePic];
-    [img start];
+    //NSImageLoaderToImageView *img=[[NSImageLoaderToImageView alloc] initWithURLString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[self.userInfo objectForKey:@"ImageURL"]] ImageView:self.followeePic];
+    //[img start];
     
     NSLog(@"user info:%@",self.userInfo); 
     self.followeeName.text = [self.userInfo objectForKey:@"FullName"];

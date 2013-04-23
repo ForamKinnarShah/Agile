@@ -148,13 +148,17 @@
     [Loader setDelegate:self];
     [ImageLoader startAnimating];
     [Loader start];
+    
+    contentLength = 0; 
     [self loadActivities];
 }
 -(void) loadActivities{
-   // NSLog(@"Loading Activity");
+    //NSLog(@"Loading Activity");
     for(NSInteger i=0; i<[Profile.Feeds count];i++){
-        UIActivityView *activity=[[UIActivityView alloc] initWithFrame:CGRectMake(0, (i*166)+120, 320, 156)];
+        UIActivityView *activity=[[UIActivityView alloc] initWithFrame:CGRectMake(0, (i*166)+120, 320, 156) andView:0];
         NSDictionary *ItemData=[Profile.Feeds objectAtIndex:i];
+        NSLog(@"profile item:%@",ItemData); 
+        
         [activity setID:[(NSString *)[ItemData valueForKey:@"FeedID"] integerValue]];
         [activity.UserName setText:[ItemData valueForKey:@"FullName"]];
         [activity.lblComment setText:[ItemData valueForKey:@"UserComment"]];
@@ -169,7 +173,6 @@
             [activity.btnBuy removeFromSuperview];
         }
         
-        //[activity setFrame:];
         [ProSroll addSubview:activity];
         NSLog(@"added");
     }

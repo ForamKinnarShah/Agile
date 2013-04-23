@@ -73,41 +73,7 @@
 //    h2uNav.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon.png"]];
     
 //    tab.viewControllers = [NSArray arrayWithObjects:feed,check,h2u,mytab,prof,nil];
-    
-    if (!self.tabBarController.viewControllers[0])
-    {
-        ProfileViewController *prof = [[ProfileViewController alloc] initWithNibName:@"ProfileView" bundle:nil ProfileID:[(NSString *)[NSGlobalConfiguration getConfigurationItem:@"ID"] integerValue]];
-        UINavigationController *profNav = [[UINavigationController alloc] initWithRootViewController:prof];
-        
-        MytabViewController *mytab = [[MytabViewController alloc] initWithNibName:@"MytabViewController" bundle:nil];
-        UINavigationController *mytabNav = [[UINavigationController alloc] initWithRootViewController:mytab];
-        
-        CheckinViewController *check = [[CheckinViewController alloc] initWithNibName:@"CheckinViewController" bundle:nil];
-        UINavigationController *checkNav = [[UINavigationController alloc] initWithRootViewController:check];
-        
-        FeedViewController *feed = [[FeedViewController alloc] initWithNibName:@"Empty" bundle:nil];
-        UINavigationController *feedNav = [[UINavigationController alloc] initWithRootViewController:feed];
-        
-        //Heres2uViewController *h2u = [[Heres2uViewController alloc] initWithNibName:@"Heres2uViewController" bundle:nil];
-        Heres2uViewController *h2u = [[Heres2uViewController alloc] initWithNibName:@"Empty" bundle:nil];
-        
-        
-        UINavigationController *h2uNav = [[UINavigationController alloc] initWithRootViewController:h2u];
-        profNav.navigationBar.topItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:centerImageName]];
-        mytabNav.navigationBar.topItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:centerImageName]];
-        feedNav.navigationBar.topItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:centerImageName]];
-        checkNav.navigationBar.topItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:centerImageName]];
-        h2uNav.navigationBar.topItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:centerImageName]];
-        
-        
-        [prof  setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Profile" image:[UIImage imageNamed:@"dot.png"] tag:5]];
-        [mytab  setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"My Tab" image:[UIImage imageNamed:@"dot.png"] tag:4]];
-        [check  setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Check-in" image:[UIImage imageNamed:@"dot.png"] tag:2]];
-        [feed  setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Feed" image:[UIImage imageNamed:@"dot.png"] tag:1]];
-        [h2u  setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"HERES2U" image:[UIImage imageNamed:@"dot.png"] tag:3]];
-        self.tabBarController.viewControllers = [NSArray arrayWithObjects:feedNav,checkNav,h2uNav,mytabNav,profNav,nil];
-    }
-    
+     
     UIBlocker=[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     [UIBlocker setFrame:self.presentingViewController.view.frame];
     [UIBlocker setBackgroundColor:[UIColor grayColor]];
@@ -125,13 +91,24 @@
     [self presentViewController:lpvc animated:YES completion:nil];
 }
 
--(BOOL)textFieldShouldReturn:(UITextField *)textField{
-    [textField resignFirstResponder];
-    [UIView animateWithDuration:0.1 animations:^{
-        CGRect Current=self.view.frame;
-        Current.origin.y=0;
-        [self.view setFrame:Current];
-    }];
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if (textField == usrname)
+        [pass becomeFirstResponder];
+    else
+    {
+        [self dismissKeyboard:nil]; 
+        //[textField resignFirstResponder];
+        //[UIView animateWithDuration:0.1 animations:^{
+        //    CGRect Current=self.view.frame;
+        //    Current.origin.y=0;
+        //    [self.view setFrame:Current];
+        //}];
+        //[self performSelector:@selector(login:)];
+        [self login:nil]; 
+    }
+    
+    
     
     return YES;
 }
@@ -157,7 +134,8 @@
         [self dismissKeyboard:Nil];
     }
 }
--(IBAction)dismissKeyboard:(UIButton*)sender{
+-(IBAction)dismissKeyboard:(UIButton*)sender
+{
     [usrname resignFirstResponder];
     [pass resignFirstResponder];
     [UIView animateWithDuration:0.1 animations:^{

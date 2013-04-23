@@ -10,8 +10,12 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <AddressBook/AddressBook.h>
 #import <MessageUI/MessageUI.h>
+#import <Social/Social.h>
+#import <Accounts/Accounts.h>
+#import "GPPShare.h"
+#import "GPPSignIn.h"
 
-@interface sendViewController : UIViewController <UINavigationControllerDelegate, UITextFieldDelegate, FBFriendPickerDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate>
+@interface sendViewController : UIViewController <UINavigationControllerDelegate, UITextFieldDelegate, FBFriendPickerDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, GPPSignInDelegate, GPPShareDelegate>
 {
     IBOutlet UIButton *fbButton;
     IBOutlet UIButton *emailButton;
@@ -25,5 +29,6 @@
 
 @property NSMutableArray *selectedFriends;
 @property NSDictionary *restaurantInfo;
+@property ACAccountStore *accountStore; 
 
 @end
