@@ -15,6 +15,7 @@
 #import "ASIHTTPRequest.h"
 #import "ASIFormDataRequest.h"
 #import "JSON.h"
+#import "AsyncImageView.h"
 
 @interface ProfileViewController ()
 
@@ -39,6 +40,7 @@
     }
     return self;
 }
+
 //Delegates
 -(void)viewDidAppear:(BOOL)animated{
     NSLog(@"Profile ID:%i",ProfileID);
@@ -48,6 +50,7 @@
     Profile.ProfileID = ProfileID; 
     [Profile startFetching];
 }
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -59,6 +62,15 @@
     ProfileID = [[NSGlobalConfiguration getConfigurationItem:@"ID"] intValue];
     Profile=[[NSProfile alloc] initWithProfileID:ProfileID];
     [Profile setDelegate:self];
+    
+    // Set the Profile Image
+    [[AsyncImageLoader sharedLoader] cancelLoadingURL:[NSURL URLWithString:[NSGlobalConfiguration getConfigurationItem:@"ImageURL"]]];
+    NSString *strUrl = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[NSGlobalConfiguration getConfigurationItem:@"ImageURL"]]];
+    NSURL *urlImg = [[NSURL alloc] initWithString:[strUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    [_ProfilePicture setImageURL:urlImg];
+    NSLog(@"Profile Pic >>  %@",_ProfilePicture.image);
+    // ----------
+    
     //[Profile startFetching];
     
     
@@ -92,11 +104,14 @@
     FollowingViewController *Following=[[FollowingViewController alloc] initWithNibName:@"Following" bundle:nil];
     [self.navigationController pushViewController:Following animated:YES];
 }
+
 -(void) FollowersPressed:(UIGestureRecognizer *)gesture{
     FollowingViewController *Following=[[FollowingViewController alloc] initWithNibName:@"Followers" bundle:nil];
     [self.navigationController pushViewController:Following animated:YES];
 }
--(IBAction)goToMenu:(id)sender {
+
+-(IBAction)goToMenu:(id)sender
+{
     menuViewController *menu = [[menuViewController alloc] initWithNibName:@"menuViewController" bundle:nil];
     [self.navigationController pushViewController:menu animated:YES];
 }
@@ -106,7 +121,8 @@
     [self.navigationController pushViewController:menu animated:YES];
 }
 
--(IBAction)goToCheckinComment:(id)sender {
+-(IBAction)goToCheckinComment:(id)sender
+{
     checkinCommentViewController *menu = [[checkinCommentViewController alloc] initWithNibName:@"checkinCommentViewController" bundle:nil];
     [self.navigationController pushViewController:menu animated:YES];
 }
@@ -117,10 +133,11 @@
     // Dispose of any resources that can be recreated.
 }
 
--(IBAction)goToSettings:(id)sender {
-         settingsViewController *settings = [[settingsViewController alloc] initWithNibName:@"settingsViewController" bundle:nil];
-         [settings setTabBarC:self.tabBarController]; 
-         [self.navigationController pushViewController:settings animated:YES];
+-(IBAction)goToSettings:(id)sender
+{
+    settingsViewController *settings = [[settingsViewController alloc] initWithNibName:@"settingsViewController" bundle:nil];
+    [settings setTabBarC:self.tabBarController];
+    [self.navigationController pushViewController:settings animated:YES];
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -131,6 +148,7 @@
     UIActionSheet *choose = [[UIActionSheet alloc] initWithTitle:@"Menu" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"SHARE", @"Report Inappropriate", nil];
     [choose showInView:self.view];
 }
+
 -(void) ProfileLoadingCompleted:(NSProfile *)profile{
     //Parse Data
     if ([Profile.Feeds count] > 0)
@@ -317,7 +335,7 @@
     if(ScaledImage)
     {
         NSData *imageData1 = UIImageJPEGRepresentation(ScaledImage, 100);
-        [request setData:imageData1 withFileName:imgName1 andContentType:@"image/jpeg" forKey:@"ProfilePicture"];
+        [request setData:imageData1 withFileName:imgName1 andContentType:@"png" forKey:@"ProfilePicture"];
     }
     
     [request setDidFinishSelector:@selector(returnSuccessfulPost:)];
@@ -340,6 +358,7 @@
 -(void)returnSuccessfulPost:(ASIHTTPRequest*)requestor{
     
     NSString *strResponse = [requestor responseString];
+    NSLog(@"strResponse >> %@",strResponse);
     NSError *error;
     SBJSON *json = [SBJSON new];
     NSDictionary *dict = [json objectWithString:strResponse error:&error];

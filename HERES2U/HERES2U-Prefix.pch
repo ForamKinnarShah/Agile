@@ -20,6 +20,7 @@ NSMutableDictionary *dicUsed;
 NSMutableDictionary *dicSayThanks;
 
 BOOL isParseFailed;
+BOOL isiPhone5;
 
 
 #endif

@@ -27,6 +27,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.title = @"Receipt";
     self.navigationController.navigationBar.topItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo_small.png"]];
     
     NSLog(@"arrayData : %@",arrayData);
@@ -59,68 +60,78 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         
         if(indexPath.row==0){
-            UILabel *lblTransactionId = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 140, 30)];
-            [lblTransactionId setText:[NSString stringWithFormat:@"TransactionID:"]];
-            [lblTransactionId setFont:[UIFont systemFontOfSize:20.0]];
+            UILabel *lblTransactionId = [[UILabel alloc] initWithFrame:CGRectMake(15, 5, 140, 30)];
+            [lblTransactionId setText:[NSString stringWithFormat:@"TransactionID"]];
+            [lblTransactionId setFont:[UIFont boldSystemFontOfSize:15.0]];
             lblTransactionId.textColor = [UIColor blackColor];
+            lblTransactionId.textAlignment  = NSTextAlignmentLeft;
             [cell addSubview:lblTransactionId];
 
-            UILabel *lblTransactionId1 = [[UILabel alloc] initWithFrame:CGRectMake(142, 5, 200, 30)];
+            UILabel *lblTransactionId1 = [[UILabel alloc] initWithFrame:CGRectMake(125, 5, 175, 30)];
             [lblTransactionId1 setText:[NSString stringWithFormat:@"%@",[arrayData objectAtIndex:0]]];
-            [lblTransactionId1 setFont:[UIFont systemFontOfSize:20.0]];
-            lblTransactionId1.textColor = [UIColor blackColor];
+            [lblTransactionId1 setFont:[UIFont systemFontOfSize:15.0]];
+            lblTransactionId1.textColor = [UIColor blueColor];
+            lblTransactionId1.textAlignment = NSTextAlignmentRight;
             [cell addSubview:lblTransactionId1];
         }
         else if(indexPath.row==1){
-            UILabel *lblSenderName = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 150, 30)];
-            [lblSenderName setText:[NSString stringWithFormat:@"SenderName:"]];
-            [lblSenderName setFont:[UIFont systemFontOfSize:20.0]];
+            UILabel *lblSenderName = [[UILabel alloc] initWithFrame:CGRectMake(15, 5, 150, 30)];
+            [lblSenderName setText:[NSString stringWithFormat:@"SenderName"]];
+            [lblSenderName setFont:[UIFont boldSystemFontOfSize:15.0]];
             lblSenderName.textColor = [UIColor blackColor];
+            lblSenderName.textAlignment  = NSTextAlignmentLeft;
             [cell addSubview:lblSenderName];
             
-            UILabel *lblSenderName1 = [[UILabel alloc] initWithFrame:CGRectMake(155, 5, 200, 30)];
+            UILabel *lblSenderName1 = [[UILabel alloc] initWithFrame:CGRectMake(125, 5, 175, 30)];
             [lblSenderName1 setText:[NSString stringWithFormat:@"%@",[arrayData objectAtIndex:1]]];
-            [lblSenderName1 setFont:[UIFont systemFontOfSize:20.0]];
-            lblSenderName1.textColor = [UIColor blackColor];
+            [lblSenderName1 setFont:[UIFont systemFontOfSize:15.0]];
+            lblSenderName1.textColor = [UIColor blueColor];
+            lblSenderName1.textAlignment = NSTextAlignmentRight;
             [cell addSubview:lblSenderName1];
         }
         else if(indexPath.row==2){
-            UILabel *lblReceiverName = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 150, 30)];
-            [lblReceiverName setText:[NSString stringWithFormat:@"ReceiverName:"]];
-            [lblReceiverName setFont:[UIFont systemFontOfSize:20.0]];
+            UILabel *lblReceiverName = [[UILabel alloc] initWithFrame:CGRectMake(15, 5, 150, 30)];
+            [lblReceiverName setText:[NSString stringWithFormat:@"ReceiverName"]];
+            [lblReceiverName setFont:[UIFont boldSystemFontOfSize:15.0]];
             lblReceiverName.textColor = [UIColor blackColor];
+            lblReceiverName.textAlignment  = NSTextAlignmentLeft;
             [cell addSubview:lblReceiverName];
             
-            UILabel *lblReceiverName1 = [[UILabel alloc] initWithFrame:CGRectMake(155, 5, 200, 30)];
+            UILabel *lblReceiverName1 = [[UILabel alloc] initWithFrame:CGRectMake(125, 5, 175, 30)];
             [lblReceiverName1 setText:[NSString stringWithFormat:@"%@",[arrayData objectAtIndex:2]]];
-            [lblReceiverName1 setFont:[UIFont systemFontOfSize:20.0]];
-            lblReceiverName1.textColor = [UIColor blackColor];
+            [lblReceiverName1 setFont:[UIFont systemFontOfSize:15.0]];
+            lblReceiverName1.textColor = [UIColor blueColor];
+            lblReceiverName1.textAlignment = NSTextAlignmentRight;
             [cell addSubview:lblReceiverName1];
         }
         else if(indexPath.row==3){
-            UILabel *lblLocation = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 90, 30)];
-            [lblLocation setText:[NSString stringWithFormat:@"Location:"]];
-            [lblLocation setFont:[UIFont systemFontOfSize:20.0]];
+            UILabel *lblLocation = [[UILabel alloc] initWithFrame:CGRectMake(15, 5, 90, 30)];
+            [lblLocation setText:[NSString stringWithFormat:@"Location"]];
+            [lblLocation setFont:[UIFont boldSystemFontOfSize:15.0]];
             lblLocation.textColor = [UIColor blackColor];
+            lblLocation.textAlignment  = NSTextAlignmentLeft;
             [cell addSubview:lblLocation];
             
-            UILabel *lblLocation1 = [[UILabel alloc] initWithFrame:CGRectMake(92, 5, 200, 30)];
+            UILabel *lblLocation1 = [[UILabel alloc] initWithFrame:CGRectMake(125, 5, 175, 30)];
             [lblLocation1 setText:[NSString stringWithFormat:@"%@",[arrayData objectAtIndex:3]]];
-            [lblLocation1 setFont:[UIFont systemFontOfSize:20.0]];
-            lblLocation1.textColor = [UIColor blackColor];
+            [lblLocation1 setFont:[UIFont systemFontOfSize:15.0]];
+            lblLocation1.textColor = [UIColor blueColor];
+            lblLocation1.textAlignment = NSTextAlignmentRight;
             [cell addSubview:lblLocation1];
         }
         else if(indexPath.row==4){
-            UILabel *lblAmount = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 90, 30)];
-            [lblAmount setText:[NSString stringWithFormat:@"Amount:"]];
-            [lblAmount setFont:[UIFont systemFontOfSize:20.0]];
+            UILabel *lblAmount = [[UILabel alloc] initWithFrame:CGRectMake(15, 5, 90, 30)];
+            [lblAmount setText:[NSString stringWithFormat:@"Amount"]];
+            [lblAmount setFont:[UIFont boldSystemFontOfSize:15.0]];
             lblAmount.textColor = [UIColor blackColor];
+            lblAmount.textAlignment  = NSTextAlignmentLeft;
             [cell addSubview:lblAmount];
             
-            UILabel *lblAmount1 = [[UILabel alloc] initWithFrame:CGRectMake(92, 5, 200, 30)];
+            UILabel *lblAmount1 = [[UILabel alloc] initWithFrame:CGRectMake(125, 5, 175, 30)];
             [lblAmount1 setText:[NSString stringWithFormat:@"%@",[arrayData objectAtIndex:4]]];
-            [lblAmount1 setFont:[UIFont systemFontOfSize:20.0]];
-            lblAmount1.textColor = [UIColor blackColor];
+            [lblAmount1 setFont:[UIFont systemFontOfSize:15.0]];
+            lblAmount1.textColor = [UIColor blueColor];
+            lblAmount1.textAlignment = NSTextAlignmentRight;
             [cell addSubview:lblAmount1];
         }
         

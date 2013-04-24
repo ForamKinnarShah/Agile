@@ -6,10 +6,19 @@
 //  Copyright (c) 2012 CSUS. All rights reserved.
 //
 
+
+
 #import "UIRegistrationForm.h"
 
 @implementation UIRegistrationForm
 @synthesize RegistrationTable,AccountTable,ProfileTable,ProfilePicture,Password,Email,Name,Phone,DOB,ZipCode,Register,BackButton,ViewController,currentProfilePicture;
+@synthesize requestConnection = _requestConnection;
+
+
+
+
+
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -255,8 +264,11 @@
             switch (indexPath.row) {
                 case 0:{
                     //Facebook Login
-                    UIButton *btnFacebookLogin=[[UIButton alloc] initWithFrame:CGRectMake(5, 5, 150, 22)];
-                    [btnFacebookLogin setBackgroundImage:[UIImage imageNamed:@"loginFacebook"] forState:UIControlStateNormal];
+                    UIButton *btnFacebookLogin=[UIButton buttonWithType:UIButtonTypeCustom] ;
+                    btnFacebookLogin.frame = CGRectMake(5, 0, 171, 30);
+                    [btnFacebookLogin setBackgroundImage:[UIImage imageNamed:@"facebookICON.png"] forState:UIControlStateNormal];
+                    [btnFacebookLogin addTarget:self action:@selector(btnFacebook_Click:) forControlEvents:UIControlEventTouchUpInside];
+                    
                     UITableViewCell *cell=[ProfileTable dequeueReusableCellWithIdentifier:@"Cell"];
                     if (!cell) {
                         cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
@@ -365,6 +377,153 @@
             break;
     }
 }
+
+-(void)btnFacebook_Click:(UIButton*)sender{
+    @try {
+        
+      /*  if (FBSession.activeSession.isOpen){
+            // get friend details & display friend picker
+            if (![FBSession.activeSession.permissions containsObject:@"publish_actions"])
+            {
+                [FBSession.activeSession reauthorizeWithPublishPermissions:[NSArray arrayWithObjects:@"publish_stream",@"user_birthday",@"user_about_me",@"email", nil]
+                                                           defaultAudience:FBSessionDefaultAudienceFriends completionHandler:^(FBSession *session, NSError *error) {
+                                                               if (!error)
+                                                               {
+                                                                   NSLog(@"Call this");
+                                                               }
+                                                               else {
+                                                                   NSLog(@"error:%@",error.localizedDescription);
+                                                               }
+                                                           }];
+            }
+        }
+        else {
+            // No, display the login page.
+            [FBSession openActiveSessionWithPublishPermissions:[NSArray arrayWithObjects:@"publish_stream",@"user_birthday",@"user_about_me",@"email", nil] defaultAudience:FBSessionDefaultAudienceFriends allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+                
+                if (error) {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                    message:error.localizedDescription
+                                                                   delegate:nil
+                                                          cancelButtonTitle:@"OK"
+                                                          otherButtonTitles:nil];
+                    [alert show];
+                    // if otherwise we check to see if the session is open, an alternative to
+                    // to the FB_ISSESSIONOPENWITHSTATE helper-macro would be to check the isOpen
+                    // property of the session object; the macros are useful, however, for more
+                    // detailed state checking for FBSession objects
+                } else if (FB_ISSESSIONOPENWITHSTATE(status)) {
+                    // send our requests if we successfully logged in
+                    [self sendRequests];
+                }
+            }];
+        }*/
+        
+        if (FBSession.activeSession.isOpen) {
+            // login is integrated with the send button -- so if open, we send
+            [self sendRequests];
+        } else {
+            [FBSession openActiveSessionWithReadPermissions:nil
+                                               allowLoginUI:YES
+                                          completionHandler:^(FBSession *session,
+                                                              FBSessionState status,
+                                                              NSError *error) {
+                                              // if login fails for any reason, we alert
+                                              if (error) {
+                                                  UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                                                  message:error.localizedDescription
+                                                                                                 delegate:nil
+                                                                                        cancelButtonTitle:@"OK"
+                                                                                        otherButtonTitles:nil];
+                                                  [alert show];
+                                                  // if otherwise we check to see if the session is open, an alternative to
+                                                  // to the FB_ISSESSIONOPENWITHSTATE helper-macro would be to check the isOpen
+                                                  // property of the session object; the macros are useful, however, for more
+                                                  // detailed state checking for FBSession objects
+                                              } else if (FB_ISSESSIONOPENWITHSTATE(status)) {
+                                                  // send our requests if we successfully logged in
+                                                  [self sendRequests];
+                                              }
+                                          }];
+        }
+    }
+    @catch (NSException *exception) {
+        
+    }
+}
+
+- (void)sendRequests {
+    // extract the id's for which we will request the profile
+    //@"publish_stream",@"user_birthday",@"user_about_me",@"email", nil]
+    NSArray *fbids = [NSArray arrayWithObjects:@"email", nil];
+    NSLog(@"fbids : %@",fbids);
+    
+    // create the connection object
+    FBRequestConnection *newConnection = [[FBRequestConnection alloc] init];
+    
+    // for each fbid in the array, we create a request object to fetch
+    // the profile, along with a handler to respond to the results of the request
+    for (NSString *fbid in fbids) {
+        
+        // create a handler block to handle the results of the request for fbid's profile
+        FBRequestHandler handler =
+        ^(FBRequestConnection *connection, id result, NSError *error) {
+            // output the results of the request
+            [self requestCompleted:connection forFbID:fbid result:result error:error];
+        };
+        
+        // create the request object, using the fbid as the graph path
+        // as an alternative the request* static methods of the FBRequest class could
+        // be used to fetch common requests, such as /me and /me/friends
+        FBRequest *request = [[FBRequest alloc] initWithSession:FBSession.activeSession
+                                                      graphPath:fbid];
+        
+        // add the request to the connection object, if more than one request is added
+        // the connection object will compose the requests as a batch request; whether or
+        // not the request is a batch or a singleton, the handler behavior is the same,
+        // allowing the application to be dynamic in regards to whether a single or multiple
+        // requests are occuring
+        [newConnection addRequest:request completionHandler:handler];
+    }
+    
+    // if there's an outstanding connection, just cancel
+    [self.requestConnection cancel];
+    
+    // keep track of our connection, and start it
+    self.requestConnection = newConnection;
+    [newConnection start];
+}
+
+// FBSample logic
+// Report any results.  Invoked once for each request we make.
+- (void)requestCompleted:(FBRequestConnection *)connection
+                 forFbID:fbID
+                  result:(id)result
+                   error:(NSError *)error {
+    // not the completion we were looking for...
+    if (self.requestConnection &&
+        connection != self.requestConnection) {
+        return;
+    }
+    
+    // clean this up, for posterity
+    self.requestConnection = nil;
+    
+    
+    NSString *text;
+    if (error) {
+        // error contains details about why the request failed
+        text = error.localizedDescription;
+        NSLog(@"Error text : %@",text);
+    } else {
+        // result is the json response from a successful request
+        NSDictionary *dictionary = (NSDictionary *)result;
+        NSLog(@"dictionary : %@",dictionary);
+        // we pull the name property out, if there is one, and display it
+        text = (NSString *)[dictionary objectForKey:@"name"];
+    }
+}
+
 -(IBAction)selectedDOB:(id) sender{
     NSDateFormatter *Formatter=[[NSDateFormatter alloc] init];
     [Formatter setDateFormat:@"MM/dd/yyyy"];

@@ -41,11 +41,6 @@
     self.title = @"MyTab";
     // Do any additional setup after loading the view from its nib.
     
-    isReceivedStop = NO;
-    isSentStop = NO;
-    isUsedStop = NO;
-    
-    
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
         
@@ -63,9 +58,7 @@
     
     isLatLong = NO;
     
-    ReceivedIndex = 1;
-    SentIndex = 1;
-    UsedIndex  =1;
+   
     
     hostURl = [NSGlobalConfiguration URL];
     NSLog(@"hostURl : %@",hostURl);
@@ -74,9 +67,6 @@
 
     caller = [[phpCaller alloc] init];
     caller.delegate = self;
-
-    isSent = NO;
-    isUsed = NO;
 
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
@@ -123,8 +113,53 @@
     self.arrayStatus2 = [[NSMutableArray alloc] init];
     self.arraySayThanks2 = [[NSMutableArray alloc] init];
     
-    [self callReceivedData];
-    //[self performSelector:@selector(callReceivedData) withObject:nil afterDelay:1.0];
+    
+    //[self callReceivedData];
+   
+}
+
+
+-(void)viewWillAppear:(BOOL)animated{
+    @try {
+        [super viewWillAppear:animated];
+        
+        isReceivedStop = NO;
+        isSentStop = NO;
+        isUsedStop = NO;
+        
+        ReceivedIndex = 1;
+        SentIndex = 1;
+        UsedIndex  =1;
+        
+        isSent = NO;
+        isUsed = NO;
+        
+        segmented.selectedSegmentIndex=0;
+        selectedSegment =0;
+        if(selectedSegment==0){
+            isReceived  = NO;
+            ReceivedIndex=1;
+            
+            [self.arrayTransactionsID removeAllObjects];
+            [self.arrayLocationID  removeAllObjects];
+            [self.arrayLocationImage removeAllObjects];
+            [self.arrayLocationName removeAllObjects];
+            [self.arrayMiles removeAllObjects];
+            [self.arrayPrice removeAllObjects];
+            [self.arrayStatus removeAllObjects];
+            [self.arraySenderID removeAllObjects];
+            [self.arraySenderName  removeAllObjects];
+            [self.arrayCoupanNumber  removeAllObjects];
+            [self.arrayLongitude  removeAllObjects];
+            [self.arrayLatitude  removeAllObjects];
+        }
+        
+        [self startLoading];
+        [self performSelector:@selector(callReceivedData) withObject:nil afterDelay:1.0];
+    }
+    @catch (NSException *exception) {
+        
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -181,12 +216,12 @@
         NSLog(@"uId : %@",uId);
         
         if(isLatLong){
-            [self startLoading];
             
             //http://50.62.148.155:8080/heres2u/api/index.php?webservice=ui&action=getreceiveditems&ID=33&Page=1&Lat=-33.7501&Long=18.4533
             
             NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@index.php?webservice=ui&action=getreceiveditems&ID=%@&Page=%d&Lat=-%@&Long=%@",hostURl,uId,ReceivedIndex,currentLat,currentLong]];
             NSLog(@" : %@",url);
+            
             
             [dicReceived removeAllObjects];
             myparser = [[MyTabXmlParse alloc] initWithURL:url];
@@ -199,6 +234,7 @@
                     return;
                 }
                 else{
+                    isReceivedStop = YES;
                     [objTableView reloadData];
                     [self stopLoading];
                     
@@ -273,13 +309,44 @@
     [self startLoading];
     if ([segmented selectedSegmentIndex] == 0)
     {
-        [objTableView reloadData];
-        [self stopLoading];
+        if(!isReceived){
+            isReceived = YES;
+            
+            [self.arrayTransactionsID removeAllObjects];
+            [self.arrayLocationID  removeAllObjects];
+            [self.arrayLocationImage removeAllObjects];
+            [self.arrayLocationName removeAllObjects];
+            [self.arrayMiles removeAllObjects];
+            [self.arrayPrice removeAllObjects];
+            [self.arrayStatus removeAllObjects];
+            [self.arraySenderID removeAllObjects];
+            [self.arraySenderName  removeAllObjects];
+            [self.arrayCoupanNumber  removeAllObjects];
+            [self.arrayLongitude  removeAllObjects];
+            [self.arrayLatitude  removeAllObjects];
+            
+            [self performSelector:@selector(callReceivedData) withObject:self afterDelay:0.5];
+        }
+        else{
+            [objTableView reloadData];
+            [self stopLoading];
+        }
     }
     else if ([segmented selectedSegmentIndex] == 1)
     {
         if(!isSent ){
             isSent = YES;
+            [self.arrayTransactionsID1 removeAllObjects];
+            [self.arrayLocationID1  removeAllObjects];
+            [self.arrayLocationImage1 removeAllObjects];
+            [self.arrayLocationName1 removeAllObjects];
+            [self.arrayMiles1 removeAllObjects];
+            [self.arrayPrice1 removeAllObjects];
+            [self.arrayStatus1 removeAllObjects];
+            [self.arraySenderID1 removeAllObjects];
+            [self.arraySenderName1  removeAllObjects];
+
+            
             [self performSelector:@selector(callSegment1) withObject:self afterDelay:0.5];
         }
         else{
@@ -291,6 +358,18 @@
     {   
         if(!isUsed){
             isUsed = YES;
+            
+            [self.arrayTransactionsID2 removeAllObjects];
+            [self.arrayLocationID2  removeAllObjects];
+            [self.arrayLocationImage2  removeAllObjects];
+            [self.arrayLocationName2  removeAllObjects];
+            [self.arrayMiles2  removeAllObjects];
+            [self.arrayPrice2  removeAllObjects];
+            [self.arrayStatus2  removeAllObjects];
+            [self.arraySenderID2  removeAllObjects];
+            [self.arraySenderName2  removeAllObjects];
+            [self.arraySayThanks2  removeAllObjects];
+            
             [self performSelector:@selector(callSegment2) withObject:self afterDelay:0.5];
         }
         else{
@@ -318,6 +397,7 @@
                 return;
             }
             else{
+                isSentStop = YES;
                 [objTableView reloadData];
                 [self stopLoading];
                 
@@ -376,6 +456,7 @@
                 return;
             }
             else{
+                isUsedStop = YES;
                 [objTableView reloadData];
                 [self stopLoading];
                 
@@ -401,7 +482,6 @@
         
         if(dicUsed.count==0){
             isUsedStop = YES;
-            
             UIAlertView *alertReceived = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"No More Data Found !" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
             [alertReceived show];
         }
@@ -469,7 +549,9 @@
 	_reloading = YES;
        
     if(selectedSegment==0){
+        isReceived  = NO;
         ReceivedIndex=1;
+     
         [self.arrayTransactionsID removeAllObjects];
         [self.arrayLocationID  removeAllObjects];
         [self.arrayLocationImage removeAllObjects];
@@ -483,7 +565,7 @@
         [self.arrayLongitude  removeAllObjects];
         [self.arrayLatitude  removeAllObjects];
         
-        [self performSelector:@selector(callReceivedData) withObject:nil afterDelay:2.0];
+        //[self performSelector:@selector(callReceivedData) withObject:nil afterDelay:2.0];
     }
     else if (selectedSegment==1 || selectedSegment==2){
         if(selectedSegment==1){
@@ -517,9 +599,8 @@
             [self.arraySayThanks2  removeAllObjects];
 
         }
-        [self segmentControlChanged];
     }
-   
+   [self segmentControlChanged];
 	
 }
 
@@ -554,7 +635,7 @@
 - (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
 	
 	[self reloadTableViewDataSource];
-	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:2.0];
+	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:5.0];
 	
 }
 
@@ -729,13 +810,14 @@
              */
             
             NSString *strImageUrl;
-            if(selectedSegment==0){
+            if(selectedSegment==0 && self.arrayLocationImage.count>0){
                 strImageUrl = [NSString stringWithFormat:@"%@%@",hostURl,[self.arrayLocationImage objectAtIndex:indexPath.row]];
             }
-            else if(selectedSegment==1){
+            else if(selectedSegment==1 && self.arrayLocationImage1.count>0){
+                NSLog(@"self.arrayLocationImage1 : %@",self.arrayLocationImage1);
                 strImageUrl = [NSString stringWithFormat:@"%@%@",hostURl,[self.arrayLocationImage1 objectAtIndex:indexPath.row]];
             }
-            else if(selectedSegment==2){
+            else if(selectedSegment==2 && self.arrayLocationImage2.count>0){
                 strImageUrl = [NSString stringWithFormat:@"%@%@",hostURl,[self.arrayLocationImage2 objectAtIndex:indexPath.row]];
             }
             NSLog(@"self.arrayLocationImage : %@",self.arrayLocationImage);
@@ -747,13 +829,13 @@
             
             
             UILabel *lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(80, 0, 200, 30)];
-            if(selectedSegment==0){
+            if(selectedSegment==0 && self.arrayLocationName.count>0){
                 [lblTitle setText:[NSString stringWithFormat:@"%@",[self.arrayLocationName objectAtIndex:indexPath.row]]];
             }
-            else if(selectedSegment==1){
+            else if(selectedSegment==1 && self.arrayLocationName1.count>0){
                 [lblTitle setText:[NSString stringWithFormat:@"%@",[self.arrayLocationName1 objectAtIndex:indexPath.row]]];
             }
-            else if(selectedSegment==2){
+            else if(selectedSegment==2 && self.arrayLocationName2.count>0){
                 [lblTitle setText:[NSString stringWithFormat:@"%@",[self.arrayLocationName2 objectAtIndex:indexPath.row]]];
             }
             
@@ -763,13 +845,13 @@
             [cell addSubview:lblTitle];
             
             UILabel *lblDistance = [[UILabel alloc] initWithFrame:CGRectMake(240, 3, 100, 30)];
-            if(selectedSegment==0){
+            if(selectedSegment==0 && self.arrayMiles.count>0){
                 [lblDistance setText:[NSString stringWithFormat:@"%@ m",[self.arrayMiles objectAtIndex:indexPath.row]]];
             }
-            else if(selectedSegment==1){
+            else if(selectedSegment==1 && self.arrayMiles1.count>0){
                 [lblDistance setText:[NSString stringWithFormat:@"%@",[self.arrayMiles1 objectAtIndex:indexPath.row]]];
             }
-            else if(selectedSegment==2){
+            else if(selectedSegment==2 && self.arrayMiles2.count>0){
                 [lblDistance setText:[NSString stringWithFormat:@"%@",[self.arrayMiles2 objectAtIndex:indexPath.row]]];
             }
             [lblDistance setBackgroundColor:[UIColor clearColor]];
@@ -778,13 +860,13 @@
             [cell addSubview:lblDistance];
             
             UILabel *lblPersonName = [[UILabel alloc] initWithFrame:CGRectMake(80, 20, 200, 30)];
-            if(selectedSegment==0){
+            if(selectedSegment==0 && self.arraySenderName.count>0){
                 [lblPersonName setText:[NSString stringWithFormat:@"%@",[self.arraySenderName objectAtIndex:indexPath.row]]];
             }
-            else if(selectedSegment==1){
+            else if(selectedSegment==1 && self.arraySenderName1.count>0){
                 [lblPersonName setText:[NSString stringWithFormat:@"%@",[self.arraySenderName1 objectAtIndex:indexPath.row]]];
             }
-            else if(selectedSegment==2){
+            else if(selectedSegment==2 && self.arraySenderName2.count>0){
                 [lblPersonName setText:[NSString stringWithFormat:@"%@",[self.arraySenderName2 objectAtIndex:indexPath.row]]];
             }
             [lblPersonName setBackgroundColor:[UIColor clearColor]];
@@ -802,13 +884,13 @@
             [cell addSubview:bottomView];
             
             UILabel *lblPrice = [[UILabel alloc] initWithFrame:CGRectMake(5, 2, 150, 30)];
-            if(selectedSegment==0){
+            if(selectedSegment==0 && self.arrayPrice.count>0){
                 [lblPrice setText:[NSString stringWithFormat:@"%@$",[self.arrayPrice objectAtIndex:indexPath.row]]];
             }
-            else if(selectedSegment==1){
+            else if(selectedSegment==1 && self.arrayPrice1.count>0){
                 [lblPrice setText:[NSString stringWithFormat:@"%@$",[self.arrayPrice1 objectAtIndex:indexPath.row]]];
             }
-            else if(selectedSegment==2){
+            else if(selectedSegment==2 && self.arrayPrice2.count>0){
                 [lblPrice setText:[NSString stringWithFormat:@"%@$",[self.arrayPrice2 objectAtIndex:indexPath.row]]];
             }
             [lblPrice setBackgroundColor:[UIColor clearColor]];
@@ -848,16 +930,25 @@
             }
             [bottomView addSubview:btnUseOrSent];
             
-            if(selectedSegment==0){
-                if(indexPath.row==self.arrayTransactionsID.count-1 && self.arrayTransactionsID.count>3){
+            int arrayCount=0;
+            if(isiPhone5)
+            {
+                arrayCount = 5;
+            }
+            else{
+                arrayCount = 4;
+            }
+            
+            if(selectedSegment==0 && self.arrayTransactionsID.count>0){
+                if(indexPath.row==self.arrayTransactionsID.count-1 && self.arrayTransactionsID.count>arrayCount){
                     if(!isReceivedStop){
                         ReceivedIndex++;
                         [self startLoading];
                     }
                 }
             }
-            else if(selectedSegment==1){
-                if(indexPath.row==self.arrayTransactionsID1.count-1 && self.arrayTransactionsID1.count>3){
+            else if(selectedSegment==1 && self.arrayTransactionsID1.count>0){
+                if(indexPath.row==self.arrayTransactionsID1.count-1 && self.arrayTransactionsID1.count>arrayCount){
                     if(isSent && !isSentStop){
                         isSent = NO;
                         SentIndex++;
@@ -865,8 +956,8 @@
                     }
                 }
             }
-            else if(selectedSegment==2){
-                if(indexPath.row==self.arrayTransactionsID2.count-1 && self.arrayTransactionsID2.count>3){
+            else if(selectedSegment==2 && self.arrayTransactionsID2.count>0){
+                if(indexPath.row==self.arrayTransactionsID2.count-1 && self.arrayTransactionsID2.count>arrayCount){
                     if(isUsed && !isUsedStop){
                         isUsed = NO;
                         UsedIndex++;

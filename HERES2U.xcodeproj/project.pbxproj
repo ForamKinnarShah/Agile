@@ -54,6 +54,8 @@
 		6F7DA2541726C9BF00DB8E16 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7DA24E1726C9BF00DB8E16 /* SBJsonWriter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6F815F33171429F400447C25 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F815F32171429F400447C25 /* Reachability.m */; };
 		6F815F3517142BB300447C25 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F815F3417142BB300447C25 /* SystemConfiguration.framework */; };
+		6FBEB62D1727D7D100DC9611 /* AsyncImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FBEB62C1727D7D100DC9611 /* AsyncImageView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		6FBEB62F172816BF00DC9611 /* facebookICON.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FBEB62E172816BE00DC9611 /* facebookICON.png */; };
 		6FC50969171FE61D003CA7FC /* LostPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC50967171FE61D003CA7FC /* LostPasswordVC.m */; };
 		6FC5096A171FE61D003CA7FC /* LostPasswordVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FC50968171FE61D003CA7FC /* LostPasswordVC.xib */; };
 		6FC5096E17202886003CA7FC /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC5096D17202886003CA7FC /* MBProgressHUD.m */; };
@@ -321,6 +323,9 @@
 		6F815F31171429F400447C25 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		6F815F32171429F400447C25 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		6F815F3417142BB300447C25 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		6FBEB62B1727D7D100DC9611 /* AsyncImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncImageView.h; sourceTree = "<group>"; };
+		6FBEB62C1727D7D100DC9611 /* AsyncImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncImageView.m; sourceTree = "<group>"; };
+		6FBEB62E172816BE00DC9611 /* facebookICON.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebookICON.png; sourceTree = "<group>"; };
 		6FC50966171FE61D003CA7FC /* LostPasswordVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LostPasswordVC.h; sourceTree = "<group>"; };
 		6FC50967171FE61D003CA7FC /* LostPasswordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LostPasswordVC.m; sourceTree = "<group>"; };
 		6FC50968171FE61D003CA7FC /* LostPasswordVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LostPasswordVC.xib; sourceTree = "<group>"; };
@@ -746,6 +751,15 @@
 				6F7DA24E1726C9BF00DB8E16 /* SBJsonWriter.m */,
 			);
 			path = JSON;
+			sourceTree = "<group>";
+		};
+		6FBEB62A1727D7D100DC9611 /* AsynchronousImage Loader */ = {
+			isa = PBXGroup;
+			children = (
+				6FBEB62B1727D7D100DC9611 /* AsyncImageView.h */,
+				6FBEB62C1727D7D100DC9611 /* AsyncImageView.m */,
+			);
+			path = "AsynchronousImage Loader";
 			sourceTree = "<group>";
 		};
 		6FC50964171FE594003CA7FC /* Login */ = {
@@ -1231,6 +1245,8 @@
 		DAF870BD16671F0000747CDA = {
 			isa = PBXGroup;
 			children = (
+				6FBEB62E172816BE00DC9611 /* facebookICON.png */,
+				6FBEB62A1727D7D100DC9611 /* AsynchronousImage Loader */,
 				6F7DA2411726C9BD00DB8E16 /* JSON */,
 				6F7DA23F1726C72700DB8E16 /* AssetsLibrary.framework */,
 				6F7DA23D1726C29900DB8E16 /* CFNetwork.framework */,
@@ -1502,6 +1518,7 @@
 				7A42177E1724954B00697822 /* UIActivityView2.xib in Resources */,
 				7A4217851724BA8A00697822 /* mapViewController.xib in Resources */,
 				7AED17B1172611250005A15E /* GTMOAuth2ViewTouch.xib in Resources */,
+				6FBEB62F172816BF00DC9611 /* facebookICON.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1650,6 +1667,7 @@
 				6F7DA2521726C9BF00DB8E16 /* SBJsonBase.m in Sources */,
 				6F7DA2531726C9BF00DB8E16 /* SBJsonParser.m in Sources */,
 				6F7DA2541726C9BF00DB8E16 /* SBJsonWriter.m in Sources */,
+				6FBEB62D1727D7D100DC9611 /* AsyncImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1761,6 +1779,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HERES2U/HERES2U-Prefix.pch";
 				INFOPLIST_FILE = "HERES2U/HERES2U-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/google-plus-ios-sdk-1.2.1/lib\"",
@@ -1772,6 +1791,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
+				SDKROOT = iphoneos6.1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1790,6 +1810,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HERES2U/HERES2U-Prefix.pch";
 				INFOPLIST_FILE = "HERES2U/HERES2U-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/google-plus-ios-sdk-1.2.1/lib\"",
@@ -1801,6 +1822,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
+				SDKROOT = iphoneos6.1;
 				VALIDATE_PRODUCT = NO;
 				WRAPPER_EXTENSION = app;
 			};

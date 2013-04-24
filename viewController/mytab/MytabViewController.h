@@ -64,6 +64,7 @@
     
     int UsedIndex;
     BOOL isUsedStop;
+    
 
     NSString *uId;
     

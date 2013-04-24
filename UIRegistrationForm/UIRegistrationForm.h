@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-@interface UIRegistrationForm : UIView<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate>{
+#import<FacebookSDK/FacebookSDK.h>
+
+@interface UIRegistrationForm : UIView<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,FBLoginViewDelegate>{
     @private
     BOOL AccountTableDone;
     BOOL ProfileTableDone;
@@ -16,6 +18,7 @@
     UILabel *lblDOB;
     UIView *SourceSelector;
     UIView *TOS;
+    
 }
 @property (strong, nonatomic) UITableView *RegistrationTable;
 @property(strong,nonatomic) UITableView *AccountTable;
@@ -31,4 +34,15 @@
 @property (strong, nonatomic) UIBarButtonItem *Register;
 @property (strong,nonatomic) UIBarButtonItem *BackButton;
 @property (strong,nonatomic) UIViewController *ViewController;
+@property (strong, nonatomic) FBRequestConnection *requestConnection;
+
+- (void)sendRequests;
+- (void)requestCompleted:(FBRequestConnection *)connection
+                 forFbID:(NSString *)fbID
+                  result:(id)result
+                   error:(NSError *)error;
+
+
+
+
 @end 

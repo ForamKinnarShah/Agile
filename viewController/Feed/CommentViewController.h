@@ -28,5 +28,15 @@
 @property (strong, nonatomic) NSMutableArray *arrComment;
 @property (strong, nonatomic) IBOutlet UITableView *tblComment;
 
+// assign properties
+@property (strong, nonatomic) IBOutlet UIImageView *imgNav;
+@property (strong, nonatomic) IBOutlet UIButton *btnTitle_bg;
+@property (strong, nonatomic) IBOutlet UILabel *lblBuy;
+@property (strong, nonatomic) IBOutlet UIButton *btnTab_bg;
+@property (strong, nonatomic) IBOutlet UIButton *btnPost;
+
+// iPhone5 screen size
+@property (nonatomic) CGSize screenSize;
+
 -(id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil ActivityView:(UIActivityView *)activity;
 @end

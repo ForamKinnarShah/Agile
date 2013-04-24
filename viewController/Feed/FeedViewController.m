@@ -49,7 +49,6 @@
     UIBarButtonItem *searchBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(search:)];
     [self.navigationItem setRightBarButtonItem:searchBtn];
     
-    
     //login code
     NSString *Email=[NSGlobalConfiguration getConfigurationItem:@"Email"];
     NSString *Password=[NSGlobalConfiguration getConfigurationItem:@"Password"];

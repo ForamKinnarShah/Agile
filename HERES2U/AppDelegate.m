@@ -39,6 +39,30 @@ NSString * const logOutNotification = @"logOutNotification";
 //    tab.viewControllers = [NSArray arrayWithObjects:feed,check,h2u,mytab,prof,nil];
    // self.window.rootViewController = nav;
     
+    
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        if ([[UIScreen mainScreen] respondsToSelector: @selector(scale)]) {
+            CGSize result = [[UIScreen mainScreen] bounds].size;
+            CGFloat scale = [UIScreen mainScreen].scale;
+            result = CGSizeMake(result.width * scale, result.height * scale);
+            
+            if(result.height == 960) {
+                NSLog(@"iPhone 4 Resolution");
+                isiPhone5 = NO;
+            }
+            if(result.height == 1136) {
+                isiPhone5 = YES;
+                NSLog(@"iPhone 5 Resolution");
+            }
+        }
+        else{
+            NSLog(@"Standard Resolution");
+        }
+    }
+
+    
+    
     // push notification
     remoteHost = [Reachability reachabilityWithHostName:@"www.google.co.in"];
 	[remoteHost startNotifier];
@@ -153,6 +177,7 @@ NSString * const logOutNotification = @"logOutNotification";
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [FBSession.activeSession close];
 }
 
 #pragma mark -
@@ -246,5 +271,20 @@ static AppDelegate *shared = nil;
         shared = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     return shared;
 }
+
+#pragma mark -
+#pragma mark Facebook
+
+/// FBSample logic
+// In the login workflow, the Facebook native application, or Safari will transition back to
+// this applicaiton via a url following the scheme fb[app id]://; the call to handleOpenURL
+// below captures the token, in the case of success, on behalf of the FBSession object
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    return [FBSession.activeSession handleOpenURL:url];
+}
+
 
 @end

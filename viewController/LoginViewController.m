@@ -14,6 +14,7 @@
 #import "Heres2uViewController.h"
 #import "utilities.h"
 #import "LostPasswordVC.h"
+#import "AsyncImageView.h"
 
 @interface LoginViewController ()
 
@@ -211,6 +212,8 @@
     NSString *deviceSystemVersion = dev.systemVersion;
 	
 	// Prepare the Device Token for Registration (remove spaces and < >)
+    
+    NSLog(@"devicetoken >> %@",[AppDelegate sharedInstance].dataDeviceToken);
     NSString *deviceToken_Push = [[[[[AppDelegate sharedInstance].dataDeviceToken description]
                                     stringByReplacingOccurrencesOfString:@"<"withString:@""]
                                    stringByReplacingOccurrencesOfString:@">" withString:@""]
