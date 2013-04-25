@@ -35,7 +35,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    length = 0; 
+    length = 0;
+    activityViews = [NSMutableArray arrayWithCapacity:0]; 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clearView) name:logOutNotification object:nil]; 
     timer=[NSTimer timerWithTimeInterval:5 target:self selector:@selector(checkActivity) userInfo:nil repeats:YES];
     //[[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes ];
@@ -120,9 +121,14 @@
     //Load Feeds
     NSLog(@"feed manager loaded");
     [UIBlocker stopUIBlockerInView:self.tabBarController.view];
-    length = 0; 
+    length = 0;
+    
+//    if (![oldFeeds isEqual:feedManager.Feeds])
+//    {
     [self loadActivities];
+    //}
 }
+
 -(IBAction)sheet:(id)sender {
 UIActionSheet *choose = [[UIActionSheet alloc] initWithTitle:@"Menu" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"SHARE", @"Report Inappropriate", nil];
 [choose showInView:self.view];
@@ -149,6 +155,12 @@ UIActionSheet *choose = [[UIActionSheet alloc] initWithTitle:@"Menu" delegate:se
     else{
         [defaultLabel removeFromSuperview]; 
     }
+    
+    for (UIView *activity in activityViews)
+    {
+        [activity removeFromSuperview];
+    }
+    [activityViews removeAllObjects]; 
     
     for(NSInteger i=0; i<[feedManager count];i++){
         
@@ -238,6 +250,7 @@ UIActionSheet *choose = [[UIActionSheet alloc] initWithTitle:@"Menu" delegate:se
         [img start];
         
         [self.view addSubview:activity];
+        [activityViews addObject:activity]; 
        // NSLog(@"added");
     }
     [(UIScrollView *)self.view setScrollEnabled:YES];

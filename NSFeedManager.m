@@ -9,7 +9,7 @@
 #import "NSFeedManager.h"
 
 @implementation NSFeedManager
-@synthesize Delegate;
+@synthesize Delegate, Feeds;
 -(NSInteger) count{
     return [Feeds count];
 }

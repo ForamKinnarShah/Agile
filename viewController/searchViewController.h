@@ -11,8 +11,10 @@
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
 #import <MessageUI/MessageUI.h>
+#import "GPPShare.h"
+#import "GPPSignIn.h"
 
-@interface searchViewController : UIViewController <ABPeoplePickerNavigationControllerDelegate,FBFriendPickerDelegate, MFMessageComposeViewControllerDelegate>
+@interface searchViewController : UIViewController <ABPeoplePickerNavigationControllerDelegate,FBFriendPickerDelegate, MFMessageComposeViewControllerDelegate, GPPShareDelegate, GPPSignInDelegate>
 {
     NSArray *selectedFriends; 
 }

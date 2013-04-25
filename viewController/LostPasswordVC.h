@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "NSUserAccessControl.h"
 #import "utilities.h"
-@interface LostPasswordVC : UIViewController <UITextFieldDelegate,NSURLConnectionDelegate>
+@interface LostPasswordVC : UIViewController <UITextFieldDelegate,NSURLConnectionDelegate, NSXMLParserDelegate>
 {
-    utilities *UIBlocker;
+    UIActivityIndicatorView *UIBlocker;
+    NSMutableData *rawData;
+    NSMutableString *currentString; 
 }
 @property (strong, nonatomic) IBOutlet UITextField *txtEmail;
 

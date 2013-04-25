@@ -11,6 +11,7 @@
 #import "checkinCommentViewController.h"
 #import "menuViewController.h" 
 #import "Heres2uViewController.h" 
+#import "mapViewController.h"
 
 @interface CheckinViewController ()
 
@@ -195,14 +196,21 @@
     [self.navigationController pushViewController:add animated:YES];
 }
 
+-(void)mapViewControllerClickedDoneButton
+{
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
 -(IBAction)btnMap_Click:(id)sender
 {
-    @try {
-        
-    }
-    @catch (NSException *exception) {
-        
-    }
+    
+    mapViewController *mapVC = [[mapViewController alloc] initWithNibName:@"mapViewController" bundle:nil];
+    mapVC.locations = sortedLocations;
+    mapVC.delegate = self;
+    //[mapVC annotateMapViewWithLocations:sortedLocations];
+    [self presentViewController:mapVC animated:YES completion:NULL];
+    //[mapVC annotateMapViewWithLocations:sortedLocations];
+    
 }
 
 -(void)locationloaderCompleted:(NSLocationLoader *)loader{
@@ -214,12 +222,14 @@
     }
     [arrayTitle removeAllObjects];
     
-    for(NSInteger i=0;i<[Locations count];i++){
-        NSDictionary *ItemData=[Locations getLocationAtIndex:i];
+    sortedLocations = [self sortLocationsByDistance]; 
+    
+    for(NSInteger i=0;i<[sortedLocations count];i++){
+        NSDictionary *ItemData=[sortedLocations objectAtIndex:i];
         NSLog(@"ItemData : %@",ItemData);
         
         UICheckIns *CheckIn=[[UICheckIns alloc] initWithFrame:CGRectMake(0, (100*i), 0, 0)];
-        [CheckIn.Distance setText:@"0.0 m"];
+        [CheckIn.Distance setText:[NSString stringWithFormat:@"%i mi",[[ItemData objectForKey:@"distance"] intValue]]];
         [CheckIn.Name setText:[ItemData valueForKey:@"Title"]];
         
         [arrayTitle addObject:[ItemData valueForKey:@"Title"]];
@@ -274,4 +284,70 @@
     [self.navigationController pushViewController:add animated:YES]
      ;}
 }
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(@"didFailWithError: %@", error);
+    
+    
+    UIAlertView *errorAlert = [[UIAlertView alloc]
+                               initWithTitle:@"Error!" message:@"Failed to Get Your Location. Please Turn on your device location services." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [errorAlert show];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    //NSLog(@"didUpdateToLocation: %@", newLocation);
+    currentLocation = newLocation;
+    
+    NSString *currentLat = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.latitude];
+    NSString *currentLong = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude];
+    
+    // NSLog(@"strLat : %@",currentLat);
+    // NSLog(@"strLat : %@",currentLong);
+    
+    // Reverse Geocoding
+    //NSLog(@"Resolving the Address");
+    
+}
+
+-(NSMutableArray*)sortLocationsByDistance
+{
+    NSMutableArray *distances = [NSMutableArray arrayWithCapacity:0];
+    
+    for(NSInteger i=0;i<[Locations count];i++)
+    {
+        NSString *locationLong = [[Locations getLocationAtIndex:i] objectForKey:@"Longitude"];
+        NSString *locationLat = [[Locations getLocationAtIndex:i] objectForKey:@"Latitude"];
+        
+        //Haversine formala for calculating distance in miles between two long/lat coordinates
+        float dLongRadians = fabsf(([locationLong floatValue] - currentLocation.coordinate.longitude) * 3.141596 / 180);
+        float dlatRadians = fabsf(([locationLat floatValue] - currentLocation.coordinate.latitude) * 3.141596 / 180);
+                
+        float lat1 = [locationLat floatValue] * 3.141596/180;
+        float lat2 = currentLocation.coordinate.latitude * 3.141596 / 180;
+        
+        float a = sinf(dlatRadians/2) * sinf(dlatRadians/2) + sinf(dLongRadians/2) * sinf(dLongRadians/2) * cosf(lat1) * cosf(lat2);
+        float c = 2 * atan2f(sqrtf(a), sqrtf((1-a)));
+        float distanceFromLocation = c * 3959;
+        
+        //float distanceFromLocation = sqrtf( powf( (currentLocation.coordinate.latitude - [locationLat floatValue]),2) + powf( (currentLocation.coordinate.longitude - [locationLong floatValue]),2));
+        NSDictionary *dic = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[NSNumber numberWithFloat:distanceFromLocation], [NSNumber numberWithInt:i],nil] forKeys:[NSArray arrayWithObjects:@"distance",@"index", nil]];
+        [distances addObject:dic];
+    }
+    NSSortDescriptor *sortByName = [NSSortDescriptor sortDescriptorWithKey:@"distance"
+                                                                 ascending:NO];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:sortByName];
+    NSArray *sortedDicArray = [distances sortedArrayUsingDescriptors:sortDescriptors];
+    NSMutableArray *sortedLocations= [NSMutableArray arrayWithCapacity:0];
+    for (NSDictionary *dic in sortedDicArray)
+    {
+        int index = [[dic objectForKey:@"index"] intValue];
+        NSMutableDictionary *location = [[Locations getLocationAtIndex:index] mutableCopy];
+        [location setObject:[dic objectForKey:@"distance"] forKey:@"distance"];
+        [sortedLocations addObject:location];
+    }
+    return sortedLocations;
+}
+
 @end

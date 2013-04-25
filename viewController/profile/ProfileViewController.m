@@ -188,6 +188,7 @@
         [activity.ProfilePicture setImage:[_ProfilePicture image]];
         [activity setDelegate:self];
         [activity setTag:i+1];
+        [activity.commentNumberLabel setText:[ItemData valueForKey:@"nComments"]]; 
         
         if ([[ItemData valueForKey:@"UserID"] isEqual:[NSGlobalConfiguration getConfigurationItem:@"ID"]])
         {

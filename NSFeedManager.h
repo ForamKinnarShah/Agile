@@ -16,6 +16,7 @@
     BOOL encounteredServerReply;
 }
 @property (strong,nonatomic) id Delegate;
+@property NSMutableArray *Feeds;
 -(void) getFeeds;
 -(NSInteger) count;
 -(NSDictionary *) getFeedAtIndex:(NSInteger) index;

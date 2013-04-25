@@ -1247,29 +1247,8 @@
 			children = (
 				6FBEB62E172816BE00DC9611 /* facebookICON.png */,
 				6FBEB62A1727D7D100DC9611 /* AsynchronousImage Loader */,
-				6F7DA2411726C9BD00DB8E16 /* JSON */,
-				6F7DA23F1726C72700DB8E16 /* AssetsLibrary.framework */,
-				6F7DA23D1726C29900DB8E16 /* CFNetwork.framework */,
-				6F7DA23B1726C24C00DB8E16 /* MobileCoreServices.framework */,
-				6F7DA2391726C01300DB8E16 /* libz.dylib */,
-				6F7DA21C1726BF2800DB8E16 /* ASIHTTPRequest */,
-				6F7DA2191726590500DB8E16 /* libGooglePlusUniversal.a */,
-				7A42177F1724AED100697822 /* MapKit.framework */,
-				7A4217791723B45C00697822 /* Security.framework */,
-				7A4217771723B2E700697822 /* FacebookSDK.framework */,
-				7A4217731723AB9700697822 /* FBUserSettingsViewResources.bundle */,
-				1348F1B31721467E00DAF391 /* AudioToolbox.framework */,
 				1348F1AE1721350B00DAF391 /* Image_not_available.jpg */,
 				1348F1B1172135CE00DAF391 /* Loading.jpg */,
-				6FC5096B17202885003CA7FC /* HUD */,
-				7ABD92E3171FBC9D001D10DE /* AddressBook.framework */,
-				7ABD92E4171FBC9E001D10DE /* AddressBookUI.framework */,
-				134E4C28171E736700257321 /* PulltoRefresh */,
-				134AB78F171D4D8E00F179E4 /* MessageUI.framework */,
-				134AB78C171D4D8800F179E4 /* CoreLocation.framework */,
-				6F815F3417142BB300447C25 /* SystemConfiguration.framework */,
-				6F815F31171429F400447C25 /* Reachability.h */,
-				6F815F32171429F400447C25 /* Reachability.m */,
 				7AA1959B1712B15B001F7A40 /* Constants.h */,
 				7AA1959C1712B15B001F7A40 /* Constants.m */,
 				13448F9E17194A7600B84B9F /* ImageViewLoading.h */,
@@ -1330,6 +1309,27 @@
 		DAF870CB16671F0000747CDA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6F7DA2411726C9BD00DB8E16 /* JSON */,
+				6F7DA23F1726C72700DB8E16 /* AssetsLibrary.framework */,
+				6F7DA23D1726C29900DB8E16 /* CFNetwork.framework */,
+				6F7DA23B1726C24C00DB8E16 /* MobileCoreServices.framework */,
+				6F7DA2391726C01300DB8E16 /* libz.dylib */,
+				6F7DA21C1726BF2800DB8E16 /* ASIHTTPRequest */,
+				6F7DA2191726590500DB8E16 /* libGooglePlusUniversal.a */,
+				7A42177F1724AED100697822 /* MapKit.framework */,
+				7A4217791723B45C00697822 /* Security.framework */,
+				7A4217771723B2E700697822 /* FacebookSDK.framework */,
+				7A4217731723AB9700697822 /* FBUserSettingsViewResources.bundle */,
+				1348F1B31721467E00DAF391 /* AudioToolbox.framework */,
+				6FC5096B17202885003CA7FC /* HUD */,
+				7ABD92E3171FBC9D001D10DE /* AddressBook.framework */,
+				7ABD92E4171FBC9E001D10DE /* AddressBookUI.framework */,
+				134E4C28171E736700257321 /* PulltoRefresh */,
+				134AB78F171D4D8E00F179E4 /* MessageUI.framework */,
+				134AB78C171D4D8800F179E4 /* CoreLocation.framework */,
+				6F815F3417142BB300447C25 /* SystemConfiguration.framework */,
+				6F815F31171429F400447C25 /* Reachability.h */,
+				6F815F32171429F400447C25 /* Reachability.m */,
 				7AA005C7170A002100923E9B /* Accounts.framework */,
 				7AA005C8170A002100923E9B /* AdSupport.framework */,
 				7AA005C9170A002100923E9B /* Social.framework */,
@@ -1769,8 +1769,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Brian Rosa (J35L3P43JL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Brian Rosa (J35L3P43JL)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/FacebookSDK\"",
@@ -1789,8 +1789,8 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
+				PROVISIONING_PROFILE = "ADCD926E-3808-40C0-B082-A989FF5BBD9D";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "ADCD926E-3808-40C0-B082-A989FF5BBD9D";
 				SDKROOT = iphoneos6.1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1800,8 +1800,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Brian Rosa (J35L3P43JL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Brian Rosa (J35L3P43JL)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/FacebookSDK\"",
@@ -1820,8 +1820,8 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
+				PROVISIONING_PROFILE = "ADCD926E-3808-40C0-B082-A989FF5BBD9D";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "ADCD926E-3808-40C0-B082-A989FF5BBD9D";
 				SDKROOT = iphoneos6.1;
 				VALIDATE_PRODUCT = NO;
 				WRAPPER_EXTENSION = app;

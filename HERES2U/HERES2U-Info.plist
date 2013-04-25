@@ -28,6 +28,16 @@
 				<string>fb404242989673800</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.heres2u.heres2uapp</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.heres2u.heres2uapp</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>

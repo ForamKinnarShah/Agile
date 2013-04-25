@@ -22,7 +22,9 @@
     NSFeedManager *feedManager;
     NSTimer *timer;
     UILabel *defaultLabel;
-    CGFloat length; 
+    CGFloat length;
+    NSMutableArray *oldFeeds;
+    NSMutableArray *activityViews; 
 }
 -(IBAction)search:(id)sender;
 

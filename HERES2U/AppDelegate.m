@@ -14,6 +14,7 @@
 #import "CheckinViewController.h" 
 #import "Heres2uViewController.h"
 #import <AudioToolbox/AudioToolbox.h>
+#import "GPPURLHandler.h"
 
 NSString * const logOutNotification = @"logOutNotification";
 @implementation AppDelegate
@@ -282,9 +283,18 @@ static AppDelegate *shared = nil;
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
-         annotation:(id)annotation {
-    return [FBSession.activeSession handleOpenURL:url];
+         annotation:(id)annotation
+{
+    // NSLog(@"URL looks like this:%@",url);
+    NSString *urlString = [NSString stringWithFormat:@"%@",url];
+    if ([urlString hasPrefix:@"fb"]){
+        return [FBSession.activeSession handleOpenURL:url];
+    }
+    else{
+        return [GPPURLHandler handleURL:url
+                      sourceApplication:sourceApplication
+                             annotation:annotation];
+    }
 }
-
 
 @end

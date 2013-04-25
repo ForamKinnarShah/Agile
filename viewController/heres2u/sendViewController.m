@@ -191,6 +191,88 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
      }];
 }
 
+-(IBAction)ShareWithFB:(id)sender
+{
+    //if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
+    if (FBSession.activeSession.isOpen){
+        // get friend details & display friend picker
+        if (![FBSession.activeSession.permissions containsObject:@"publish_actions"])
+        {
+            [FBSession.activeSession reauthorizeWithPublishPermissions:[NSArray arrayWithObjects:@"publish_actions",@"publish_stream",@"manage_friendlists", nil]
+                                                       defaultAudience:FBSessionDefaultAudienceFriends completionHandler:^(FBSession *session, NSError *error) {
+                                                           if (!error)
+                                                           {
+                                                               [self postTheDamnThing];
+                                                           }
+                                                           else {
+                                                               NSLog(@"error:%@",error.localizedDescription);
+                                                           }
+                                                       }];
+        }
+    }
+    else {
+        // No, display the login page.
+        [FBSession openActiveSessionWithPublishPermissions:[NSArray arrayWithObject:@"publish_stream"] defaultAudience:FBSessionDefaultAudienceFriends allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+            
+            if (!error){
+                [self postTheDamnThing];
+            }
+            else {
+                NSLog(@"error:%@",error.localizedDescription);
+            }
+        }];
+    }
+}
+
+-(void)postTheDamnThing
+{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    NSMutableDictionary *postParams =
+    [[NSMutableDictionary alloc] initWithObjectsAndKeys:
+     @"www.heres2u.com", @"link",
+     //thumbnail.image, @"source",
+     @"http://50.62.148.155:8080/heres2u/images/logo.png",@"picture",
+     //@"Icon.png",@"picture",
+     @"Heres2U!", @"name",
+     @"", @"caption",
+     @"I'm using the Heres2U iPhone app to send gifts to friends! You should try it out too! ", @"description", nil];
+    
+    //[HUD show:YES];
+    
+    [FBRequestConnection
+     startWithGraphPath:@"/me/feed"
+     parameters:postParams
+     HTTPMethod:@"POST"
+     completionHandler:^(FBRequestConnection *connection,
+                         id result,
+                         NSError *error) {
+         NSString *alertText; 
+         if (error) {
+             alertText = [NSString stringWithFormat:
+                          @"error: domain = %@, code = %d",
+                          error.domain, error.code];
+         } else {
+             alertText = [NSString stringWithFormat:
+                          @"Succesfully posted to wall!, id: %@",
+                          [result objectForKey:@"id"]];
+         }
+         // Show the result in an alert
+         
+         [MBProgressHUD hideHUDForView:self.view animated:YES];
+         [[[UIAlertView alloc] initWithTitle:@"Result"
+                                     message:alertText
+                                    delegate:self
+                           cancelButtonTitle:@"OK!"
+                           otherButtonTitles:nil]
+          show];
+     }];
+    
+    //                     [[NSNotificationCenter defaultCenter]
+    //                      postNotificationName:FBLoginSuccessNotification
+    //                      object:session];
+}
+
 - (NSDictionary*)parseURLParams:(NSString *)query {
     NSArray *pairs = [query componentsSeparatedByString:@"&"];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
@@ -224,7 +306,7 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
 
 -(IBAction)buttonClicked:(UIButton*)sender
 {
-    [sender setSelected:YES]; 
+    //[sender setSelected:YES];
 }
 
 -(IBAction)submitButtonClicked:(id)sender
@@ -479,7 +561,7 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
     id<GPPShareBuilder> shareBuilder = [[GPPShare sharedInstance] shareDialog];
     
     [shareBuilder setTitle:@"Heres2U!" description:[NSString stringWithFormat:@"I just bought someone a gift at %@ using the Heres2U iPhone app!",[self.restaurantInfo objectForKey:@"Title"]] thumbnailURL:[NSURL URLWithString:@"http://50.62.148.155:8080/heres2u/images/logo.png"]];
-    //[shareBuilder setContentDeepLinkID:[NSString stringWithFormat:@"http://www.google.com"]];
+    [shareBuilder setContentDeepLinkID:[NSString stringWithFormat:@"http://www.google.com"]];
     
     // This line will manually fill out the title, description, and thumbnail of the
     // item you're sharing.

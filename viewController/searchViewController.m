@@ -7,12 +7,14 @@
 //
 
 #import "searchViewController.h"
+#import "GTLPlusConstants.h"
 
 @interface searchViewController ()
 
 @end
 
 #define APP_LINK  @"LINK"
+static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
 
 @implementation searchViewController
 
@@ -204,10 +206,58 @@
   }
 }
 
--(IBAction)findOnGPlus:(id)sender
-{
+- (IBAction) shareWithGooglePlus:(id)sender {
     
+    GPPSignIn *signIn = [GPPSignIn sharedInstance];
+    // You previously set kClientID in the "Initialize the Google+ client" step
+    signIn.clientID = kClientId;
+    signIn.scopes = [NSArray arrayWithObjects:
+                     kGTLAuthScopePlusLogin, // defined in GTLPlusConstants.h
+                     nil];
+    signIn.delegate = self;
+    
+    if (![signIn trySilentAuthentication])
+    {
+        [signIn authenticate];
+    }
 }
+
+- (void)finishedWithAuth: (GTMOAuth2Authentication *)auth
+                   error: (NSError *) error
+{
+    if (error)
+    {
+        NSLog(@"Received error %@ and auth object %@",error, auth);
+    }
+    else {
+        NSLog(@"authenticated"); 
+        [self realSharing];
+    }
+}
+
+-(void)realSharing{
+    NSLog(@"attempting sharing via google+");
+    [GPPShare sharedInstance].delegate = self;
+    id<GPPShareBuilder> shareBuilder = [[GPPShare sharedInstance] shareDialog];
+    
+    [shareBuilder setTitle:@"Heres2U!" description:@"Check out this cool app for buying friends gifts. It's called Heres2U!" thumbnailURL:[NSURL URLWithString:@"http://50.62.148.155:8080/heres2u/images/logo.png"]];
+    [shareBuilder setContentDeepLinkID:[NSString stringWithFormat:@"http://www.google.com"]];
+    //[shareBuilder setURLToShare:[NSURL URLWithString:@"http://www.thememorytag.com"]];
+    
+    // This line will manually fill out the title, description, and thumbnail of the
+    // item you're sharing.
+    [shareBuilder open];
+}
+
+- (void)finishedSharing: (BOOL)shared {
+    if (shared) {
+        [self showAlertMessage:@"Shared link on google+!" withTitle:@"successfully shared"];
+        NSLog(@"User successfully shared!");
+    } else {
+        NSLog(@"User didn't share.");
+    }
+}
+
 
 -(IBAction)findOnContacts:(id)sender
 {
