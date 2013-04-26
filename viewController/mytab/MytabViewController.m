@@ -42,6 +42,8 @@
     // Do any additional setup after loading the view from its nib.
     
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    isViewDisApper = NO;
+    locationIndex=0;
     
         
     if (_refreshHeaderView == nil) {
@@ -122,14 +124,6 @@
     @try {
         [super viewWillAppear:animated];
         
-        isReceivedStop = NO;
-        isSentStop = NO;
-        isUsedStop = NO;
-        
-        ReceivedIndex = 1;
-        SentIndex = 1;
-        UsedIndex  =1;
-        
         isSent = NO;
         isUsed = NO;
         
@@ -137,7 +131,6 @@
         selectedSegment =0;
         if(selectedSegment==0){
             isReceived  = NO;
-            ReceivedIndex=1;
             
             [self.arrayTransactionsID removeAllObjects];
             [self.arrayLocationID  removeAllObjects];
@@ -164,7 +157,48 @@
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     @try {
+        isViewDisApper = YES;
         
+        isReceived  = NO;
+        
+        [self.arrayTransactionsID removeAllObjects];
+        [self.arrayLocationID  removeAllObjects];
+        [self.arrayLocationImage removeAllObjects];
+        [self.arrayLocationName removeAllObjects];
+        [self.arrayMiles removeAllObjects];
+        [self.arrayPrice removeAllObjects];
+        [self.arrayStatus removeAllObjects];
+        [self.arraySenderID removeAllObjects];
+        [self.arraySenderName  removeAllObjects];
+        [self.arrayCoupanNumber  removeAllObjects];
+        [self.arrayLongitude  removeAllObjects];
+        [self.arrayLatitude  removeAllObjects];
+        
+        isSent=NO;
+        
+        [self.arrayTransactionsID1 removeAllObjects];
+        [self.arrayLocationID1  removeAllObjects];
+        [self.arrayLocationImage1 removeAllObjects];
+        [self.arrayLocationName1 removeAllObjects];
+        [self.arrayMiles1 removeAllObjects];
+        [self.arrayPrice1 removeAllObjects];
+        [self.arrayStatus1 removeAllObjects];
+        [self.arraySenderID1 removeAllObjects];
+        [self.arraySenderName1  removeAllObjects];
+        
+        
+        isUsed=NO;
+        
+        [self.arrayTransactionsID2 removeAllObjects];
+        [self.arrayLocationID2  removeAllObjects];
+        [self.arrayLocationImage2  removeAllObjects];
+        [self.arrayLocationName2  removeAllObjects];
+        [self.arrayMiles2  removeAllObjects];
+        [self.arrayPrice2  removeAllObjects];
+        [self.arrayStatus2  removeAllObjects];
+        [self.arraySenderID2  removeAllObjects];
+        [self.arraySenderName2  removeAllObjects];
+        [self.arraySayThanks2  removeAllObjects];
     }
     @catch (NSException *exception) {
         
@@ -216,9 +250,9 @@
         
         if(isLatLong){
             
-            //http://50.62.148.155:8080/heres2u/api/index.php?webservice=ui&action=getreceiveditems&ID=33&Page=1&Lat=-33.7501&Long=18.4533
+            //http://50.62.148.155:8080/heres2u/api/index.php?webservice=ui&action=getreceiveditems&ID=33&Lat=-33.7501&Long=18.4533
             
-            NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@index.php?webservice=ui&action=getreceiveditems&ID=%@&Page=%d&Lat=-%@&Long=%@",hostURl,uId,ReceivedIndex,currentLat,currentLong]];
+            NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@index.php?webservice=ui&action=getreceiveditems&ID=%@&Lat=-%@&Long=%@",hostURl,uId,currentLat,currentLong]];
             NSLog(@" : %@",url);
             
             
@@ -233,7 +267,6 @@
                     return;
                 }
                 else{
-                    isReceivedStop = YES;
                     [objTableView reloadData];
                     [self stopLoading];
                     
@@ -270,12 +303,10 @@
             
             if(dicReceived.count==0){
                 
-                isReceivedStop = YES;
                 UIAlertView *alertReceived = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"No More Data Found!" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
                 [alertReceived show];
             }
             else{
-                isReceivedStop = NO;
             }
         }
         else{
@@ -311,18 +342,18 @@
         if(!isReceived){
             isReceived = YES;
             
-            [self.arrayTransactionsID removeAllObjects];
-            [self.arrayLocationID  removeAllObjects];
-            [self.arrayLocationImage removeAllObjects];
-            [self.arrayLocationName removeAllObjects];
-            [self.arrayMiles removeAllObjects];
-            [self.arrayPrice removeAllObjects];
-            [self.arrayStatus removeAllObjects];
-            [self.arraySenderID removeAllObjects];
-            [self.arraySenderName  removeAllObjects];
-            [self.arrayCoupanNumber  removeAllObjects];
-            [self.arrayLongitude  removeAllObjects];
-            [self.arrayLatitude  removeAllObjects];
+//            [self.arrayTransactionsID removeAllObjects];
+//            [self.arrayLocationID  removeAllObjects];
+//            [self.arrayLocationImage removeAllObjects];
+//            [self.arrayLocationName removeAllObjects];
+//            [self.arrayMiles removeAllObjects];
+//            [self.arrayPrice removeAllObjects];
+//            [self.arrayStatus removeAllObjects];
+//            [self.arraySenderID removeAllObjects];
+//            [self.arraySenderName  removeAllObjects];
+//            [self.arrayCoupanNumber  removeAllObjects];
+//            [self.arrayLongitude  removeAllObjects];
+//            [self.arrayLatitude  removeAllObjects];
             
             [self performSelector:@selector(callReceivedData) withObject:self afterDelay:0.5];
         }
@@ -335,15 +366,16 @@
     {
         if(!isSent ){
             isSent = YES;
-            [self.arrayTransactionsID1 removeAllObjects];
-            [self.arrayLocationID1  removeAllObjects];
-            [self.arrayLocationImage1 removeAllObjects];
-            [self.arrayLocationName1 removeAllObjects];
-            [self.arrayMiles1 removeAllObjects];
-            [self.arrayPrice1 removeAllObjects];
-            [self.arrayStatus1 removeAllObjects];
-            [self.arraySenderID1 removeAllObjects];
-            [self.arraySenderName1  removeAllObjects];
+           
+//            [self.arrayTransactionsID1 removeAllObjects];
+//            [self.arrayLocationID1  removeAllObjects];
+//            [self.arrayLocationImage1 removeAllObjects];
+//            [self.arrayLocationName1 removeAllObjects];
+//            [self.arrayMiles1 removeAllObjects];
+//            [self.arrayPrice1 removeAllObjects];
+//            [self.arrayStatus1 removeAllObjects];
+//            [self.arraySenderID1 removeAllObjects];
+//            [self.arraySenderName1  removeAllObjects];
 
             
             [self performSelector:@selector(callSegment1) withObject:self afterDelay:0.5];
@@ -358,16 +390,16 @@
         if(!isUsed){
             isUsed = YES;
             
-            [self.arrayTransactionsID2 removeAllObjects];
-            [self.arrayLocationID2  removeAllObjects];
-            [self.arrayLocationImage2  removeAllObjects];
-            [self.arrayLocationName2  removeAllObjects];
-            [self.arrayMiles2  removeAllObjects];
-            [self.arrayPrice2  removeAllObjects];
-            [self.arrayStatus2  removeAllObjects];
-            [self.arraySenderID2  removeAllObjects];
-            [self.arraySenderName2  removeAllObjects];
-            [self.arraySayThanks2  removeAllObjects];
+//            [self.arrayTransactionsID2 removeAllObjects];
+//            [self.arrayLocationID2  removeAllObjects];
+//            [self.arrayLocationImage2  removeAllObjects];
+//            [self.arrayLocationName2  removeAllObjects];
+//            [self.arrayMiles2  removeAllObjects];
+//            [self.arrayPrice2  removeAllObjects];
+//            [self.arrayStatus2  removeAllObjects];
+//            [self.arraySenderID2  removeAllObjects];
+//            [self.arraySenderName2  removeAllObjects];
+//            [self.arraySayThanks2  removeAllObjects];
             
             [self performSelector:@selector(callSegment2) withObject:self afterDelay:0.5];
         }
@@ -380,7 +412,9 @@
 
 -(void)callSegment1{
     @try {
-        NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@index.php?webservice=ui&action=getsentitems&ID=%@&Page=%d&Lat=%@&Long=%@",hostURl,uId,SentIndex,currentLat,currentLong]];
+        
+        //http://50.62.148.155:8080/heres2u/api/index.php?webservice=ui&action=getsentitems&ID=36&Lat=-33.7501&Long=18.4533
+        NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@index.php?webservice=ui&action=getsentitems&ID=%@&Lat=%@&Long=%@",hostURl,uId,currentLat,currentLong]];
         
         myTabSent = [[MyTabSent alloc] initWithURL:url];
         
@@ -396,7 +430,6 @@
                 return;
             }
             else{
-                isSentStop = YES;
                 [objTableView reloadData];
                 [self stopLoading];
                 
@@ -422,13 +455,12 @@
         }
         
         if(dicSent.count==0){
-            isSentStop = YES;
             UIAlertView *alertReceived = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"No More Data Found!" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
             [alertReceived show];
         }
         else{
-            isSentStop = NO;
-        }           [objTableView reloadData];
+        }
+        [objTableView reloadData];
         [self stopLoading];
         
     }
@@ -440,8 +472,8 @@
 
 -(void)callSegment2{
     @try {
-        //http://50.62.148.155:8080/heres2u/api/index.php?webservice=ui&action=getuseditems&ID=37&Page=1&Lat=-33.7501&Long=18.4533
-        NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@index.php?webservice=ui&action=getuseditems&ID=%@&Page=%d&Lat=%@&Long=%@",hostURl,uId,UsedIndex,currentLat,currentLong]];
+       //http://50.62.148.155:8080/heres2u/api/index.php?webservice=ui&action=getuseditems&ID=39&Lat=-33.7501&Long=18.4533
+        NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@index.php?webservice=ui&action=getuseditems&ID=%@&Lat=%@&Long=%@",hostURl,uId,currentLat,currentLong]];
         NSLog(@"url : %@",url);
        
         myTabUsed = [[MyTabUsed alloc] initWithURL:url];
@@ -455,7 +487,6 @@
                 return;
             }
             else{
-                isUsedStop = YES;
                 [objTableView reloadData];
                 [self stopLoading];
                 
@@ -480,12 +511,10 @@
         }
         
         if(dicUsed.count==0){
-            isUsedStop = YES;
             UIAlertView *alertReceived = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"No More Data Found !" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
             [alertReceived show];
         }
         else{
-            isUsedStop = NO;
         }
         [objTableView reloadData];
         [self stopLoading];
@@ -549,7 +578,6 @@
        
     if(selectedSegment==0){
         isReceived  = NO;
-        ReceivedIndex=1;
      
         [self.arrayTransactionsID removeAllObjects];
         [self.arrayLocationID  removeAllObjects];
@@ -569,7 +597,6 @@
     else if (selectedSegment==1 || selectedSegment==2){
         if(selectedSegment==1){
             isSent=NO;
-            SentIndex=1;
             
             [self.arrayTransactionsID1 removeAllObjects];
             [self.arrayLocationID1  removeAllObjects];
@@ -584,7 +611,6 @@
         }
         else{
             isUsed=NO;
-             UsedIndex=1;
             
             [self.arrayTransactionsID2 removeAllObjects];
             [self.arrayLocationID2  removeAllObjects];
@@ -656,7 +682,7 @@
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
     NSLog(@"didFailWithError: %@", error);
-    
+    [self stopLoading];
     
     UIAlertView *errorAlert = [[UIAlertView alloc]
                                initWithTitle:@"Error!" message:@"Failed to Get Your Location. Please Turn on your device location services." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -929,41 +955,6 @@
             }
             [bottomView addSubview:btnUseOrSent];
             
-            int arrayCount=0;
-            if(isiPhone5)
-            {
-                arrayCount = 5;
-            }
-            else{
-                arrayCount = 4;
-            }
-            
-            if(selectedSegment==0 && self.arrayTransactionsID.count>0){
-                if(indexPath.row==self.arrayTransactionsID.count-1 && self.arrayTransactionsID.count>arrayCount){
-                    if(!isReceivedStop){
-                        ReceivedIndex++;
-                        [self startLoading];
-                    }
-                }
-            }
-            else if(selectedSegment==1 && self.arrayTransactionsID1.count>0){
-                if(indexPath.row==self.arrayTransactionsID1.count-1 && self.arrayTransactionsID1.count>arrayCount){
-                    if(isSent && !isSentStop){
-                        isSent = NO;
-                        SentIndex++;
-                        [self segmentControlChanged];
-                    }
-                }
-            }
-            else if(selectedSegment==2 && self.arrayTransactionsID2.count>0){
-                if(indexPath.row==self.arrayTransactionsID2.count-1 && self.arrayTransactionsID2.count>arrayCount){
-                    if(isUsed && !isUsedStop){
-                        isUsed = NO;
-                        UsedIndex++;
-                        [self segmentControlChanged];
-                    }
-                }
-            }
         }
         return cell;
     }
@@ -1080,8 +1071,6 @@
         }
         else if(alertView.tag==4){
             isUsed = NO;
-            UsedIndex=1;
-            
             [self.arrayTransactionsID2 removeAllObjects];
             [self.arrayLocationID2  removeAllObjects];
             [self.arrayLocationImage2  removeAllObjects];

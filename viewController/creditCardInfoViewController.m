@@ -45,6 +45,7 @@
         
     }
     datePicker = [[UIDatePicker alloc] init];
+    datePicker.hidden = NO;
     [datePicker setDatePickerMode:UIDatePickerModeDate];
     [datePicker addTarget:self action:@selector(datePickerPicked) forControlEvents:UIControlEventValueChanged]; 
     [expirationDateTextField setInputView:datePicker];
@@ -113,12 +114,18 @@ return;
 //
 //        [UIView animateWithDuration:0.2 animations:^{[self.view setFrame:finalFrame];}];
     }
+    else if (textField == expirationDateTextField)
+    {
+        datePicker.hidden = NO;
+    }
 }
 
 -(void)datePickerPicked
 {
     NSDateFormatter *nsdf = [[NSDateFormatter alloc] init];
     [nsdf setDateFormat:@"MM/yyyy"]; 
+   
+    datePicker.hidden = NO;
     expirationDateTextField.text = [nsdf stringFromDate:datePicker.date];
 }
 //-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
@@ -177,6 +184,22 @@ return;
     [UIBlocker stopUIBlockerInView:self.tabBarController.view];
     [utilities showAlertWithTitle:@"Adding Credit Card Failed" Message:@"The credit card information you provided is either inaccurate or your internet connection timed out."];
     NSLog(@"error:%@",error.localizedDescription); 
+}
+
+#pragma mark
+#pragma mark button actions
+
+// user touches anywhere in the background
+- (IBAction)bg_clicked:(id)sender
+{
+    [nameTextField resignFirstResponder];
+    datePicker.hidden = YES;
+    [expirationDateTextField resignFirstResponder];
+    [address1TextField resignFirstResponder];
+    [address2TextField resignFirstResponder];
+    [cardTypeTextField resignFirstResponder];
+    [cardNumberTextField resignFirstResponder];
+    [securityCodeTextField resignFirstResponder];
 }
 
 @end

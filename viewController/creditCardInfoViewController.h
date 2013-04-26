@@ -28,5 +28,7 @@
 
 -(IBAction)addCreditCard:(id)sender; 
 
+// button actions
+- (IBAction)bg_clicked:(id)sender;
 
 @end

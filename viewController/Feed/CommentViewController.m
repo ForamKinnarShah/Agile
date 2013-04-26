@@ -209,6 +209,7 @@
     if (cell == nil)
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
+        cell.selectionStyle = UITableViewCellEditingStyleNone;
         cell.frame = CGRectZero;
         label = [[UILabel alloc] initWithFrame:CGRectZero];
         [label setLineBreakMode:UILineBreakModeWordWrap];
@@ -251,4 +252,14 @@
     [self setBtnPost:nil];
     [super viewDidUnload];
 }
+
+#pragma mark
+#pragma mark button actions
+
+// user touches anywhere in the background
+- (IBAction)bg_clicked:(id)sender
+{
+    [CommentText resignFirstResponder];
+}
+
 @end

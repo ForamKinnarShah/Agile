@@ -35,7 +35,7 @@
 
 -(IBAction)btnMap_Click:(id)sender;
 
-
-
+// button actions
+- (IBAction)bg_clicked:(id)sender;
 
 @end

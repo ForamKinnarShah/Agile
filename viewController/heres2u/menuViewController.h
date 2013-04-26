@@ -33,4 +33,7 @@
 @property IBOutlet UILabel *timeLabel; 
 @property NSString *timeLabelText; 
 
+// button action
+- (IBAction)bg_clicked:(id)sender;
+
 @end

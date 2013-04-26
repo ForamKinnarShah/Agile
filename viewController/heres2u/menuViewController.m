@@ -280,4 +280,13 @@
     [textField resignFirstResponder];
     return YES; 
 }
+
+#pragma mark
+#pragma mark button actions
+
+- (IBAction)bg_clicked:(id)sender
+{
+    [_enterPriceTxtField resignFirstResponder];
+}
+
 @end

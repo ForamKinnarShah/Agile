@@ -154,6 +154,7 @@
         [FollowButton setUserInteractionEnabled:NO];
         [btnFollowBack setUserInteractionEnabled:NO];
     }
+    NSLog(@"_ProfilePicture >> %@",_ProfilePicture.image);
     NSImageLoaderToImageView *Loader=[[NSImageLoaderToImageView alloc] initWithURLString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[Profile ImageURL]] ImageView:self.ProfilePicture]; //[AppDelegate sharedInstance].ProfilePicture_global]; //self.ProfilePicture];//
     [Loader setDelegate:self];
     [ImageLoader startAnimating];
@@ -253,7 +254,8 @@
         //UIToolbar *back=[[UIToolbar alloc] initWithFrame:CancelButton.frame];
         [CancelButton setTintColor:[UIColor grayColor]];
         [CancelButton addTarget:self action:@selector(cancelPhotoSet:) forControlEvents:UIControlEventTouchUpInside];
-        if(![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+        if(![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+        {
             [CameraButton setEnabled:NO];
         }
         [SourceSelector addSubview:CameraButton];
@@ -274,11 +276,11 @@
 
     [AppDelegate sharedInstance].ProfilePicture_global.image = _ProfilePicture.image;
 
-    if ([picker sourceType]==UIImagePickerControllerSourceTypeCamera)
-    {
-        //NSLog(@"Saved Image");
-        UIImageWriteToSavedPhotosAlbum(PickedImage, nil, nil, nil);
-    }
+//    if ([picker sourceType]==UIImagePickerControllerSourceTypeCamera)
+//    {
+//        //NSLog(@"Saved Image");
+//        UIImageWriteToSavedPhotosAlbum(PickedImage, nil, nil, nil);
+//    }
     
     
     if ([picker sourceType]==UIImagePickerControllerSourceTypeCamera)
@@ -337,7 +339,9 @@
     }
     UIGraphicsBeginImageContext(newSize);
     [PickedImage drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+  
     UIImage *ScaledImage=UIGraphicsGetImageFromCurrentImageContext();
+//PickedImage=UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
     // ------- Upload image over the server for specific user
@@ -349,8 +353,11 @@
 
     
     if(ScaledImage)
+  //  if(PickedImage)
     {
         NSData *imageData1 = UIImageJPEGRepresentation(ScaledImage, 100);
+   //     NSData *imageData1 = UIImageJPEGRepresentation(PickedImage, 100);
+
         [request setData:imageData1 withFileName:imgName1 andContentType:@"png" forKey:@"ProfilePicture"];
     }
     
@@ -361,6 +368,8 @@
     // --------------------------------------
     
     [_ProfilePicture setImage:ScaledImage];
+//     [_ProfilePicture setImage:PickedImage];
+
     [picker dismissViewControllerAnimated:YES completion:nil];
     [self cancelPhotoSet:nil];
 }

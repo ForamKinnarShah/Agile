@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import<FacebookSDK/FacebookSDK.h>
 
-@interface UIRegistrationForm : UIView<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,FBLoginViewDelegate>{
+@interface UIRegistrationForm : UIView<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,FBLoginViewDelegate,UITextFieldDelegate>{
     @private
     BOOL AccountTableDone;
     BOOL ProfileTableDone;
@@ -42,7 +42,8 @@
                   result:(id)result
                    error:(NSError *)error;
 
-
+//button actions
+- (IBAction)bg_clicked:(id)sender;
 
 
 @end 

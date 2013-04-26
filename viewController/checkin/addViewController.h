@@ -18,4 +18,7 @@
 
 -(IBAction)submitClicked:(id)sender;
 
+//button actions
+- (IBAction)bg_clicked:(id)sender;
+
 @end

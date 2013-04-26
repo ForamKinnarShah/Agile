@@ -56,16 +56,6 @@
 
     NSString *hostURl;
     
-    int ReceivedIndex;
-    BOOL isReceivedStop;
-    
-    int SentIndex;
-    BOOL isSentStop;
-    
-    int UsedIndex;
-    BOOL isUsedStop;
-    
-
     NSString *uId;
     
     //PullController
@@ -73,6 +63,9 @@
     //  Reloading var should really be your tableviews datasource
     //  Putting it here for demo purposes
     BOOL _reloading;
+    
+    BOOL isViewDisApper;
+    int locationIndex;
 }
 
 @property(nonatomic,retain) phpCaller *caller;

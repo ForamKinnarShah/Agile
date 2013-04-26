@@ -39,4 +39,8 @@
 @property (nonatomic) CGSize screenSize;
 
 -(id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil ActivityView:(UIActivityView *)activity;
+
+// button actions
+- (IBAction)bg_clicked:(id)sender;
+
 @end

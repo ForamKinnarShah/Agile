@@ -350,4 +350,13 @@
     return sortedLocations;
 }
 
+#pragma mark
+#pragma mark button actions
+
+// user touches anywhere in the background
+- (IBAction)bg_clicked:(id)sender
+{
+    [FilterTextBox resignFirstResponder];
+}
+
 @end

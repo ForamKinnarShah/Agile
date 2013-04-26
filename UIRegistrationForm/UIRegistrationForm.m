@@ -22,7 +22,8 @@
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    if (self) {
+    if (self)
+    {
         AccountTableDone=YES;
         ProfileTableDone=YES;
         // Initialization code
@@ -63,6 +64,12 @@
         [ProfileTable reloadData];
         [self addSubview:RegistrationTable];
         [self addSubview:NavigationBar];
+        
+        Email.delegate = self;
+        Password.delegate = self;
+        Name.delegate = self;
+        Phone.delegate = self;
+        ZipCode.delegate = self;
     }
     return self;
 }
@@ -811,4 +818,29 @@
         }];
     }
 }
+
+#pragma mark
+#pragma mark textfield delegates
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+
+#pragma mark
+#pragma mark button actions
+
+// user touches anywhere in the background
+- (IBAction)bg_clicked:(id)sender
+{
+    [Email resignFirstResponder];
+    [Password resignFirstResponder];
+    [Name resignFirstResponder];
+    [Phone resignFirstResponder];
+    [DOB resignFirstResponder];
+    [ZipCode resignFirstResponder];
+}
+
 @end
