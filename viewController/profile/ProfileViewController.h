@@ -16,14 +16,17 @@
 #import "utilities.h" 
 #import "AssetsLibrary/AssetsLibrary.h"
 
-@interface ProfileViewController : UIViewController <UITabBarControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate,NSProfileProtocol,NSImageLoaderToImageViewProtocol>{
+@interface ProfileViewController : UIViewController <UITabBarControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate,NSProfileProtocol,NSImageLoaderToImageViewProtocol, NSXMLParserDelegate, UIScrollViewDelegate>{
 @private
+    UIButton *defaultButton; 
     NSInteger ProfileID;
     NSProfile *Profile;
     float contentLength;
     NSString *imgName1;
     NSString *imgExt1;
     UIImage *img1;
+    NSString *CurrentString;
+    int numberOfFeedsToLoad; 
 }
 @property (strong, nonatomic) IBOutlet UIScrollView *ProSroll;
 @property (strong, nonatomic) IBOutlet UIImageView *ProfilePicture;
@@ -36,7 +39,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *UserName;
 @property (strong, nonatomic) IBOutlet UILabel *FollowButton;
 @property (strong, nonatomic) IBOutlet UIButton *btnFollowBack;
-@property IBOutlet UIButton *defaultViewButton;
 @property utilities *UIBlocker; 
 @property UIView *SourceSelector;
 

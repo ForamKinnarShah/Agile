@@ -13,7 +13,9 @@
 @protocol CheckinViewControllerDelegate;
 
 @interface Heres2uViewController : UIViewController <UITabBarControllerDelegate,UINavigationControllerDelegate, phpCallerDelegate, heres2uitemdelegate>
-
+{
+    UIButton *defaultButton;
+}
 @property NSMutableArray *friendItems; 
 @property UIActivityIndicatorView *UIBlocker;
 @property NSDictionary *restaurantInfo; 

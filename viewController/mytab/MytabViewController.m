@@ -58,7 +58,6 @@
     
     isLatLong = NO;
     
-   
     
     hostURl = [NSGlobalConfiguration URL];
     NSLog(@"hostURl : %@",hostURl);

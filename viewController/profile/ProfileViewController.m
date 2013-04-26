@@ -22,7 +22,7 @@
 @end
 
 @implementation ProfileViewController
-@synthesize FollowButton,FollowersCount,FollowersRect,FollowingCount,btnFollowBack,FollowingRect,ImageLoader,UserName,ProSroll, defaultViewButton, UIBlocker, SourceSelector;
+@synthesize FollowButton,FollowersCount,FollowersRect,FollowingCount,btnFollowBack,FollowingRect,ImageLoader,UserName,ProSroll, UIBlocker, SourceSelector;
 //Initializers:
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -44,10 +44,11 @@
 //Delegates
 -(void)viewDidAppear:(BOOL)animated{
     NSLog(@"Profile ID:%i",ProfileID);
+    numberOfFeedsToLoad = 15; 
     //Profile=[[NSProfile alloc] initWithProfileID:ProfileID];
     [Profile setDelegate:self];
     ProfileID = [[NSGlobalConfiguration getConfigurationItem:@"ID"] intValue];
-    Profile.ProfileID = ProfileID; 
+    Profile.ProfileID = ProfileID;
     [Profile startFetching];
 }
 
@@ -55,6 +56,7 @@
 {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clearView) name:logOutNotification object:nil]; 
+    self.ProSroll.delegate = self; 
     
     UIBlocker = [[utilities alloc] init];
     [UIBlocker startUIBlockerInView:self.tabBarController.view];
@@ -116,10 +118,6 @@
     [self.navigationController pushViewController:menu animated:YES];
 }
 
--(IBAction)goToProfile:(id)sender {
-    ProfileViewController *menu = [[ProfileViewController alloc] initWithNibName:@"ProfileViewController" bundle:nil];
-    [self.navigationController pushViewController:menu animated:YES];
-}
 
 -(IBAction)goToCheckinComment:(id)sender
 {
@@ -140,22 +138,13 @@
     [self.navigationController pushViewController:settings animated:YES];
 }
 
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
-}
-
--(IBAction)sheet:(id)sender {
-    UIActionSheet *choose = [[UIActionSheet alloc] initWithTitle:@"Menu" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"SHARE", @"Report Inappropriate", nil];
-    [choose showInView:self.view];
-}
 
 -(void) ProfileLoadingCompleted:(NSProfile *)profile{
     //Parse Data
     if ([Profile.Feeds count] > 0)
     {
-        [defaultViewButton removeFromSuperview];
+        [defaultButton removeFromSuperview];
     }
-    [UIBlocker stopUIBlockerInView:self.tabBarController.view];
     
     [FollowersCount setText:[NSString stringWithFormat:@"%i",[Profile Followers]]];
   [FollowingCount setText:[NSString stringWithFormat:@"%i",[Profile Following]]];
@@ -165,17 +154,36 @@
         [FollowButton setUserInteractionEnabled:NO];
         [btnFollowBack setUserInteractionEnabled:NO];
     }
-    NSImageLoaderToImageView *Loader=[[NSImageLoaderToImageView alloc] initWithURLString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[Profile ImageURL]] ImageView:[AppDelegate sharedInstance].ProfilePicture_global];
+    NSImageLoaderToImageView *Loader=[[NSImageLoaderToImageView alloc] initWithURLString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[Profile ImageURL]] ImageView:self.ProfilePicture]; //[AppDelegate sharedInstance].ProfilePicture_global]; //self.ProfilePicture];//
     [Loader setDelegate:self];
     [ImageLoader startAnimating];
     [Loader start];
     
-    contentLength = 0; 
+    contentLength = 0;
+    [UIBlocker stopUIBlockerInView:self.tabBarController.view];
+
     [self loadActivities];
 }
 -(void) loadActivities{
     //NSLog(@"Loading Activity");
-    for(NSInteger i=0; i<[Profile.Feeds count];i++){
+    
+    if ([Profile.Feeds count] == 0)
+    {
+        defaultButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 120, 320, self.view.frame.size.height-120)];
+        [defaultButton setTitle:@"You have no followees yet. Search for them on the Profile page!" forState:UIControlStateNormal];
+        [defaultButton setBackgroundImage:[UIImage imageNamed:@"dot-green.png"] forState:UIControlStateNormal];
+        [defaultButton.titleLabel setLineBreakMode:NSLineBreakByWordWrapping];
+        [self.view addSubview:defaultButton];
+    }
+    else {
+        [defaultButton removeFromSuperview]; 
+    }
+    
+    if ([Profile.Feeds count]<numberOfFeedsToLoad){
+        numberOfFeedsToLoad = [Profile.Feeds count]; 
+    }
+    
+    for(NSInteger i=0; i<numberOfFeedsToLoad;i++){
         UIActivityView *activity=[[UIActivityView alloc] initWithFrame:CGRectMake(0, (i*166)+120, 320, 156) andView:0];
         NSDictionary *ItemData=[Profile.Feeds objectAtIndex:i];
         NSLog(@"profile item:%@",ItemData); 
@@ -186,6 +194,13 @@
         [activity.lblLocation setText:[ItemData valueForKey:@"Location"]];
         [activity.lblTime setText:[ItemData valueForKey:@"DateCreated"]];
         [activity.ProfilePicture setImage:[_ProfilePicture image]];
+        
+//        NSImageLoaderToImageView *Loader=[[NSImageLoaderToImageView alloc] initWithURLString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[ItemData objectForKey:@"ImageURL"]] ImageView:activity.ProfilePicture];//[AppDelegate sharedInstance].ProfilePicture_global];
+//        [Loader setDelegate:self];
+//        [ImageLoader startAnimating];
+//        [Loader start];
+
+        
         [activity setDelegate:self];
         [activity setTag:i+1];
         [activity.commentNumberLabel setText:[ItemData valueForKey:@"nComments"]]; 
@@ -213,6 +228,7 @@
 }
 -(void)imageviewloaderLoadingCompleted:(NSImageLoaderToImageView *)loader{
     [ImageLoader stopAnimating];
+    [self loadActivities];
 }
 
 -(void) selectPhoto:(UIGestureRecognizer *)gesture{
@@ -307,8 +323,6 @@
             
     }
     
-    
-    
     CGSize newSize=PickedImage.size;
     if (PickedImage.size.height>PickedImage.size.width) {
         CGFloat Height=620.0;
@@ -333,6 +347,7 @@
     [request setDelegate:self];
     [request addPostValue:[NSGlobalConfiguration getConfigurationItem:@"Email"] forKey:@"Email"];
 
+    
     if(ScaledImage)
     {
         NSData *imageData1 = UIImageJPEGRepresentation(ScaledImage, 100);
@@ -361,9 +376,17 @@
     NSString *strResponse = [requestor responseString];
     NSLog(@"strResponse >> %@",strResponse);
     NSError *error;
+    
+    NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[strResponse dataUsingEncoding:NSUTF8StringEncoding]];
+    parser.delegate = self;
+    [parser parse]; 
+    
     SBJSON *json = [SBJSON new];
     NSDictionary *dict = [json objectWithString:strResponse error:&error];
     NSLog(@"dict: %@",dict);
+    //[NSGlobalConfiguration setConfigurationItem:@"ImageURL" Item:[dict objectForKey:@"Url"]];
+     [Profile startFetching];
+    
 }
 
 
@@ -399,6 +422,53 @@
         {
             [activity removeFromSuperview]; 
         }
+    }
+}
+
+-(void) parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict{
+    CurrentString=@"";
+}
+-(void) parser:(NSXMLParser *)parser foundCharacters:(NSString *)string{
+    CurrentString=[NSString stringWithFormat:@"%@%@",CurrentString,string];
+    CurrentString = [CurrentString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+}
+-(void) parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName{
+    if([[elementName lowercaseString] isEqualToString:@"url"]){
+        NSLog(@"URL:%@",CurrentString);
+        NSString *Directory=[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *ImageName = [CurrentString lastPathComponent];
+        NSString *Path=[Directory stringByAppendingPathComponent:ImageName];
+        BOOL created=[[NSFileManager defaultManager] createFileAtPath:Path contents:nil attributes:nil];
+        if(created){
+            NSFileHandle *handle=[NSFileHandle fileHandleForWritingAtPath:Path];
+            [handle writeData:UIImagePNGRepresentation(self.ProfilePicture.image)];
+            [handle closeFile];
+        }
+        
+       }
+}
+-(void) parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError{
+    
+    [parser abortParsing];
+    parser=nil;
+}
+-(void) parser:(NSXMLParser *)parser validationErrorOccurred:(NSError *)validationError{
+        [parser abortParsing];
+    parser=nil;
+}
+-(void) parserDidEndDocument:(NSXMLParser *)parser{
+    //Send completion signal
+       [parser abortParsing];
+    parser=nil;
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    float contentOffset = scrollView.contentOffset.y;
+    if (contentOffset > scrollView.contentSize.height*0.8 && numberOfFeedsToLoad < [Profile.Feeds count])
+    {
+        numberOfFeedsToLoad = numberOfFeedsToLoad + 15;
+        [self loadActivities]; 
     }
 }
 @end

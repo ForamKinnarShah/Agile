@@ -153,17 +153,20 @@ return;
 
 -(void)QBMSRequesterDelegateFinishedWithCode:(NSString*)code
 {
-    NSMutableDictionary *creditCardInfo = [NSMutableDictionary dictionaryWithObjects:[NSArray arrayWithObjects:nameTextField.text,address1TextField.text, address2TextField.text, cardTypeTextField.text, [cardNumberTextField.text substringFromIndex:12], nil] forKeys:[NSArray arrayWithObjects:@"nameOnCard",@"address1",@"address2",@"cardType",@"cardNumberLast4Digits", nil]];
+    NSMutableDictionary *creditCardInfo = [NSMutableDictionary dictionaryWithObjects:[NSArray arrayWithObjects:nameTextField.text,address1TextField.text, address2TextField.text, cardTypeTextField.text, [cardNumberTextField.text substringFromIndex:12],code, nil] forKeys:[NSArray arrayWithObjects:@"nameOnCard",@"address1",@"address2",@"cardType",@"cardNumberLast4Digits",@"walletID", nil]];
     
-    NSMutableArray *cards = [NSGlobalConfiguration getConfigurationItem:@"creditCards"];
+    NSString *email = [NSGlobalConfiguration getConfigurationItem:@"Email"];
+    
+    NSMutableArray *cards = [NSGlobalConfiguration getConfigurationItem:email];
+    
     if (!cards)
     {
         cards = [NSMutableArray arrayWithCapacity:0]; 
     }
-    [cards addObject:creditCardInfo]; 
-    [NSGlobalConfiguration setConfigurationItem:@"creditCards" Item:cards];
     
-    [NSGlobalConfiguration setConfigurationItem:@"walletID" Item:code];
+    [cards addObject:creditCardInfo]; 
+    [NSGlobalConfiguration setConfigurationItem:email Item:cards];
+    
     [UIBlocker stopUIBlockerInView:self.tabBarController.view];
     [utilities showAlertWithTitle:@"Credit Card Successfully Added" Message:@"Your card has been added. You are now able to buy gifts for friends!"];
     [self.navigationController popViewControllerAnimated:YES]; 

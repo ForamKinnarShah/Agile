@@ -16,15 +16,16 @@
 #import "CommentViewController.h"
 #import "utilities.h"
 
-@interface FeedViewController : UIViewController <NSFeedManagerProtocol,UITabBarControllerDelegate,UINavigationControllerDelegate, UIActionSheetDelegate,NSUserAccessControlProtocol,UIActivityViewProtocol>{
+@interface FeedViewController : UIViewController <NSFeedManagerProtocol,UITabBarControllerDelegate,UINavigationControllerDelegate, UIActionSheetDelegate,NSUserAccessControlProtocol,UIActivityViewProtocol, UIScrollViewDelegate>{
     @private
     utilities *UIBlocker;
     NSFeedManager *feedManager;
     NSTimer *timer;
-    UILabel *defaultLabel;
+    UIButton *defaultButton;
     CGFloat length;
     NSMutableArray *oldFeeds;
-    NSMutableArray *activityViews; 
+    NSMutableArray *activityViews;
+    int numberOfPostsToLoad; 
 }
 -(IBAction)search:(id)sender;
 

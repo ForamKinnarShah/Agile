@@ -130,6 +130,9 @@
     NSLog(@"php caller finished with items:%@",returnData);
     [self loadActivities];
     }
+    else if ([friendItems count] == 0){
+        [self loadActivities]; 
+    }
     [UIBlocker stopAnimating];
 }
 
@@ -144,12 +147,17 @@
     //NSLog(@"Loading Activity");
     if ([friendItems count] == 0)
     {
-        UILabel *dummyLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.center.x-100, self.view.center.y, 200, 50)];
-        dummyLabel.text = @"no followees yet. Get some friends!";
-        [self.view addSubview:dummyLabel]; 
-        return; 
+        defaultButton = [[UIButton alloc] initWithFrame:self.view.frame];
+        [defaultButton setTitle:@"You have no followees yet. Search for them on the Profile page!" forState:UIControlStateNormal];
+        [defaultButton setBackgroundImage:[UIImage imageNamed:@"dot-green.png"] forState:UIControlStateNormal];
+        [defaultButton.titleLabel setLineBreakMode:NSLineBreakByWordWrapping];
+        [self.view addSubview:defaultButton];
+
     }
+    
+    
     else {
+        [defaultButton removeFromSuperview]; 
         
     for(NSInteger i=0; i<[friendItems count];i++){
         heres2uitemView *friend=[[heres2uitemView alloc] initWithFrame:CGRectMake(5, (i*81), 320, 81)];

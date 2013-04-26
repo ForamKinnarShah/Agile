@@ -55,13 +55,14 @@
     //    if iPhone5
     if(_screenSize.height == 568)
     {
+        NSLog(@"iphone 5"); 
         [_imgNav setFrame:CGRectMake(5, 6, 310, 81)];
         [ProfilePicture setFrame:CGRectMake(5, 5, 80, 80)];
         [Title setFrame:CGRectMake(101, 11, 180, 18)];
         [Time setFrame:CGRectMake(112, 29, 141, 17)];
-        [_btnTitle_bg setFrame:CGRectMake(5, 65, 310, 22)];
-        [FullName setFrame:CGRectMake(13, 63, 208, 22)];
-        [_lblBuy setFrame:CGRectMake(274, 65, 35, 22)];
+        [_btnTitle_bg setFrame:CGRectMake(5, 55, 310, 22)];
+        [FullName setFrame:CGRectMake(13, 53, 208, 22)]; // height 22
+        [_lblBuy setFrame:CGRectMake(274, 55, 35, 22)]; // height 22
         [MainComment setFrame:CGRectMake(13, 87, 292, 20)];
         [_btnTab_bg setFrame:CGRectMake(6, 411, 310, 38)];
         [CommentText setFrame:CGRectMake(13, 415, 230, 30)];
@@ -70,6 +71,7 @@
     }
     else
     {
+        NSLog(@"not iphone 5"); 
         [_imgNav setFrame:CGRectMake(5, 4, 310, 82)];
         [ProfilePicture setFrame:CGRectMake(5, 5, 80, 80)];
         [Title setFrame:CGRectMake(101, 11, 180, 18)];

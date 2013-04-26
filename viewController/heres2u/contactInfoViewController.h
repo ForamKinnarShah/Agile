@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface contactInfoViewController : UIViewController
+@interface contactInfoViewController : UIViewController <UITextFieldDelegate>
 
 {
     IBOutlet UITextField *nameTextField;

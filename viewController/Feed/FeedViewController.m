@@ -36,7 +36,10 @@
 {
     [super viewDidLoad];
     length = 0;
-    activityViews = [NSMutableArray arrayWithCapacity:0]; 
+    activityViews = [NSMutableArray arrayWithCapacity:0];
+    UIScrollView* scrollview = self.view;
+    scrollview.delegate = self;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clearView) name:logOutNotification object:nil]; 
     timer=[NSTimer timerWithTimeInterval:5 target:self selector:@selector(checkActivity) userInfo:nil repeats:YES];
     //[[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes ];
@@ -109,9 +112,7 @@
 }
 
 
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
-}
+
 -(void) feedmanagerFailedWithError:(NSError *)error{
     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Warning" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK"otherButtonTitles:nil];
     [UIBlocker stopUIBlockerInView:self.tabBarController.view];
@@ -129,10 +130,6 @@
     //}
 }
 
--(IBAction)sheet:(id)sender {
-UIActionSheet *choose = [[UIActionSheet alloc] initWithTitle:@"Menu" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"SHARE", @"Report Inappropriate", nil];
-[choose showInView:self.view];
-}
 -(void)loggingInFailed:(NSError *)error{
     //Display login controller
     LoginViewController *login=[[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
@@ -148,21 +145,31 @@ UIActionSheet *choose = [[UIActionSheet alloc] initWithTitle:@"Menu" delegate:se
     
     if ([feedManager count] == 0)
     {
-        defaultLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.origin.y, 300, 50)];
-        defaultLabel.text = @"You have no feed activity yet. Check-in somewhere or add some friends!";
-        [self.view addSubview:defaultLabel]; 
+//        defaultLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.origin.y, 300, 50)];
+//        defaultLabel.text = @"You have no feed activity yet. Check-in somewhere or add some friends!";
+        defaultButton = [[UIButton alloc] initWithFrame:self.view.frame];
+        [defaultButton setTitle:@"You have no feed activity yet. Check-in somewhere or find some friends on the Profile page!" forState:UIControlStateNormal];
+        [defaultButton setBackgroundImage:[UIImage imageNamed:@"dot-green.png"] forState:UIControlStateNormal]; 
+        [defaultButton.titleLabel setLineBreakMode:NSLineBreakByWordWrapping]; 
+        [self.view addSubview:defaultButton];
     }
     else{
-        [defaultLabel removeFromSuperview]; 
+        [defaultButton removeFromSuperview];
     }
     
     for (UIView *activity in activityViews)
     {
         [activity removeFromSuperview];
     }
-    [activityViews removeAllObjects]; 
+    [activityViews removeAllObjects];
+    length = 0; 
     
-    for(NSInteger i=0; i<[feedManager count];i++){
+    if (numberOfPostsToLoad > [feedManager count])
+    {
+        numberOfPostsToLoad = [feedManager count]; 
+    }
+
+    for(NSInteger i=0; i<numberOfPostsToLoad;i++){
         
         NSDictionary *ItemData=[feedManager getFeedAtIndex:i];
         UIActivityView *activity; 
@@ -255,6 +262,8 @@ UIActionSheet *choose = [[UIActionSheet alloc] initWithTitle:@"Menu" delegate:se
     }
     [(UIScrollView *)self.view setScrollEnabled:YES];
     [(UIScrollView *)self.view setContentSize:CGSizeMake(320, length)];
+    [UIBlocker stopUIBlockerInView:self.tabBarController.view];
+
    // NSLog(@"%i",([Profile.Feeds count]*166));
 }
 -(void)activityviewRequestComment:(UIActivityView *)activity{
@@ -265,6 +274,9 @@ UIActionSheet *choose = [[UIActionSheet alloc] initWithTitle:@"Menu" delegate:se
 
 -(void)viewDidAppear:(BOOL)animated
 {
+    numberOfPostsToLoad = 15;
+    UIScrollView *sv = self.view;
+    [sv setContentOffset:CGPointMake(0, 0)]; 
     NSString *Email=[NSGlobalConfiguration getConfigurationItem:@"Email"];
     if (Email){ // means logged in already 
         NSLog(@"feedManagercount:%i",[feedManager count]); 
@@ -282,6 +294,19 @@ UIActionSheet *choose = [[UIActionSheet alloc] initWithTitle:@"Menu" delegate:se
     for (UIView *activity in self.view.subviews)
     {
         [activity removeFromSuperview]; 
+    }
+    
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    float offset = scrollView.contentOffset.y;
+    //NSLog(@"offest:%f length:%f",offset,length);
+    if (offset > length *0.8 && (numberOfPostsToLoad < [feedManager count]))
+    {
+        numberOfPostsToLoad = numberOfPostsToLoad + 15;
+        [UIBlocker startUIBlockerInView:self.tabBarController.view];
+        [feedManager getFeeds]; 
     }
 }
 @end
