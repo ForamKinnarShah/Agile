@@ -22,6 +22,7 @@
     UIActivityIndicatorView *UIBlocker;
     NSMutableArray *OutputData;
     NSMutableArray *ServerSearchResults;
+    NSSearchForUser *Search;
 }
 @property (strong, nonatomic) IBOutlet UITableView *userstable;
 

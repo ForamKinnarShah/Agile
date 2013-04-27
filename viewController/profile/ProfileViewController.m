@@ -16,6 +16,8 @@
 #import "ASIFormDataRequest.h"
 #import "JSON.h"
 #import "AsyncImageView.h"
+#import "UIImageView+WebCache.h"
+#import "XMLReader.h"
 
 @interface ProfileViewController ()
 
@@ -44,7 +46,15 @@
 //Delegates
 -(void)viewDidAppear:(BOOL)animated{
     NSLog(@"Profile ID:%i",ProfileID);
-    numberOfFeedsToLoad = 15; 
+
+    // Set the Profile Image
+    NSString *strUrl = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[NSGlobalConfiguration getConfigurationItem:@"ImageURL"]]];
+    _urlImg = [[NSURL alloc] initWithString:[strUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    [_ProfilePicture setImageWithURL:_urlImg placeholderImage:[UIImage imageNamed:@""]];
+    NSLog(@"Profile Pic >> %@",_ProfilePicture.image);
+    // ----------
+
+    numberOfFeedsToLoad = 15;
     //Profile=[[NSProfile alloc] initWithProfileID:ProfileID];
     [Profile setDelegate:self];
     ProfileID = [[NSGlobalConfiguration getConfigurationItem:@"ID"] intValue];
@@ -99,9 +109,8 @@
     [FollowersCount setUserInteractionEnabled:YES];
     [_ProfilePicture addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectPhoto:)]];
     [_ProfilePicture setUserInteractionEnabled:YES];
-    
-    
 }
+
 -(void) FollowingPressed:(UIGestureRecognizer *)gesture{
     FollowingViewController *Following=[[FollowingViewController alloc] initWithNibName:@"Following" bundle:nil];
     [self.navigationController pushViewController:Following animated:YES];
@@ -117,7 +126,6 @@
     menuViewController *menu = [[menuViewController alloc] initWithNibName:@"menuViewController" bundle:nil];
     [self.navigationController pushViewController:menu animated:YES];
 }
-
 
 -(IBAction)goToCheckinComment:(id)sender
 {
@@ -355,9 +363,9 @@
     if(ScaledImage)
   //  if(PickedImage)
     {
+        ScaledImage = [self imageByScalingProportionallyToSize:CGSizeMake(_ProfilePicture.frame.size.width, _ProfilePicture.frame.size.height) srcImg:_ProfilePicture.image];
         NSData *imageData1 = UIImageJPEGRepresentation(ScaledImage, 100);
    //     NSData *imageData1 = UIImageJPEGRepresentation(PickedImage, 100);
-
         [request setData:imageData1 withFileName:imgName1 andContentType:@"png" forKey:@"ProfilePicture"];
     }
     
@@ -386,6 +394,21 @@
     NSLog(@"strResponse >> %@",strResponse);
     NSError *error;
     
+    NSDictionary *dict = [XMLReader dictionaryForXMLString:strResponse error:&error];
+    NSLog(@"dict: %@",dict);
+    
+    // stores the new image url for the profile picture
+    NSString *strNewImageUrl = [NSString stringWithFormat:@"http://50.62.148.155:8080/heres2u/api/%@",[[[[dict valueForKey:@"Response"] valueForKey:@"MessagePayload"] valueForKey:@"Url"] valueForKey:@"text"]];
+    strNewImageUrl = [[[[[dict valueForKey:@"Response"] valueForKey:@"MessagePayload"] valueForKey:@"Url"] valueForKey:@"text"] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    [NSGlobalConfiguration setConfigurationItem:@"ImageURL" Item:strNewImageUrl];
+    
+    NSString *strUrl = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[NSGlobalConfiguration getConfigurationItem:@"ImageURL"]]];
+    _urlImg = [[NSURL alloc] initWithString:[strUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    [_ProfilePicture setImageWithURL:_urlImg placeholderImage:[UIImage imageNamed:@""]];
+    NSLog(@"Profile Pic >> %@",_ProfilePicture.image);
+    // ----------
+
+ /*
     NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[strResponse dataUsingEncoding:NSUTF8StringEncoding]];
     parser.delegate = self;
     [parser parse]; 
@@ -395,7 +418,7 @@
     NSLog(@"dict: %@",dict);
     //[NSGlobalConfiguration setConfigurationItem:@"ImageURL" Item:[dict objectForKey:@"Url"]];
      [Profile startFetching];
-    
+    */
 }
 
 
@@ -404,6 +427,7 @@
     [controller setSourceType:UIImagePickerControllerSourceTypeCamera];
     [controller setShowsCameraControls:YES];
     [controller setDelegate:self];
+    [controller setAllowsEditing:YES];
     [self presentModalViewController:controller animated:YES];
 }
 -(IBAction)selectFromLibrary:(id)sender{
@@ -480,4 +504,69 @@
         [self loadActivities]; 
     }
 }
+
+#pragma mark
+#pragma mark compress image
+
+- (UIImage *)imageByScalingProportionallyToSize:(CGSize)targetSize srcImg:(UIImage *)image
+{
+	UIImage *sourceImage = image;
+	UIImage *newImage = nil;
+	
+	CGSize imageSize = sourceImage.size;
+	CGFloat width = imageSize.width;
+	CGFloat height = imageSize.height;
+	
+	CGFloat targetWidth = targetSize.width;
+	CGFloat targetHeight = targetSize.height;
+	
+	CGFloat scaleFactor = 0.0;
+	CGFloat scaledWidth = targetWidth;
+	CGFloat scaledHeight = targetHeight;
+	
+	CGPoint thumbnailPoint = CGPointMake(0.0,0.0);
+	
+	if (CGSizeEqualToSize(imageSize, targetSize) == NO) {
+		
+        CGFloat widthFactor = targetWidth / width;
+        CGFloat heightFactor = targetHeight / height;
+		
+        if (widthFactor < heightFactor)
+			scaleFactor = widthFactor;
+        else
+			scaleFactor = heightFactor;
+		
+        scaledWidth  = width * scaleFactor;
+        scaledHeight = height * scaleFactor;
+		
+        // center the image
+		
+        if (widthFactor < heightFactor) {
+			thumbnailPoint.y = (targetHeight - scaledHeight) * 0.5;
+        } else if (widthFactor > heightFactor) {
+			thumbnailPoint.x = (targetWidth - scaledWidth) * 0.5;
+        }
+	}
+	
+	
+	// this is actually the interesting part:
+	
+	UIGraphicsBeginImageContext(targetSize);
+	
+	CGRect thumbnailRect = CGRectZero;
+	thumbnailRect.origin = thumbnailPoint;
+	thumbnailRect.size.width  = scaledWidth;
+	thumbnailRect.size.height = scaledHeight;
+	
+	[sourceImage drawInRect:thumbnailRect];
+	
+	newImage = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsEndImageContext();
+	
+	if(newImage == nil) NSLog(@"could not scale image");
+	
+	
+	return newImage ;
+}
+
 @end

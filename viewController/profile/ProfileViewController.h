@@ -42,5 +42,9 @@
 @property utilities *UIBlocker; 
 @property UIView *SourceSelector;
 
+// a variable that stores profile image url
+@property (strong, nonatomic)  NSURL *urlImg;
+
 -(id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil ProfileID:(NSInteger) ID;
+
 @end

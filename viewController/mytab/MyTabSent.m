@@ -12,6 +12,8 @@
 
 @synthesize arrayData,arrayLocationID,arrayLocationImage,arrayLocationName,arrayMiles,arrayPrice,arraySenderID,arraySenderName,arrayStatus,arrayTransactionsID;
 @synthesize isTransactionsID,isLocationID,isLocationImage,isLocationName,isMiles,isPrice,isSenderID,isSenderName,isStatus;
+@synthesize isLatitude,isLongitude;
+@synthesize arrayLatitude,arrayLongitude;
 
 
 -(id)initWithURL:(NSURL*)parseURL{
@@ -37,8 +39,11 @@
         self.arraySenderID = [[NSMutableArray alloc] init];
         self.arraySenderName = [[NSMutableArray alloc] init];
         self.arrayStatus = [[NSMutableArray alloc] init];
-        
-        
+        self.arrayLatitude = [[NSMutableArray alloc] init];
+        self.arrayLongitude = [[NSMutableArray alloc] init];
+        self.arrayLatitude = [[NSMutableArray alloc] init];
+        self.arrayLongitude = [[NSMutableArray alloc] init];
+
         
         // set delegate
         [nsXmlParser setDelegate:self];
@@ -93,6 +98,13 @@
         else if([elementName isEqualToString:@"Status"]){
             isStatus = YES;
         }
+        else if([elementName isEqualToString:@"Latitude"]){
+            isLatitude = YES;
+        }
+        else if([elementName isEqualToString:@"Longitude"]){
+            isLongitude = YES;
+        }
+        
     }
     @catch (NSException *exception) {
         
@@ -145,6 +157,22 @@
             [arrayStatus addObject:[NSString stringWithFormat:@"%@",strMutableElement]];
             NSLog(@"arrayStatus : %@",arrayStatus);
         }
+        else if(isLatitude){
+            NSLog(@"strMutableElement : %@",strMutableElement);
+            if([strMutableElement isEqualToString:@""]){
+                strMutableElement = [NSString stringWithFormat:@"00.0000"];
+            }
+            [self.arrayLatitude addObject:[NSString stringWithFormat:@"%@",strMutableElement]];
+            NSLog(@"arrayLatitude : %@",arrayLatitude);
+        }
+        else if(isLongitude){
+            NSLog(@"strMutableElement : %@",strMutableElement);
+            if([strMutableElement isEqualToString:@""]){
+                strMutableElement = [NSString stringWithFormat:@"00.0000"];
+            }
+            [self.arrayLongitude addObject:[NSString stringWithFormat:@"%@",strMutableElement]];
+            NSLog(@"arrayLongitude : %@",arrayLongitude);
+        }
     }
     @catch (NSException *exception) {
         
@@ -185,10 +213,19 @@
             isPrice  =NO;
             [dicSent setValue:arrayPrice forKey:@"Price"];
         }
+        else if(isLatitude){
+            isLatitude = NO;
+            [dicSent setValue:self.arrayLatitude forKey:@"Latitude"];
+        }
+        else if(isLongitude){
+            isLongitude = NO;
+            [dicSent setValue:self.arrayLongitude forKey:@"Longitude"];
+        }
         else if(isStatus){
             isStatus = NO;
             [dicSent setValue:arrayStatus forKey:@"Status"];
         }
+        
         
     }
     @catch (NSException *exception) {

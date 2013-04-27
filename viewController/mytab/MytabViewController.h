@@ -21,7 +21,7 @@
 #import "AppDelegate.h"
 #import "EGORefreshTableHeaderView.h"
 #import "MBProgressHUD.h"
-
+#import "NSLocationLoader.h"
 
 
 @interface MytabViewController : UIViewController <UITabBarControllerDelegate,UINavigationControllerDelegate, UIActionSheetDelegate, phpCallerDelegate,UIAlertViewDelegate,CLLocationManagerDelegate,MFMailComposeViewControllerDelegate,EGORefreshTableHeaderDelegate, MBProgressHUDDelegate>
@@ -46,7 +46,9 @@
     BOOL isUsed;
     
     int selectedRow;
+    
     CLLocationManager *locationManager;
+    CLLocation *currentLocation;
     
     BOOL isLatLong;
     
@@ -66,6 +68,10 @@
     
     BOOL isViewDisApper;
     int locationIndex;
+    
+    NSLocationLoader *Locations;
+    NSMutableArray *sortedLocations;
+    
 }
 
 @property(nonatomic,retain) phpCaller *caller;
@@ -101,6 +107,8 @@
 @property(nonatomic,retain)NSMutableArray *arraySenderName1;
 @property(nonatomic,retain)NSMutableArray *arrayPrice1;
 @property(nonatomic,retain)NSMutableArray *arrayStatus1;
+@property(nonatomic,retain)NSMutableArray *arrayLatitude1;
+@property(nonatomic,retain)NSMutableArray *arrayLongitude1;
 
 @property(nonatomic,retain)NSMutableArray *arrayData2;
 @property(nonatomic,retain)NSMutableArray *arrayTransactionsID2;
@@ -113,6 +121,8 @@
 @property(nonatomic,retain)NSMutableArray *arrayPrice2;
 @property(nonatomic,retain)NSMutableArray *arrayStatus2;
 @property(nonatomic,retain)NSMutableArray *arraySayThanks2;
+@property(nonatomic,retain)NSMutableArray *arrayLatitude2;
+@property(nonatomic,retain)NSMutableArray *arrayLongitude2;
 
 @property(nonatomic,retain)MBProgressHUD *HUD;
 

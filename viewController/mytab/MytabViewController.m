@@ -20,9 +20,9 @@
 //@synthesize myparser;
 @synthesize arrayData,arrayTransactionsID,arrayLocationID,arrayLocationImage,arrayLocationName,arrayMiles,arrayPrice,arraySenderID,arraySenderName,arrayStatus,arrayCoupanNumber,arrayLatitude,arrayLongitude;
 
-@synthesize arrayData1,arrayTransactionsID1,arrayLocationID1,arrayLocationImage1,arrayLocationName1,arrayMiles1,arrayPrice1,arraySenderID1,arraySenderName1,arrayStatus1;
+@synthesize arrayData1,arrayTransactionsID1,arrayLocationID1,arrayLocationImage1,arrayLocationName1,arrayMiles1,arrayPrice1,arraySenderID1,arraySenderName1,arrayStatus1,arrayLatitude1,arrayLongitude1;
 
-@synthesize arrayData2,arrayTransactionsID2,arrayLocationID2,arrayLocationImage2,arrayLocationName2,arrayMiles2,arrayPrice2,arraySenderID2,arraySenderName2,arrayStatus2,arraySayThanks2;
+@synthesize arrayData2,arrayTransactionsID2,arrayLocationID2,arrayLocationImage2,arrayLocationName2,arrayMiles2,arrayPrice2,arraySenderID2,arraySenderName2,arrayStatus2,arraySayThanks2,arrayLatitude2,arrayLongitude2;
 @synthesize HUD;
 
 
@@ -100,6 +100,8 @@
     self.arraySenderID1 = [[NSMutableArray alloc] init];
     self.arraySenderName1 = [[NSMutableArray alloc] init];
     self.arrayStatus1 = [[NSMutableArray alloc] init];
+    self.arrayLatitude1 = [[NSMutableArray alloc] init];
+    self.arrayLongitude1 = [[NSMutableArray alloc] init];
     
     //array2
     self.arrayData2 = [[NSMutableArray alloc] init];
@@ -113,7 +115,8 @@
     self.arraySenderName2 = [[NSMutableArray alloc] init];
     self.arrayStatus2 = [[NSMutableArray alloc] init];
     self.arraySayThanks2 = [[NSMutableArray alloc] init];
-    
+    self.arrayLatitude2 = [[NSMutableArray alloc] init];
+    self.arrayLongitude2 = [[NSMutableArray alloc] init];
     
     //[self callReceivedData];
    
@@ -185,7 +188,8 @@
         [self.arrayStatus1 removeAllObjects];
         [self.arraySenderID1 removeAllObjects];
         [self.arraySenderName1  removeAllObjects];
-        
+        [self.arrayLongitude1  removeAllObjects];
+        [self.arrayLatitude1  removeAllObjects];
         
         isUsed=NO;
         
@@ -199,6 +203,8 @@
         [self.arraySenderID2  removeAllObjects];
         [self.arraySenderName2  removeAllObjects];
         [self.arraySayThanks2  removeAllObjects];
+        [self.arrayLongitude2  removeAllObjects];
+        [self.arrayLatitude2 removeAllObjects];
     }
     @catch (NSException *exception) {
         
@@ -292,6 +298,7 @@
                 [self.arrayCoupanNumber  addObject:[[dicReceived valueForKey:@"CoupanCode"] objectAtIndex:i]];
                 [self.arrayLongitude  addObject:[[dicReceived valueForKey:@"Latitude"] objectAtIndex:i]];
                 [self.arrayLatitude  addObject:[[dicReceived valueForKey:@"Longitude"] objectAtIndex:i]];
+                
             }
             [objTableView reloadData];
             [self stopLoading];
@@ -452,6 +459,8 @@
             [self.arrayStatus1 addObject:[[dicSent valueForKey:@"Status"] objectAtIndex:i]];
             [self.arraySenderID1 addObject:[[dicSent valueForKey:@"senderId"] objectAtIndex:i]];
             [self.arraySenderName1  addObject:[[dicSent valueForKey:@"senderName"] objectAtIndex:i]];
+            [self.arrayLongitude1  addObject:[[dicSent valueForKey:@"Latitude"] objectAtIndex:i]];
+            [self.arrayLatitude1  addObject:[[dicSent valueForKey:@"Longitude"] objectAtIndex:i]];
         }
         
         if(dicSent.count==0){
@@ -508,6 +517,9 @@
             [self.arraySenderID2 addObject:[[dicUsed valueForKey:@"senderId"] objectAtIndex:i]];
             [self.arraySenderName2  addObject:[[dicUsed valueForKey:@"senderName"] objectAtIndex:i]];
             [self.arraySayThanks2 addObject:[[dicUsed valueForKey:@"SayThanksId"] objectAtIndex:i]];
+            [self.arrayLongitude2  addObject:[[dicUsed valueForKey:@"Latitude"] objectAtIndex:i]];
+            [self.arrayLatitude2  addObject:[[dicUsed valueForKey:@"Longitude"] objectAtIndex:i]];
+
         }
         
         if(dicUsed.count==0){
@@ -607,6 +619,8 @@
             [self.arrayStatus1 removeAllObjects];
             [self.arraySenderID1 removeAllObjects];
             [self.arraySenderName1  removeAllObjects];
+            [self.arrayLongitude1  removeAllObjects];
+            [self.arrayLatitude1  removeAllObjects];
 
         }
         else{
@@ -622,6 +636,8 @@
             [self.arraySenderID2  removeAllObjects];
             [self.arraySenderName2  removeAllObjects];
             [self.arraySayThanks2  removeAllObjects];
+            [self.arrayLongitude2  removeAllObjects];
+            [self.arrayLatitude2  removeAllObjects];
 
         }
     }
@@ -692,7 +708,7 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
     NSLog(@"didUpdateToLocation: %@", newLocation);
-    CLLocation *currentLocation = newLocation;
+    currentLocation = newLocation;
     
     currentLat = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.latitude];
     currentLong = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude];
@@ -789,10 +805,14 @@
     }
 }
 
+
+
 #pragma Tableview
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     int count;
+    
+    NSLog(@"sortedLocations : %@",sortedLocations);
     
     if(selectedSegment==0){
         count = [self.arrayTransactionsID count];
@@ -821,6 +841,7 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
             
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
             
             
             /*
@@ -869,15 +890,31 @@
             [lblTitle setFont:[UIFont boldSystemFontOfSize:15.0]];
             [cell addSubview:lblTitle];
             
+            CLLocation *firstLocation = [[CLLocation alloc] initWithLatitude:currentLocation.coordinate.latitude longitude:currentLocation.coordinate.longitude];
+            CLLocation *secondLocation;
+            if(selectedSegment==0 && self.arrayLatitude.count>0){
+                secondLocation= [[CLLocation alloc] initWithLatitude:[[self.arrayLatitude objectAtIndex:indexPath.row] floatValue] longitude:[[arrayLongitude objectAtIndex:indexPath.row] floatValue]];
+            }
+            else if(selectedSegment==1 && self.arrayLatitude1.count>0){
+                secondLocation= [[CLLocation alloc] initWithLatitude:[[self.arrayLatitude1 objectAtIndex:indexPath.row] floatValue] longitude:[[arrayLongitude1 objectAtIndex:indexPath.row] floatValue]];
+            }
+            else if(selectedSegment==2 && self.arrayLatitude2.count>0){
+                secondLocation= [[CLLocation alloc] initWithLatitude:[[self.arrayLatitude2 objectAtIndex:indexPath.row] floatValue] longitude:[[arrayLongitude2 objectAtIndex:indexPath.row] floatValue]];
+            }
+            
+            
+            float kilometers = [firstLocation distanceFromLocation:secondLocation] / 1000;
+            float miles = (kilometers * 1.609);
+            
             UILabel *lblDistance = [[UILabel alloc] initWithFrame:CGRectMake(260, 3, 100, 30)];
             if(selectedSegment==0 && self.arrayMiles.count>0){
-                [lblDistance setText:[NSString stringWithFormat:@"%.1f mi",[[self.arrayMiles objectAtIndex:indexPath.row] floatValue]]];
+                [lblDistance setText:[NSString stringWithFormat:@"%.1f mi",miles]];
             }
             else if(selectedSegment==1 && self.arrayMiles1.count>0){
-                [lblDistance setText:[NSString stringWithFormat:@"%.1f mi",[[self.arrayMiles1 objectAtIndex:indexPath.row] floatValue]]];
+                [lblDistance setText:[NSString stringWithFormat:@"%.1f mi",miles]];
             }
             else if(selectedSegment==2 && self.arrayMiles2.count>0){
-                [lblDistance setText:[NSString stringWithFormat:@"%.1f mi",[[self.arrayMiles2 objectAtIndex:indexPath.row] floatValue]]];
+                [lblDistance setText:[NSString stringWithFormat:@"%.1f mi",miles]];
             }
             [lblDistance setBackgroundColor:[UIColor clearColor]];
             [lblDistance setTextColor:[UIColor blackColor]];
@@ -1081,6 +1118,8 @@
             [self.arraySenderID2  removeAllObjects];
             [self.arraySenderName2  removeAllObjects];
             [self.arraySayThanks2  removeAllObjects];
+            [self.arrayLongitude2  removeAllObjects];
+            [self.arrayLatitude2  removeAllObjects];
             
             [self performSelector:@selector(segmentControlChanged) withObject:self afterDelay:0.5];
         }

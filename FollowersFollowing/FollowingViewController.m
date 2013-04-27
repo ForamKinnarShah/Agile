@@ -121,8 +121,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
 	// Do any additional setup after loading the view.
-   
+    Search =[[NSSearchForUser alloc] init];
+    [Search setDelegate:self];
+    
     //[userstable setDelegate:self];
     //[userstable setDataSource:self];
     [UIBlocker setFrame:[self.view bounds]];
@@ -235,8 +238,8 @@
         //search users in server
         NSUserDefaults *Defaults=[NSUserDefaults standardUserDefaults];
         NSString *UserID=[Defaults valueForKey:@"ID"];
-        NSSearchForUser *Search=[[NSSearchForUser alloc] init];
-        [Search setDelegate:self];
+//        NSSearchForUser *Search=[[NSSearchForUser alloc] init];
+//        [Search setDelegate:self];
         [Search findUsersWhosNameStartsWith:[searchBar text] WhoAreNotBeingFollowedBy:[UserID integerValue]];
     }
     [searchBar resignFirstResponder];
@@ -251,39 +254,45 @@
     [searchBar resignFirstResponder];
     [userstable reloadData];
 }
--(void) searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
-    if([[searchText stringByReplacingOccurrencesOfString:@" " withString:@""] isEqualToString:@""]){
-        if(isFollowers){
+-(void) searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    if([[searchText stringByReplacingOccurrencesOfString:@" " withString:@""] isEqualToString:@""])
+    {
+        if(isFollowers)
             OutputData=[Followers getAllData];
-        }else{
+        else
             OutputData=[Followees getAllData];
-        }
+        
         ServerSearchResults=nil;
-    }else{
-    if(isFollowers){
-        OutputData=[[NSMutableArray alloc] init];
-        for (NSInteger i=0; i<[Followers count]; i++) {
-            
-            NSString *Fullname=[[Followers dataAtIndex:i] valueForKey:@"FullName"];
-            if([[Fullname lowercaseString] rangeOfString:[searchText lowercaseString]].location!=NSNotFound){
-                [OutputData addObject:[Followers dataAtIndex:i]];
-            }
-        }
-        [userstable reloadData];
-    }else{
-        OutputData=[[NSMutableArray alloc] init];
-        for (NSInteger i=0; i<[Followees count]; i++) {
-            
-            NSString *Fullname=[[Followees dataAtIndex:i] valueForKey:@"FullName"];
-            if([[Fullname lowercaseString] rangeOfString:[searchText lowercaseString]].location!=NSNotFound){
-                [OutputData addObject:[Followees dataAtIndex:i]];
-            }
-        }
-        ServerSearchResults=nil;
-        [userstable reloadData];
     }
+    else
+    {
+        if(isFollowers)
+        {
+            OutputData=[[NSMutableArray alloc] init];
+            for (NSInteger i=0; i<[Followers count]; i++)
+            {
+                NSString *Fullname=[[Followers dataAtIndex:i] valueForKey:@"FullName"];
+                if([[Fullname lowercaseString] rangeOfString:[searchText lowercaseString]].location!=NSNotFound)
+                    [OutputData addObject:[Followers dataAtIndex:i]];
+            }
+            [userstable reloadData];
+        }
+        else
+        {
+            OutputData=[[NSMutableArray alloc] init];
+            for (NSInteger i=0; i<[Followees count]; i++)
+            {
+                NSString *Fullname=[[Followees dataAtIndex:i] valueForKey:@"FullName"];
+                if([[Fullname lowercaseString] rangeOfString:[searchText lowercaseString]].location!=NSNotFound)
+                    [OutputData addObject:[Followees dataAtIndex:i]];
+            }
+            ServerSearchResults=nil;
+            [userstable reloadData];
+        }
     }
 }
+
 -(void) searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
     //[userstable setUserInteractionEnabled:NO];
 }
