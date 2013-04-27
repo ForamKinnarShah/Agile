@@ -41,6 +41,12 @@
     Locations=[[NSLocationLoader alloc] init];
     [Locations setDelegate:self];
     //[Locations downloadLocations];
+    
+    locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = self;
+    locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+    [locationManager startUpdatingLocation];
+    
     UIBlocker = [[utilities alloc] init];
     [UIBlocker startUIBlockerInView:self.tabBarController.view];
 
@@ -184,8 +190,6 @@
 }
 
 
-
-     
 -(IBAction)goToAdd:(id)sender {
          addViewController *add = [[addViewController alloc] initWithNibName:@"addViewController" bundle:nil];
          [self.navigationController pushViewController:add animated:YES];
@@ -265,7 +269,7 @@
         
         //Heres2uViewController *h2u = [self.tabBarController.viewControllers objectAtIndex:2];
         
-        [self.delegate setRestaurantInfo:[Locations getLocationAtIndex:checkin.tag]];
+        [self.delegate setRestaurantInfo:[sortedLocations objectAtIndex:checkin.tag]];
         [self dismissViewControllerAnimated:YES completion:^{
             
             NSLog(@"something"); 
@@ -303,8 +307,8 @@
     NSString *currentLat = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.latitude];
     NSString *currentLong = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude];
     
-    // NSLog(@"strLat : %@",currentLat);
-    // NSLog(@"strLat : %@",currentLong);
+     NSLog(@"strLat : %@",currentLat);
+     NSLog(@"strLat : %@",currentLong);
     
     // Reverse Geocoding
     //NSLog(@"Resolving the Address");
@@ -330,6 +334,9 @@
         float a = sinf(dlatRadians/2) * sinf(dlatRadians/2) + sinf(dLongRadians/2) * sinf(dLongRadians/2) * cosf(lat1) * cosf(lat2);
         float c = 2 * atan2f(sqrtf(a), sqrtf((1-a)));
         float distanceFromLocation = c * 3959;
+        
+//        float a = sinf(lat1) * sinf(lat2) + cosf(lat1) * cosf(lat2) * cosf(dLongRadians);
+//        float distanceFromLocation = acosf(a) * 180/3.141596 * 60 * 1.1515;
         
         //float distanceFromLocation = sqrtf( powf( (currentLocation.coordinate.latitude - [locationLat floatValue]),2) + powf( (currentLocation.coordinate.longitude - [locationLong floatValue]),2));
         NSDictionary *dic = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[NSNumber numberWithFloat:distanceFromLocation], [NSNumber numberWithInt:i],nil] forKeys:[NSArray arrayWithObjects:@"distance",@"index", nil]];
@@ -359,4 +366,8 @@
     [FilterTextBox resignFirstResponder];
 }
 
+- (void)dealloc
+{
+    [locationManager stopUpdatingLocation]; 
+}
 @end

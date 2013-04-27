@@ -869,15 +869,15 @@
             [lblTitle setFont:[UIFont boldSystemFontOfSize:15.0]];
             [cell addSubview:lblTitle];
             
-            UILabel *lblDistance = [[UILabel alloc] initWithFrame:CGRectMake(240, 3, 100, 30)];
+            UILabel *lblDistance = [[UILabel alloc] initWithFrame:CGRectMake(260, 3, 100, 30)];
             if(selectedSegment==0 && self.arrayMiles.count>0){
-                [lblDistance setText:[NSString stringWithFormat:@"%@ m",[self.arrayMiles objectAtIndex:indexPath.row]]];
+                [lblDistance setText:[NSString stringWithFormat:@"%.1f mi",[[self.arrayMiles objectAtIndex:indexPath.row] floatValue]]];
             }
             else if(selectedSegment==1 && self.arrayMiles1.count>0){
-                [lblDistance setText:[NSString stringWithFormat:@"%@",[self.arrayMiles1 objectAtIndex:indexPath.row]]];
+                [lblDistance setText:[NSString stringWithFormat:@"%.1f mi",[[self.arrayMiles1 objectAtIndex:indexPath.row] floatValue]]];
             }
             else if(selectedSegment==2 && self.arrayMiles2.count>0){
-                [lblDistance setText:[NSString stringWithFormat:@"%@",[self.arrayMiles2 objectAtIndex:indexPath.row]]];
+                [lblDistance setText:[NSString stringWithFormat:@"%.1f mi",[[self.arrayMiles2 objectAtIndex:indexPath.row] floatValue]]];
             }
             [lblDistance setBackgroundColor:[UIColor clearColor]];
             [lblDistance setTextColor:[UIColor blackColor]];
