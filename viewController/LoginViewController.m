@@ -88,8 +88,16 @@
 
 - (IBAction)LostPassword:(id)sender
 {
-    LostPasswordVC *lpvc = [[LostPasswordVC alloc] initWithNibName:@"LostPasswordVC" bundle:nil];
-    [self presentViewController:lpvc animated:YES completion:nil];
+    UIAlertView *alLostPwd = [[UIAlertView alloc] initWithTitle:@"Enter Your Email Id" message:@"TEST SPACE" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+   // NSLog(@"alLostPwd >> %@",NSStringFromCGRect(alLostPwd.frame));
+    _txtEmail = [[UITextField alloc] initWithFrame:CGRectMake(12, 45, 260, 25)];
+    [_txtEmail setKeyboardType:UIKeyboardTypeEmailAddress];
+    [_txtEmail setBackgroundColor:[UIColor whiteColor]];
+    [alLostPwd addSubview:_txtEmail];
+    [alLostPwd show];
+    
+  //  LostPasswordVC *lpvc = [[LostPasswordVC alloc] initWithNibName:@"LostPasswordVC" bundle:nil];
+  //  [self presentViewController:lpvc animated:YES completion:nil];
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -270,6 +278,69 @@
     //  -----Completion of notification
     
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark
+#pragma mark alertview delegates
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1)
+    {
+        NSString *URLString = [[NSString stringWithFormat:@"%@resetpassword.php?Email=%@",[NSGlobalConfiguration URL],_txtEmail.text] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSLog(@"URLString : %@",URLString);
+        NSURL *url = [[NSURL alloc] initWithString:URLString];
+        
+        UIBlocker = [[utilities alloc] init];
+        rawData = [NSMutableData dataWithCapacity:0];
+
+        UIBlocker=[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        [UIBlocker setFrame:self.presentingViewController.view.frame];
+        [UIBlocker setBackgroundColor:[UIColor grayColor]];
+        [UIBlocker setAlpha:0.8];
+        [UIBlocker setHidesWhenStopped:YES];
+        [self.view addSubview:UIBlocker];
+        [UIBlocker startAnimating];
+        
+        //NSString *response = [[NSString alloc] initWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+        //NSLog(@"response:%@",response);
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+        [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+        
+        [_txtEmail resignFirstResponder]; 
+    }
+}
+
+#pragma mark
+#pragma mark NSURLConnection delegates
+
+-(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+    [rawData appendData:data];
+}
+
+-(void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
+    [[[UIAlertView alloc] initWithTitle:@"Connection Failed" message:@"Was not able to get a response from mail server. Please check your internet connection and try again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    [UIBlocker stopAnimating];
+}
+
+-(void) connectionDidFinishLoading:(NSURLConnection *)connection{
+    //XML PARSER:
+    NSString *response = [[NSString alloc] initWithData:rawData encoding:NSUTF8StringEncoding];
+    NSLog(@"connection finished loading with response:%@",[[NSString alloc] initWithData:rawData encoding:NSUTF8StringEncoding]);
+    if ([response rangeOfString:@"<SuccessMessage>1</SuccessMessage>"].location == NSNotFound)
+    {
+        [[[UIAlertView alloc] initWithTitle:@"Message Failed to Send" message:@"Your message was not sent. Please confirm your email address and try again. If problems persist, please contact support.heres2uapp.com" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    }
+    else{
+        [[[UIAlertView alloc] initWithTitle:@"Message Sent" message:@"Please check your email in order to reset your password" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    }
+    
+    [UIBlocker stopAnimating];
+    
+    //NSXMLParser *parser=[[NSXMLParser alloc] initWithData:rawData];
+    //[parser setDelegate:self];
+    //[parser parse];
 }
 
 @end

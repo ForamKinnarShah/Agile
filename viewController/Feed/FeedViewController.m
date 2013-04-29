@@ -148,6 +148,8 @@
 //        defaultLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.origin.y, 300, 50)];
 //        defaultLabel.text = @"You have no feed activity yet. Check-in somewhere or add some friends!";
         defaultButton = [[UIButton alloc] initWithFrame:self.view.frame];
+ //        defaultButton = [[UIButton alloc] initWithFrame:CGRectMake(5, self.view.center.y, 307, 140)];
+        defaultButton.titleLabel.textAlignment = NSTextAlignmentCenter;
         [defaultButton setTitle:@"You have no feed activity yet. Check-in somewhere or find some friends on the Profile page!" forState:UIControlStateNormal];
         [defaultButton setBackgroundImage:[UIImage imageNamed:@"dot-green.png"] forState:UIControlStateNormal]; 
         [defaultButton.titleLabel setLineBreakMode:NSLineBreakByWordWrapping]; 

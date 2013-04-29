@@ -38,6 +38,9 @@
     [(UIScrollView*)self.view setContentSize:self.view.bounds.size];
 
     // Do any additional setup after loading the view from its nib.
+    NSString *centerImageName = @"logo_small.png";
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:centerImageName]];
+
     float drinkTotal;
     float foodTotal;
     float dessertTotal;

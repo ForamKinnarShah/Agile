@@ -42,6 +42,23 @@
             return;
         }
     }
+
+    // check for the age eligiblity
+    int yearDifference = [[NSDate date] timeIntervalSinceDate:[form.DOB date]] / (60.0 * 60.0 * 24.0 * 365.0);
+    
+    if (yearDifference < 18)
+    {
+        UIAlertView *alAge = [[UIAlertView alloc] initWithTitle:@"HERES2U" message:@"We're sorry.You're ineligible to register for heres2u account. You must be 18+ years in age." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alAge show];
+        [form.Email resignFirstResponder];
+        [form.Password resignFirstResponder];
+        [form.Name resignFirstResponder];
+        [form.Phone resignFirstResponder];
+        [form.DOB resignFirstResponder];
+        [form.ZipCode resignFirstResponder];
+        return;
+    }
+    
     [NSUserAccessControl RegisterUser:[form.Email text]  Password:[form.Password text] ProfilePicture:[form currentProfilePicture] Phone:[form.Phone text] DateOfBirth:DOB Name:[form.Name text] ZipCode:[form.ZipCode text] CallBackDelegate:self];
 }
 -(void) registrationDidBegin:(NSTaggedURLConnection *)connection{

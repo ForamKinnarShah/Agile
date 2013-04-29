@@ -13,7 +13,7 @@
 
 extern NSString *const logOutNotification;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, UINavigationControllerDelegate, NSURLConnectionDelegate, UIAlertViewDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UINavigationControllerDelegate, NSURLConnectionDelegate, UIAlertViewDelegate, UITabBarControllerDelegate>
 {
     NSManagedObjectModel *managedObjectModel;
     NSManagedObjectContext *managedObjectContext;
@@ -32,6 +32,7 @@ extern NSString *const logOutNotification;
 
 @property (strong, nonatomic) UIWindow *window;
 
+@property (nonatomic,retain) UITabBarController *tab;
 // push notification
 @property int remoteHostStatus;
 @property (nonatomic, strong) NSURL *url; // url to register device

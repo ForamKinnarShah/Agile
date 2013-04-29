@@ -8,11 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
+#import "AssetsLibrary/AssetsLibrary.h"
 
-@interface addViewController : UIViewController <MFMailComposeViewControllerDelegate>
+
+@interface addViewController : UIViewController <MFMailComposeViewControllerDelegate,UIAlertViewDelegate,UIImagePickerControllerDelegate>
 
 {
+    
     IBOutletCollection(UITextField)NSArray * collection;
+    IBOutlet UIButton *btnImage;
+    UIImagePickerController *objPicker;
+    BOOL isCamera;
 }
 @property UITextField *activeTextField;
 
@@ -20,5 +26,6 @@
 
 //button actions
 - (IBAction)bg_clicked:(id)sender;
+- (IBAction)btnImage_Click:(id)sender;
 
 @end

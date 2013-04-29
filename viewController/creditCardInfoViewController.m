@@ -31,6 +31,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSString *centerImageName = @"logo_small.png";
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:centerImageName]];
+    
     [(UIScrollView*)self.view setContentSize:self.view.bounds.size];
     // Do any additional setup after loading the view from its nib.
     NSMutableDictionary *creditCardInfo = [NSGlobalConfiguration getConfigurationItem:@"creditCard"];

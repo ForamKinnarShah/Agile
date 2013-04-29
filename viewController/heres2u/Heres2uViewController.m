@@ -149,6 +149,7 @@
     {
         defaultButton = [[UIButton alloc] initWithFrame:self.view.frame];
         [defaultButton setTitle:@"You have no followees yet. Search for them on the Profile page!" forState:UIControlStateNormal];
+        defaultButton.titleLabel.textAlignment = NSTextAlignmentCenter;
         [defaultButton setBackgroundImage:[UIImage imageNamed:@"dot-green.png"] forState:UIControlStateNormal];
         [defaultButton.titleLabel setLineBreakMode:NSLineBreakByWordWrapping];
         [self.view addSubview:defaultButton];

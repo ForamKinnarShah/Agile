@@ -13,6 +13,7 @@
 @interface LoginViewController : UIViewController <UITextFieldDelegate, UINavigationControllerDelegate,NSUserAccessControlProtocol>
 {
     UIActivityIndicatorView *UIBlocker;
+    NSMutableData *rawData;
 }
 -(IBAction)login:(id)sender;
 - (IBAction)LostPassword:(id)sender;
@@ -20,5 +21,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *usrname;
 @property (strong, nonatomic) IBOutlet UITextField *pass;
 @property NSString *centerImageName; 
+// textfield for Loast Password
+@property (nonatomic, strong) UITextField *txtEmail;
 
 @end

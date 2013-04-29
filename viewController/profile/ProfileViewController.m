@@ -92,8 +92,10 @@
 //    self.tabBarItem = tab;
 
     // Do any additional setup after loading the view from its nib.
-    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(goToSettings:)]];
-   // NSLog(@"Loaded");
+   // [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarBu target:self action:@selector(goToSettings:)]];
+    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"gear2.png"] style:UIBarButtonSystemItemAction target:self action:@selector(goToSettings:)]];
+   // [self.navigationItem.rightBarButtonItem setImage:[UIImage imageNamed:@"gear2.png"]];
+    // NSLog(@"Loaded");
     //Setup Following Taps:
     UITapGestureRecognizer *FollowingTapRect=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(FollowingPressed:)];
     [FollowingRect addGestureRecognizer:FollowingTapRect];
@@ -157,6 +159,7 @@
     [FollowersCount setText:[NSString stringWithFormat:@"%i",[Profile Followers]]];
   [FollowingCount setText:[NSString stringWithFormat:@"%i",[Profile Following]]];
     [UserName setText:[Profile FullName]];
+    UserName.textAlignment = NSTextAlignmentCenter;
     if(![profile canFollow]){
         [FollowButton setText:@""];
         [FollowButton setUserInteractionEnabled:NO];
@@ -180,6 +183,7 @@
     {
         defaultButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 120, 320, self.view.frame.size.height-120)];
         [defaultButton setTitle:@"You have no followees yet. Search for them on the Profile page!" forState:UIControlStateNormal];
+        defaultButton.titleLabel.textAlignment = NSTextAlignmentCenter;
         [defaultButton setBackgroundImage:[UIImage imageNamed:@"dot-green.png"] forState:UIControlStateNormal];
         [defaultButton.titleLabel setLineBreakMode:NSLineBreakByWordWrapping];
         [self.view addSubview:defaultButton];
@@ -279,7 +283,7 @@
 }
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    UIImage *PickedImage=[info objectForKey:UIImagePickerControllerOriginalImage];
+    UIImage *PickedImage=[info objectForKey:UIImagePickerControllerEditedImage];
     _ProfilePicture.image=[PickedImage copy];
 
     [AppDelegate sharedInstance].ProfilePicture_global.image = _ProfilePicture.image;
@@ -419,6 +423,7 @@
     //[NSGlobalConfiguration setConfigurationItem:@"ImageURL" Item:[dict objectForKey:@"Url"]];
      [Profile startFetching];
     */
+    
 }
 
 
@@ -435,7 +440,8 @@
     UIImagePickerController *controller=[[UIImagePickerController alloc] init];
     [controller setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
     [controller setDelegate:self];
-    //[controller setShowsCameraControls:YES];
+    [controller setAllowsEditing:YES];
+   //[controller setShowsCameraControls:YES];
     [self presentModalViewController:controller animated:YES];
 }
 -(IBAction)cancelPhotoSet:(id)sender{

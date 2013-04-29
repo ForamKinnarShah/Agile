@@ -34,6 +34,8 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    NSString *centerImageName = @"logo_small.png";
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:centerImageName]];
 }
 
 - (void)didReceiveMemoryWarning

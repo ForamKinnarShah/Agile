@@ -127,30 +127,42 @@
     @try {
         [super viewWillAppear:animated];
         
-        isSent = NO;
-        isUsed = NO;
-        
-        segmented.selectedSegmentIndex=0;
-        selectedSegment =0;
-        if(selectedSegment==0){
-            isReceived  = NO;
-            
-            [self.arrayTransactionsID removeAllObjects];
-            [self.arrayLocationID  removeAllObjects];
-            [self.arrayLocationImage removeAllObjects];
-            [self.arrayLocationName removeAllObjects];
-            [self.arrayMiles removeAllObjects];
-            [self.arrayPrice removeAllObjects];
-            [self.arrayStatus removeAllObjects];
-            [self.arraySenderID removeAllObjects];
-            [self.arraySenderName  removeAllObjects];
-            [self.arrayCoupanNumber  removeAllObjects];
-            [self.arrayLongitude  removeAllObjects];
-            [self.arrayLatitude  removeAllObjects];
+        NSLog(@"selectedSegment : %d",selectedSegment);
+        if(selectedSegment==1){
+            isSent = NO;
+            [self startLoading];
+            [self performSelector:@selector(callSegment1) withObject:self afterDelay:1.0];
+            return;
         }
-        
-        [self startLoading];
-        [self performSelector:@selector(callReceivedData) withObject:nil afterDelay:1.0];
+        else if(selectedSegment==2){
+            isUsed = NO;
+            [self startLoading];
+            [self performSelector:@selector(callSegment2) withObject:self afterDelay:1.0];
+            return;
+        }
+        else{
+            segmented.selectedSegmentIndex=0;
+            selectedSegment =0;
+            if(selectedSegment==0){
+                isReceived  = NO;
+                
+                [self.arrayTransactionsID removeAllObjects];
+                [self.arrayLocationID  removeAllObjects];
+                [self.arrayLocationImage removeAllObjects];
+                [self.arrayLocationName removeAllObjects];
+                [self.arrayMiles removeAllObjects];
+                [self.arrayPrice removeAllObjects];
+                [self.arrayStatus removeAllObjects];
+                [self.arraySenderID removeAllObjects];
+                [self.arraySenderName  removeAllObjects];
+                [self.arrayCoupanNumber  removeAllObjects];
+                [self.arrayLongitude  removeAllObjects];
+                [self.arrayLatitude  removeAllObjects];
+            }
+            
+            [self startLoading];
+            [self performSelector:@selector(callReceivedData) withObject:nil afterDelay:1.0];
+        }
     }
     @catch (NSException *exception) {
         
@@ -296,8 +308,8 @@
                 [self.arraySenderID addObject:[[dicReceived valueForKey:@"senderId"] objectAtIndex:i]];
                 [self.arraySenderName  addObject:[[dicReceived valueForKey:@"senderName"] objectAtIndex:i]];
                 [self.arrayCoupanNumber  addObject:[[dicReceived valueForKey:@"CoupanCode"] objectAtIndex:i]];
-                [self.arrayLongitude  addObject:[[dicReceived valueForKey:@"Latitude"] objectAtIndex:i]];
-                [self.arrayLatitude  addObject:[[dicReceived valueForKey:@"Longitude"] objectAtIndex:i]];
+                [self.arrayLongitude  addObject:[[dicReceived valueForKey:@"Longitude"] objectAtIndex:i]];
+                [self.arrayLatitude  addObject:[[dicReceived valueForKey:@"Latitude"] objectAtIndex:i]];
                 
             }
             [objTableView reloadData];
@@ -445,6 +457,20 @@
                 return;
             }
         }
+        else{
+            [self.arrayTransactionsID1 removeAllObjects];
+            [self.arrayLocationID1  removeAllObjects];
+            [self.arrayLocationImage1 removeAllObjects];
+            [self.arrayLocationName1 removeAllObjects];
+            [self.arrayMiles1 removeAllObjects];
+            [self.arrayPrice1 removeAllObjects];
+            [self.arrayStatus1 removeAllObjects];
+            [self.arraySenderID1 removeAllObjects];
+            [self.arraySenderName1  removeAllObjects];
+            [self.arrayLongitude1  removeAllObjects];
+            [self.arrayLatitude1  removeAllObjects];
+
+        }
 
         
         NSArray *arrayCouynt = [dicSent valueForKey:@"TransactionsID"];
@@ -459,8 +485,8 @@
             [self.arrayStatus1 addObject:[[dicSent valueForKey:@"Status"] objectAtIndex:i]];
             [self.arraySenderID1 addObject:[[dicSent valueForKey:@"senderId"] objectAtIndex:i]];
             [self.arraySenderName1  addObject:[[dicSent valueForKey:@"senderName"] objectAtIndex:i]];
-            [self.arrayLongitude1  addObject:[[dicSent valueForKey:@"Latitude"] objectAtIndex:i]];
-            [self.arrayLatitude1  addObject:[[dicSent valueForKey:@"Longitude"] objectAtIndex:i]];
+            [self.arrayLongitude1  addObject:[[dicSent valueForKey:@"Longitude"] objectAtIndex:i]];
+            [self.arrayLatitude1  addObject:[[dicSent valueForKey:@"Latitude"] objectAtIndex:i]];
         }
         
         if(dicSent.count==0){
@@ -504,6 +530,20 @@
                 return;
             }
         }
+        else{
+            [self.arrayTransactionsID2 removeAllObjects];
+            [self.arrayLocationID2  removeAllObjects];
+            [self.arrayLocationImage2  removeAllObjects];
+            [self.arrayLocationName2  removeAllObjects];
+            [self.arrayMiles2  removeAllObjects];
+            [self.arrayPrice2  removeAllObjects];
+            [self.arrayStatus2  removeAllObjects];
+            [self.arraySenderID2  removeAllObjects];
+            [self.arraySenderName2  removeAllObjects];
+            [self.arraySayThanks2  removeAllObjects];
+            [self.arrayLongitude2  removeAllObjects];
+            [self.arrayLatitude2  removeAllObjects];
+        }
         
         NSArray *arrayCouynt = [dicUsed valueForKey:@"TransactionId"];
         for(int i=0;i<arrayCouynt.count;i++){
@@ -517,8 +557,8 @@
             [self.arraySenderID2 addObject:[[dicUsed valueForKey:@"senderId"] objectAtIndex:i]];
             [self.arraySenderName2  addObject:[[dicUsed valueForKey:@"senderName"] objectAtIndex:i]];
             [self.arraySayThanks2 addObject:[[dicUsed valueForKey:@"SayThanksId"] objectAtIndex:i]];
-            [self.arrayLongitude2  addObject:[[dicUsed valueForKey:@"Latitude"] objectAtIndex:i]];
-            [self.arrayLatitude2  addObject:[[dicUsed valueForKey:@"Longitude"] objectAtIndex:i]];
+            [self.arrayLongitude2  addObject:[[dicUsed valueForKey:@"Longitude"] objectAtIndex:i]];
+            [self.arrayLatitude2  addObject:[[dicUsed valueForKey:@"Latitude"] objectAtIndex:i]];
 
         }
         
@@ -750,12 +790,12 @@
         if(selectedSegment==1){
             NSMutableString *messageBody = [[NSMutableString alloc] initWithString:@"<html><body>"];
             NSLog(@"arrayTransactionsID : %@",self.arrayTransactionsID);
-            [messageBody appendString:[NSString stringWithFormat:@"Transaction Id: %@</br>",[arrayTransactionsID objectAtIndex:selectedRow]]];
-            [messageBody appendString:[NSString stringWithFormat:@"Sender Name: %@</br>",[arraySenderName objectAtIndex:selectedRow]]];
+            [messageBody appendString:[NSString stringWithFormat:@"Transaction Id: %@</br>",[arrayTransactionsID1 objectAtIndex:selectedRow]]];
+            [messageBody appendString:[NSString stringWithFormat:@"Sender Name: %@</br>",[arraySenderName1 objectAtIndex:selectedRow]]];
             [messageBody appendString:[NSString stringWithFormat:@"Receiver Name: %@</br>",[NSGlobalConfiguration getConfigurationItem:@"FullName"]]];
-            [messageBody appendString:[NSString stringWithFormat:@"Location : %@</br>",[arrayLocationName objectAtIndex:selectedRow]]];
-            [messageBody appendString:[NSString stringWithFormat:@"Amount: %@\n",[arrayPrice objectAtIndex:selectedRow]]];
-            [messageBody appendString:[NSString stringWithFormat:@"Coupon Code: %@\n",[arrayCoupanNumber objectAtIndex:selectedRow]]];
+            [messageBody appendString:[NSString stringWithFormat:@"Location : %@</br>",[arrayLocationName1 objectAtIndex:selectedRow]]];
+            [messageBody appendString:[NSString stringWithFormat:@"Amount: %@\n",[arrayPrice1 objectAtIndex:selectedRow]]];
+           // [messageBody appendString:[NSString stringWithFormat:@"Coupon Code: %@\n",[arrayCoupanNumber objectAtIndex:selectedRow]]];
             [messageBody appendString:@"</body></html>"];
             [composer setMessageBody:messageBody isHTML:YES];
         }
@@ -866,13 +906,9 @@
             else if(selectedSegment==2 && self.arrayLocationImage2.count>0){
                 strImageUrl = [NSString stringWithFormat:@"%@%@",hostURl,[self.arrayLocationImage2 objectAtIndex:indexPath.row]];
             }
-            NSLog(@"self.arrayLocationImage : %@",self.arrayLocationImage);
-            NSLog(@"indexPath.row : %d",indexPath.row);
-            NSLog(@"strImageUrl : %@",strImageUrl);
-            
+                       
             ImageViewLoading *imgView = [[ImageViewLoading alloc] initWithFrame:CGRectMake(5, 5, 70, 70) ImageUrl:strImageUrl];
             [cell addSubview:imgView];
-            
             
             UILabel *lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(80, 0, 200, 30)];
             if(selectedSegment==0 && self.arrayLocationName.count>0){
@@ -884,13 +920,14 @@
             else if(selectedSegment==2 && self.arrayLocationName2.count>0){
                 [lblTitle setText:[NSString stringWithFormat:@"%@",[self.arrayLocationName2 objectAtIndex:indexPath.row]]];
             }
-            
             [lblTitle setBackgroundColor:[UIColor clearColor]];
             [lblTitle setTextColor:[UIColor blackColor]];
             [lblTitle setFont:[UIFont boldSystemFontOfSize:15.0]];
             [cell addSubview:lblTitle];
             
-            CLLocation *firstLocation = [[CLLocation alloc] initWithLatitude:currentLocation.coordinate.latitude longitude:currentLocation.coordinate.longitude];
+/*            CLLocation *firstLocation = [[CLLocation alloc] initWithLatitude:currentLocation.coordinate.latitude longitude:currentLocation.coordinate.longitude];
+            
+           
             CLLocation *secondLocation;
             if(selectedSegment==0 && self.arrayLatitude.count>0){
                 secondLocation= [[CLLocation alloc] initWithLatitude:[[self.arrayLatitude objectAtIndex:indexPath.row] floatValue] longitude:[[arrayLongitude objectAtIndex:indexPath.row] floatValue]];
@@ -901,24 +938,58 @@
             else if(selectedSegment==2 && self.arrayLatitude2.count>0){
                 secondLocation= [[CLLocation alloc] initWithLatitude:[[self.arrayLatitude2 objectAtIndex:indexPath.row] floatValue] longitude:[[arrayLongitude2 objectAtIndex:indexPath.row] floatValue]];
             }
+            NSLog(@"firstLocation : %@",firstLocation);
+            NSLog(@"secondLocation : %@",secondLocation);
+*/            
+            
+            NSString *locationLong;
+            NSString *locationLat;
+            if(selectedSegment==0 && self.arrayLatitude.count>0){
+                locationLong = [NSString stringWithFormat:@"%@",[self.arrayLongitude objectAtIndex:indexPath.row]];
+                locationLat = [NSString stringWithFormat:@"%@",[self.arrayLatitude objectAtIndex:indexPath.row]];
+            }
+            else if(selectedSegment==1 && self.arrayLatitude1.count>0){
+                locationLong = [NSString stringWithFormat:@"%@",[self.arrayLongitude1 objectAtIndex:indexPath.row]];
+                locationLat = [NSString stringWithFormat:@"%@",[self.arrayLatitude1 objectAtIndex:indexPath.row]];
+            }
+             else if(selectedSegment==2 && self.arrayLatitude2.count>0){
+                 locationLong = [NSString stringWithFormat:@"%@",[self.arrayLongitude2 objectAtIndex:indexPath.row]];
+                 locationLat = [NSString stringWithFormat:@"%@",[self.arrayLatitude2 objectAtIndex:indexPath.row]];
+            }
+            
+            NSLog(@"Lat :%@,  Long:%@",locationLat,locationLong);
+            
+            //Haversine formala for calculating distance in miles between two long/lat coordinates
+            float dLongRadians = fabsf(([locationLong floatValue] - currentLocation.coordinate.longitude) * 3.141596 / 180);
+            float dlatRadians = fabsf(([locationLat floatValue] - currentLocation.coordinate.latitude) * 3.141596 / 180);
+            
+            float lat1 = [locationLat floatValue] * 3.141596/180;
+            float lat2 = currentLocation.coordinate.latitude * 3.141596 / 180;
+            //
+            float a = sinf(dlatRadians/2) * sinf(dlatRadians/2) + sinf(dLongRadians/2) * sinf(dLongRadians/2) * cosf(lat1) * cosf(lat2);
+            float c = 2 * atan2f(sqrtf(a), sqrtf((1-a)));
+            float distanceFromLocation = c * 3959;
+            NSLog(@"distanceFromLocation :%f",distanceFromLocation);
+            
+           /* CLLocationDistance dist = [currentLocation distanceFromLocation:secondLocation];
+            NSLog(@"dist : %f",dist);
+            double miles=dist/1609.344;
+            NSLog(@"miles : %f",miles);*/
             
             
-            float kilometers = [firstLocation distanceFromLocation:secondLocation] / 1000;
-            float miles = (kilometers * 1.609);
-            
-            UILabel *lblDistance = [[UILabel alloc] initWithFrame:CGRectMake(260, 3, 100, 30)];
+            UILabel *lblDistance = [[UILabel alloc] initWithFrame:CGRectMake(260, 0, 100, 30)];
             if(selectedSegment==0 && self.arrayMiles.count>0){
-                [lblDistance setText:[NSString stringWithFormat:@"%.1f mi",miles]];
+                [lblDistance setText:[NSString stringWithFormat:@"%i mi",(int)distanceFromLocation]];
             }
             else if(selectedSegment==1 && self.arrayMiles1.count>0){
-                [lblDistance setText:[NSString stringWithFormat:@"%.1f mi",miles]];
+                [lblDistance setText:[NSString stringWithFormat:@"%i mi",(int)distanceFromLocation]];
             }
             else if(selectedSegment==2 && self.arrayMiles2.count>0){
-                [lblDistance setText:[NSString stringWithFormat:@"%.1f mi",miles]];
+                [lblDistance setText:[NSString stringWithFormat:@"%i mi",(int)distanceFromLocation]];
             }
             [lblDistance setBackgroundColor:[UIColor clearColor]];
             [lblDistance setTextColor:[UIColor blackColor]];
-            [lblDistance setFont:[UIFont systemFontOfSize:9.0]];
+            [lblDistance setFont:[UIFont systemFontOfSize:14.0]];
             [cell addSubview:lblDistance];
             
             UILabel *lblPersonName = [[UILabel alloc] initWithFrame:CGRectMake(80, 20, 200, 30)];
@@ -1092,7 +1163,15 @@
                 [self.navigationController pushViewController:reciptViewController animated:YES];
             }
             else if(buttonIndex==2){
-                resName = [NSString stringWithFormat:@"%@",[self.arrayLocationName objectAtIndex:selectedRow]];
+                if(selectedSegment==0){
+                    resName = [NSString stringWithFormat:@"%@",[self.arrayLocationName objectAtIndex:selectedRow]];
+                }
+                else if(selectedSegment==1){
+                    resName = [NSString stringWithFormat:@"%@",[self.arrayLocationName1 objectAtIndex:selectedRow]];
+                }
+                else if (selectedSegment==2){
+                    resName = [NSString stringWithFormat:@"%@",[self.arrayLocationName2 objectAtIndex:selectedRow]];
+                }
                 [self btnEmail_click];
             }
         }
@@ -1102,7 +1181,15 @@
                                
             }
             else if(buttonIndex==2){
-                resName = [NSString stringWithFormat:@"%@",[self.arrayLocationName objectAtIndex:selectedRow]];
+                if(selectedSegment==0){
+                    resName = [NSString stringWithFormat:@"%@",[self.arrayLocationName objectAtIndex:selectedRow]];
+                }
+                else if(selectedSegment==1){
+                    resName = [NSString stringWithFormat:@"%@",[self.arrayLocationName1 objectAtIndex:selectedRow]];
+                }
+                else if (selectedSegment==2){
+                    resName = [NSString stringWithFormat:@"%@",[self.arrayLocationName2 objectAtIndex:selectedRow]];
+                }
                 [self btnEmail_click];
             }
         }

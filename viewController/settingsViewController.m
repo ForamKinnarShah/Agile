@@ -34,7 +34,8 @@
     // Do any additional setup after loading the view from its nib.
 
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(btnEmail_click)]];
-    
+    NSString *centerImageName = @"logo_small.png";
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:centerImageName]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -143,6 +144,9 @@
         [self presentViewController:login animated:YES completion:nil];
         [self.navigationController popViewControllerAnimated:NO];
         [self.tabBarC setSelectedIndex:0];
+        
+        UINavigationController *firstNav = (UINavigationController *)[[[AppDelegate sharedInstance] tab].viewControllers objectAtIndex:0];
+        [firstNav popToRootViewControllerAnimated:YES];
         //    for (__strong UINavigationController *VC in self.tabBarController.viewControllers)
         //    {
         ////        if (![VC.viewControllers[0] isKindOfClass:[ProfileViewController class]])

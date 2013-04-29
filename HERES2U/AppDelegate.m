@@ -19,6 +19,8 @@
 NSString * const logOutNotification = @"logOutNotification";
 @implementation AppDelegate
 
+@synthesize tab;
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -73,7 +75,7 @@ NSString * const logOutNotification = @"logOutNotification";
     // ------------------
 
     NSString *centerImageName = @"logo_small.png";
-    tab = [[UITabBarController alloc] init];
+    self.tab = [[UITabBarController alloc] init];
 
     ProfileViewController *prof = [[ProfileViewController alloc] initWithNibName:@"ProfileView" bundle:nil ProfileID:[(NSString *)[NSGlobalConfiguration getConfigurationItem:@"ID"] integerValue]];
     UINavigationController *profNav = [[UINavigationController alloc] initWithRootViewController:prof];
@@ -90,6 +92,7 @@ NSString * const logOutNotification = @"logOutNotification";
     //Heres2uViewController *h2u = [[Heres2uViewController alloc] initWithNibName:@"Heres2uViewController" bundle:nil];
     Heres2uViewController *h2u = [[Heres2uViewController alloc] initWithNibName:@"Empty" bundle:nil];
     
+  
     
     UINavigationController *h2uNav = [[UINavigationController alloc] initWithRootViewController:h2u];
     profNav.navigationBar.topItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:centerImageName]];
@@ -99,14 +102,14 @@ NSString * const logOutNotification = @"logOutNotification";
     h2uNav.navigationBar.topItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:centerImageName]];
     
     
-    [prof  setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Profile" image:[UIImage imageNamed:@"dot.png"] tag:5]];
-    [mytab  setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"My Tab" image:[UIImage imageNamed:@"dot.png"] tag:4]];
-    [check  setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Check-in" image:[UIImage imageNamed:@"dot.png"] tag:2]];
-    [feed  setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Feed" image:[UIImage imageNamed:@"dot.png"] tag:1]];
-    [h2u  setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"HERES2U" image:[UIImage imageNamed:@"dot.png"] tag:3]];
-     tab.viewControllers = [NSArray arrayWithObjects:feedNav,checkNav,h2uNav,mytabNav,profNav,nil];
+    [prof  setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Profile" image:[UIImage imageNamed:@"man.png"] tag:5]];
+    [mytab  setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"My Tab" image:[UIImage imageNamed:@"page.png"] tag:4]];
+    [check  setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Check-in" image:[UIImage imageNamed:@"arrowdown.png"] tag:2]];
+    [feed  setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Feed" image:[UIImage imageNamed:@"rss.png"] tag:1]];
+    [h2u  setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"HERES2U" image:[UIImage imageNamed:@"house.png"] tag:3]];
+     self.tab.viewControllers = [NSArray arrayWithObjects:feedNav,checkNav,h2uNav,mytabNav,profNav,nil];
     
-    [self.window setRootViewController:tab];
+    [self.window setRootViewController:self.tab];
     [self.window makeKeyAndVisible];
     
 #if !TARGET_IPHONE_SIMULATOR

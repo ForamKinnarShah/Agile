@@ -47,7 +47,9 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
+    NSString *centerImageName = @"logo_small.png";
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:centerImageName]];
+
     
     // make app compatible for both 3.5" & 4" screen size
     _screenSize = [[UIScreen mainScreen] bounds].size;
@@ -64,9 +66,9 @@
         [FullName setFrame:CGRectMake(13, 53, 208, 22)]; // height 22
         [_lblBuy setFrame:CGRectMake(274, 55, 35, 22)]; // height 22
         [MainComment setFrame:CGRectMake(13, 87, 292, 20)];
-        [_btnTab_bg setFrame:CGRectMake(6, 411, 310, 38)];
-        [CommentText setFrame:CGRectMake(13, 415, 230, 30)];
-        [_btnPost setFrame:CGRectMake(249, 415, 60, 30)];
+        [_toolTab_bg setFrame:CGRectMake(0, 417, 320, 38)];
+        [CommentText setFrame:CGRectMake(13, 415, 243, 30)];
+//        [_btnPost setFrame:CGRectMake(249, 415, 60, 30)];
         [_tblComment setFrame:CGRectMake(0, 115, 320, 298)];
     }
     else
@@ -80,9 +82,9 @@
         [FullName setFrame:CGRectMake(13, 63, 205, 22)];
         [_lblBuy setFrame:CGRectMake(274, 64, 35, 22)];
         [MainComment setFrame:CGRectMake(13, 86, 292, 20)];
-        [_btnTab_bg setFrame:CGRectMake(5, 325, 310, 38)];
-        [CommentText setFrame:CGRectMake(13, 329, 230, 30)];
-        [_btnPost setFrame:CGRectMake(249, 329, 60, 30)];
+        [_toolTab_bg setFrame:CGRectMake(0, 331, 320, 38)];
+        [CommentText setFrame:CGRectMake(13, 329, 243, 30)];
+//        [_btnPost setFrame:CGRectMake(249, 329, 60, 30)];
         [_tblComment setFrame:CGRectMake(0, 115, 320, 210)];
     }
 
@@ -203,52 +205,129 @@
 {
     UITableViewCell *cell;
     UILabel *label = nil;
+    UILabel *lblDetailed = nil;
     
     cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
 
     if (cell == nil)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
-        cell.selectionStyle = UITableViewCellEditingStyleNone;
-        cell.frame = CGRectZero;
+        cell = [[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"Cell"];
+        
         label = [[UILabel alloc] initWithFrame:CGRectZero];
         [label setLineBreakMode:UILineBreakModeWordWrap];
         [label setMinimumFontSize:FONT_SIZE];
         [label setNumberOfLines:0];
         [label setFont:[UIFont systemFontOfSize:FONT_SIZE]];
         [label setTag:1];
-        [label setTextColor:[UIColor blackColor]];
+        
+//        [[label layer] setBorderWidth:2.0f];
+        
         [[cell contentView] addSubview:label];
+        
     }
-    NSString *text = [NSString stringWithFormat:@"%@\n%@",[[_arrComment objectAtIndex:indexPath.row] valueForKey:@"Comment"],[[_arrComment objectAtIndex:indexPath.row] valueForKey:@"FullName"]];
-   
-    NSLog(@"text >> %@",text);
+    NSString *text = [[_arrComment objectAtIndex:indexPath.row] valueForKey:@"Comment"];
+    
     CGSize constraint = CGSizeMake(CELL_CONTENT_WIDTH - (CELL_CONTENT_MARGIN * 2), 20000.0f);
+    
     CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
-   
+    
     if (!label)
         label = (UILabel*)[cell viewWithTag:1];
     
     [label setText:text];
     [label setFrame:CGRectMake(CELL_CONTENT_MARGIN, CELL_CONTENT_MARGIN, CELL_CONTENT_WIDTH - (CELL_CONTENT_MARGIN * 2), MAX(size.height, 44.0f))];
     
+    UILabel *lblUsername = [[UILabel alloc] initWithFrame:CGRectMake(CELL_CONTENT_MARGIN, label.frame.size.height + 5.0, 200, 20.0)];
+    [lblUsername setMinimumFontSize:12];
+    [lblUsername setNumberOfLines:1];
+    [lblUsername setFont:[UIFont systemFontOfSize:12]];
+    [lblUsername setTag:2];
+    [lblUsername setTextColor:[UIColor grayColor]];
+    [[cell contentView] addSubview:lblUsername];
+    [lblUsername setText:[[_arrComment objectAtIndex:indexPath.row] valueForKey:@"FullName"]];
+
+    
+//    if (cell == nil)
+//    {
+//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
+//        cell.selectionStyle = UITableViewCellEditingStyleNone;
+//        cell.frame = CGRectZero;
+//        label = [[UILabel alloc] initWithFrame:CGRectZero];
+//        [label setLineBreakMode:UILineBreakModeWordWrap];
+//        [label setMinimumFontSize:FONT_SIZE];
+//        [label setNumberOfLines:0];
+//        [label setFont:[UIFont systemFontOfSize:FONT_SIZE]];
+//        [label setTag:1];
+//        [label setTextColor:[UIColor blackColor]];
+//        [[cell contentView] addSubview:label];
+//        
+//        // assign detailed lable
+//        lblDetailed = [[UILabel alloc] init];
+//        [lblDetailed setLineBreakMode:UILineBreakModeWordWrap];
+//        [lblDetailed setMinimumFontSize:12];
+//        [lblDetailed setNumberOfLines:0];
+//        [lblDetailed setFont:[UIFont systemFontOfSize:12]];
+//        [lblDetailed setTag:2];
+//        [lblDetailed setTextColor:[UIColor grayColor]];
+//        [[cell contentView] addSubview:lblDetailed];
+//    }
+//    NSString *text = [NSString stringWithFormat:@"%@",[[_arrComment objectAtIndex:indexPath.row] valueForKey:@"Comment"]];
+//    NSLog(@"text >> %@",text);
+//    CGSize constraint = CGSizeMake(CELL_CONTENT_WIDTH - (CELL_CONTENT_MARGIN * 2), 20000.0f);
+//    CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
+//
+//    if (!label)
+//        label = (UILabel*)[cell viewWithTag:1];
+//    
+//    [label setText:text];
+//    [label setFrame:CGRectMake(CELL_CONTENT_MARGIN, CELL_CONTENT_MARGIN, CELL_CONTENT_WIDTH - (CELL_CONTENT_MARGIN * 2), MAX(size.height, 44.0f))];
+//
+//    NSLog(@"label frame >> %@",NSStringFromCGRect(label.frame));
+//    
+//    // detailed label
+//    NSString *textDetailed = [NSString stringWithFormat:@"%@",[[_arrComment objectAtIndex:indexPath.row] valueForKey:@"FullName"]];
+//    NSLog(@"text >> %@",textDetailed);
+//    CGSize constraint1 = CGSizeMake(CELL_CONTENT_WIDTH - (CELL_CONTENT_MARGIN * 2), 20000.0f);
+//    CGSize size1 = [textDetailed sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:constraint1 lineBreakMode:UILineBreakModeWordWrap];
+//    
+//    // detailed label
+//    if (!lblDetailed)
+//        lblDetailed = (UILabel*)[cell viewWithTag:2];
+//    
+//    [lblDetailed setText:textDetailed];
+//    [lblDetailed setFrame:CGRectMake(CELL_CONTENT_MARGIN, label.frame.size.height +5, CELL_CONTENT_WIDTH - (CELL_CONTENT_MARGIN * 2), MAX(size1.height, 20.0f))];
+//    NSLog(@"lblDetailed frame >> %@",NSStringFromCGRect(lblDetailed.frame));
+
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-    NSString *text = [NSString stringWithFormat:@"%@\n%@",[[_arrComment objectAtIndex:indexPath.row] valueForKey:@"Comment"],[[_arrComment objectAtIndex:indexPath.row] valueForKey:@"FullName"]];
+    
+    NSString *text = [[_arrComment objectAtIndex:indexPath.row] valueForKey:@"Comment"];
+    
     CGSize constraint = CGSizeMake(CELL_CONTENT_WIDTH - (CELL_CONTENT_MARGIN * 2), 20000.0f);
+    
     CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
-    CGFloat height = MAX(size.height, 44.0f);
+    
+    CGFloat height = MAX(size.height + 28.0, 44.0f);
+    NSLog(@"height %f",height);
     return height + (CELL_CONTENT_MARGIN * 2);
+    
+    
+//    NSString *text = [NSString stringWithFormat:@"%@\n%@",[[_arrComment objectAtIndex:indexPath.row] valueForKey:@"Comment"],[[_arrComment objectAtIndex:indexPath.row] valueForKey:@"FullName"]];
+//    CGSize constraint = CGSizeMake(CELL_CONTENT_WIDTH - (CELL_CONTENT_MARGIN * 2), 20000.0f);
+//    CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
+//    CGFloat height = MAX(size.height, 44.0f);
+//    NSLog(@"%f",height + (CELL_CONTENT_MARGIN * 2));
+//    return height + (CELL_CONTENT_MARGIN * 2) + 10;
 }
 
 - (void)viewDidUnload {
     [self setImgNav:nil];
     [self setBtnTitle_bg:nil];
     [self setLblBuy:nil];
-    [self setBtnTab_bg:nil];
+    [self setToolTab_bg:nil];
     [self setBtnPost:nil];
     [super viewDidUnload];
 }

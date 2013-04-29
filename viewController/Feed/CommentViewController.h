@@ -32,8 +32,8 @@
 @property (strong, nonatomic) IBOutlet UIImageView *imgNav;
 @property (strong, nonatomic) IBOutlet UIButton *btnTitle_bg;
 @property (strong, nonatomic) IBOutlet UILabel *lblBuy;
-@property (strong, nonatomic) IBOutlet UIButton *btnTab_bg;
-@property (strong, nonatomic) IBOutlet UIButton *btnPost;
+@property (strong, nonatomic) IBOutlet UIToolbar *toolTab_bg;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *btnPost;
 
 // iPhone5 screen size
 @property (nonatomic) CGSize screenSize;

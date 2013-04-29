@@ -56,6 +56,9 @@
     [super viewDidLoad];
     [(UIScrollView*)self.view setContentSize:self.view.bounds.size]; 
     // Do any additional setup after loading the view from its nib.
+    NSString *centerImageName = @"logo_small.png";
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:centerImageName]];
+    
     [_segmentedControl addTarget:self
      
                          action:@selector(segmentedControlChanged)

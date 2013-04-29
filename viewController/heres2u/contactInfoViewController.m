@@ -27,6 +27,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSString *centerImageName = @"logo_small.png";
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:centerImageName]];
+
     [nameTextField setText:[NSGlobalConfiguration getConfigurationItem:@"FullName"]];
     [emailTextField setText:[NSGlobalConfiguration getConfigurationItem:@"Email"]];
     [phoneTextField setText:[NSGlobalConfiguration getConfigurationItem:@"PhoneNumber"]]; 
