@@ -268,7 +268,7 @@
 
 -(IBAction)clickedSubmit:(id)sender {
     
-    if ([selectedItems count] == 0)
+    if ([selectedItems count] == 0 && [self.enterPriceTxtField.text isEqualToString:@""])
     {
         [[[UIAlertView alloc] initWithTitle:@"Please select at least 1 item to send" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }
@@ -278,9 +278,9 @@
     pay.orderItems = selectedItems;
     pay.userInfo = self.userInfo;
     pay.restaurantInfo = self.restaurantInfo;
-    if ([self.enterPriceTxtField.text intValue])
+    if ([self.enterPriceTxtField.text floatValue])
     {
-        pay.additionalGiftAmount = [self.enterPriceTxtField.text intValue]; 
+        pay.additionalGiftAmount = [self.enterPriceTxtField.text floatValue];
     }
     else {
     }
