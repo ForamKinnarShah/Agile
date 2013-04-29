@@ -28,6 +28,7 @@
 @property IBOutlet UIButton *changeCardBtn;
 @property NSMutableDictionary *userInfo; 
 @property NSDictionary *restaurantInfo; 
+@property float additionalGiftAmount; 
 
 -(IBAction)goToCreditCardPage:(id)sender;
 -(IBAction)clickedAccept:(id)sender; 

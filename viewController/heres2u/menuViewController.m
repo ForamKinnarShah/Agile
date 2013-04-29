@@ -267,12 +267,27 @@
 }
 
 -(IBAction)clickedSubmit:(id)sender {
+    
+    if ([selectedItems count] == 0)
+    {
+        [[[UIAlertView alloc] initWithTitle:@"Please select at least 1 item to send" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    }
+
+    else {
     paymentViewController *pay = [[paymentViewController alloc] initWithNibName:@"paymentViewController" bundle:nil];
     pay.orderItems = selectedItems;
     pay.userInfo = self.userInfo;
-    pay.restaurantInfo = self.restaurantInfo; 
+    pay.restaurantInfo = self.restaurantInfo;
+    if ([self.enterPriceTxtField.text intValue])
+    {
+        pay.additionalGiftAmount = [self.enterPriceTxtField.text intValue]; 
+    }
+    else {
+    }
+        
     NSLog(@"selectedItems:%@",selectedItems); 
     [self.navigationController pushViewController:pay animated:YES];
+    }
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField

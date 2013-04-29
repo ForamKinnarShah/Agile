@@ -311,7 +311,6 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
 
 -(IBAction)submitButtonClicked:(id)sender
 {
-    NSString *message = messageTextField.text;
 }
 
 -(IBAction)sendWithSMS:(id)sender

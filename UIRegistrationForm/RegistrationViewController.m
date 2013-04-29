@@ -7,7 +7,7 @@
 //
 
 #import "RegistrationViewController.h"
-
+#import "MBProgressHUD.h"
 @interface RegistrationViewController ()
 
 @end
@@ -98,6 +98,81 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)loginWithFacebook:(id)sender
+{
+    NSLog(@"%@",FBSession.activeSession);
+    
+    
+    if (FBSession.activeSession.isOpen)
+    {   NSLog(@"FBSession is open, getting user details");
+        [self getUserDetails];
+    }
+    
+    else {
+        
+        
+        
+       // delegate.session = [[FBSession alloc] initWithPermissions:[NSArray arrayWithObjects:@"email", nil]];
+        
+        NSLog(@"opening new session");
+        [FBSession openActiveSessionWithReadPermissions:[NSArray arrayWithObject:@"email"] allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+            
+        
+            // [delegate openSession];
+            
+            //        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            //        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            //            // Do something...
+            if (FBSession.activeSession.isOpen)
+            {
+                [self getUserDetails];
+            }
+            //            dispatch_async(dispatch_get_main_queue(), ^{
+            //                [MBProgressHUD hideHUDForView:self.view animated:YES];
+            //            });
+        }];
+        
+    }
+    
+    
+    
+}
+
+-(void)getUserDetails
+{
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    // dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+    
+    NSLog(@"getting user details");
+    if (FBSession.activeSession.isOpen) {
+        [[FBRequest requestForMe] startWithCompletionHandler:
+         ^(FBRequestConnection *connection,
+           NSDictionary<FBGraphUser> *user,
+           NSError *error) {
+             
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [MBProgressHUD hideHUDForView:self.view animated:YES];
+             });
+             
+             if (!error) {
+                 NSLog(@"setting username");
+                 form.Email.text = [user objectForKey:@"email"];
+                 form.Name.text = user.name;
+             }
+         }];
+    }
+    else {
+        NSLog(@"fbsession not open?");
+    }
+    
+    
+    
+    // });
 }
 
 @end

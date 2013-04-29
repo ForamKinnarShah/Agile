@@ -232,7 +232,7 @@
         NSDictionary *ItemData=[sortedLocations objectAtIndex:i];
         NSLog(@"ItemData : %@",ItemData);
         
-        UICheckIns *CheckIn=[[UICheckIns alloc] initWithFrame:CGRectMake(0, (100*i), 0, 0)];
+        UICheckIns *CheckIn=[[UICheckIns alloc] initWithFrame:CGRectMake(0, (100*i)+52, 0, 0)];
         [CheckIn.Distance setText:[NSString stringWithFormat:@"%i mi",[[ItemData objectForKey:@"distance"] intValue]]];
         [CheckIn.Name setText:[ItemData valueForKey:@"Title"]];
         
@@ -330,13 +330,13 @@
                 
         float lat1 = [locationLat floatValue] * 3.141596/180;
         float lat2 = currentLocation.coordinate.latitude * 3.141596 / 180;
-        
+//        
         float a = sinf(dlatRadians/2) * sinf(dlatRadians/2) + sinf(dLongRadians/2) * sinf(dLongRadians/2) * cosf(lat1) * cosf(lat2);
         float c = 2 * atan2f(sqrtf(a), sqrtf((1-a)));
         float distanceFromLocation = c * 3959;
         
-//        float a = sinf(lat1) * sinf(lat2) + cosf(lat1) * cosf(lat2) * cosf(dLongRadians);
-//        float distanceFromLocation = acosf(a) * 180/3.141596 * 60 * 1.1515;
+      // float a = sinf(lat1) * sinf(lat2) + cosf(lat1) * cosf(lat2) * cosf(dLongRadians);
+      //  float distanceFromLocation = acosf(a) * 180/3.141596 * 60 * 1.1515;
         
         //float distanceFromLocation = sqrtf( powf( (currentLocation.coordinate.latitude - [locationLat floatValue]),2) + powf( (currentLocation.coordinate.longitude - [locationLong floatValue]),2));
         NSDictionary *dic = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[NSNumber numberWithFloat:distanceFromLocation], [NSNumber numberWithInt:i],nil] forKeys:[NSArray arrayWithObjects:@"distance",@"index", nil]];

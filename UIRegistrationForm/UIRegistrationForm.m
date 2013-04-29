@@ -274,7 +274,7 @@
                     UIButton *btnFacebookLogin=[UIButton buttonWithType:UIButtonTypeCustom] ;
                     btnFacebookLogin.frame = CGRectMake(5, 0, 171, 30);
                     [btnFacebookLogin setBackgroundImage:[UIImage imageNamed:@"facebookICON.png"] forState:UIControlStateNormal];
-                    [btnFacebookLogin addTarget:self action:@selector(btnFacebook_Click:) forControlEvents:UIControlEventTouchUpInside];
+                    [btnFacebookLogin addTarget:self action:@selector(loginWithFacebook:) forControlEvents:UIControlEventTouchUpInside];
                     
                     UITableViewCell *cell=[ProfileTable dequeueReusableCellWithIdentifier:@"Cell"];
                     if (!cell) {
@@ -841,6 +841,94 @@
     [Phone resignFirstResponder];
     [DOB resignFirstResponder];
     [ZipCode resignFirstResponder];
+}
+
+-(void)loginWithFacebook:(id)sender
+{
+    NSLog(@"%@",FBSession.activeSession);
+    
+    
+    if (FBSession.activeSession.isOpen)
+    {   NSLog(@"FBSession is open, getting user details");
+        if ([FBSession.activeSession.permissions containsObject:@"email"])
+        {
+        [self getUserDetails];
+        }
+        else {
+            [FBSession.activeSession reauthorizeWithReadPermissions:[NSArray arrayWithObject:@"email"] completionHandler:^(FBSession *session, NSError *error) {
+                if (!error)
+                {
+                    [self getUserDetails];
+                }
+                else {
+                    [[[UIAlertView alloc] initWithTitle:@"Error" message:@"could not get authorization from Facebook" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                }
+            }];
+        }
+    }
+    
+    else {
+        
+        
+        
+        // delegate.session = [[FBSession alloc] initWithPermissions:[NSArray arrayWithObjects:@"email", nil]];
+        
+        NSLog(@"opening new session");
+        [FBSession openActiveSessionWithReadPermissions:[NSArray arrayWithObject:@"email"] allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+            
+            
+            // [delegate openSession];
+            
+            //        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            //        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            //            // Do something...
+            if (FBSession.activeSession.isOpen)
+            {
+                [self getUserDetails];
+            }
+            //            dispatch_async(dispatch_get_main_queue(), ^{
+            //                [MBProgressHUD hideHUDForView:self.view animated:YES];
+            //            });
+        }];
+        
+    }
+    
+    
+    
+}
+
+-(void)getUserDetails
+{
+    
+    
+    // dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    
+    
+    NSLog(@"getting user details");
+    if (FBSession.activeSession.isOpen) {
+        [[FBRequest requestForMe] startWithCompletionHandler:
+         ^(FBRequestConnection *connection,
+           NSDictionary<FBGraphUser> *user,
+           NSError *error) {
+             
+            
+             if (!error) {
+                 NSLog(@"setting username");
+                 Email.text = [user objectForKey:@"email"];
+                 Name.text = user.name;
+             }
+             else {
+                 NSLog(@"error:%@",error); 
+             }
+         }];
+    }
+    else {
+        NSLog(@"fbsession not open?");
+    }
+    
+    
+    
+    // });
 }
 
 @end

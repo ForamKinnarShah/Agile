@@ -59,8 +59,19 @@
             dessertTotal = dessertTotal + item.price; 
         }
     }
+    
+    if (!self.additionalGiftAmount)
+    {
+        self.additionalGiftAmount = 0; 
+    }
+    
+    foodTotal = foodTotal + self.additionalGiftAmount; 
+    
 float preFeeTotal = drinkTotal + foodTotal + dessertTotal;
-float feeTotal = preFeeTotal * 0.08;
+    float feeTotal;
+    NSLog(@"prefeetotal:%f",preFeeTotal); 
+    feeTotal = 1.36;
+    
 float totalTotal = preFeeTotal + feeTotal;
 
 drinkTotalLbl.text = [NSString stringWithFormat:@"$%.2f",drinkTotal];
@@ -117,7 +128,8 @@ totalTotalLbl.text = [NSString stringWithFormat:@"$%.2f",totalTotal];
         [[[UIAlertView alloc] initWithTitle:@"no cards found" message:@"please add a credit card first" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
         return; 
     }
-    else {
+        else
+            {
         NSString *walletID = [cards[0] objectForKey:@"walletID"];
         util = [[utilities alloc] init];
         [util startUIBlockerInView:self.view];
