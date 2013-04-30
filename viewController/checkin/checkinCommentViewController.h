@@ -10,15 +10,18 @@
 #import "UICheckIns.h"
 #import "NSGlobalConfiguration.h"
 #import "NSUserInterfaceCommands.h"
+#import "ImageViewLoading.h"
+
 @interface checkinCommentViewController : UIViewController<NSUserInterfaceCommandsProtocol, UITabBarControllerDelegate>{
     @private
     UICheckIns *Checkin;
+    int ProfileID;
 }
 @property (strong, nonatomic) IBOutlet UITextField *CommentField;
 @property (strong, nonatomic) IBOutlet UILabel *lblName;
 @property (strong, nonatomic) IBOutlet UIButton *POSTButton;
 @property (strong, nonatomic) IBOutlet UILabel *lblTitle;
-@property (strong, nonatomic) IBOutlet UIButton *UserImage;
+@property (strong, nonatomic) IBOutlet UIImageView *UserImage;
 @property UITabBarController *tabBar; 
 -(id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil Checkin:(UICheckIns *)checkin;
 @end

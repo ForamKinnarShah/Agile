@@ -192,7 +192,9 @@
         [activity.UserName setText:[ItemData valueForKey:@"FullName"]];
         [activity.lblComment setText:[ItemData valueForKey:@"UserComment"]];
         [activity.lblLocation setText:[ItemData valueForKey:@"Title"]];
-        activity.commentNumberLabel.text = [ItemData valueForKey:@"nComments"]; 
+        activity.commentNumberLabel.text = [ItemData valueForKey:@"nComments"];
+        activity.lblAddress.text = [ItemData valueForKey:@"Address"];
+        
         [activity setTag:i];
         
         NSString *time = [ItemData valueForKey:@"Time"];
@@ -232,10 +234,10 @@
             NSString *floatString = [NSString stringWithFormat:@"%0.f",minutesDiff];
             
             if ([floatString isEqualToString:@"1"]) {
-            [activity.lblTime setText:[NSString stringWithFormat:@"%.0f minute ago",minutesDiff]];
+            [activity.lblTime setText:[NSString stringWithFormat:@"%.0fmin",minutesDiff]];
             }
             else {
-                [activity.lblTime setText:[NSString stringWithFormat:@"%.0f minutes ago",minutesDiff]];  
+                [activity.lblTime setText:[NSString stringWithFormat:@"%.0fmin",minutesDiff]];  
             }
         }
         else if (hoursDiff > 1 && daysDiff < 1)
@@ -244,10 +246,10 @@
             
             if ([floatString isEqualToString:@"1"]) {
 
-            [activity.lblTime setText:[NSString stringWithFormat:@"%.0f hour ago",hoursDiff]];
+            [activity.lblTime setText:[NSString stringWithFormat:@"%.0fh",hoursDiff]];
             }
                 else {
-                    [activity.lblTime setText:[NSString stringWithFormat:@"%.0f hours ago",hoursDiff]];
+                    [activity.lblTime setText:[NSString stringWithFormat:@"%.0fh",hoursDiff]];
                 }
         }
         else if (daysDiff >1 && monthsDiff < 1)
@@ -256,10 +258,10 @@
             
             if ([floatString isEqualToString:@"1"]) {
 
-            [activity.lblTime setText:[NSString stringWithFormat:@"%.0f day ago",daysDiff]];
+            [activity.lblTime setText:[NSString stringWithFormat:@"%.0fd",daysDiff]];
             }
             else {
-                [activity.lblTime setText:[NSString stringWithFormat:@"%.0f days ago",daysDiff]];
+                [activity.lblTime setText:[NSString stringWithFormat:@"%.0fd",daysDiff]];
 
             }
         }
@@ -267,10 +269,10 @@
             NSString *floatString = [NSString stringWithFormat:@"%0.f",monthsDiff];
             
             if ([floatString isEqualToString:@"1"]) {
-            [activity.lblTime setText:[NSString stringWithFormat:@"%.0f month ago",monthsDiff]];
+            [activity.lblTime setText:[NSString stringWithFormat:@"%.0fmon",monthsDiff]];
             }
             else {
-                [activity.lblTime setText:[NSString stringWithFormat:@"%.0f months ago",monthsDiff]];
+                [activity.lblTime setText:[NSString stringWithFormat:@"%.0fmon",monthsDiff]];
             }
         }
         

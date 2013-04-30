@@ -35,12 +35,28 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    NSString *centerImageName = @"logo_small.png";
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:centerImageName]];
+    
     [lblTitle setText:[Checkin.Location text]];
     [lblName setText:[NSGlobalConfiguration getConfigurationItem:@"FullName"]];
-    [UserImage setImage:[Checkin.Picture image] forState:UIControlStateNormal];
+    NSLog(@"Checkin.Picture: %@",Checkin.Picture);
+
+    
+    ProfileID = [[NSGlobalConfiguration getConfigurationItem:@"ID"] intValue];
+    NSLog(@"%d",ProfileID);
+    NSString *strUrl = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[NSGlobalConfiguration getConfigurationItem:@"ImageURL"]]];
+    NSLog(@"strUrl >> %@",strUrl);
+
+    ImageViewLoading *imgView = [[ImageViewLoading alloc] initWithFrame:CGRectMake(0, 0, 80, 80) ImageUrl:strUrl];
+    [UserImage addSubview:imgView];
+    
     
     // Do any additional setup after loading the view from its nib.
 }
+
+
 
 -(void)viewWillAppear:(BOOL)animated{
     @try {

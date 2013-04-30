@@ -10,6 +10,8 @@
 
 @implementation UIActivityView
 @synthesize Delegate;
+//@synthesize lblAddress,btnBuy,btnComment,btnMore,commentNumberLabel,ID,layer,lblComment,lblLocation,lblTime,nameButton,ProfilePicture,tag,undoManager,userInteractionEnabled,UserName;
+
 - (id)initWithFrame:(CGRect)frame andView:(NSInteger)viewNumber
 {
     self = [super initWithFrame:frame];

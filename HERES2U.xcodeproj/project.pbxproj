@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		130D8908172FB3C900656E8C /* imgComment.png in Resources */ = {isa = PBXBuildFile; fileRef = 130D8906172FB3C900656E8C /* imgComment.png */; };
+		130D8909172FB3C900656E8C /* imgComment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 130D8907172FB3C900656E8C /* imgComment@2x.png */; };
 		13448F9B17194A4200B84B9F /* MyTabUsed.m in Sources */ = {isa = PBXBuildFile; fileRef = 13448F9617194A4200B84B9F /* MyTabUsed.m */; };
 		13448FA017194A7600B84B9F /* ImageViewLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = 13448F9F17194A7600B84B9F /* ImageViewLoading.m */; };
 		1348F1AF1721350C00DAF391 /* Image_not_available.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1348F1AE1721350B00DAF391 /* Image_not_available.jpg */; };
@@ -274,6 +276,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		130D8906172FB3C900656E8C /* imgComment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = imgComment.png; sourceTree = "<group>"; };
+		130D8907172FB3C900656E8C /* imgComment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "imgComment@2x.png"; sourceTree = "<group>"; };
 		13448F9517194A4200B84B9F /* MyTabUsed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTabUsed.h; sourceTree = "<group>"; };
 		13448F9617194A4200B84B9F /* MyTabUsed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTabUsed.m; sourceTree = "<group>"; };
 		13448F9E17194A7600B84B9F /* ImageViewLoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewLoading.h; sourceTree = "<group>"; };
@@ -936,6 +940,8 @@
 		7AA195BA1712B15B001F7A40 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				130D8906172FB3C900656E8C /* imgComment.png */,
+				130D8907172FB3C900656E8C /* imgComment@2x.png */,
 				6FBBBE32172E9EF6005AF4EA /* buttonProfile.png */,
 				6FBBBE33172E9EF6005AF4EA /* buttonProfile@2x.png */,
 				6FBBBE34172E9EF6005AF4EA /* Image_not_available.jpg */,
@@ -1652,6 +1658,8 @@
 				6FBBBE35172E9EF6005AF4EA /* buttonProfile.png in Resources */,
 				6FBBBE36172E9EF6005AF4EA /* buttonProfile@2x.png in Resources */,
 				6FBBBE37172E9EF6005AF4EA /* Image_not_available.jpg in Resources */,
+				130D8908172FB3C900656E8C /* imgComment.png in Resources */,
+				130D8909172FB3C900656E8C /* imgComment@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1913,8 +1921,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Brian Rosa (J35L3P43JL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Brian Rosa (J35L3P43JL)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/FacebookSDK\"",
@@ -1933,8 +1941,8 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6DF9A98F-177D-4CEE-A913-158FE4838992";
+				PROVISIONING_PROFILE = "F351B90D-9584-447E-AC5A-2430E83370F1";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F351B90D-9584-447E-AC5A-2430E83370F1";
 				SDKROOT = iphoneos6.1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1944,8 +1952,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Brian Rosa (J35L3P43JL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Brian Rosa (J35L3P43JL)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/FacebookSDK\"",
@@ -1964,8 +1972,8 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6DF9A98F-177D-4CEE-A913-158FE4838992";
+				PROVISIONING_PROFILE = "F351B90D-9584-447E-AC5A-2430E83370F1";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F351B90D-9584-447E-AC5A-2430E83370F1";
 				SDKROOT = iphoneos6.1;
 				VALIDATE_PRODUCT = NO;
 				WRAPPER_EXTENSION = app;

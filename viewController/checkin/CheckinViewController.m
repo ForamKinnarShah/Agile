@@ -217,7 +217,7 @@
 
 -(void)locationloaderCompleted:(NSLocationLoader *)loader{
     
-    [UIBlocker stopUIBlockerInView:self.tabBarController.view]; 
+    [UIBlocker stopUIBlockerInView:self.tabBarController.view];
     //Clear Everything in LocationsView
     for(UIView *CurrentView in LocationsView.subviews){
         [CurrentView removeFromSuperview];
@@ -226,9 +226,9 @@
     LocationsView.frame = CGRectMake(0, 44, 320, 480);
     
     
-    sortedLocations = [self sortLocationsByDistance]; 
+    sortedLocations = [self sortLocationsByDistance];
     int checkinViewLength = 100;
-    int spaceBetweenCheckinViews = 6; 
+    int spaceBetweenCheckinViews = 6;
     
     for(NSInteger i=0;i<[sortedLocations count];i++){
         NSDictionary *ItemData=[sortedLocations objectAtIndex:i];
@@ -249,22 +249,28 @@
         
         if (self.presentingViewController)
         {
-            CheckIn.checkInLabel.text = @"buy gift here"; 
+            CheckIn.checkInLabel.text = @"buy gift here";
         }
         
         [CheckIn setID:[(NSString *)[ItemData valueForKey:@"ID"] integerValue]];
         NSImageLoaderToImageView *img=[[NSImageLoaderToImageView alloc] initWithURLString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[ItemData valueForKey:@"Image"]] ImageView:CheckIn.Picture];
         [img start];
         [LocationsView addSubview:CheckIn];
-    }    
+    }
     [LocationsView setContentSize:CGSizeMake(320, ([Locations count]*checkinViewLength)+20)];
+    if(!isiPhone5){
+        [LocationsView setContentSize:CGSizeMake(320,  ([Locations count]*checkinViewLength)+150)];
+    }
+    
     [LocationsView setScrollEnabled:YES];
 }
+
 -(void) locationloaderFailedWithError:(NSError *)error{
     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Warning" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [UIBlocker stopUIBlockerInView:self.tabBarController.view];
     [alert show];
 }
+
 -(void)checkinRequested:(UICheckIns *)checkin{
     
    // NSLog(@"checkin requested");

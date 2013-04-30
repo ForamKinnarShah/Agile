@@ -48,15 +48,18 @@
     NSLog(@"Profile ID:%i",ProfileID);
 
     // Set the Profile Image
-//    NSString *strUrl = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[NSGlobalConfiguration getConfigurationItem:@"ImageURL"]]];
-//    _urlImg = [[NSURL alloc] initWithString:[strUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-//    [_ProfilePicture setImageWithURL:_urlImg placeholderImage:[UIImage imageNamed:@""]];
+    NSString *strUrl = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[NSGlobalConfiguration getConfigurationItem:@"ImageURL"]]];
+    _urlImg = [[NSURL alloc] initWithString:[strUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    [_ProfilePicture setImageWithURL:_urlImg placeholderImage:[UIImage imageNamed:@""]];
     NSLog(@"Profile Pic >> %@",_ProfilePicture.image);
     // ----------
 
     numberOfFeedsToLoad = 15;
-    //Profile=[[NSProfile alloc] initWithProfileID:ProfileID];
+    // get profileid
+    Profile=[[NSProfile alloc] initWithProfileID:ProfileID];
     [Profile setDelegate:self];
+    [NSGlobalConfiguration setConfigurationItem:@"ID" Item:[NSString stringWithFormat:@"%i",ProfileID]]; 
+
     if (!Profile.ProfileID)
     {
     ProfileID = [[NSGlobalConfiguration getConfigurationItem:@"ID"] intValue];
@@ -74,7 +77,7 @@
     UIBlocker = [[utilities alloc] init];
     [UIBlocker startUIBlockerInView:self.tabBarController.view];
     
-    //ProfileID = [[NSGlobalConfiguration getConfigurationItem:@"ID"] intValue];
+    ProfileID = [[NSGlobalConfiguration getConfigurationItem:@"ID"] intValue];
     Profile=[[NSProfile alloc] initWithProfileID:ProfileID];
     [Profile setDelegate:self];
     
@@ -113,6 +116,8 @@
     [FollowersCount addGestureRecognizer:FollowersTapCount];
     [FollowersCount setUserInteractionEnabled:YES];
     
+    NSLog(@"%ld",(long)ProfileID);
+    NSLog(@"%d",[[NSGlobalConfiguration getConfigurationItem:@"ID"] intValue]);
     
     if (ProfileID == [[NSGlobalConfiguration getConfigurationItem:@"ID"] intValue]){
         [_ProfilePicture addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectPhoto:)]];
@@ -178,10 +183,10 @@
         [btnFollowBack setUserInteractionEnabled:NO];
     }
     NSLog(@"_ProfilePicture >> %@",_ProfilePicture.image);
-    NSImageLoaderToImageView *Loader=[[NSImageLoaderToImageView alloc] initWithURLString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[Profile ImageURL]] ImageView:self.ProfilePicture]; //[AppDelegate sharedInstance].ProfilePicture_global]; //self.ProfilePicture];//
-    [Loader setDelegate:self];
-    [ImageLoader startAnimating];
-    [Loader start];
+//    NSImageLoaderToImageView *Loader=[[NSImageLoaderToImageView alloc] initWithURLString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[Profile ImageURL]] ImageView:self.ProfilePicture]; //[AppDelegate sharedInstance].ProfilePicture_global]; //self.ProfilePicture];//
+//    [Loader setDelegate:self];
+//    [ImageLoader startAnimating];
+//    [Loader start];
     
     contentLength = 0;
     [UIBlocker stopUIBlockerInView:self.tabBarController.view];
@@ -218,8 +223,15 @@
         [activity.lblComment setText:[ItemData valueForKey:@"UserComment"]];
         [activity.lblLocation setText:[ItemData valueForKey:@"Location"]];
         [activity.lblTime setText:[ItemData valueForKey:@"DateCreated"]];
+        NSLog(@"_ProfilePicture >> %@",_ProfilePicture.image);
         [activity.ProfilePicture setImage:[_ProfilePicture image]];
         
+        // Set the Profile Image
+        NSString *strUrl = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[NSGlobalConfiguration getConfigurationItem:@"ImageURL"]]];
+        _urlImg = [[NSURL alloc] initWithString:[strUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        [_ProfilePicture setImageWithURL:_urlImg placeholderImage:[UIImage imageNamed:@""]];
+        NSLog(@"Profile Pic >> %@",_ProfilePicture.image);
+
 //        NSImageLoaderToImageView *Loader=[[NSImageLoaderToImageView alloc] initWithURLString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[ItemData objectForKey:@"ImageURL"]] ImageView:activity.ProfilePicture];//[AppDelegate sharedInstance].ProfilePicture_global];
 //        [Loader setDelegate:self];
 //        [ImageLoader startAnimating];
@@ -299,6 +311,7 @@
     UIImage *PickedImage=[info objectForKey:UIImagePickerControllerEditedImage];
     _ProfilePicture.image=[PickedImage copy];
 
+    NSLog(@"_ProfilePicture >> %@",_ProfilePicture.image);
     [AppDelegate sharedInstance].ProfilePicture_global.image = _ProfilePicture.image;
 
 //    if ([picker sourceType]==UIImagePickerControllerSourceTypeCamera)
@@ -312,10 +325,14 @@
     {
         ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
         // Request to save the image to camera roll
-        [library writeImageToSavedPhotosAlbum:[PickedImage CGImage] orientation:(ALAssetOrientation)[PickedImage imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error){
-            if (error) {
+        [library writeImageToSavedPhotosAlbum:[PickedImage CGImage] orientation:(ALAssetOrientation)[PickedImage imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error)
+        {
+            if (error)
+            {
                 NSLog(@"error");
-            } else {
+            }
+            else
+            {
                 NSLog(@"url %@", assetURL);
                 NSURL *imagePath = assetURL;
                 NSString *name = [NSString stringWithFormat:@"%@",imagePath];
@@ -366,6 +383,7 @@
     [PickedImage drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
   
     UIImage *ScaledImage=UIGraphicsGetImageFromCurrentImageContext();
+
 //PickedImage=UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
@@ -380,6 +398,7 @@
     if(ScaledImage)
   //  if(PickedImage)
     {
+        NSLog(@"_ProfilePicture >> %@",_ProfilePicture.image);
         ScaledImage = [self imageByScalingProportionallyToSize:CGSizeMake(_ProfilePicture.frame.size.width, _ProfilePicture.frame.size.height) srcImg:_ProfilePicture.image];
         NSData *imageData1 = UIImageJPEGRepresentation(ScaledImage, 100);
    //     NSData *imageData1 = UIImageJPEGRepresentation(PickedImage, 100);
@@ -392,6 +411,9 @@
     
     // --------------------------------------
     
+    NSLog(@"_ProfilePicture >> %@",_ProfilePicture.image);
+    NSLog(@"ScaledImage >> %@",ScaledImage);
+
     [_ProfilePicture setImage:ScaledImage];
 //     [_ProfilePicture setImage:PickedImage];
 

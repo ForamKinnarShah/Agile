@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "UIActivityViewProtocol.h"
-@interface UIActivityView : UIView
+@interface UIActivityView : UIView{
+    
+}
+
 @property (strong, nonatomic) IBOutlet UILabel *lblComment;
 @property (strong, nonatomic) IBOutlet UIImageView *ProfilePicture;
 @property (strong, nonatomic) IBOutlet UILabel *UserName;
@@ -19,8 +22,13 @@
 @property (strong, nonatomic) IBOutlet UIButton *btnBuy;
 @property (nonatomic) NSInteger ID;
 @property (strong,nonatomic) id Delegate;
-@property IBOutlet UILabel *commentNumberLabel;
-@property IBOutlet UIButton *nameButton; 
+@property (strong, nonatomic)IBOutlet UILabel *commentNumberLabel;
+@property (strong, nonatomic)IBOutlet UIButton *nameButton;
+@property(nonatomic,strong)IBOutlet UILabel *lblAddress;
+
+
+
+
 
 -(IBAction)buyWasClicked:(id)sender;
 - (id)initWithFrame:(CGRect)frame andView:(NSInteger)viewNumber;

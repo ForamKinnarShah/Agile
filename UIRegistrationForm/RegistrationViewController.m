@@ -61,6 +61,7 @@
     
     [NSUserAccessControl RegisterUser:[form.Email text]  Password:[form.Password text] ProfilePicture:[form currentProfilePicture] Phone:[form.Phone text] DateOfBirth:DOB Name:[form.Name text] ZipCode:[form.ZipCode text] CallBackDelegate:self];
 }
+
 -(void) registrationDidBegin:(NSTaggedURLConnection *)connection{
     NSLog(@"Registration Began");
     if(!activity){
@@ -72,6 +73,7 @@
     [self.view addSubview:activity];
     [activity startAnimating];
 }
+
 -(void) registrationDidFail:(NSError *)error{
     NSLog(@"Registration Failed! Reason: %@",[error localizedDescription]);
     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Retry", nil];

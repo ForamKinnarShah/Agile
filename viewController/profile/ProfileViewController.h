@@ -16,7 +16,7 @@
 #import "utilities.h" 
 #import "AssetsLibrary/AssetsLibrary.h"
 
-@interface ProfileViewController : UIViewController <UITabBarControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate,NSProfileProtocol,NSImageLoaderToImageViewProtocol, NSXMLParserDelegate, UIScrollViewDelegate>{
+@interface ProfileViewController : UIViewController <UITabBarControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate,NSProfileProtocol,NSImageLoaderToImageViewProtocol, NSXMLParserDelegate, UIScrollViewDelegate,UIImagePickerControllerDelegate>{
 @private
     UIButton *defaultButton; 
     NSInteger ProfileID;

@@ -913,7 +913,7 @@
              
             
              if (!error) {
-                 NSLog(@"setting username");
+                 NSLog(@"setting username : %@",user);
                  Email.text = [user objectForKey:@"email"];
                  Name.text = user.name;
              }

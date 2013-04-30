@@ -23,7 +23,8 @@
     //[self startFetching];
 }
 //Private Functions:
--(void) startFetching{
+-(void) startFetching
+{
     NSURL *URL=[NSURL URLWithString:[NSString stringWithFormat:@"%@?webservice=ui&action=requestprofile", [NSGlobalConfiguration URL]]];
     NSMutableURLRequest *Request=[[NSMutableURLRequest alloc] initWithURL:URL];
     NSMutableData *POSTData=[[NSMutableData alloc]init];
@@ -31,6 +32,8 @@
     [POSTData appendData:[@"--" dataUsingEncoding:NSUTF8StringEncoding]];
     [POSTData appendData:[Boundary dataUsingEncoding:NSUTF8StringEncoding]];
     [POSTData appendData:[@"\r\nContent-Disposition:form-data;name=\"id\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSLog(@"ProfileID >> %ld",(long)ProfileID);
     [POSTData appendData:[[NSString stringWithFormat:@"%i", ProfileID] dataUsingEncoding:NSUTF8StringEncoding]];
     [POSTData appendData:[@"\r\n--" dataUsingEncoding:NSUTF8StringEncoding]];
     [POSTData appendData:[Boundary dataUsingEncoding:NSUTF8StringEncoding]];
