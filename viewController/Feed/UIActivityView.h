@@ -19,7 +19,8 @@
 @property (strong, nonatomic) IBOutlet UIButton *btnBuy;
 @property (nonatomic) NSInteger ID;
 @property (strong,nonatomic) id Delegate;
-@property IBOutlet UILabel *commentNumberLabel; 
+@property IBOutlet UILabel *commentNumberLabel;
+@property IBOutlet UIButton *nameButton; 
 
 -(IBAction)buyWasClicked:(id)sender;
 - (id)initWithFrame:(CGRect)frame andView:(NSInteger)viewNumber;

@@ -95,9 +95,10 @@
     [self.navigationController pushViewController:menu animated:YES];
 }
 
--(IBAction)goToProfile:(id)sender {
-    ProfileViewController *menu = [[ProfileViewController alloc] initWithNibName:@"ProfileViewController" bundle:nil];
-    [self.navigationController pushViewController:menu animated:YES];
+-(IBAction)goToProfile:(UIView*)sender {
+    
+    ProfileViewController *profile = [[ProfileViewController alloc] initWithNibName:@"ProfileView" bundle:nil ProfileID:[[[feedManager getFeedAtIndex:sender.tag] objectForKey:@"UserID"] intValue]];
+    [self.navigationController pushViewController:profile animated:YES];
 }
 
 -(IBAction)goToCheckinComment:(id)sender {
@@ -118,6 +119,7 @@
     [UIBlocker stopUIBlockerInView:self.tabBarController.view];
     [alert show];
 }
+
 -(void) feedmanagerCompleted:(NSFeedManager *)feedmanager{
     //Load Feeds
     NSLog(@"feed manager loaded");
@@ -191,7 +193,7 @@
         [activity.lblComment setText:[ItemData valueForKey:@"UserComment"]];
         [activity.lblLocation setText:[ItemData valueForKey:@"Title"]];
         activity.commentNumberLabel.text = [ItemData valueForKey:@"nComments"]; 
-        [activity setTag:i]; 
+        [activity setTag:i];
         
         NSString *time = [ItemData valueForKey:@"Time"];
         NSDateFormatter *format = [[NSDateFormatter alloc] init];
@@ -227,21 +229,49 @@
         }
         else if (minutesDiff > 1 && hoursDiff < 1)
         {
-            [activity.lblTime setText:[NSString stringWithFormat:@"%.0f minutes ago",minutesDiff]]; 
+            NSString *floatString = [NSString stringWithFormat:@"%0.f",minutesDiff];
+            
+            if ([floatString isEqualToString:@"1"]) {
+            [activity.lblTime setText:[NSString stringWithFormat:@"%.0f minute ago",minutesDiff]];
+            }
+            else {
+                [activity.lblTime setText:[NSString stringWithFormat:@"%.0f minutes ago",minutesDiff]];  
+            }
         }
         else if (hoursDiff > 1 && daysDiff < 1)
         {
-            [activity.lblTime setText:[NSString stringWithFormat:@"%.0f hours ago",hoursDiff]];
+            NSString *floatString = [NSString stringWithFormat:@"%0.f",hoursDiff];
+            
+            if ([floatString isEqualToString:@"1"]) {
 
+            [activity.lblTime setText:[NSString stringWithFormat:@"%.0f hour ago",hoursDiff]];
+            }
+                else {
+                    [activity.lblTime setText:[NSString stringWithFormat:@"%.0f hours ago",hoursDiff]];
+                }
         }
         else if (daysDiff >1 && monthsDiff < 1)
         {
-            [activity.lblTime setText:[NSString stringWithFormat:@"%.0f days ago",daysDiff]];
+            NSString *floatString = [NSString stringWithFormat:@"%0.f",daysDiff];
             
+            if ([floatString isEqualToString:@"1"]) {
+
+            [activity.lblTime setText:[NSString stringWithFormat:@"%.0f day ago",daysDiff]];
+            }
+            else {
+                [activity.lblTime setText:[NSString stringWithFormat:@"%.0f days ago",daysDiff]];
+
+            }
         }
         else {
-            [activity.lblTime setText:[NSString stringWithFormat:@"%.0f months ago",monthsDiff]];
- 
+            NSString *floatString = [NSString stringWithFormat:@"%0.f",monthsDiff];
+            
+            if ([floatString isEqualToString:@"1"]) {
+            [activity.lblTime setText:[NSString stringWithFormat:@"%.0f month ago",monthsDiff]];
+            }
+            else {
+                [activity.lblTime setText:[NSString stringWithFormat:@"%.0f months ago",monthsDiff]];
+            }
         }
         
         //[activity.lblTime setText:[ItemData valueForKey:@"Time"]];
@@ -252,7 +282,8 @@
         
         if ([[ItemData valueForKey:@"UserID"] isEqual:[NSGlobalConfiguration getConfigurationItem:@"ID"]])
         {
-            [activity.btnBuy removeFromSuperview]; 
+            [activity.btnBuy removeFromSuperview];
+            [activity.nameButton setFrame:CGRectMake(activity.nameButton.frame.origin.x, activity.nameButton.frame.origin.y, activity.frame.size.width, activity.nameButton.frame.size.height)];
         }
         
         NSImageLoaderToImageView *img=[[NSImageLoaderToImageView alloc] initWithURLString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[ItemData valueForKey:@"UserImage"]] ImageView:activity.ProfilePicture];
@@ -308,7 +339,9 @@
     {
         numberOfPostsToLoad = numberOfPostsToLoad + 15;
         [UIBlocker startUIBlockerInView:self.tabBarController.view];
-        [feedManager getFeeds]; 
+        //[feedManager getFeeds];
+        [self loadActivities]; 
     }
 }
+
 @end

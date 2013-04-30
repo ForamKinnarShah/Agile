@@ -12,4 +12,5 @@
 @optional
 -(void) activityviewRequestComment:(UIActivityView *) activity;
 -(IBAction)goToMenu:(id)sender;
+-(IBAction)goToProfile:(id)sender;
 @end

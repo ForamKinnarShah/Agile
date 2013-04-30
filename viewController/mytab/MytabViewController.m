@@ -1264,4 +1264,17 @@
     }
 }
 
+-(void)dealloc
+{
+    [locationManager stopUpdatingLocation]; 
+}
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [locationManager stopUpdatingLocation];
+}
+-(void)viewDidAppear:(BOOL)animated
+{
+    [locationManager startUpdatingLocation];
+}
 @end

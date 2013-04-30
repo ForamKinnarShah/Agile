@@ -227,13 +227,16 @@
     
     
     sortedLocations = [self sortLocationsByDistance]; 
+    int checkinViewLength = 100;
+    int spaceBetweenCheckinViews = 6; 
     
     for(NSInteger i=0;i<[sortedLocations count];i++){
         NSDictionary *ItemData=[sortedLocations objectAtIndex:i];
         NSLog(@"ItemData : %@",ItemData);
         
+        
         UICheckIns *CheckIn=[[UICheckIns alloc] init];
-        CheckIn.frame = CGRectMake(0, (100*i), 0, 0);
+        CheckIn.frame = CGRectMake(0, (checkinViewLength*i), 320, checkinViewLength);
         
         [CheckIn.Distance setText:[NSString stringWithFormat:@"%i mi",[[ItemData objectForKey:@"distance"] intValue]]];
         [CheckIn.Name setText:[ItemData valueForKey:@"Title"]];
@@ -254,7 +257,7 @@
         [img start];
         [LocationsView addSubview:CheckIn];
     }    
-    [LocationsView setContentSize:CGSizeMake(320, ([Locations count]*130))];
+    [LocationsView setContentSize:CGSizeMake(320, ([Locations count]*checkinViewLength)+20)];
     [LocationsView setScrollEnabled:YES];
 }
 -(void) locationloaderFailedWithError:(NSError *)error{
@@ -348,7 +351,7 @@
         [distances addObject:dic];
     }
     NSSortDescriptor *sortByName = [NSSortDescriptor sortDescriptorWithKey:@"distance"
-                                                                 ascending:NO];
+                                                                 ascending:YES];
     NSArray *sortDescriptors = [NSArray arrayWithObject:sortByName];
     NSArray *sortedDicArray = [distances sortedArrayUsingDescriptors:sortDescriptors];
     NSMutableArray *sortedLocations= [NSMutableArray arrayWithCapacity:0];

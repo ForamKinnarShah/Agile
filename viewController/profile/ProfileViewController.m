@@ -48,17 +48,20 @@
     NSLog(@"Profile ID:%i",ProfileID);
 
     // Set the Profile Image
-    NSString *strUrl = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[NSGlobalConfiguration getConfigurationItem:@"ImageURL"]]];
-    _urlImg = [[NSURL alloc] initWithString:[strUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    [_ProfilePicture setImageWithURL:_urlImg placeholderImage:[UIImage imageNamed:@""]];
+//    NSString *strUrl = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[NSGlobalConfiguration getConfigurationItem:@"ImageURL"]]];
+//    _urlImg = [[NSURL alloc] initWithString:[strUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+//    [_ProfilePicture setImageWithURL:_urlImg placeholderImage:[UIImage imageNamed:@""]];
     NSLog(@"Profile Pic >> %@",_ProfilePicture.image);
     // ----------
 
     numberOfFeedsToLoad = 15;
     //Profile=[[NSProfile alloc] initWithProfileID:ProfileID];
     [Profile setDelegate:self];
+    if (!Profile.ProfileID)
+    {
     ProfileID = [[NSGlobalConfiguration getConfigurationItem:@"ID"] intValue];
     Profile.ProfileID = ProfileID;
+    }
     [Profile startFetching];
 }
 
@@ -71,7 +74,7 @@
     UIBlocker = [[utilities alloc] init];
     [UIBlocker startUIBlockerInView:self.tabBarController.view];
     
-    ProfileID = [[NSGlobalConfiguration getConfigurationItem:@"ID"] intValue];
+    //ProfileID = [[NSGlobalConfiguration getConfigurationItem:@"ID"] intValue];
     Profile=[[NSProfile alloc] initWithProfileID:ProfileID];
     [Profile setDelegate:self];
     
@@ -79,7 +82,7 @@
     [[AsyncImageLoader sharedLoader] cancelLoadingURL:[NSURL URLWithString:[NSGlobalConfiguration getConfigurationItem:@"ImageURL"]]];
     NSString *strUrl = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[NSGlobalConfiguration getConfigurationItem:@"ImageURL"]]];
     NSURL *urlImg = [[NSURL alloc] initWithString:[strUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    [_ProfilePicture setImageURL:urlImg];
+    //[_ProfilePicture setImageURL:urlImg];
     NSLog(@"Profile Pic >>  %@",_ProfilePicture.image);
     // ----------
     
@@ -109,7 +112,16 @@
     UITapGestureRecognizer *FollowersTapCount=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(FollowersPressed:)];
     [FollowersCount addGestureRecognizer:FollowersTapCount];
     [FollowersCount setUserInteractionEnabled:YES];
-    [_ProfilePicture addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectPhoto:)]];
+    
+    
+    if (ProfileID == [[NSGlobalConfiguration getConfigurationItem:@"ID"] intValue]){
+        [_ProfilePicture addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectPhoto:)]];
+    }
+    else {
+        [_ProfilePicture addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(followUser)]];
+        [self.UserName addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(followUser)]];
+        [self.UserName setUserInteractionEnabled:YES]; 
+    }
     [_ProfilePicture setUserInteractionEnabled:YES];
 }
 
@@ -157,7 +169,7 @@
     }
     
     [FollowersCount setText:[NSString stringWithFormat:@"%i",[Profile Followers]]];
-  [FollowingCount setText:[NSString stringWithFormat:@"%i",[Profile Following]]];
+    [FollowingCount setText:[NSString stringWithFormat:@"%i",[Profile Following]]];
     [UserName setText:[Profile FullName]];
     UserName.textAlignment = NSTextAlignmentCenter;
     if(![profile canFollow]){
@@ -221,6 +233,7 @@
         if ([[ItemData valueForKey:@"UserID"] isEqual:[NSGlobalConfiguration getConfigurationItem:@"ID"]])
         {
             [activity.btnBuy removeFromSuperview];
+            [activity.nameButton setFrame:CGRectMake(activity.nameButton.frame.origin.x, activity.nameButton.frame.origin.y, activity.frame.size.width, activity.nameButton.frame.size.height)];
         }
         
         [ProSroll addSubview:activity];
@@ -409,6 +422,9 @@
     NSString *strUrl = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[NSGlobalConfiguration getConfigurationItem:@"ImageURL"]]];
     _urlImg = [[NSURL alloc] initWithString:[strUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     [_ProfilePicture setImageWithURL:_urlImg placeholderImage:[UIImage imageNamed:@""]];
+    
+    //NSImageLoaderToImageView *loader = [[NSImageLoaderToImageView alloc] initWithURL:_urlImg ImageView:_ProfilePicture StartImmediately:YES];
+    
     NSLog(@"Profile Pic >> %@",_ProfilePicture.image);
     // ----------
 
@@ -462,6 +478,7 @@
             [activity removeFromSuperview]; 
         }
     }
+    ProfileID = nil; 
 }
 
 -(void) parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict{
@@ -573,6 +590,21 @@
 	
 	
 	return newImage ;
+}
+
+-(void)followUser
+{
+    [NSUserInterfaceCommands followUser:ProfileID FolloweeID:[[NSGlobalConfiguration getConfigurationItem:@"ID"] intValue] CallbackDelegate:self]; 
+}
+
+-(void)userinterfaceCommandFailed:(NSString *)message{
+    UIAlertView *alertView=[[UIAlertView alloc] initWithTitle:@"Warning" message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alertView show];
+}
+-(void) userinterfaceCommandSucceeded:(NSString *)message{
+    UIAlertView *alertView=[[UIAlertView alloc] initWithTitle:@"Success" message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alertView show];
+   
 }
 
 @end

@@ -138,6 +138,7 @@
         [NSGlobalConfiguration setConfigurationItem:@"Password" Item:nil];
         [NSGlobalConfiguration setConfigurationItem:@"ID" Item:nil];
         [NSGlobalConfiguration setConfigurationItem:@"FullName" Item:nil];
+        [NSGlobalConfiguration setConfigurationItem:@"ImageURL" Item:nil]; 
         //[AppDelegate sharedInstance].ProfilePicture_global.image = nil;
 
         LoginViewController *login=[[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
