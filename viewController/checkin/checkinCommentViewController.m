@@ -67,7 +67,14 @@
     }
 }
 
-- (IBAction)PostFeed:(id)sender {
+- (IBAction)PostFeed:(id)sender
+{
+    if ([CommentField.text length] == 0)
+    {
+        UIAlertView *alPost = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"Please provide your comment" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alPost show];
+        return;
+    }
     [NSUserInterfaceCommands PostFeed:[(NSString *)[NSGlobalConfiguration getConfigurationItem:@"ID"] integerValue] Comment:[CommentField text] LocationID:[Checkin ID] CallbackDelegate:self];
     
 }

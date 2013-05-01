@@ -248,6 +248,7 @@
                     [Password setAutocapitalizationType:UITextAutocapitalizationTypeNone];
                     [Password setAutocorrectionType:UITextAutocorrectionTypeNo];
                     [Password setTextColor:[UIColor grayColor]];
+                    [Password setSecureTextEntry:YES];
                     [Password setPlaceholder:@"Password"];
                     [Password addTarget:self action:@selector(textFieldSelected:) forControlEvents:UIControlEventEditingDidBegin];
                     [Password addTarget:self action:@selector(textFieldDismissed:) forControlEvents:UIControlEventEditingDidEnd];

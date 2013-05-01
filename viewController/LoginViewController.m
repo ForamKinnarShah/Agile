@@ -74,16 +74,31 @@
 //    h2uNav.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon.png"]];
     
 //    tab.viewControllers = [NSArray arrayWithObjects:feed,check,h2u,mytab,prof,nil];
-     
-    UIBlocker=[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-    [UIBlocker setFrame:self.presentingViewController.view.frame];
-    [UIBlocker setBackgroundColor:[UIColor grayColor]];
-    [UIBlocker setAlpha:0.8];
-    [UIBlocker setHidesWhenStopped:YES];
-    [self.view addSubview:UIBlocker];
-    [UIBlocker startAnimating];
-    //[self presentViewController:tab animated:NO completion:NULL];
-    [NSUserAccessControl Login:usrname.text Password:pass.text Delegate:self];
+    
+    if ([usrname.text length] == 0)
+    {
+        UIAlertView *alValidateLogin = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"Please insert username" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alValidateLogin show];
+        return;
+    }
+    else if([pass.text length] == 0)
+    {
+        UIAlertView *alValidateLogin = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"Please insert password" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alValidateLogin show];
+        return;
+    }
+    else
+    {
+        UIBlocker=[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        [UIBlocker setFrame:self.presentingViewController.view.frame];
+        [UIBlocker setBackgroundColor:[UIColor grayColor]];
+        [UIBlocker setAlpha:0.8];
+        [UIBlocker setHidesWhenStopped:YES];
+        [self.view addSubview:UIBlocker];
+        [UIBlocker startAnimating];
+        //[self presentViewController:tab animated:NO completion:NULL];
+        [NSUserAccessControl Login:usrname.text Password:pass.text Delegate:self];
+    }
 }
 
 - (IBAction)LostPassword:(id)sender
@@ -165,9 +180,9 @@
     [NSGlobalConfiguration setConfigurationItem:@"ID" Item:[AppDelegate sharedInstance].strUserID];
     
     [UIBlocker stopAnimating];
-    
+
     // -----------------------------Push Notification
-	
+
 	// Get Bundle Info for Remote Registration (handy if you have more than one app)
     NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
     NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
@@ -276,7 +291,7 @@
     NSLog(@"Response String ==-========================================================================================================================================================== %@",s);
     
     //  -----Completion of notification
-    
+ 
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -287,27 +302,37 @@
 {
     if (buttonIndex == 1)
     {
-        NSString *URLString = [[NSString stringWithFormat:@"%@resetpassword.php?Email=%@",[NSGlobalConfiguration URL],_txtEmail.text] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        NSLog(@"URLString : %@",URLString);
-        NSURL *url = [[NSURL alloc] initWithString:URLString];
         
-        UIBlocker = [[utilities alloc] init];
-        rawData = [NSMutableData dataWithCapacity:0];
-
-        UIBlocker=[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-        [UIBlocker setFrame:self.presentingViewController.view.frame];
-        [UIBlocker setBackgroundColor:[UIColor grayColor]];
-        [UIBlocker setAlpha:0.8];
-        [UIBlocker setHidesWhenStopped:YES];
-        [self.view addSubview:UIBlocker];
-        [UIBlocker startAnimating];
-        
-        //NSString *response = [[NSString alloc] initWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
-        //NSLog(@"response:%@",response);
-        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-        [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
-        
-        [_txtEmail resignFirstResponder]; 
+        if ([_txtEmail.text length] == 0)
+        {
+            UIAlertView *alValidateLostPassword = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"Please provide your email" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alValidateLostPassword show];
+            return;
+        }
+        else
+        {
+            NSString *URLString = [[NSString stringWithFormat:@"%@resetpassword.php?Email=%@",[NSGlobalConfiguration URL],_txtEmail.text] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            NSLog(@"URLString : %@",URLString);
+            NSURL *url = [[NSURL alloc] initWithString:URLString];
+            
+            UIBlocker = [[utilities alloc] init];
+            rawData = [NSMutableData dataWithCapacity:0];
+            
+            UIBlocker=[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+            [UIBlocker setFrame:self.presentingViewController.view.frame];
+            [UIBlocker setBackgroundColor:[UIColor grayColor]];
+            [UIBlocker setAlpha:0.8];
+            [UIBlocker setHidesWhenStopped:YES];
+            [self.view addSubview:UIBlocker];
+            [UIBlocker startAnimating];
+            
+            //NSString *response = [[NSString alloc] initWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+            //NSLog(@"response:%@",response);
+            NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+            [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+            
+            [_txtEmail resignFirstResponder];
+        }
     }
 }
 

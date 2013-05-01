@@ -195,6 +195,7 @@ return;
 // user touches anywhere in the background
 - (IBAction)bg_clicked:(id)sender
 {
+    [(UIScrollView*)self.view setContentSize:self.view.bounds.size];
     [nameTextField resignFirstResponder];
     datePicker.hidden = YES;
     [expirationDateTextField resignFirstResponder];
@@ -203,6 +204,7 @@ return;
     [cardTypeTextField resignFirstResponder];
     [cardNumberTextField resignFirstResponder];
     [securityCodeTextField resignFirstResponder];
+    [self setViewMovedUp:NO];
 }
 
 @end

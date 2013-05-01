@@ -30,36 +30,52 @@
     [format setDateFormat:@"MM/dd/yyyy"];
     NSString* DOB=[format stringFromDate:[form.DOB date]];
     
-    for (NSString *field in [NSArray arrayWithObjects:form.Email.text,form.Password.text,form.Phone.text,form.ZipCode.text,form.Name.text, nil]) //should rewrite to include other disallowed entries
+    if ([form.Email.text length] == 0 || [form.Password.text length] == 0 || [form.Name.text length] == 0 || [form.Phone.text length] == 0 || [form.ZipCode.text length] == 0)
     {
-        if ([field length] == 0)
-        {
-            [[[UIAlertView alloc] initWithTitle:@"Error"
-                                        message:@"One or more fields not filled in"
-                                        delegate:nil
-                                        cancelButtonTitle:@"OK"
-                                        otherButtonTitles:nil] show];
-            return;
-        }
-    }
-
-    // check for the age eligiblity
-    int yearDifference = [[NSDate date] timeIntervalSinceDate:[form.DOB date]] / (60.0 * 60.0 * 24.0 * 365.0);
-    
-    if (yearDifference < 18)
-    {
-        UIAlertView *alAge = [[UIAlertView alloc] initWithTitle:@"HERES2U" message:@"We're sorry.You're ineligible to register for heres2u account. You must be 18+ years in age." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alAge show];
-        [form.Email resignFirstResponder];
-        [form.Password resignFirstResponder];
-        [form.Name resignFirstResponder];
-        [form.Phone resignFirstResponder];
-        [form.DOB resignFirstResponder];
-        [form.ZipCode resignFirstResponder];
+        UIAlertView *alEmail = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"One or more fields are missing" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alEmail show];
         return;
     }
     
-    [NSUserAccessControl RegisterUser:[form.Email text]  Password:[form.Password text] ProfilePicture:[form currentProfilePicture] Phone:[form.Phone text] DateOfBirth:DOB Name:[form.Name text] ZipCode:[form.ZipCode text] CallBackDelegate:self];
+    if([self validEmail:form.Email.text])
+    {
+        for (NSString *field in [NSArray arrayWithObjects:form.Email.text,form.Password.text,form.Phone.text,form.ZipCode.text,form.Name.text, nil]) //should rewrite to include other disallowed entries
+        {
+            if ([field length] == 0)
+            {
+                [[[UIAlertView alloc] initWithTitle:@"Error"
+                                            message:@"One or more fields not filled in"
+                                           delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil] show];
+                return;
+            }
+        }
+        
+        NSLog(@"%@",[form.DOB date]);
+        // check for the age eligiblity
+        int yearDifference = [[NSDate date] timeIntervalSinceDate:[form.DOB date]] / (60.0 * 60.0 * 24.0 * 365.0);
+        
+        if (yearDifference < 18)
+        {
+            UIAlertView *alAge = [[UIAlertView alloc] initWithTitle:@"HERES2U" message:@"We're sorry.You're ineligible to register for heres2u account. You must be 18+ years in age." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alAge show];
+            [form.Email resignFirstResponder];
+            [form.Password resignFirstResponder];
+            [form.Name resignFirstResponder];
+            [form.Phone resignFirstResponder];
+            [form.DOB resignFirstResponder];
+            [form.ZipCode resignFirstResponder];
+            return;
+        }
+        [NSUserAccessControl RegisterUser:[form.Email text]  Password:[form.Password text] ProfilePicture:[form currentProfilePicture] Phone:[form.Phone text] DateOfBirth:DOB Name:[form.Name text] ZipCode:[form.ZipCode text] CallBackDelegate:self];
+    }
+    else
+    {
+        UIAlertView *alValidEmail = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"Please enter valid email address" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alValidEmail show];
+        return;
+    }
 }
 
 -(void) registrationDidBegin:(NSTaggedURLConnection *)connection{
@@ -188,10 +204,23 @@
     else {
         NSLog(@"fbsession not open?");
     }
-    
-    
-    
     // });
 }
+
+#pragma mark
+#pragma mark email validation
+
+-(BOOL)validEmail:(NSString*)emailString
+{
+    NSString *regExPattern = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+    NSRegularExpression *regEx = [[NSRegularExpression alloc] initWithPattern:regExPattern options:NSRegularExpressionCaseInsensitive error:nil];
+    NSUInteger regExMatches = [regEx numberOfMatchesInString:emailString options:0 range:NSMakeRange(0, [emailString length])];
+    NSLog(@"%i", regExMatches);
+    if (regExMatches == 0)
+        return NO;
+    else
+        return YES;
+}
+
 
 @end

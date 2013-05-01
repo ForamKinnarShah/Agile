@@ -16,4 +16,8 @@
     UIActivityIndicatorView *activity;
 }
 @property (strong,nonatomic) UIRegistrationForm *form;
+
+// invoked functions
+-(BOOL)validEmail:(NSString*)emailString;
+
 @end
