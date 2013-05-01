@@ -68,6 +68,23 @@
             [form.ZipCode resignFirstResponder];
             return;
         }
+        
+        // check for the valid zip code
+        if ([form.ZipCode.text length] > 7)
+        {
+            UIAlertView *alZip = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"Please enter valid zipcode" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alZip show];
+            return;
+        }
+        
+        // check for the valid phone no
+        if ([form.Phone.text length] > 11)
+        {
+            UIAlertView *alZip = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"Please enter valid phone number" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alZip show];
+            return;
+        }
+        
         [NSUserAccessControl RegisterUser:[form.Email text]  Password:[form.Password text] ProfilePicture:[form currentProfilePicture] Phone:[form.Phone text] DateOfBirth:DOB Name:[form.Name text] ZipCode:[form.ZipCode text] CallBackDelegate:self];
     }
     else
