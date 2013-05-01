@@ -149,25 +149,86 @@ NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCal
     
 }
 
+-(BOOL)importQuickbooksData {
+
+NSString *queryString = [NSString stringWithFormat:
+@"<?xml version=\"1.0\" ?>\
+<?qbxml version=\"6.0\"?>\
+<QBXML>\
+<QBXMLMsgsRq onError=\"stopOnError\">\
+<SalesReceiptAddRq requestID = \"101\">\
+<SalesReceiptAdd>\
+<CustomerRef>\
+<FullName>John Hamilton</FullName>\
+</CustomerRef>\
+<TxnDate>2009-02-23</TxnDate>\
+<RefNumber>2345</RefNumber>\
+<PaymentMethodRef>\
+<FullName>Visa</FullName>\
+</PaymentMethodRef>\
+<Memo>QBMS SDK Test 2345</Memo>\
+<CreditCardTxnInfo>\
+<CreditCardTxnInputInfo>\
+<CreditCardNumber>xxxxxxxxxxxx4444</CreditCardNumber>\
+<ExpirationMonth>12</ExpirationMonth>\
+<ExpirationYear>2012</ExpirationYear>\
+<NameOnCard>John Hamilton</NameOnCard>\
+<CreditCardAddress>2750 Coast Avenue</CreditCardAddress>\
+<CreditCardPostalCode>94043</CreditCardPostalCode>\
+<CommercialCardCode>123</CommercialCardCode>\
+<TransactionMode>CardNotPresent</TransactionMode>\
+</CreditCardTxnInputInfo>\
+<CreditCardTxnResultInfo>\
+<ResultCode>0</ResultCode>\
+<ResultMessage>STATUS OK</ResultMessage>\
+<CreditCardTransID>V64A76208243</CreditCardTransID>\
+<MerchantAccountNumber>4269281420247209</MerchantAccountNumber>\
+<AuthorizationCode>185PNI</AuthorizationCode>\
+<AVSStreet>Pass</AVSStreet>\
+<AVSZip>Fail</AVSZip>\
+<CardSecurityCodeMatch>Pass</CardSecurityCodeMatch>\
+<ReconBatchID>420050223 MC 2005-02-23 QBMS 15.0 pre-beta</ReconBatchID>\
+<PaymentGroupingCode>4</PaymentGroupingCode>\
+<PaymentStatus>Completed</PaymentStatus>\
+<TxnAuthorizationTime>2005-02-23T20:57:13</TxnAuthorizationTime>\
+<TxnAuthorizationStamp>1109192233</TxnAuthorizationStamp>\
+<ClientTransID>q0002ee5</ClientTransID>\
+</CreditCardTxnResultInfo>\
+</CreditCardTxnInfo>\
+<SalesReceiptLineAdd>\
+<ItemRef>\
+<FullName>Fee</FullName>\
+</ItemRef>\
+<Rate>100.00</Rate>\
+</SalesReceiptLineAdd>\
+</SalesReceiptAdd>\
+</SalesReceiptAddRq>\
+</QBXMLMsgsRq>\
+</QBXML>"
+                         ];
+    return YES; 
+}
+
+#pragma mark - NSURLConnectionDelegate Methods
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-    [self.data appendData:data]; 
+    [self.data appendData:data];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
-    data = [NSMutableData dataWithCapacity:0]; 
+    data = [NSMutableData dataWithCapacity:0];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     NSString *response = [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding];
-    NSLog(@"received response:%@",response); 
+    NSLog(@"received response:%@",response);
     
     NSXMLParser *parser = [[NSXMLParser alloc] initWithData:self.data];
-    parser.delegate = self; 
-    [parser parse]; 
+    parser.delegate = self;
+    [parser parse];
 }
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict

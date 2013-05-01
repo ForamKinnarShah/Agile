@@ -202,7 +202,6 @@
 		7AA196D91712B15C001F7A40 /* orderItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA1965A1712B15C001F7A40 /* orderItemView.xib */; };
 		7AA196DA1712B15C001F7A40 /* ProfileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA1965C1712B15C001F7A40 /* ProfileView.xib */; };
 		7AA196DB1712B15C001F7A40 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA1965E1712B15C001F7A40 /* ProfileViewController.m */; };
-		7AA196DC1712B15C001F7A40 /* registerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA1965F1712B15C001F7A40 /* registerViewController.xib */; };
 		7AA196DD1712B15C001F7A40 /* searchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA196611712B15C001F7A40 /* searchViewController.m */; };
 		7AA196DE1712B15C001F7A40 /* searchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA196621712B15C001F7A40 /* searchViewController.xib */; };
 		7AA196DF1712B15C001F7A40 /* settingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA196641712B15C001F7A40 /* settingsViewController.m */; };
@@ -574,7 +573,6 @@
 		7AA1965C1712B15C001F7A40 /* ProfileView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileView.xib; sourceTree = "<group>"; };
 		7AA1965D1712B15C001F7A40 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		7AA1965E1712B15C001F7A40 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
-		7AA1965F1712B15C001F7A40 /* registerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = registerViewController.xib; sourceTree = "<group>"; };
 		7AA196601712B15C001F7A40 /* searchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = searchViewController.h; sourceTree = "<group>"; };
 		7AA196611712B15C001F7A40 /* searchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = searchViewController.m; sourceTree = "<group>"; };
 		7AA196621712B15C001F7A40 /* searchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = searchViewController.xib; sourceTree = "<group>"; };
@@ -1127,7 +1125,6 @@
 				7AA196541712B15C001F7A40 /* mytab */,
 				134AB79B171D4E2700F179E4 /* ReceiptViewController */,
 				7AA1965B1712B15C001F7A40 /* profile */,
-				7AA1965F1712B15C001F7A40 /* registerViewController.xib */,
 				7AA196601712B15C001F7A40 /* searchViewController.h */,
 				7AA196611712B15C001F7A40 /* searchViewController.m */,
 				7AA196621712B15C001F7A40 /* searchViewController.xib */,
@@ -1618,7 +1615,6 @@
 				7AA196D31712B15C001F7A40 /* LoginViewController.xib in Resources */,
 				7AA196D91712B15C001F7A40 /* orderItemView.xib in Resources */,
 				7AA196DA1712B15C001F7A40 /* ProfileView.xib in Resources */,
-				7AA196DC1712B15C001F7A40 /* registerViewController.xib in Resources */,
 				7AA196DE1712B15C001F7A40 /* searchViewController.xib in Resources */,
 				7AA196E01712B15C001F7A40 /* settingsViewController.xib in Resources */,
 				7AA196E41712B15C001F7A40 /* UICheckIns.xib in Resources */,

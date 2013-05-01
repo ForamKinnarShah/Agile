@@ -50,7 +50,7 @@
     // Set the Profile Image
     NSString *strUrl = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[NSGlobalConfiguration getConfigurationItem:@"ImageURL"]]];
     _urlImg = [[NSURL alloc] initWithString:[strUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    [_ProfilePicture setImageWithURL:_urlImg placeholderImage:[UIImage imageNamed:@""]];
+    //[_ProfilePicture setImageWithURL:_urlImg placeholderImage:[UIImage imageNamed:@""]];
     NSLog(@"Profile Pic >> %@",_ProfilePicture.image);
     // ----------
 
@@ -58,7 +58,7 @@
     // get profileid
     Profile=[[NSProfile alloc] initWithProfileID:ProfileID];
     [Profile setDelegate:self];
-    [NSGlobalConfiguration setConfigurationItem:@"ID" Item:[NSString stringWithFormat:@"%i",ProfileID]]; 
+    //[NSGlobalConfiguration setConfigurationItem:@"ID" Item:[NSString stringWithFormat:@"%i",ProfileID]];
 
     if (!Profile.ProfileID)
     {
@@ -77,7 +77,7 @@
     UIBlocker = [[utilities alloc] init];
     [UIBlocker startUIBlockerInView:self.tabBarController.view];
     
-    ProfileID = [[NSGlobalConfiguration getConfigurationItem:@"ID"] intValue];
+    //ProfileID = [[NSGlobalConfiguration getConfigurationItem:@"ID"] intValue];
     Profile=[[NSProfile alloc] initWithProfileID:ProfileID];
     [Profile setDelegate:self];
     
@@ -183,10 +183,10 @@
         [btnFollowBack setUserInteractionEnabled:NO];
     }
     NSLog(@"_ProfilePicture >> %@",_ProfilePicture.image);
-//    NSImageLoaderToImageView *Loader=[[NSImageLoaderToImageView alloc] initWithURLString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[Profile ImageURL]] ImageView:self.ProfilePicture]; //[AppDelegate sharedInstance].ProfilePicture_global]; //self.ProfilePicture];//
-//    [Loader setDelegate:self];
-//    [ImageLoader startAnimating];
-//    [Loader start];
+    NSImageLoaderToImageView *Loader=[[NSImageLoaderToImageView alloc] initWithURLString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[Profile ImageURL]] ImageView:self.ProfilePicture]; //[AppDelegate sharedInstance].ProfilePicture_global]; //self.ProfilePicture];//
+    [Loader setDelegate:self];
+    [ImageLoader startAnimating];
+    [Loader start];
     
     contentLength = 0;
     [UIBlocker stopUIBlockerInView:self.tabBarController.view];
@@ -229,7 +229,7 @@
         // Set the Profile Image
         NSString *strUrl = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[NSGlobalConfiguration getConfigurationItem:@"ImageURL"]]];
         _urlImg = [[NSURL alloc] initWithString:[strUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-        [_ProfilePicture setImageWithURL:_urlImg placeholderImage:[UIImage imageNamed:@""]];
+        //[_ProfilePicture setImageWithURL:_urlImg placeholderImage:[UIImage imageNamed:@""]];
         NSLog(@"Profile Pic >> %@",_ProfilePicture.image);
 
 //        NSImageLoaderToImageView *Loader=[[NSImageLoaderToImageView alloc] initWithURLString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[ItemData objectForKey:@"ImageURL"]] ImageView:activity.ProfilePicture];//[AppDelegate sharedInstance].ProfilePicture_global];
