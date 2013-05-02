@@ -18,7 +18,7 @@
 @implementation MytabViewController
 @synthesize caller, util, receivedItems, sentItems, usedItems;
 //@synthesize myparser;
-@synthesize arrayData,arrayTransactionsID,arrayLocationID,arrayLocationImage,arrayLocationName,arrayMiles,arrayPrice,arraySenderID,arraySenderName,arrayStatus,arrayCoupanNumber,arrayLatitude,arrayLongitude;
+@synthesize arrayData,arrayTransactionsID,arrayLocationID,arrayLocationImage,arrayLocationName,arrayMiles,arrayPrice,arraySenderID,arraySenderName,arrayStatus,arrayCoupanNumber,arrayLatitude,arrayLongitude,arraySayThanksReceived;
 
 @synthesize arrayData1,arrayTransactionsID1,arrayLocationID1,arrayLocationImage1,arrayLocationName1,arrayMiles1,arrayPrice1,arraySenderID1,arraySenderName1,arrayStatus1,arrayLatitude1,arrayLongitude1;
 
@@ -88,6 +88,7 @@
     self.arrayLatitude = [[NSMutableArray alloc] init];
     self.arrayLongitude = [[NSMutableArray alloc] init];
     self.arrayCoupanNumber = [[NSMutableArray alloc] init];
+    self.arraySayThanksReceived = [[NSMutableArray alloc] init];
     
     //array1
     self.arrayData1 = [[NSMutableArray alloc] init];
@@ -158,6 +159,7 @@
                 [self.arrayCoupanNumber  removeAllObjects];
                 [self.arrayLongitude  removeAllObjects];
                 [self.arrayLatitude  removeAllObjects];
+                [self.arraySayThanksReceived removeAllObjects];
             }
             
             [self startLoading];
@@ -310,6 +312,7 @@
                 [self.arrayCoupanNumber  addObject:[[dicReceived valueForKey:@"CoupanCode"] objectAtIndex:i]];
                 [self.arrayLongitude  addObject:[[dicReceived valueForKey:@"Longitude"] objectAtIndex:i]];
                 [self.arrayLatitude  addObject:[[dicReceived valueForKey:@"Latitude"] objectAtIndex:i]];
+                [self.arraySayThanksReceived  addObject:[[dicReceived valueForKey:@"SayThanksId"] objectAtIndex:i]];
                 
             }
             [objTableView reloadData];
@@ -434,7 +437,7 @@
         
         //http://50.62.148.155:8080/heres2u/api/index.php?webservice=ui&action=getsentitems&ID=36&Lat=-33.7501&Long=18.4533
         NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@index.php?webservice=ui&action=getsentitems&ID=%@&Lat=%@&Long=%@",hostURl,uId,currentLat,currentLong]];
-        
+        NSLog(@"url : %@",url);
         myTabSent = [[MyTabSent alloc] initWithURL:url];
         
         //dictTransaction
@@ -559,7 +562,6 @@
             [self.arraySayThanks2 addObject:[[dicUsed valueForKey:@"SayThanksId"] objectAtIndex:i]];
             [self.arrayLongitude2  addObject:[[dicUsed valueForKey:@"Longitude"] objectAtIndex:i]];
             [self.arrayLatitude2  addObject:[[dicUsed valueForKey:@"Latitude"] objectAtIndex:i]];
-
         }
         
         if(dicUsed.count==0){
@@ -1080,7 +1082,7 @@
     @try {
         NSLog(@"%d",sender.tag);
         selectedRow = sender.tag;
-        UIAlertView *alert1 = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"USE GIFT",@"Navigate Here",@"File a Complaint", nil];
+        UIAlertView *alert1 = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"USE GIFT",@"Navigate Here",@"Say Thanks",@"File a Complaint", nil];
         alert1.tag=1;
         [alert1 show];
         
@@ -1144,6 +1146,19 @@
                 [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
             }
             else if(buttonIndex==3){
+                int checkThanksID = [[self.arraySayThanksReceived objectAtIndex:selectedRow] integerValue];
+                NSLog(@"checkThanksID : %d",checkThanksID);
+                if(checkThanksID==1){
+                    [alertView dismissWithClickedButtonIndex:buttonIndex animated:YES];
+                    
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"Message Already Sent!" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+                    [alert show];
+                }
+                else{
+                    [self performSelector:@selector(sayThanks) withObject:self afterDelay:0.5];
+                }
+            }
+            else if(buttonIndex==4){
                 resName = [NSString stringWithFormat:@"%@",[self.arrayLocationName objectAtIndex:selectedRow]];
                 [self btnEmail_click];
             }
@@ -1194,19 +1209,36 @@
             }
         }
         else if(alertView.tag==4){
-            isUsed = NO;
-            [self.arrayTransactionsID2 removeAllObjects];
-            [self.arrayLocationID2  removeAllObjects];
-            [self.arrayLocationImage2  removeAllObjects];
-            [self.arrayLocationName2  removeAllObjects];
-            [self.arrayMiles2  removeAllObjects];
-            [self.arrayPrice2  removeAllObjects];
-            [self.arrayStatus2  removeAllObjects];
-            [self.arraySenderID2  removeAllObjects];
-            [self.arraySenderName2  removeAllObjects];
-            [self.arraySayThanks2  removeAllObjects];
-            [self.arrayLongitude2  removeAllObjects];
-            [self.arrayLatitude2  removeAllObjects];
+            if(selectedSegment==0){
+                isReceived = NO;
+                [self.arrayTransactionsID removeAllObjects];
+                [self.arrayLocationID  removeAllObjects];
+                [self.arrayLocationImage  removeAllObjects];
+                [self.arrayLocationName  removeAllObjects];
+                [self.arrayMiles  removeAllObjects];
+                [self.arrayPrice  removeAllObjects];
+                [self.arrayStatus  removeAllObjects];
+                [self.arraySenderID  removeAllObjects];
+                [self.arraySenderName  removeAllObjects];
+                [self.arrayLongitude  removeAllObjects];
+                [self.arrayLatitude  removeAllObjects];
+                [self.arraySayThanksReceived removeAllObjects];
+            }
+            else{
+                isUsed = NO;
+                [self.arrayTransactionsID2 removeAllObjects];
+                [self.arrayLocationID2  removeAllObjects];
+                [self.arrayLocationImage2  removeAllObjects];
+                [self.arrayLocationName2  removeAllObjects];
+                [self.arrayMiles2  removeAllObjects];
+                [self.arrayPrice2  removeAllObjects];
+                [self.arrayStatus2  removeAllObjects];
+                [self.arraySenderID2  removeAllObjects];
+                [self.arraySenderName2  removeAllObjects];
+                [self.arraySayThanks2  removeAllObjects];
+                [self.arrayLongitude2  removeAllObjects];
+                [self.arrayLatitude2  removeAllObjects];
+            }
             
             [self performSelector:@selector(segmentControlChanged) withObject:self afterDelay:0.5];
         }
@@ -1220,8 +1252,15 @@
     @try {
         NSLog(@"self.arrayTransactionsID2 : %@",self.arrayTransactionsID2);
         NSLog(@"selectedRow: %d",selectedRow);
+        
         [self startLoading];
-        int strTransactionId = [[NSString stringWithFormat:@"%@",[self.arrayTransactionsID2 objectAtIndex:selectedRow]] integerValue];
+        int strTransactionId;
+        if(selectedSegment==0){
+            strTransactionId = [[NSString stringWithFormat:@"%@",[self.arrayTransactionsID objectAtIndex:selectedRow]] integerValue];
+        }
+        else{
+            strTransactionId = [[NSString stringWithFormat:@"%@",[self.arrayTransactionsID2 objectAtIndex:selectedRow]] integerValue];
+        }
         NSLog(@"strTransactionId : %d",strTransactionId);
         //http://50.62.148.155:8080/heres2u/api/saythanks.php?TransactionID=1
         

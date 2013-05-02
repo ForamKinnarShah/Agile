@@ -46,4 +46,35 @@
 {
     return NO; 
 }
+
+#pragma mark
+#pragma mark tableview methods
+
+// datasource
+-(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 3;
+}
+
+-(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *Cell=[tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    if (Cell == nil)
+    {
+        Cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
+        [Cell setSelectionStyle:UITableViewCellEditingStyleNone];
+    }
+    
+    if (indexPath.row == 0)
+        Cell.textLabel.text = [NSGlobalConfiguration getConfigurationItem:@"FullName"];
+    if (indexPath.row == 1)
+        Cell.textLabel.text = [NSGlobalConfiguration getConfigurationItem:@"Email"];
+    if (indexPath.row == 2)
+        Cell.textLabel.text = [NSGlobalConfiguration getConfigurationItem:@"Phone"];
+    
+   return Cell;
+}
+
+
+
 @end

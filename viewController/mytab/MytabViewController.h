@@ -95,6 +95,7 @@
 @property(nonatomic,retain)NSMutableArray *arrayCoupanNumber;
 @property(nonatomic,retain)NSMutableArray *arrayLatitude;
 @property(nonatomic,retain)NSMutableArray *arrayLongitude;
+@property(nonatomic,retain)NSMutableArray *arraySayThanksReceived;
 
 
 @property(nonatomic,retain)NSMutableArray *arrayData1;

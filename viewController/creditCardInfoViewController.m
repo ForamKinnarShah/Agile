@@ -34,7 +34,7 @@
     NSString *centerImageName = @"logo_small.png";
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:centerImageName]];
     
-    [(UIScrollView*)self.view setContentSize:self.view.bounds.size];
+   // [(UIScrollView*)self.view setContentSize:self.view.bounds.size];
     // Do any additional setup after loading the view from its nib.
     NSMutableDictionary *creditCardInfo = [NSGlobalConfiguration getConfigurationItem:@"creditCard"];
     if (creditCardInfo)
@@ -43,18 +43,29 @@
 //        cardNumberTextField.text = [creditCardInfo objectForKey:@"cardNumber"]; cardNumberTextField.userInteractionEnabled = NO; 
 //        address1TextField.text = [creditCardInfo objectForKey:@"address1"]; address1TextField.userInteractionEnabled = NO; 
 //        address2TextField.text = [creditCardInfo objectForKey:@"address2"]; address2TextField.userInteractionEnabled = NO; 
-//        cardTypeTextField.text = [creditCardInfo objectForKey:@"cardType"]; cardTypeTextField.userInteractionEnabled = NO; 
+//        cardTypeTextField.text = [creditCardInfo objectForKey:@"cardType"]; cardTypeTextField.userInteractionEnabled = NO;
 //        securityCodeTextField.text = [creditCardInfo objectForKey:@"securityCode"]; securityCodeTextField.userInteractionEnabled = NO; 
         
     }
-    datePicker = [[UIDatePicker alloc] init];
-    datePicker.hidden = NO;
+    datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 239, 320, 44)];
+    datePicker.hidden = YES;
     [datePicker setDatePickerMode:UIDatePickerModeDate];
-    [datePicker addTarget:self action:@selector(datePickerPicked) forControlEvents:UIControlEventValueChanged]; 
-    [expirationDateTextField setInputView:datePicker];
-    UIToolbar *doneBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-    [doneBar setItems:[NSArray arrayWithObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonItemStyleDone target:self action:@selector(textFieldShouldReturn:)]]];
+//    [datePicker addTarget:self action:@selector(datePickerPicked) forControlEvents:UIControlEventValueChanged]; 
+//    [expirationDateTextField setInputView:datePicker];
+  [self.view addSubview:datePicker];
+
+    pickerCard.hidden = YES;
+    doneBar.hidden = YES;
+
     //[cardNumberTextField setInputAccessoryView:doneBar];
+    
+    arrCardDetail = [[NSMutableArray alloc] initWithObjects:@"Name on Card",@"Expiration Date",@"Billing Address",@"Address Line 2",@"Card Type",@"Card Number",@"security Code", nil];
+    _strExpirationDate = @"";
+    arrCardType = [[NSMutableArray alloc] initWithObjects:@"visa", @"mastercard", @"amex", nil];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
 }
 
 - (void)didReceiveMemoryWarning
@@ -90,9 +101,10 @@
     }
     [UIBlocker startUIBlockerInView:self.tabBarController.view]; 
     
-return;
+    return;
 }
 
+/*
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 { [textField resignFirstResponder];
         [self setViewMovedUp:NO];
@@ -122,15 +134,17 @@ return;
         datePicker.hidden = NO;
     }
 }
-
--(void)datePickerPicked
+*/
+NSDateFormatter *nsdf;
+-(void)datePickerPicked:(UIDatePicker *)datePicker
 {
-    NSDateFormatter *nsdf = [[NSDateFormatter alloc] init];
+    nsdf = [[NSDateFormatter alloc] init];
     [nsdf setDateFormat:@"MM/yyyy"]; 
    
     datePicker.hidden = NO;
-    expirationDateTextField.text = [nsdf stringFromDate:datePicker.date];
+    NSLog(@"%@",[nsdf stringFromDate:datePicker.date]);
 }
+
 //-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 //{
 ////    if ([textField.text isEqualToString:@"expiration date"])
@@ -142,7 +156,6 @@ return;
 //}
 - (void)setViewMovedUp:(BOOL)movedUp
 {
-    
     CGRect rect = self.view.frame;
     if (movedUp){
         if(rect.origin.y == 0)
@@ -205,6 +218,203 @@ return;
     [cardNumberTextField resignFirstResponder];
     [securityCodeTextField resignFirstResponder];
     [self setViewMovedUp:NO];
+}
+
+-(IBAction)Done_Picker
+{
+    // if pickerview for
+    if (SELECTED_PICKER)
+    {
+        pickerCard.hidden = YES;
+        doneBar.hidden = YES;
+        _strCardType = [arrCardType objectAtIndex:[pickerCard selectedRowInComponent:0]];
+    }
+    else
+    {
+        datePicker.hidden = YES;
+        doneBar.hidden = YES;
+        [datePicker addTarget:self action:@selector(datePickerPicked:) forControlEvents:UIControlEventValueChanged];
+        _strExpirationDate = [NSString stringWithFormat:@"%@",[nsdf stringFromDate:datePicker.date]];
+    }
+    [_tblCreditCardInfo reloadData];
+}
+
+#pragma mark
+#pragma mark tableview methods
+
+// datasource
+-(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [arrCardDetail count];
+}
+
+-(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *Cell=[tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    if (Cell == nil)
+    {
+        Cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
+        [Cell setSelectionStyle:UITableViewCellEditingStyleNone];
+        
+        _lblCardDetail = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 120, 24)];
+        [_lblCardDetail setBackgroundColor:[UIColor clearColor]];
+        [_lblCardDetail setTextColor:[UIColor blackColor]];
+        [_lblCardDetail setFont:[UIFont systemFontOfSize:14]];
+        _lblCardDetail.tag = 100;
+        [Cell.contentView addSubview:_lblCardDetail];
+    
+        _txtCardDetail = [[UITextField alloc] initWithFrame:CGRectMake(130, 10, 150, 24)];
+        [_txtCardDetail setBorderStyle:UITextBorderStyleRoundedRect];
+        _txtCardDetail.delegate = self;
+        _txtCardDetail.tag = 200;
+        
+        _lblexiprationDate = [[UILabel alloc] initWithFrame:CGRectMake(130, 10, 150, 24)];
+        [_lblexiprationDate setBackgroundColor:[UIColor clearColor]];
+        [_lblexiprationDate setTextColor:[UIColor blackColor]];
+        [_lblexiprationDate setFont:[UIFont systemFontOfSize:14]];
+        _lblexiprationDate.tag = 300;
+        
+        _lblCardType = [[UILabel alloc] initWithFrame:CGRectMake(130, 10, 150, 24)];
+        [_lblCardType setBackgroundColor:[UIColor clearColor]];
+        [_lblCardType setTextColor:[UIColor blackColor]];
+        [_lblCardType setFont:[UIFont systemFontOfSize:14]];
+        _lblCardType.tag = 400;
+    }
+    else
+    {
+        _lblCardDetail = (UILabel *)[Cell.contentView viewWithTag:100];
+        _txtCardDetail = (UITextField *)[Cell.contentView viewWithTag:200];
+        _lblexiprationDate = (UILabel *)[Cell.contentView viewWithTag:300];
+        _lblCardType = (UILabel *)[Cell.contentView viewWithTag:400];
+    }
+    
+    if (indexPath.row == 1)
+        [Cell.contentView addSubview:_lblexiprationDate];
+    else if(indexPath.row == 4)
+        [Cell.contentView addSubview:_lblCardType];
+    else
+    {
+        if(indexPath.row == 5 || indexPath.row == 6)
+            [_txtCardDetail setKeyboardType:UIKeyboardTypeNumberPad];
+
+        [Cell.contentView addSubview:_txtCardDetail];
+    }
+    [_lblCardDetail setText:[NSString stringWithFormat:@"%@ :",[arrCardDetail objectAtIndex:indexPath.row]]];
+    if ([_strExpirationDate length] != 0)
+        _lblexiprationDate.text = _strExpirationDate;
+    
+    if ([_strCardType length] != 0)
+        _lblCardType.text = _strCardType;
+
+    return Cell;
+}
+
+// delegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    datePicker.hidden = YES;
+    pickerCard.hidden = YES;
+    doneBar.hidden = YES;
+    [_txtCardDetail resignFirstResponder];
+    
+    if (indexPath.row == 1)
+    {
+        // no, if date picker is selected
+        SELECTED_PICKER = NO;
+        datePicker.hidden = NO;
+        doneBar.hidden = NO;
+    }
+    else if (indexPath.row == 4)
+    {
+        // no, if date picker is selected
+        SELECTED_PICKER = YES;
+
+        pickerCard.hidden = NO;
+        doneBar.hidden = NO;
+    }
+}
+
+#pragma mark
+#pragma mark textfield delegates
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if (textField.tag == 1)
+    {
+        [textField resignFirstResponder];
+        datePicker.hidden = NO;
+        textField.inputView = datePicker;
+   //     doneBar.hidden = NO;
+    }
+    else
+    {
+        [textField becomeFirstResponder];
+        datePicker.hidden = YES;
+     //   doneBar.hidden = NO;
+    }
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    switch (textField.tag)
+    {
+        case 0:
+            nameTextField.text = textField.text;
+            break;
+            
+        case 1:
+            expirationDateTextField.text = textField.text;
+            break;
+            
+        case 2:
+            address2TextField.text = textField.text;
+            break;
+
+        case 3:
+            cardTypeTextField.text = textField.text;
+            break;
+            
+        case 4:
+            cardNumberTextField.text = textField.text;
+            break;
+
+        case 5:
+            securityCodeTextField.text = textField.text;
+            break;
+    }
+    return YES;
+}
+
+#pragma mark
+#pragma mark pickerview
+
+// datasource
+
+-(NSInteger) numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return [arrCardType count];
+}
+
+-(NSString *) pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return [arrCardType objectAtIndex:row];
+}
+
+// delegate
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    _strCardType = [arrCardType objectAtIndex:[pickerView selectedRowInComponent:0]];
 }
 
 @end

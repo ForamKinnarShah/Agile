@@ -180,7 +180,7 @@
     [NSGlobalConfiguration setConfigurationItem:@"ID" Item:[AppDelegate sharedInstance].strUserID];
     
     [UIBlocker stopAnimating];
-
+/*
     // -----------------------------Push Notification
 
 	// Get Bundle Info for Remote Registration (handy if you have more than one app)
@@ -291,7 +291,7 @@
     NSLog(@"Response String ==-========================================================================================================================================================== %@",s);
     
     //  -----Completion of notification
- 
+ */
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

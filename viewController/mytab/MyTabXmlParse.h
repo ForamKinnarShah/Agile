@@ -30,6 +30,7 @@
 @property(nonatomic,strong)NSMutableArray *arrayCoupancode;
 @property(nonatomic,strong)NSMutableArray *arrayLatitude;
 @property(nonatomic,strong)NSMutableArray *arrayLongitude;
+@property(nonatomic,strong)NSMutableArray *arraySayThanksRece;
 
 @property(nonatomic,assign)BOOL isTransactionsID;
 @property(nonatomic,assign)BOOL isLocationID;
@@ -43,6 +44,7 @@
 @property(nonatomic,assign)BOOL isCoupancode;
 @property(nonatomic,assign)BOOL isLatitude;
 @property(nonatomic,assign)BOOL isLongitude;
+@property(nonatomic,assign)BOOL isSayThanksRece;
 
 
 @end

@@ -13,22 +13,40 @@
 @interface creditCardInfoViewController : UIViewController <UITextFieldDelegate,QBMSRequesterDelegate>
 {
     UITextField *activeTextField;
-    utilities *UIBlocker; 
+    utilities *UIBlocker;
+    
+    // stores detail labels to be displayed in table
+    NSMutableArray *arrCardDetail;
+    // stores the value of different card type
+    NSMutableArray *arrCardType;
+    
+    IBOutlet UIToolbar *doneBar;
+    IBOutlet UIPickerView *pickerCard;
+    // a variable to decide which picker is selected
+    BOOL SELECTED_PICKER;
 }
-@property IBOutlet UITextField *nameTextField;
-@property IBOutlet UITextField *address1TextField;
-@property IBOutlet UITextField *address2TextField;
-@property IBOutlet UITextField *cardTypeTextField;
-@property IBOutlet UITextField *cardNumberTextField;
-@property IBOutlet UIButton *addCardBtn; 
-@property IBOutlet UITextField *securityCodeTextField;
-@property IBOutlet UITextField *expirationDateTextField; 
+@property UITextField *nameTextField;
+@property UITextField *address1TextField;
+@property UITextField *address2TextField;
+@property UITextField *cardTypeTextField;
+@property UITextField *cardNumberTextField;
+@property UIButton *addCardBtn;
+@property UITextField *securityCodeTextField;
+@property UITextField *expirationDateTextField;
 @property UIDatePicker *datePicker; 
+@property (nonatomic, strong) NSString *strExpirationDate,*strCardType;
 
+// assignments for tableview
+@property (nonatomic, strong) UILabel *lblCardDetail,*lblexiprationDate,*lblCardType;
+@property (nonatomic, strong) UITextField *txtCardDetail;
+
+// assign properties
+@property (nonatomic, strong) IBOutlet UITableView *tblCreditCardInfo;
 
 -(IBAction)addCreditCard:(id)sender; 
 
 // button actions
 - (IBAction)bg_clicked:(id)sender;
+-(IBAction)Done_Picker;
 
 @end

@@ -11,8 +11,8 @@
 
 @implementation MyTabXmlParse
 
-@synthesize arrayData,arrayTransactionsID,arrayLocationID,arrayLocationImage,arrayLocationName,arrayMiles,arrayPrice,arraySenderID,arraySenderName,arrayStatus,arrayCoupancode,arrayLatitude,arrayLongitude;
-@synthesize isTransactionsID,isLocationID,isLocationImage,isLocationName,isMiles,isPrice,isSenderID,isSenderName,isStatus,isCoupancode,isLatitude,isLongitude;
+@synthesize arrayData,arrayTransactionsID,arrayLocationID,arrayLocationImage,arrayLocationName,arrayMiles,arrayPrice,arraySenderID,arraySenderName,arrayStatus,arrayCoupancode,arrayLatitude,arrayLongitude,arraySayThanksRece;
+@synthesize isTransactionsID,isLocationID,isLocationImage,isLocationName,isMiles,isPrice,isSenderID,isSenderName,isStatus,isCoupancode,isLatitude,isLongitude,isSayThanksRece;
 
 
 -(id)initWithURL:(NSURL*)parseURL{
@@ -44,6 +44,7 @@
         self.arrayCoupancode = [[NSMutableArray alloc] init];
         self.arrayLatitude = [[NSMutableArray alloc] init];
         self.arrayLongitude = [[NSMutableArray alloc] init];
+        self.arraySayThanksRece = [[NSMutableArray alloc] init];
         
         // set delegate
         [nsXmlParser setDelegate:self];
@@ -105,6 +106,9 @@
         }
         else if([elementName isEqualToString:@"CouponCode"]){
             isCoupancode = YES;
+        }
+        else if([elementName isEqualToString:@"SayThanks"]){
+            isSayThanksRece = YES;
         }
 
         
@@ -184,6 +188,10 @@
             [self.arrayCoupancode addObject:[NSString stringWithFormat:@"%@",strMutableElement]];
             NSLog(@"arrayCoupancode : %@",arrayCoupancode);
         }
+        else if(isSayThanksRece){
+            [self.arraySayThanksRece addObject:[NSString stringWithFormat:@"%@",strMutableElement]];
+            NSLog(@"arraySayThanksRece : %@",arraySayThanksRece);
+        }
         
 
     }
@@ -241,6 +249,10 @@
         else if(isCoupancode){
             isCoupancode = NO;
             [dicReceived setValue:self.arrayCoupancode forKey:@"CoupanCode"];
+        }
+        else if(isSayThanksRece){
+            isSayThanksRece = NO;
+            [dicReceived setValue:self.arraySayThanksRece forKey:@"SayThanksId"];
         }
     
     }

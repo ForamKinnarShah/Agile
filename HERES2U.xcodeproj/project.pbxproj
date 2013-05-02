@@ -1917,8 +1917,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Brian Rosa (J35L3P43JL)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Brian Rosa (J35L3P43JL)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/FacebookSDK\"",
@@ -1937,8 +1937,8 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ADCD926E-3808-40C0-B082-A989FF5BBD9D";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "ADCD926E-3808-40C0-B082-A989FF5BBD9D";
+				PROVISIONING_PROFILE = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
 				SDKROOT = iphoneos6.1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1948,8 +1948,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Brian Rosa (J35L3P43JL)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Brian Rosa (J35L3P43JL)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/FacebookSDK\"",
@@ -1968,8 +1968,8 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ADCD926E-3808-40C0-B082-A989FF5BBD9D";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "ADCD926E-3808-40C0-B082-A989FF5BBD9D";
+				PROVISIONING_PROFILE = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
 				SDKROOT = iphoneos6.1;
 				VALIDATE_PRODUCT = NO;
 				WRAPPER_EXTENSION = app;

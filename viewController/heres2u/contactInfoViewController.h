@@ -15,5 +15,6 @@
     IBOutlet UITextField *emailTextField;
     IBOutlet UITextField *phoneTextField; 
 }
+@property (nonatomic, strong) IBOutlet UITableView *tblContactInfo;
 
 @end
