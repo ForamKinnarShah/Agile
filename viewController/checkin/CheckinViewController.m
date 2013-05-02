@@ -121,7 +121,7 @@
         NSLog(@"arrayTitle count : %d",arrayTitle.count);
         NSLog(@"Locations count : %d",Locations.count);
         
-        for(NSInteger i=0;i<[Locations count];i++){
+        for(NSInteger i=0;i<[sortedLocations count];i++){
             
             //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", FilterTextBox.text];
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self CONTAINS[c] %@", FilterTextBox.text];
@@ -141,7 +141,7 @@
             NSLog(@"strArrayTitle : %@",strArrayTitle);
             
             
-            NSDictionary *ItemData1=[Locations getLocationAtIndex:i];
+            NSDictionary *ItemData1=[sortedLocations objectAtIndex:i];
             
             for(int k=0;k<=ItemData1.count;k++){
                 NSLog(@"ItemData1.count : %d",ItemData1.count);
@@ -149,14 +149,14 @@
                     break;
                 }
                 
-                NSDictionary *ItemData=[Locations getLocationAtIndex:k];
+                NSDictionary *ItemData=[sortedLocations objectAtIndex:k];
                 NSString *strItemTitle = [NSString stringWithFormat:@"%@",[ItemData valueForKey:@"Title"]];
                 
                 if([strItemTitle isEqualToString:strArrayTitle]){
                     
                     count1++;
                     UICheckIns *CheckIn=[[UICheckIns alloc] initWithFrame:CGRectMake(0, y, 0, 0)];                    
-                    [CheckIn.Distance setText:@"0.0 m"];
+                    [CheckIn.Distance setText:[NSString stringWithFormat:@"%i mi",[[ItemData objectForKey:@"distance"] intValue]]];
                     [CheckIn.Name setText:[ItemData valueForKey:@"Title"]];
                     
                     [CheckIn.Location setText:[NSString stringWithFormat:@"%@",[ItemData valueForKey:@"Address"]]];

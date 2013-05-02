@@ -121,7 +121,6 @@
 		7AA196821712B15C001F7A40 /* dot-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AA195BF1712B15B001F7A40 /* dot-red.png */; };
 		7AA196831712B15C001F7A40 /* dot.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AA195C01712B15B001F7A40 /* dot.png */; };
 		7AA196841712B15C001F7A40 /* entree.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AA195C11712B15B001F7A40 /* entree.png */; };
-		7AA196851712B15C001F7A40 /* Here's2U-app-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AA195C21712B15B001F7A40 /* Here's2U-app-icon.png */; };
 		7AA196861712B15C001F7A40 /* Here's2U-Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AA195C31712B15B001F7A40 /* Here's2U-Logo.png */; };
 		7AA196871712B15C001F7A40 /* checkin.ico in Resources */ = {isa = PBXBuildFile; fileRef = 7AA195C51712B15B001F7A40 /* checkin.ico */; };
 		7AA196881712B15C001F7A40 /* feed.ico in Resources */ = {isa = PBXBuildFile; fileRef = 7AA195C61712B15B001F7A40 /* feed.ico */; };
@@ -213,6 +212,7 @@
 		7ABD92D5171B7268001D10DE /* addCreditCardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ABD92D3171B7268001D10DE /* addCreditCardViewController.xib */; };
 		7ABD92E5171FBC9E001D10DE /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ABD92E3171FBC9D001D10DE /* AddressBook.framework */; };
 		7ABD92E6171FBC9E001D10DE /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ABD92E4171FBC9E001D10DE /* AddressBookUI.framework */; };
+		7AE6FD1F1732148600B44DE8 /* Here's2U-app-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AE6FD1E1732148600B44DE8 /* Here's2U-app-icon@2x.png */; };
 		7AED178B172611250005A15E /* GTLBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AED1733172611250005A15E /* GTLBase64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7AED178C172611250005A15E /* GTLBatchQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AED1735172611250005A15E /* GTLBatchQuery.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7AED178D172611250005A15E /* GTLBatchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AED1737172611250005A15E /* GTLBatchResult.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -444,7 +444,6 @@
 		7AA195BF1712B15B001F7A40 /* dot-red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-red.png"; sourceTree = "<group>"; };
 		7AA195C01712B15B001F7A40 /* dot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dot.png; sourceTree = "<group>"; };
 		7AA195C11712B15B001F7A40 /* entree.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = entree.png; sourceTree = "<group>"; };
-		7AA195C21712B15B001F7A40 /* Here's2U-app-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Here's2U-app-icon.png"; sourceTree = "<group>"; };
 		7AA195C31712B15B001F7A40 /* Here's2U-Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Here's2U-Logo.png"; sourceTree = "<group>"; };
 		7AA195C51712B15B001F7A40 /* checkin.ico */ = {isa = PBXFileReference; lastKnownFileType = image.ico; path = checkin.ico; sourceTree = "<group>"; };
 		7AA195C61712B15B001F7A40 /* feed.ico */ = {isa = PBXFileReference; lastKnownFileType = image.ico; path = feed.ico; sourceTree = "<group>"; };
@@ -589,6 +588,7 @@
 		7ABD92D3171B7268001D10DE /* addCreditCardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = addCreditCardViewController.xib; sourceTree = "<group>"; };
 		7ABD92E3171FBC9D001D10DE /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		7ABD92E4171FBC9E001D10DE /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		7AE6FD1E1732148600B44DE8 /* Here's2U-app-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Here's2U-app-icon@2x.png"; path = "images/Here's2U-app-icon@2x.png"; sourceTree = "<group>"; };
 		7AED17271724F8C50005A15E /* mapViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mapViewControllerDelegate.h; sourceTree = "<group>"; };
 		7AED1729172611240005A15E /* GPPDeepLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPPDeepLink.h; sourceTree = "<group>"; };
 		7AED172A172611240005A15E /* GPPShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPPShare.h; sourceTree = "<group>"; };
@@ -963,7 +963,6 @@
 				7AA195BF1712B15B001F7A40 /* dot-red.png */,
 				7AA195C01712B15B001F7A40 /* dot.png */,
 				7AA195C11712B15B001F7A40 /* entree.png */,
-				7AA195C21712B15B001F7A40 /* Here's2U-app-icon.png */,
 				7AA195C31712B15B001F7A40 /* Here's2U-Logo.png */,
 				7AA195C41712B15B001F7A40 /* ico */,
 				7AA195CA1712B15B001F7A40 /* icon.iconset */,
@@ -1364,6 +1363,7 @@
 		DAF870BD16671F0000747CDA = {
 			isa = PBXGroup;
 			children = (
+				7AE6FD1E1732148600B44DE8 /* Here's2U-app-icon@2x.png */,
 				6F37AF48172B9645001DBB16 /* ImageIO.framework */,
 				6F37AF24172B959D001DBB16 /* SDWebImage */,
 				6F37AF3A172B959D001DBB16 /* XMLReader */,
@@ -1569,7 +1569,6 @@
 				7AA196821712B15C001F7A40 /* dot-red.png in Resources */,
 				7AA196831712B15C001F7A40 /* dot.png in Resources */,
 				7AA196841712B15C001F7A40 /* entree.png in Resources */,
-				7AA196851712B15C001F7A40 /* Here's2U-app-icon.png in Resources */,
 				7AA196861712B15C001F7A40 /* Here's2U-Logo.png in Resources */,
 				7AA196871712B15C001F7A40 /* checkin.ico in Resources */,
 				7AA196881712B15C001F7A40 /* feed.ico in Resources */,
@@ -1656,6 +1655,7 @@
 				6FBBBE37172E9EF6005AF4EA /* Image_not_available.jpg in Resources */,
 				130D8908172FB3C900656E8C /* imgComment.png in Resources */,
 				130D8909172FB3C900656E8C /* imgComment@2x.png in Resources */,
+				7AE6FD1F1732148600B44DE8 /* Here's2U-app-icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1917,8 +1917,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Brian Rosa (J35L3P43JL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Brian Rosa (J35L3P43JL)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/FacebookSDK\"",
@@ -1937,8 +1937,8 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
+				PROVISIONING_PROFILE = "ADCD926E-3808-40C0-B082-A989FF5BBD9D";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "ADCD926E-3808-40C0-B082-A989FF5BBD9D";
 				SDKROOT = iphoneos6.1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1948,8 +1948,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Brian Rosa (J35L3P43JL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Brian Rosa (J35L3P43JL)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/FacebookSDK\"",
@@ -1968,8 +1968,8 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
+				PROVISIONING_PROFILE = "ADCD926E-3808-40C0-B082-A989FF5BBD9D";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "ADCD926E-3808-40C0-B082-A989FF5BBD9D";
 				SDKROOT = iphoneos6.1;
 				VALIDATE_PRODUCT = NO;
 				WRAPPER_EXTENSION = app;

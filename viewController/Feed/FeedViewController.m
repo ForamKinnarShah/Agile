@@ -51,7 +51,7 @@
    // }
     [self.navigationController.navigationBar setBackgroundColor:[UIColor grayColor]];
     UIBarButtonItem *searchBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(search:)];
-    [self.navigationItem setRightBarButtonItem:searchBtn];
+    //[self.navigationItem setRightBarButtonItem:searchBtn];
     
     //login code
     NSString *Email=[NSGlobalConfiguration getConfigurationItem:@"Email"];
@@ -285,7 +285,7 @@
         if ([[ItemData valueForKey:@"UserID"] isEqual:[NSGlobalConfiguration getConfigurationItem:@"ID"]])
         {
             [activity.btnBuy removeFromSuperview];
-            [activity.nameButton setFrame:CGRectMake(activity.nameButton.frame.origin.x, activity.nameButton.frame.origin.y, activity.frame.size.width, activity.nameButton.frame.size.height)];
+            [activity.nameButton setFrame:CGRectMake(activity.nameButton.frame.origin.x, activity.nameButton.frame.origin.y, 310, activity.nameButton.frame.size.height)];
         }
         
         NSImageLoaderToImageView *img=[[NSImageLoaderToImageView alloc] initWithURLString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[ItemData valueForKey:@"UserImage"]] ImageView:activity.ProfilePicture];

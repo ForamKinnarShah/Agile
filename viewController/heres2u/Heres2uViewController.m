@@ -41,7 +41,7 @@
     [self.navigationController.navigationBar setBackgroundColor:[UIColor grayColor]];
     UIBarButtonItem *searchBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(search:)];
     
-    [self.navigationItem setRightBarButtonItem:searchBtn];
+    //[self.navigationItem setRightBarButtonItem:searchBtn];
     
     phpCaller *caller = [[phpCaller alloc] init];
     caller.delegate = self;

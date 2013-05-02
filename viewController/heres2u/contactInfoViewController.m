@@ -32,7 +32,7 @@
 
     [nameTextField setText:[NSGlobalConfiguration getConfigurationItem:@"FullName"]];
     [emailTextField setText:[NSGlobalConfiguration getConfigurationItem:@"Email"]];
-    [phoneTextField setText:[NSGlobalConfiguration getConfigurationItem:@"PhoneNumber"]]; 
+    [phoneTextField setText:[NSGlobalConfiguration getConfigurationItem:@"Phone"]]; 
     // Do any additional setup after loading the view from its nib.
 }
 
