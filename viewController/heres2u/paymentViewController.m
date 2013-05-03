@@ -124,7 +124,6 @@ totalTotalLbl.text = [NSString stringWithFormat:@"$%.2f",totalTotal];
     //temp
    // NSMutableDictionary *creditCard = [NSGlobalConfiguration getConfigurationItem:@"creditCard"];
     NSMutableArray *cards = [NSGlobalConfiguration getConfigurationItem:[NSGlobalConfiguration getConfigurationItem:@"Email"]]; 
-    
     //NSString *walletID = [NSGlobalConfiguration getConfigurationItem:@"walletID"];
     if (!cards)
     {
