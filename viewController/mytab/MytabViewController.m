@@ -909,10 +909,10 @@
                 strImageUrl = [NSString stringWithFormat:@"%@%@",hostURl,[self.arrayLocationImage2 objectAtIndex:indexPath.row]];
             }
                        
-            ImageViewLoading *imgView = [[ImageViewLoading alloc] initWithFrame:CGRectMake(5, 5, 70, 70) ImageUrl:strImageUrl];
+            ImageViewLoading *imgView = [[ImageViewLoading alloc] initWithFrame:CGRectMake(5, 0, 80, 80) ImageUrl:strImageUrl];
             [cell addSubview:imgView];
             
-            UILabel *lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(80, 0, 200, 30)];
+            UILabel *lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(92, 0, 200, 30)];
             if(selectedSegment==0 && self.arrayLocationName.count>0){
                 [lblTitle setText:[NSString stringWithFormat:@"%@",[self.arrayLocationName objectAtIndex:indexPath.row]]];
             }
@@ -924,27 +924,12 @@
             }
             [lblTitle setBackgroundColor:[UIColor clearColor]];
             [lblTitle setTextColor:[UIColor blackColor]];
-            [lblTitle setFont:[UIFont boldSystemFontOfSize:15.0]];
+            [lblTitle setFont:[UIFont boldSystemFontOfSize:13.0]];
+            [lblTitle setTextAlignment:NSTextAlignmentLeft];
+            [lblTitle setNumberOfLines:2.0];
             [cell addSubview:lblTitle];
             
-/*            CLLocation *firstLocation = [[CLLocation alloc] initWithLatitude:currentLocation.coordinate.latitude longitude:currentLocation.coordinate.longitude];
-            
-           
-            CLLocation *secondLocation;
-            if(selectedSegment==0 && self.arrayLatitude.count>0){
-                secondLocation= [[CLLocation alloc] initWithLatitude:[[self.arrayLatitude objectAtIndex:indexPath.row] floatValue] longitude:[[arrayLongitude objectAtIndex:indexPath.row] floatValue]];
-            }
-            else if(selectedSegment==1 && self.arrayLatitude1.count>0){
-                secondLocation= [[CLLocation alloc] initWithLatitude:[[self.arrayLatitude1 objectAtIndex:indexPath.row] floatValue] longitude:[[arrayLongitude1 objectAtIndex:indexPath.row] floatValue]];
-            }
-            else if(selectedSegment==2 && self.arrayLatitude2.count>0){
-                secondLocation= [[CLLocation alloc] initWithLatitude:[[self.arrayLatitude2 objectAtIndex:indexPath.row] floatValue] longitude:[[arrayLongitude2 objectAtIndex:indexPath.row] floatValue]];
-            }
-            NSLog(@"firstLocation : %@",firstLocation);
-            NSLog(@"secondLocation : %@",secondLocation);
-*/            
-            
-            NSString *locationLong;
+           NSString *locationLong;
             NSString *locationLat;
             if(selectedSegment==0 && self.arrayLatitude.count>0){
                 locationLong = [NSString stringWithFormat:@"%@",[self.arrayLongitude objectAtIndex:indexPath.row]];
@@ -973,13 +958,8 @@
             float distanceFromLocation = c * 3959;
             NSLog(@"distanceFromLocation :%f",distanceFromLocation);
             
-           /* CLLocationDistance dist = [currentLocation distanceFromLocation:secondLocation];
-            NSLog(@"dist : %f",dist);
-            double miles=dist/1609.344;
-            NSLog(@"miles : %f",miles);*/
             
-            
-            UILabel *lblDistance = [[UILabel alloc] initWithFrame:CGRectMake(260, 0, 100, 30)];
+            UILabel *lblDistance = [[UILabel alloc] initWithFrame:CGRectMake(250, 6, 65, 21)];
             if(selectedSegment==0 && self.arrayMiles.count>0){
                 [lblDistance setText:[NSString stringWithFormat:@"%i mi",(int)distanceFromLocation]];
             }
@@ -990,11 +970,13 @@
                 [lblDistance setText:[NSString stringWithFormat:@"%i mi",(int)distanceFromLocation]];
             }
             [lblDistance setBackgroundColor:[UIColor clearColor]];
-            [lblDistance setTextColor:[UIColor blackColor]];
-            [lblDistance setFont:[UIFont systemFontOfSize:14.0]];
+            [lblDistance setTextColor:[UIColor redColor]];
+            [lblDistance setTextAlignment:NSTextAlignmentRight];
+            [lblDistance setNumberOfLines:1.0];
+            [lblDistance setFont:[UIFont boldSystemFontOfSize:12.0]];
             [cell addSubview:lblDistance];
             
-            UILabel *lblPersonName = [[UILabel alloc] initWithFrame:CGRectMake(80, 20, 200, 30)];
+            UILabel *lblPersonName = [[UILabel alloc] initWithFrame:CGRectMake(93, 25, 218, 21)];
             if(selectedSegment==0 && self.arraySenderName.count>0){
                 [lblPersonName setText:[NSString stringWithFormat:@"%@",[self.arraySenderName objectAtIndex:indexPath.row]]];
             }
@@ -1005,11 +987,12 @@
                 [lblPersonName setText:[NSString stringWithFormat:@"%@",[self.arraySenderName2 objectAtIndex:indexPath.row]]];
             }
             [lblPersonName setBackgroundColor:[UIColor clearColor]];
-            [lblPersonName setTextColor:[UIColor redColor]];
-            [lblPersonName setFont:[UIFont systemFontOfSize:14.0]];
+            [lblPersonName setTextColor:[UIColor darkGrayColor]];
+            [lblPersonName setTextAlignment:NSTextAlignmentLeft];
+            [lblPersonName setFont:[UIFont systemFontOfSize:10.0]];
             [cell addSubview:lblPersonName];
             
-            UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(5, 50, 310, 32)];
+            UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(5, 50, 310, 30)];
             //bottomView.layer.cornerRadius = 5.0;
             bottomView.clipsToBounds = YES;
             //bottomView.layer.borderColor = [UIColor blackColor].CGColor;

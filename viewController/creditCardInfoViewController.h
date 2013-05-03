@@ -26,20 +26,20 @@
     // a variable to decide which picker is selected
     BOOL SELECTED_PICKER;
 }
-@property UITextField *nameTextField;
-@property UITextField *address1TextField;
-@property UITextField *address2TextField;
-@property UITextField *cardTypeTextField;
-@property UITextField *cardNumberTextField;
+@property (nonatomic, strong) NSString *strnameTextField;
+@property (nonatomic, strong) NSString *straddress1TextField;
+@property (nonatomic, strong) NSString *straddress2TextField;
+@property (nonatomic, strong) NSString *strcardTypeTextField;
+@property (nonatomic, strong) NSString *strcardNumberTextField;
 @property UIButton *addCardBtn;
-@property UITextField *securityCodeTextField;
-@property UITextField *expirationDateTextField;
+@property (nonatomic, strong) NSString *strsecurityCodeTextField;
+@property (nonatomic, strong) NSString *strexpirationDateTextField;
 @property UIDatePicker *datePicker; 
 @property (nonatomic, strong) NSString *strExpirationDate,*strCardType;
 
 // assignments for tableview
 @property (nonatomic, strong) UILabel *lblCardDetail,*lblexiprationDate,*lblCardType;
-@property (nonatomic, strong) UITextField *txtCardDetail;
+@property (nonatomic, strong) UITextField *txtName,*txtBillingAddress,*txtAddressLine2,*txtCardNumber,*txtSecurityCode;
 
 // assign properties
 @property (nonatomic, strong) IBOutlet UITableView *tblCreditCardInfo;

@@ -11,15 +11,20 @@
 #import "AssetsLibrary/AssetsLibrary.h"
 
 
-@interface addViewController : UIViewController <MFMailComposeViewControllerDelegate,UIAlertViewDelegate,UIImagePickerControllerDelegate>
+@interface addViewController : UIViewController <MFMailComposeViewControllerDelegate,UIAlertViewDelegate,UIImagePickerControllerDelegate,UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 
 {
     
     IBOutletCollection(UITextField)NSArray * collection;
+    
     IBOutlet UIButton *btnImage;
     UIImagePickerController *objPicker;
     BOOL isCamera;
+    IBOutlet UITableView *objTableView;
+    
+    
 }
+
 @property UITextField *activeTextField;
 
 -(IBAction)submitClicked:(id)sender;

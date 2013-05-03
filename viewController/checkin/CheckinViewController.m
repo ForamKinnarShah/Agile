@@ -155,7 +155,7 @@
                 if([strItemTitle isEqualToString:strArrayTitle]){
                     
                     count1++;
-                    UICheckIns *CheckIn=[[UICheckIns alloc] initWithFrame:CGRectMake(0, y, 0, 0)];                    
+                    UICheckIns *CheckIn=[[UICheckIns alloc] initWithFrame:CGRectMake(0, y, 0, 95)];
                     [CheckIn.Distance setText:[NSString stringWithFormat:@"%i mi",[[ItemData objectForKey:@"distance"] intValue]]];
                     [CheckIn.Name setText:[ItemData valueForKey:@"Title"]];
                     
@@ -173,7 +173,7 @@
                     [img start];
                     //                    LocationsView.frame = CGRectMake(0, y, 320, 100);
                     [LocationsView addSubview:CheckIn];
-                    y+=100;
+                    y+=95;
                     isMatch = YES;
                 }
             }
@@ -184,7 +184,6 @@
     @catch (NSException *exception) {
         NSLog(@"NSException : %@",exception);
     }
-
 }
 
 
@@ -227,7 +226,7 @@
     
     
     sortedLocations = [self sortLocationsByDistance];
-    int checkinViewLength = 100;
+    int checkinViewLength = 95;
     int spaceBetweenCheckinViews = 6;
     
     for(NSInteger i=0;i<[sortedLocations count];i++){
@@ -257,7 +256,7 @@
         [img start];
         [LocationsView addSubview:CheckIn];
     }
-    [LocationsView setContentSize:CGSizeMake(320, ([Locations count]*checkinViewLength)+20)];
+    [LocationsView setContentSize:CGSizeMake(320, ([Locations count]*checkinViewLength)+75)];
     if(!isiPhone5){
         [LocationsView setContentSize:CGSizeMake(320,  ([Locations count]*checkinViewLength)+150)];
     }

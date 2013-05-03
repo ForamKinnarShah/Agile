@@ -23,7 +23,7 @@
 
 @implementation LoginViewController
 
-@synthesize centerImageName,usrname,pass;
+@synthesize centerImageName;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -75,13 +75,13 @@
     
 //    tab.viewControllers = [NSArray arrayWithObjects:feed,check,h2u,mytab,prof,nil];
     
-    if ([usrname.text length] == 0)
+    if ([_strusrname length] == 0)
     {
         UIAlertView *alValidateLogin = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"Please insert username" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alValidateLogin show];
         return;
     }
-    else if([pass.text length] == 0)
+    else if([_strpass length] == 0)
     {
         UIAlertView *alValidateLogin = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"Please insert password" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alValidateLogin show];
@@ -97,7 +97,7 @@
         [self.view addSubview:UIBlocker];
         [UIBlocker startAnimating];
         //[self presentViewController:tab animated:NO completion:NULL];
-        [NSUserAccessControl Login:usrname.text Password:pass.text Delegate:self];
+        [NSUserAccessControl Login:_strusrname Password:_strpass Delegate:self];
     }
 }
 
@@ -115,56 +115,56 @@
   //  [self presentViewController:lpvc animated:YES completion:nil];
 }
 
--(BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    if (textField == usrname)
-        [pass becomeFirstResponder];
-    else
-    {
-        [self dismissKeyboard:nil]; 
-        //[textField resignFirstResponder];
-        //[UIView animateWithDuration:0.1 animations:^{
-        //    CGRect Current=self.view.frame;
-        //    Current.origin.y=0;
-        //    [self.view setFrame:Current];
-        //}];
-        //[self performSelector:@selector(login:)];
-        [self login:nil]; 
-    }
-    return YES;
-}
--(BOOL) textFieldShouldEndEditing:(UITextField *)textField{
-    return YES;
-}
--(BOOL) textFieldShouldBeginEditing:(UITextField *)textField{
-    NSInteger UP=-190+20;
-    if([textField.placeholder isEqualToString:@"Password"]){
-        //UP=-221+20;
-    }
-    [UIView animateWithDuration:0.1 animations:^{
-        CGRect Current=self.view.frame;
-        Current.origin.y=UP;
-        [self.view setFrame:Current];
-    }];
-    //[self sendDimensionsToParentController:newFrame];
-    return YES;
-}
--(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    UITouch * touch=[touches anyObject];
-    if(touch.view != pass &&touch.view != usrname){
-        [self dismissKeyboard:Nil];
-    }
-}
--(IBAction)dismissKeyboard:(UIButton*)sender
-{
-    [usrname resignFirstResponder];
-    [pass resignFirstResponder];
-    [UIView animateWithDuration:0.1 animations:^{
-        CGRect Current=self.view.frame;
-        Current.origin.y=0;
-        [self.view setFrame:Current];
-    }];
-}
+//-(BOOL)textFieldShouldReturn:(UITextField *)textField
+//{
+//    if (textField == usrname)
+//        [pass becomeFirstResponder];
+//    else
+//    {
+//        [self dismissKeyboard:nil]; 
+//        //[textField resignFirstResponder];
+//        //[UIView animateWithDuration:0.1 animations:^{
+//        //    CGRect Current=self.view.frame;
+//        //    Current.origin.y=0;
+//        //    [self.view setFrame:Current];
+//        //}];
+//        //[self performSelector:@selector(login:)];
+//        [self login:nil]; 
+//    }
+//    return YES;
+//}
+//-(BOOL) textFieldShouldEndEditing:(UITextField *)textField{
+//    return YES;
+//}
+//-(BOOL) textFieldShouldBeginEditing:(UITextField *)textField{
+//    NSInteger UP=-190+20;
+//    if([textField.placeholder isEqualToString:@"Password"]){
+//        //UP=-221+20;
+//    }
+//    [UIView animateWithDuration:0.1 animations:^{
+//        CGRect Current=self.view.frame;
+//        Current.origin.y=UP;
+//        [self.view setFrame:Current];
+//    }];
+//    //[self sendDimensionsToParentController:newFrame];
+//    return YES;
+//}
+//-(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+//    UITouch * touch=[touches anyObject];
+//    if(touch.view != pass &&touch.view != usrname){
+//        [self dismissKeyboard:Nil];
+//    }
+//}
+//-(IBAction)dismissKeyboard:(UIButton*)sender
+//{
+//    [usrname resignFirstResponder];
+//    [pass resignFirstResponder];
+//    [UIView animateWithDuration:0.1 animations:^{
+//        CGRect Current=self.view.frame;
+//        Current.origin.y=0;
+//        [self.view setFrame:Current];
+//    }];
+//}
 
 -(void)loggingInFailed:(NSError *)error
 {
@@ -175,8 +175,8 @@
 }
 
 -(void)loggingInSucceeded:(NSString *)message{
-    [NSGlobalConfiguration setConfigurationItem:@"Email" Item:usrname.text];
-    [NSGlobalConfiguration setConfigurationItem:@"Password" Item:pass.text];
+    [NSGlobalConfiguration setConfigurationItem:@"Email" Item:_strusrname];
+    [NSGlobalConfiguration setConfigurationItem:@"Password" Item:_strpass];
     [NSGlobalConfiguration setConfigurationItem:@"ID" Item:[AppDelegate sharedInstance].strUserID];
     
     [UIBlocker stopAnimating];
@@ -366,6 +366,83 @@
     //NSXMLParser *parser=[[NSXMLParser alloc] initWithData:rawData];
     //[parser setDelegate:self];
     //[parser parse];
+}
+
+#pragma mark
+#pragma mark tableview methods
+
+// datasource
+-(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 2;
+}
+
+-(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *Cell=[tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    if (Cell == nil)
+    {
+        Cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
+        [Cell setSelectionStyle:UITableViewCellEditingStyleNone];
+    
+        _txtEmail_Login = [[UITextField alloc] initWithFrame:CGRectMake(10, 10, 260, 40)];
+        [_txtEmail_Login setKeyboardType:UIKeyboardTypeEmailAddress];
+        _txtEmail_Login.delegate = self;
+        _txtEmail_Login.placeholder = @"Email";
+        [_txtEmail_Login setReturnKeyType:UIReturnKeyNext];
+        _txtEmail_Login.tag = 100;
+    
+        _txtPassword = [[UITextField alloc] initWithFrame:CGRectMake(10, 10, 260, 40)];
+        [_txtPassword setSecureTextEntry:YES];
+        _txtPassword.delegate = self;
+        _txtPassword.placeholder = @"Password";
+        _txtPassword.tag = 200;
+    }
+    else
+    {
+        _txtEmail_Login = (UITextField *)[Cell.contentView viewWithTag:100];
+        _txtPassword = (UITextField *)[Cell.contentView viewWithTag:200];
+    }
+
+    if(indexPath.row == 0)
+        [Cell.contentView addSubview:_txtEmail_Login];
+    if (indexPath.row == 1)
+        [Cell.contentView addSubview:_txtPassword];
+
+    return Cell;
+}
+
+#pragma mark
+#pragma mark textfield delegates
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if (textField.tag == 100)
+        [_txtPassword becomeFirstResponder];
+    else
+        [_txtPassword resignFirstResponder];
+    return YES;
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    NSLog(@"%i",textField.tag);
+    NSLog(@"%@",textField);
+    switch (textField.tag)
+    {
+        case 100:
+            _strusrname = textField.text;
+            break;
+            
+        case 200:
+            _strpass = textField.text;
+            break;
+            
+    }
+    
+    NSLog(@"%@",_strusrname);
+    NSLog(@"%@",_strpass);
+    return YES;
 }
 
 @end

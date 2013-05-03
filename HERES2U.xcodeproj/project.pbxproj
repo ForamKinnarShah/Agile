@@ -9,6 +9,18 @@
 /* Begin PBXBuildFile section */
 		130D8908172FB3C900656E8C /* imgComment.png in Resources */ = {isa = PBXBuildFile; fileRef = 130D8906172FB3C900656E8C /* imgComment.png */; };
 		130D8909172FB3C900656E8C /* imgComment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 130D8907172FB3C900656E8C /* imgComment@2x.png */; };
+		133077131733F1950086DB2D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 133077111733F1950086DB2D /* LoginViewController.m */; };
+		133077141733F1950086DB2D /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 133077121733F1950086DB2D /* LoginViewController.xib */; };
+		133077181733F1CA0086DB2D /* creditCardInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 133077161733F1C90086DB2D /* creditCardInfoViewController.m */; };
+		133077191733F1CA0086DB2D /* creditCardInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 133077171733F1C90086DB2D /* creditCardInfoViewController.xib */; };
+		1330771B1733F1DD0086DB2D /* Here's2U-Logo-w-TM.png in Resources */ = {isa = PBXBuildFile; fileRef = 1330771A1733F1DD0086DB2D /* Here's2U-Logo-w-TM.png */; };
+		133077241733F2080086DB2D /* icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 1330771D1733F2080086DB2D /* icon-72.png */; };
+		133077251733F2080086DB2D /* icon-small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 1330771E1733F2080086DB2D /* icon-small-50.png */; };
+		133077261733F2080086DB2D /* icon-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 1330771F1733F2080086DB2D /* icon-small.png */; };
+		133077271733F2080086DB2D /* icon-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 133077201733F2080086DB2D /* icon-small@2x.png */; };
+		133077281733F2080086DB2D /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 133077211733F2080086DB2D /* icon.png */; };
+		133077291733F2080086DB2D /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 133077221733F2080086DB2D /* icon@2x.png */; };
+		1330772C1733F2D90086DB2D /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 1330772B1733F2D90086DB2D /* iTunesArtwork */; };
 		13448F9B17194A4200B84B9F /* MyTabUsed.m in Sources */ = {isa = PBXBuildFile; fileRef = 13448F9617194A4200B84B9F /* MyTabUsed.m */; };
 		13448FA017194A7600B84B9F /* ImageViewLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = 13448F9F17194A7600B84B9F /* ImageViewLoading.m */; };
 		1348F1AF1721350C00DAF391 /* Image_not_available.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1348F1AE1721350B00DAF391 /* Image_not_available.jpg */; };
@@ -174,8 +186,6 @@
 		7AA196BA1712B15C001F7A40 /* checkinCommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA196271712B15C001F7A40 /* checkinCommentViewController.xib */; };
 		7AA196BB1712B15C001F7A40 /* CheckinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA196291712B15C001F7A40 /* CheckinViewController.m */; };
 		7AA196BC1712B15C001F7A40 /* CheckinViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA1962A1712B15C001F7A40 /* CheckinViewController.xib */; };
-		7AA196BD1712B15C001F7A40 /* creditCardInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA1962C1712B15C001F7A40 /* creditCardInfoViewController.m */; };
-		7AA196BE1712B15C001F7A40 /* creditCardInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA1962D1712B15C001F7A40 /* creditCardInfoViewController.xib */; };
 		7AA196BF1712B15C001F7A40 /* Empty.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA1962E1712B15C001F7A40 /* Empty.xib */; };
 		7AA196C01712B15C001F7A40 /* CommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA196311712B15C001F7A40 /* CommentViewController.m */; };
 		7AA196C11712B15C001F7A40 /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA196331712B15C001F7A40 /* FeedViewController.m */; };
@@ -195,8 +205,6 @@
 		7AA196CF1712B15C001F7A40 /* sendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA1964B1712B15C001F7A40 /* sendViewController.m */; };
 		7AA196D01712B15C001F7A40 /* sendViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA1964C1712B15C001F7A40 /* sendViewController.xib */; };
 		7AA196D11712B15C001F7A40 /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA1964D1712B15C001F7A40 /* LoginView.xib */; };
-		7AA196D21712B15C001F7A40 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA1964F1712B15C001F7A40 /* LoginViewController.m */; };
-		7AA196D31712B15C001F7A40 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA196501712B15C001F7A40 /* LoginViewController.xib */; };
 		7AA196D81712B15C001F7A40 /* orderItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA196591712B15C001F7A40 /* orderItemView.m */; };
 		7AA196D91712B15C001F7A40 /* orderItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA1965A1712B15C001F7A40 /* orderItemView.xib */; };
 		7AA196DA1712B15C001F7A40 /* ProfileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA1965C1712B15C001F7A40 /* ProfileView.xib */; };
@@ -279,6 +287,20 @@
 /* Begin PBXFileReference section */
 		130D8906172FB3C900656E8C /* imgComment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = imgComment.png; sourceTree = "<group>"; };
 		130D8907172FB3C900656E8C /* imgComment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "imgComment@2x.png"; sourceTree = "<group>"; };
+		133077101733F1950086DB2D /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		133077111733F1950086DB2D /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		133077121733F1950086DB2D /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		133077151733F1C90086DB2D /* creditCardInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = creditCardInfoViewController.h; sourceTree = "<group>"; };
+		133077161733F1C90086DB2D /* creditCardInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = creditCardInfoViewController.m; sourceTree = "<group>"; };
+		133077171733F1C90086DB2D /* creditCardInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = creditCardInfoViewController.xib; sourceTree = "<group>"; };
+		1330771A1733F1DD0086DB2D /* Here's2U-Logo-w-TM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Here's2U-Logo-w-TM.png"; sourceTree = "<group>"; };
+		1330771D1733F2080086DB2D /* icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-72.png"; sourceTree = "<group>"; };
+		1330771E1733F2080086DB2D /* icon-small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-small-50.png"; sourceTree = "<group>"; };
+		1330771F1733F2080086DB2D /* icon-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-small.png"; sourceTree = "<group>"; };
+		133077201733F2080086DB2D /* icon-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-small@2x.png"; sourceTree = "<group>"; };
+		133077211733F2080086DB2D /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		133077221733F2080086DB2D /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
+		1330772B1733F2D90086DB2D /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		13448F9517194A4200B84B9F /* MyTabUsed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTabUsed.h; sourceTree = "<group>"; };
 		13448F9617194A4200B84B9F /* MyTabUsed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTabUsed.m; sourceTree = "<group>"; };
 		13448F9E17194A7600B84B9F /* ImageViewLoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewLoading.h; sourceTree = "<group>"; };
@@ -532,9 +554,6 @@
 		7AA196281712B15C001F7A40 /* CheckinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckinViewController.h; sourceTree = "<group>"; };
 		7AA196291712B15C001F7A40 /* CheckinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckinViewController.m; sourceTree = "<group>"; };
 		7AA1962A1712B15C001F7A40 /* CheckinViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CheckinViewController.xib; sourceTree = "<group>"; };
-		7AA1962B1712B15C001F7A40 /* creditCardInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = creditCardInfoViewController.h; sourceTree = "<group>"; };
-		7AA1962C1712B15C001F7A40 /* creditCardInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = creditCardInfoViewController.m; sourceTree = "<group>"; };
-		7AA1962D1712B15C001F7A40 /* creditCardInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = creditCardInfoViewController.xib; sourceTree = "<group>"; };
 		7AA1962E1712B15C001F7A40 /* Empty.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Empty.xib; sourceTree = "<group>"; };
 		7AA196301712B15C001F7A40 /* CommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentViewController.h; sourceTree = "<group>"; };
 		7AA196311712B15C001F7A40 /* CommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentViewController.m; sourceTree = "<group>"; };
@@ -565,9 +584,6 @@
 		7AA1964B1712B15C001F7A40 /* sendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = sendViewController.m; sourceTree = "<group>"; };
 		7AA1964C1712B15C001F7A40 /* sendViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = sendViewController.xib; sourceTree = "<group>"; };
 		7AA1964D1712B15C001F7A40 /* LoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginView.xib; sourceTree = "<group>"; };
-		7AA1964E1712B15C001F7A40 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
-		7AA1964F1712B15C001F7A40 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		7AA196501712B15C001F7A40 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		7AA196581712B15C001F7A40 /* orderItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = orderItemView.h; sourceTree = "<group>"; };
 		7AA196591712B15C001F7A40 /* orderItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = orderItemView.m; sourceTree = "<group>"; };
 		7AA1965A1712B15C001F7A40 /* orderItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = orderItemView.xib; sourceTree = "<group>"; };
@@ -742,6 +758,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1330771C1733F2080086DB2D /* iconfiles */ = {
+			isa = PBXGroup;
+			children = (
+				1330771D1733F2080086DB2D /* icon-72.png */,
+				1330771E1733F2080086DB2D /* icon-small-50.png */,
+				1330771F1733F2080086DB2D /* icon-small.png */,
+				133077201733F2080086DB2D /* icon-small@2x.png */,
+				133077211733F2080086DB2D /* icon.png */,
+				133077221733F2080086DB2D /* icon@2x.png */,
+				1330772B1733F2D90086DB2D /* iTunesArtwork */,
+			);
+			path = iconfiles;
+			sourceTree = "<group>";
+		};
 		134AB79B171D4E2700F179E4 /* ReceiptViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -874,9 +904,9 @@
 			isa = PBXGroup;
 			children = (
 				7AA1964D1712B15C001F7A40 /* LoginView.xib */,
-				7AA1964E1712B15C001F7A40 /* LoginViewController.h */,
-				7AA1964F1712B15C001F7A40 /* LoginViewController.m */,
-				7AA196501712B15C001F7A40 /* LoginViewController.xib */,
+				133077101733F1950086DB2D /* LoginViewController.h */,
+				133077111733F1950086DB2D /* LoginViewController.m */,
+				133077121733F1950086DB2D /* LoginViewController.xib */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -942,6 +972,7 @@
 		7AA195BA1712B15B001F7A40 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				1330771A1733F1DD0086DB2D /* Here's2U-Logo-w-TM.png */,
 				130D8906172FB3C900656E8C /* imgComment.png */,
 				130D8907172FB3C900656E8C /* imgComment@2x.png */,
 				6FBBBE32172E9EF6005AF4EA /* buttonProfile.png */,
@@ -1119,9 +1150,9 @@
 				7ABD92D1171B7268001D10DE /* addCreditCardViewController.h */,
 				7ABD92D2171B7268001D10DE /* addCreditCardViewController.m */,
 				7ABD92D3171B7268001D10DE /* addCreditCardViewController.xib */,
-				7AA1962B1712B15C001F7A40 /* creditCardInfoViewController.h */,
-				7AA1962C1712B15C001F7A40 /* creditCardInfoViewController.m */,
-				7AA1962D1712B15C001F7A40 /* creditCardInfoViewController.xib */,
+				133077151733F1C90086DB2D /* creditCardInfoViewController.h */,
+				133077161733F1C90086DB2D /* creditCardInfoViewController.m */,
+				133077171733F1C90086DB2D /* creditCardInfoViewController.xib */,
 				7AA1962E1712B15C001F7A40 /* Empty.xib */,
 				7AA1962F1712B15C001F7A40 /* Feed */,
 				7AA196391712B15C001F7A40 /* heres2u */,
@@ -1484,6 +1515,7 @@
 		DAF870F116671F0000747CDA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1330771C1733F2080086DB2D /* iconfiles */,
 				DAF870F216671F0000747CDA /* HERES2UTests-Info.plist */,
 				DAF870F316671F0000747CDA /* InfoPlist.strings */,
 			);
@@ -1606,7 +1638,6 @@
 				7AA196B81712B15C001F7A40 /* addViewController.xib in Resources */,
 				7AA196BA1712B15C001F7A40 /* checkinCommentViewController.xib in Resources */,
 				7AA196BC1712B15C001F7A40 /* CheckinViewController.xib in Resources */,
-				7AA196BE1712B15C001F7A40 /* creditCardInfoViewController.xib in Resources */,
 				7AA196BF1712B15C001F7A40 /* Empty.xib in Resources */,
 				7AA196C21712B15C001F7A40 /* FeedViewController.xib in Resources */,
 				7AA196C41712B15C001F7A40 /* UIActivityView.xib in Resources */,
@@ -1617,7 +1648,6 @@
 				7AA196CE1712B15C001F7A40 /* paymentViewController.xib in Resources */,
 				7AA196D01712B15C001F7A40 /* sendViewController.xib in Resources */,
 				7AA196D11712B15C001F7A40 /* LoginView.xib in Resources */,
-				7AA196D31712B15C001F7A40 /* LoginViewController.xib in Resources */,
 				7AA196D91712B15C001F7A40 /* orderItemView.xib in Resources */,
 				7AA196DA1712B15C001F7A40 /* ProfileView.xib in Resources */,
 				7AA196DE1712B15C001F7A40 /* searchViewController.xib in Resources */,
@@ -1664,6 +1694,16 @@
 				7AE6FD1F1732148600B44DE8 /* Here's2U-app-icon@2x.png in Resources */,
 				7AE6FD211733351A00B44DE8 /* Icon@2x.png in Resources */,
 				7AE6FD231733355500B44DE8 /* Icon@2x.png in Resources */,
+				133077141733F1950086DB2D /* LoginViewController.xib in Resources */,
+				133077191733F1CA0086DB2D /* creditCardInfoViewController.xib in Resources */,
+				1330771B1733F1DD0086DB2D /* Here's2U-Logo-w-TM.png in Resources */,
+				133077241733F2080086DB2D /* icon-72.png in Resources */,
+				133077251733F2080086DB2D /* icon-small-50.png in Resources */,
+				133077261733F2080086DB2D /* icon-small.png in Resources */,
+				133077271733F2080086DB2D /* icon-small@2x.png in Resources */,
+				133077281733F2080086DB2D /* icon.png in Resources */,
+				133077291733F2080086DB2D /* icon@2x.png in Resources */,
+				1330772C1733F2D90086DB2D /* iTunesArtwork in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1729,7 +1769,6 @@
 				7AA196B71712B15C001F7A40 /* addViewController.m in Sources */,
 				7AA196B91712B15C001F7A40 /* checkinCommentViewController.m in Sources */,
 				7AA196BB1712B15C001F7A40 /* CheckinViewController.m in Sources */,
-				7AA196BD1712B15C001F7A40 /* creditCardInfoViewController.m in Sources */,
 				7AA196C01712B15C001F7A40 /* CommentViewController.m in Sources */,
 				7AA196C11712B15C001F7A40 /* FeedViewController.m in Sources */,
 				7AA196C31712B15C001F7A40 /* UIActivityView.m in Sources */,
@@ -1739,7 +1778,6 @@
 				7AA196CB1712B15C001F7A40 /* menuViewController.m in Sources */,
 				7AA196CD1712B15C001F7A40 /* paymentViewController.m in Sources */,
 				7AA196CF1712B15C001F7A40 /* sendViewController.m in Sources */,
-				7AA196D21712B15C001F7A40 /* LoginViewController.m in Sources */,
 				7AA196D81712B15C001F7A40 /* orderItemView.m in Sources */,
 				7AA196DB1712B15C001F7A40 /* ProfileViewController.m in Sources */,
 				7AA196DD1712B15C001F7A40 /* searchViewController.m in Sources */,
@@ -1824,6 +1862,8 @@
 				6F37AF46172B959D001DBB16 /* UIImageView+WebCache.m in Sources */,
 				6F37AF47172B959D001DBB16 /* XMLReader.m in Sources */,
 				6F37AF4C172BBA0B001DBB16 /* MyTabSent.m in Sources */,
+				133077131733F1950086DB2D /* LoginViewController.m in Sources */,
+				133077181733F1CA0086DB2D /* creditCardInfoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1945,8 +1985,8 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ADCD926E-3808-40C0-B082-A989FF5BBD9D";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "ADCD926E-3808-40C0-B082-A989FF5BBD9D";
+				PROVISIONING_PROFILE = "F351B90D-9584-447E-AC5A-2430E83370F1";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F351B90D-9584-447E-AC5A-2430E83370F1";
 				SDKROOT = iphoneos6.1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1976,8 +2016,8 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ADCD926E-3808-40C0-B082-A989FF5BBD9D";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "ADCD926E-3808-40C0-B082-A989FF5BBD9D";
+				PROVISIONING_PROFILE = "F351B90D-9584-447E-AC5A-2430E83370F1";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F351B90D-9584-447E-AC5A-2430E83370F1";
 				SDKROOT = iphoneos6.1;
 				VALIDATE_PRODUCT = NO;
 				WRAPPER_EXTENSION = app;

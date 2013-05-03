@@ -18,10 +18,15 @@
 -(IBAction)login:(id)sender;
 - (IBAction)LostPassword:(id)sender;
 
-@property (strong, nonatomic) IBOutlet UITextField *usrname;
-@property (strong, nonatomic) IBOutlet UITextField *pass;
+@property (strong, nonatomic) NSString *strusrname;
+@property (strong, nonatomic) NSString *strpass;
 @property NSString *centerImageName; 
 // textfield for Loast Password
 @property (nonatomic, strong) UITextField *txtEmail;
+
+// assign properties
+@property (nonatomic, strong) IBOutlet UITableView *tblLogin;
+// assign properties for tableview
+@property (nonatomic, strong) UITextField *txtEmail_Login,*txtPassword;
 
 @end

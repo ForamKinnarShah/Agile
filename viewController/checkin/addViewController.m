@@ -208,6 +208,233 @@
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 2;
+}// Default is 1 if not implemented
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    int count = 0;
+    if(section==0){
+        count=2;
+    }
+    else{
+        count=5;
+    }
+    
+    NSLog(@"count : %d",count);
+    return count;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    NSString *str;
+    if(section==0){
+        str = @"Request a Restaurant to be Added";
+    }
+    else{
+        str = @"Profile";
+    }
+    return str;
+    
+    
+    
+}// fixed font style. use custom view
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 40;
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    @try {
+        NSString *cellIdentifier = @"Cell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        cell = nil;
+        if(cell==nil){
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            if(indexPath.section==0){
+               
+                if(indexPath.row==0){
+                  
+                    UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 100, 30)];
+                    [lbl setText:@"Business Name :"];
+                    [lbl setBackgroundColor:[UIColor clearColor]];
+                    [lbl setTextColor:[UIColor blackColor]];
+                    [lbl setFont:[UIFont boldSystemFontOfSize:13.0]];
+                    [lbl setTextAlignment:NSTextAlignmentLeft];
+                    [lbl setNumberOfLines:2.0];
+                    [cell addSubview:lbl];
+                    
+                    CGRect textFieldFrame = CGRectMake(130.0, 0.0, 200.0, 30.0);
+                    UITextField *textField = [[UITextField alloc] initWithFrame:textFieldFrame];
+                    [textField setBorderStyle:UITextBorderStyleNone];
+                    [textField setTag:1];
+                    [textField setTextColor:[UIColor blackColor]];
+                    [textField setFont:[UIFont systemFontOfSize:20]];
+                    [textField setDelegate:self];
+                    [textField setPlaceholder:@"enter text"];
+                    [textField setBackgroundColor:[UIColor whiteColor]];
+                    textField.keyboardType = UIKeyboardTypeDefault;
+                    [cell addSubview:textField];
+                
+                }
+                else{
+                
+                    UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 100, 30)];
+                    [lbl setText:@"Type of Business :"];
+                    [lbl setBackgroundColor:[UIColor clearColor]];
+                    [lbl setTextColor:[UIColor blackColor]];
+                    [lbl setFont:[UIFont boldSystemFontOfSize:13.0]];
+                    [lbl setTextAlignment:NSTextAlignmentLeft];
+                    [lbl setNumberOfLines:2.0];
+                    [cell addSubview:lbl];
+                    
+                    CGRect textFieldFrame = CGRectMake(130.0, 0.0, 200.0, 30.0);
+                    UITextField *textField = [[UITextField alloc] initWithFrame:textFieldFrame];
+                    [textField setBorderStyle:UITextBorderStyleNone];
+                    [textField setTag:2];
+                    [textField setTextColor:[UIColor blackColor]];
+                    [textField setFont:[UIFont systemFontOfSize:20]];
+                    [textField setDelegate:self];
+                    [textField setPlaceholder:@"enter text"];
+                    [textField setBackgroundColor:[UIColor whiteColor]];
+                    textField.keyboardType = UIKeyboardTypeDefault;
+                    [cell addSubview:textField];
+                }
+                
+            }
+            else{
+                
+                if(indexPath.row==0){
+                    UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 100, 30)];
+                    [lbl setText:@"Address :"];
+                    [lbl setBackgroundColor:[UIColor clearColor]];
+                    [lbl setTextColor:[UIColor blackColor]];
+                    [lbl setFont:[UIFont boldSystemFontOfSize:13.0]];
+                    [lbl setTextAlignment:NSTextAlignmentLeft];
+                    [lbl setNumberOfLines:2.0];
+                    [cell addSubview:lbl];
+                    
+                    CGRect textFieldFrame = CGRectMake(130.0, 0.0, 200.0, 30.0);
+                    UITextField *textField = [[UITextField alloc] initWithFrame:textFieldFrame];
+                    [textField setBorderStyle:UITextBorderStyleNone];
+                    [textField setTag:3];
+                    [textField setTextColor:[UIColor blackColor]];
+                    [textField setFont:[UIFont systemFontOfSize:20]];
+                    [textField setDelegate:self];
+                    [textField setPlaceholder:@"enter text"];
+                    [textField setBackgroundColor:[UIColor whiteColor]];
+                    textField.keyboardType = UIKeyboardTypeDefault;
+                    [cell addSubview:textField];
+                }
+                else if(indexPath.row==1){
+                    UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 100, 30)];
+                    [lbl setText:@"Address1 :"];
+                    [lbl setBackgroundColor:[UIColor clearColor]];
+                    [lbl setTextColor:[UIColor blackColor]];
+                    [lbl setFont:[UIFont boldSystemFontOfSize:13.0]];
+                    [lbl setTextAlignment:NSTextAlignmentLeft];
+                    [lbl setNumberOfLines:2.0];
+                    [cell addSubview:lbl];
+                    
+                    CGRect textFieldFrame = CGRectMake(130.0, 0.0, 200.0, 30.0);
+                    UITextField *textField = [[UITextField alloc] initWithFrame:textFieldFrame];
+                    [textField setBorderStyle:UITextBorderStyleNone];
+                    [textField setTag:4];
+                    [textField setTextColor:[UIColor blackColor]];
+                    [textField setFont:[UIFont systemFontOfSize:20]];
+                    [textField setDelegate:self];
+                    [textField setPlaceholder:@"enter text"];
+                    [textField setBackgroundColor:[UIColor whiteColor]];
+                    textField.keyboardType = UIKeyboardTypeDefault;
+                    [cell addSubview:textField];
+                }
+                else if(indexPath.row==2){
+                    UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 100, 30)];
+                    [lbl setText:@"City :"];
+                    [lbl setBackgroundColor:[UIColor clearColor]];
+                    [lbl setTextColor:[UIColor blackColor]];
+                    [lbl setFont:[UIFont boldSystemFontOfSize:13.0]];
+                    [lbl setTextAlignment:NSTextAlignmentLeft];
+                    [lbl setNumberOfLines:2.0];
+                    [cell addSubview:lbl];
+                    
+                    CGRect textFieldFrame = CGRectMake(130.0, 0.0, 200.0, 30.0);
+                    UITextField *textField = [[UITextField alloc] initWithFrame:textFieldFrame];
+                    [textField setBorderStyle:UITextBorderStyleNone];
+                    [textField setTag:5];
+                    [textField setTextColor:[UIColor blackColor]];
+                    [textField setFont:[UIFont systemFontOfSize:20]];
+                    [textField setDelegate:self];
+                    [textField setPlaceholder:@"enter text"];
+                    [textField setBackgroundColor:[UIColor whiteColor]];
+                    textField.keyboardType = UIKeyboardTypeDefault;
+                    [cell addSubview:textField];
+                }
+                else if(indexPath.row==3){
+                    UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 100, 30)];
+                    [lbl setText:@"State :"];
+                    [lbl setBackgroundColor:[UIColor clearColor]];
+                    [lbl setTextColor:[UIColor blackColor]];
+                    [lbl setFont:[UIFont boldSystemFontOfSize:13.0]];
+                    [lbl setTextAlignment:NSTextAlignmentLeft];
+                    [lbl setNumberOfLines:2.0];
+                    [cell addSubview:lbl];
+                    
+                    CGRect textFieldFrame = CGRectMake(130.0, 0.0, 200.0, 30.0);
+                    UITextField *textField = [[UITextField alloc] initWithFrame:textFieldFrame];
+                    [textField setBorderStyle:UITextBorderStyleNone];
+                    [textField setTag:6];
+                    [textField setTextColor:[UIColor blackColor]];
+                    [textField setFont:[UIFont systemFontOfSize:20]];
+                    [textField setDelegate:self];
+                    [textField setPlaceholder:@"enter text"];
+                    [textField setBackgroundColor:[UIColor whiteColor]];
+                    textField.keyboardType = UIKeyboardTypeDefault;
+                    [cell addSubview:textField];
+                }
+                else if(indexPath.row==4){
+                    UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 100, 30)];
+                    [lbl setText:@"Zip :"];
+                    [lbl setBackgroundColor:[UIColor clearColor]];
+                    [lbl setTextColor:[UIColor blackColor]];
+                    [lbl setFont:[UIFont boldSystemFontOfSize:13.0]];
+                    [lbl setTextAlignment:NSTextAlignmentLeft];
+                    [lbl setNumberOfLines:2.0];
+                    [cell addSubview:lbl];
+                    
+                    CGRect textFieldFrame = CGRectMake(130.0, 0.0, 200.0, 30.0);
+                    UITextField *textField = [[UITextField alloc] initWithFrame:textFieldFrame];
+                    [textField setBorderStyle:UITextBorderStyleNone];
+                    [textField setTag:7];
+                    [textField setTextColor:[UIColor blackColor]];
+                    [textField setFont:[UIFont systemFontOfSize:20]];
+                    [textField setDelegate:self];
+                    [textField setPlaceholder:@"enter text"];
+                    [textField setBackgroundColor:[UIColor whiteColor]];
+                    textField.keyboardType = UIKeyboardTypeDefault;
+                    [cell addSubview:textField];
+                }
+                
+                
+            }
+          
+        }
+        return cell;
+    }
+    @catch (NSException *exception) {
+        NSLog(@"NSException : %@",exception);
+    }
+    
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+}
+
+
+
 - (void)showAlertMessage:(NSString *)message withTitle:(NSString *)title
 {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title

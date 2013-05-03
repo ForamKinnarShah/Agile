@@ -11,19 +11,6 @@
          timestampString = "388060131.637087"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "187"
-         endingLineNumber = "187"
-         landmarkName = "-parser:foundCharacters:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "viewController/mytab/MyTabXmlParse.m"
-         timestampString = "388060131.637087"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
          startingLineNumber = "244"
          endingLineNumber = "244"
          landmarkName = "-parser:didEndElement:namespaceURI:qualifiedName:"
@@ -73,11 +60,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "viewController/checkin/CheckinViewController.m"
-         timestampString = "388994321.783293"
+         timestampString = "389261595.263707"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "197"
-         endingLineNumber = "197"
+         startingLineNumber = "196"
+         endingLineNumber = "196"
          landmarkName = "-goToCheckinComment:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -86,11 +73,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "viewController/checkin/CheckinViewController.m"
-         timestampString = "388994321.783293"
+         timestampString = "389261595.263707"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "192"
-         endingLineNumber = "192"
+         startingLineNumber = "191"
+         endingLineNumber = "191"
          landmarkName = "-goToAdd:"
          landmarkType = "5">
       </FileBreakpoint>

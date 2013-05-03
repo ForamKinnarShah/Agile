@@ -17,7 +17,7 @@
 
 @implementation creditCardInfoViewController
 
-@synthesize nameTextField, cardNumberTextField, cardTypeTextField, address1TextField, address2TextField, securityCodeTextField, expirationDateTextField, datePicker;
+@synthesize  datePicker;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -74,25 +74,40 @@
         
 //    for (UITextField *field in [NSArray arrayWithObjects:nameTextField,address1TextField,cardTypeTextField,cardNumberTextField,securityCodeTextField, nil])
 //    {
-    for (NSString *field in textEntries)
+//    for (NSString *field in textEntries)
+//    {
+//        NSLog(@"field:%@",field);
+//        
+//        if ([field isEqualToString:@""])
+//        {
+//            [[[UIAlertView alloc] initWithTitle:@"one or more fields are missing" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show]; 
+//            return;
+//        }
+//    }
+    
+    NSLog(@"_txtName >> %i",[_txtName.text length]);
+    NSLog(@"exiprationDate >> %i",[_lblexiprationDate.text length]);
+     NSLog(@"_txtBillingAddress >> %i",[_txtBillingAddress.text length]);
+     NSLog(@"_txtAddressLine2 >> %i",[_txtAddressLine2.text length]);
+    NSLog(@"_lblCardType >> %i",[_lblCardType.text length]);
+    NSLog(@"_txtCardNumber >> %i",[_txtCardNumber.text length]);
+    NSLog(@"_txtSecurityCode >> %i",[_txtSecurityCode.text length]);
+    
+
+    if ([_strnameTextField length] == 0 || [_strexpirationDateTextField length] == 0 || [_straddress1TextField length] == 0 || [_straddress2TextField length] == 0 || [_strcardTypeTextField length] == 0 || [_strcardNumberTextField length] == 0 || [_strsecurityCodeTextField length] == 0)
     {
-        NSLog(@"field:%@",field);
-        
-        if ([field isEqualToString:@""])
-        {
-            [[[UIAlertView alloc] initWithTitle:@"one or more fields are missing" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show]; 
-            return;
-        }
+        [[[UIAlertView alloc] initWithTitle:@"one or more fields are missing" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        return;
     }
     
-    if ([cardNumberTextField.text length] != 16)
+    if ([_strcardNumberTextField length] != 16)
     {
         [[[UIAlertView alloc] initWithTitle:@"credit card number incorrect" message:@"please check that you entered your number correctly" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         return;
     }
     
     QBMSRequester *qbms = [[QBMSRequester alloc] init];
-    [qbms sendAddWalletRequestForCustomerID:[NSGlobalConfiguration getConfigurationItem:@"ID"] CCNumber:cardNumberTextField.text ExpiryDate:datePicker.date];
+    [qbms sendAddWalletRequestForCustomerID:[NSGlobalConfiguration getConfigurationItem:@"ID"] CCNumber:_strcardNumberTextField ExpiryDate:datePicker.date];
     qbms.delegate = self; 
     if (!UIBlocker) {
         UIBlocker = [[utilities alloc] init]; 
@@ -140,7 +155,6 @@ NSDateFormatter *nsdf;
     [nsdf setDateFormat:@"MM/yyyy"]; 
    
     datePicker.hidden = NO;
-    NSLog(@"%@",[nsdf stringFromDate:datePicker.date]);
 }
 
 //-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
@@ -174,7 +188,7 @@ NSDateFormatter *nsdf;
 
 -(void)QBMSRequesterDelegateFinishedWithCode:(NSString*)code
 {
-    NSMutableDictionary *creditCardInfo = [NSMutableDictionary dictionaryWithObjects:[NSArray arrayWithObjects:nameTextField.text,address1TextField.text, address2TextField.text, cardTypeTextField.text, [cardNumberTextField.text substringFromIndex:12],code, nil] forKeys:[NSArray arrayWithObjects:@"nameOnCard",@"address1",@"address2",@"cardType",@"cardNumberLast4Digits",@"walletID", nil]];
+    NSMutableDictionary *creditCardInfo = [NSMutableDictionary dictionaryWithObjects:[NSArray arrayWithObjects:_strnameTextField,_straddress1TextField, _straddress2TextField, _strcardTypeTextField, [_strcardNumberTextField substringFromIndex:12],code, nil] forKeys:[NSArray arrayWithObjects:@"nameOnCard",@"address1",@"address2",@"cardType",@"cardNumberLast4Digits",@"walletID", nil]];
     
     NSString *email = [NSGlobalConfiguration getConfigurationItem:@"Email"];
     
@@ -207,34 +221,28 @@ NSDateFormatter *nsdf;
 - (IBAction)bg_clicked:(id)sender
 {
     [(UIScrollView*)self.view setContentSize:self.view.bounds.size];
-    [nameTextField resignFirstResponder];
     datePicker.hidden = YES;
-    [expirationDateTextField resignFirstResponder];
-    [address1TextField resignFirstResponder];
-    [address2TextField resignFirstResponder];
-    [cardTypeTextField resignFirstResponder];
-    [cardNumberTextField resignFirstResponder];
-    [securityCodeTextField resignFirstResponder];
     [self setViewMovedUp:NO];
 }
 
 -(IBAction)Done_Picker
 {
+    pickerCard.hidden = YES;
+    doneBar.hidden = YES;
+    datePicker.hidden = YES;
+    [_txtName resignFirstResponder];
+    [_txtBillingAddress resignFirstResponder];
+    [_txtAddressLine2 resignFirstResponder];
+    [_txtCardNumber resignFirstResponder];
+    [_txtSecurityCode resignFirstResponder];
+    
     // if pickerview for
     if (SELECTED_PICKER)
-    {
-        pickerCard.hidden = YES;
-        doneBar.hidden = YES;
         _strCardType = [arrCardType objectAtIndex:[pickerCard selectedRowInComponent:0]];
-        //textEntries[4] = _strCardType;
-    }
     else
     {
-        datePicker.hidden = YES;
-        doneBar.hidden = YES;
-        [datePicker addTarget:self action:@selector(datePickerPicked:) forControlEvents:UIControlEventValueChanged];
+        [self performSelector:@selector(datePickerPicked:) withObject:pickerCard];
         _strExpirationDate = [NSString stringWithFormat:@"%@",[nsdf stringFromDate:datePicker.date]];
-        //textEntries[1] = _strExpirationDate;
     }
     [_tblCreditCardInfo reloadData];
 }
@@ -245,12 +253,21 @@ NSDateFormatter *nsdf;
 // datasource
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    pickerCard.hidden = YES;
+    doneBar.hidden = YES;
+    datePicker.hidden = YES;
+    [_txtName resignFirstResponder];
+    [_txtBillingAddress resignFirstResponder];
+    [_txtAddressLine2 resignFirstResponder];
+    [_txtCardNumber resignFirstResponder];
+    [_txtSecurityCode resignFirstResponder];
     return [arrCardDetail count];
 }
 
 -(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *Cell=[tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    
     if (Cell == nil)
     {
         Cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
@@ -260,52 +277,90 @@ NSDateFormatter *nsdf;
         [_lblCardDetail setBackgroundColor:[UIColor clearColor]];
         [_lblCardDetail setTextColor:[UIColor blackColor]];
         [_lblCardDetail setFont:[UIFont systemFontOfSize:14]];
-        _lblCardDetail.tag = 100;
+        _lblCardDetail.tag = 10;
         [Cell.contentView addSubview:_lblCardDetail];
-    
-        _txtCardDetail = [[UITextField alloc] initWithFrame:CGRectMake(130, 10, 150, 24)];
-        [_txtCardDetail setBorderStyle:UITextBorderStyleRoundedRect];
-        _txtCardDetail.delegate = self;
-        _txtCardDetail.tag = indexPath.row;
         
-        _lblexiprationDate = [[UILabel alloc] initWithFrame:CGRectMake(130, 10, 150, 24)];
-        [_lblexiprationDate setBackgroundColor:[UIColor clearColor]];
-        [_lblexiprationDate setTextColor:[UIColor blackColor]];
-        [_lblexiprationDate setFont:[UIFont systemFontOfSize:14]];
-        _lblexiprationDate.tag = 300;
-        
-        _lblCardType = [[UILabel alloc] initWithFrame:CGRectMake(130, 10, 150, 24)];
-        [_lblCardType setBackgroundColor:[UIColor clearColor]];
-        [_lblCardType setTextColor:[UIColor blackColor]];
-        [_lblCardType setFont:[UIFont systemFontOfSize:14]];
-        _lblCardType.tag = 400;
+        if (indexPath.row == 0)
+        {
+            _txtName = [[UITextField alloc] initWithFrame:CGRectMake(130, 10, 150, 24)];
+            _txtName.tag = 100;
+            [_txtName setBorderStyle:UITextBorderStyleRoundedRect];
+            _txtName.delegate = self;
+            [Cell.contentView addSubview:_txtName];
+        }
+        if (indexPath.row == 1)
+        {
+            _lblexiprationDate = [[UILabel alloc] initWithFrame:CGRectMake(130, 10, 150, 24)];
+            [_lblexiprationDate setBackgroundColor:[UIColor clearColor]];
+            [_lblexiprationDate setTextColor:[UIColor blackColor]];
+            [_lblexiprationDate setFont:[UIFont systemFontOfSize:14]];
+            _lblexiprationDate.tag = 200;
+            [Cell.contentView addSubview:_lblexiprationDate];
+        }
+        if (indexPath.row == 2)
+        {
+            _txtBillingAddress = [[UITextField alloc] initWithFrame:CGRectMake(130, 10, 150, 24)];
+            _txtBillingAddress.tag = 300;
+            [_txtBillingAddress setBorderStyle:UITextBorderStyleRoundedRect];
+            _txtBillingAddress.delegate = self;
+            [Cell.contentView addSubview:_txtBillingAddress];
+        }
+        if (indexPath.row == 3)
+        {
+            _txtAddressLine2 = [[UITextField alloc] initWithFrame:CGRectMake(130, 10, 150, 24)];
+            _txtAddressLine2.tag = 400;
+            [_txtAddressLine2 setBorderStyle:UITextBorderStyleRoundedRect];
+            _txtAddressLine2.delegate = self;
+            [Cell.contentView addSubview:_txtAddressLine2];
+        }
+        if(indexPath.row == 4)
+        {
+            _lblCardType = [[UILabel alloc] initWithFrame:CGRectMake(130, 10, 150, 24)];
+            [_lblCardType setBackgroundColor:[UIColor clearColor]];
+            [_lblCardType setTextColor:[UIColor blackColor]];
+            [_lblCardType setFont:[UIFont systemFontOfSize:14]];
+            _lblCardType.tag = 500;
+            [Cell.contentView addSubview:_lblCardType];
+        }
+        if (indexPath.row == 5)
+        {
+            _txtCardNumber = [[UITextField alloc] initWithFrame:CGRectMake(130, 10, 150, 24)];
+            _txtCardNumber.tag = 600;
+            [_txtCardNumber setBorderStyle:UITextBorderStyleRoundedRect];
+            _txtCardNumber.delegate = self;
+            [_txtCardNumber setKeyboardType:UIKeyboardTypeNumberPad];
+            [Cell.contentView addSubview:_txtCardNumber];
+        }
+        if (indexPath.row == 6)
+        {
+            _txtSecurityCode = [[UITextField alloc] initWithFrame:CGRectMake(130, 10, 150, 24)];
+            _txtSecurityCode.tag = 700;
+            [_txtSecurityCode setBorderStyle:UITextBorderStyleRoundedRect];
+            _txtSecurityCode.delegate = self;
+            [_txtSecurityCode setKeyboardType:UIKeyboardTypeNumberPad];
+            [Cell.contentView addSubview:_txtSecurityCode];
+        }
     }
     else
     {
-        _lblCardDetail = (UILabel *)[Cell.contentView viewWithTag:100];
-        _txtCardDetail = (UITextField *)[Cell.contentView viewWithTag:indexPath.row];
-        _lblexiprationDate = (UILabel *)[Cell.contentView viewWithTag:300];
-        _lblCardType = (UILabel *)[Cell.contentView viewWithTag:400];
+        _lblCardDetail = (UILabel *)[Cell.contentView viewWithTag:10];
+        _txtName = (UITextField *)[Cell.contentView viewWithTag:100];
+        _lblexiprationDate = (UILabel *)[Cell.contentView viewWithTag:200];
+        _txtBillingAddress = (UITextField *)[Cell.contentView viewWithTag:300];
+        _txtAddressLine2 = (UITextField *)[Cell.contentView viewWithTag:400];
+        _lblCardType = (UILabel *)[Cell.contentView viewWithTag:500];
+        _txtCardNumber = (UITextField *)[Cell.contentView viewWithTag:600];
+        _txtSecurityCode = (UITextField *)[Cell.contentView viewWithTag:700];
     }
     
-    if (indexPath.row == 1)
-        [Cell.contentView addSubview:_lblexiprationDate];
-    else if(indexPath.row == 4)
-        [Cell.contentView addSubview:_lblCardType];
-    else
-    {
-        if(indexPath.row == 5 || indexPath.row == 6)
-            [_txtCardDetail setKeyboardType:UIKeyboardTypeNumberPad];
-
-        [Cell.contentView addSubview:_txtCardDetail];
-    }
     [_lblCardDetail setText:[NSString stringWithFormat:@"%@ :",[arrCardDetail objectAtIndex:indexPath.row]]];
+   
     if ([_strExpirationDate length] != 0)
         _lblexiprationDate.text = _strExpirationDate;
     
     if ([_strCardType length] != 0)
         _lblCardType.text = _strCardType;
-
+    
     return Cell;
 }
 
@@ -315,7 +370,11 @@ NSDateFormatter *nsdf;
     datePicker.hidden = YES;
     pickerCard.hidden = YES;
     doneBar.hidden = YES;
-    [_txtCardDetail resignFirstResponder];
+    [_txtName resignFirstResponder];
+    [_txtBillingAddress resignFirstResponder];
+    [_txtAddressLine2 resignFirstResponder];
+    [_txtCardNumber resignFirstResponder];
+    [_txtSecurityCode resignFirstResponder];
     
     if (indexPath.row == 1)
     {
@@ -324,7 +383,7 @@ NSDateFormatter *nsdf;
         datePicker.hidden = NO;
         doneBar.hidden = NO;
     }
-    else if (indexPath.row == 4)
+    if (indexPath.row == 4)
     {
         // no, if date picker is selected
         SELECTED_PICKER = YES;
@@ -345,51 +404,70 @@ NSDateFormatter *nsdf;
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    if (textField.tag == 1)
-    {
-        [textField resignFirstResponder];
-        datePicker.hidden = NO;
-        textField.inputView = datePicker;
-   //     doneBar.hidden = NO;
-    }
-    else
-    {
-        [textField becomeFirstResponder];
-        datePicker.hidden = YES;
-     //   doneBar.hidden = NO;
-    }
+    [textField becomeFirstResponder];
+    datePicker.hidden = YES;
+    doneBar.hidden = YES;
+    pickerCard.hidden = YES;
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
-    textEntries[textField.tag] = textField.text; 
+    pickerCard.hidden = YES;
+    doneBar.hidden = YES;
+    datePicker.hidden = YES;
+//    [_txtName resignFirstResponder];
+//    [_txtBillingAddress resignFirstResponder];
+//    [_txtAddressLine2 resignFirstResponder];
+//    [_txtCardNumber resignFirstResponder];
+//    [_txtSecurityCode resignFirstResponder];
+//    
     
     switch (textField.tag)
     {
-        case 0:
-            nameTextField.text = textField.text;
+        case 100:
+            _strnameTextField = textField.text;
             break;
-            
-        case 1:
-            expirationDateTextField.text = textField.text;
+        case 300:
+            _straddress1TextField = textField.text;
             break;
-            
-        case 2:
-            address2TextField.text = textField.text;
+        case 400:
+            _straddress2TextField = textField.text;
             break;
-
-        case 3:
-            cardTypeTextField.text = textField.text;
+        case 600:
+            _strcardNumberTextField = textField.text;
             break;
-            
-        case 4:
-            cardNumberTextField.text = textField.text;
+        case 700:
+            _strsecurityCodeTextField = textField.text;
             break;
 
-        case 5:
-            securityCodeTextField.text = textField.text;
+
+        default:
             break;
     }
+    
+    
+    
+//    if ([_strnameTextField length] == 0)
+//        _strnameTextField = _txtName.text;
+    
+    if ([_strexpirationDateTextField length] == 0)
+        _strexpirationDateTextField = _strExpirationDate;
+    
+//    if ([_straddress1TextField length] == 0)
+//        _straddress1TextField = _txtBillingAddress.text;
+    
+//    if ([_straddress2TextField length] == 0)
+//        _straddress2TextField = _txtAddressLine2.text;
+    
+    if ([_strcardTypeTextField length] == 0)
+        _strcardTypeTextField = _strCardType;
+        
+//    if ([_strcardNumberTextField length] == 0)
+//        _strcardNumberTextField = _txtCardNumber.text;
+    
+//    if ([_strsecurityCodeTextField length] == 0)
+//        _strsecurityCodeTextField = _txtSecurityCode.text;
+    
     return YES;
 }
 
