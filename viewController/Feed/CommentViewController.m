@@ -70,10 +70,12 @@
         [CommentText setFrame:CGRectMake(13, 415, 243, 30)];
 //        [_btnPost setFrame:CGRectMake(249, 415, 60, 30)];
         [_tblComment setFrame:CGRectMake(0, 115, 320, 298)];
+        
+        originalToolBarFrame = CGRectMake(0, 417, 320, 38);
     }
     else
     {
-        NSLog(@"not iphone 5"); 
+        NSLog(@"not iphone 5, height 480"); 
         [_imgNav setFrame:CGRectMake(5, 4, 310, 82)];
         [ProfilePicture setFrame:CGRectMake(5, 5, 80, 80)];
         [Title setFrame:CGRectMake(101, 11, 180, 18)];
@@ -82,10 +84,13 @@
         [FullName setFrame:CGRectMake(13, 63, 205, 22)];
         [_lblBuy setFrame:CGRectMake(274, 64, 35, 22)];
         [MainComment setFrame:CGRectMake(13, 86, 292, 20)];
-        [_toolTab_bg setFrame:CGRectMake(0, 331, 320, 38)];
-        [CommentText setFrame:CGRectMake(13, 329, 243, 30)];
+        [_toolTab_bg setFrame:CGRectMake(0, 323, 320, 44)];
+        [CommentText setFrame:CGRectMake(13, 330, 243, 30)];
 //        [_btnPost setFrame:CGRectMake(249, 329, 60, 30)];
         [_tblComment setFrame:CGRectMake(0, 115, 320, 210)];
+        
+        originalToolBarFrame = CGRectMake(0, 323, 320, 44);
+
     }
 
     [Title setText:[internal.lblLocation text]];
@@ -129,30 +134,48 @@
 }
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     [CommentsScroll setUserInteractionEnabled:NO];
-    CGRect CurrentRect=[self.view frame];
-    [UIView animateWithDuration:0.1 animations:^(void) {
-        CGRect frm=CGRectMake(0, -160, CurrentRect.size.width, CurrentRect.size.height);
-        [self.view setFrame:frm];
+    //CGRect CurrentRect=[self.view frame];
+    CGRect toolFrame = _toolTab_bg.frame; 
+    [UIView animateWithDuration:0.2 animations:^(void) {
+       // CGRect frm=CGRectMake(0, -160, CurrentRect.size.width, CurrentRect.size.height);
+        CGRect frm=CGRectMake(0, toolFrame.origin.y-160, toolFrame.size.width, toolFrame.size.height);
+
+        [_toolTab_bg setFrame:frm];
     }];
     return YES;
 }
 -(BOOL) textFieldShouldReturn:(UITextField *)textField{
     [CommentsScroll setUserInteractionEnabled:YES];
-    CGRect CurrentRect=[self.view frame];
-    [UIView animateWithDuration:0.1 animations:^(void) {
-        CGRect frm=CGRectMake(0, 0, CurrentRect.size.width, CurrentRect.size.height);
-        [self.view setFrame:frm];
+//    CGRect CurrentRect=[self.view frame];
+//    [UIView animateWithDuration:0.1 animations:^(void) {
+//        CGRect frm=CGRectMake(0, 0, CurrentRect.size.width, CurrentRect.size.height);
+//        [self.view setFrame:frm];
+//    }];
+    CGRect toolFrame = _toolTab_bg.frame;
+    [UIView animateWithDuration:0.2 animations:^(void) {
+        // CGRect frm=CGRectMake(0, -160, CurrentRect.size.width, CurrentRect.size.height);
+        CGRect frm=originalToolBarFrame; 
+        
+        [_toolTab_bg setFrame:frm];
     }];
+
     [textField resignFirstResponder];
     return YES;
 
 }
 -(BOOL) textFieldShouldEndEditing:(UITextField *)textField{
-    CGRect CurrentRect=[self.view frame];
-    [UIView animateWithDuration:0.1 animations:^(void) {
-        CGRect frm=CGRectMake(0, 0, CurrentRect.size.width, CurrentRect.size.height);
-        [self.view setFrame:frm];
+//    CGRect CurrentRect=[self.view frame];
+//    [UIView animateWithDuration:0.1 animations:^(void) {
+//        CGRect frm=CGRectMake(0, 0, CurrentRect.size.width, CurrentRect.size.height);
+//        [self.view setFrame:frm];
+//    }];
+    [UIView animateWithDuration:0.2 animations:^(void) {
+        // CGRect frm=CGRectMake(0, -160, CurrentRect.size.width, CurrentRect.size.height);
+        CGRect frm=originalToolBarFrame;
+        
+        [_toolTab_bg setFrame:frm];
     }];
+
     [CommentsScroll setUserInteractionEnabled:YES];
     [textField resignFirstResponder];
     return YES;

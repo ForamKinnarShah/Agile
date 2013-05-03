@@ -223,21 +223,23 @@
         float minutesDiff = adjusted / 60;
         float hoursDiff = minutesDiff/60;
         float daysDiff = hoursDiff/24;
-        float monthsDiff = daysDiff/30;
+        float weeksDiff = daysDiff/7; 
+        float yearsDiff = weeksDiff/52; 
+        
         
         if (minutesDiff < 1)
         {
-            [activity.lblTime setText:@"less than 1 minute ago"];
+            [activity.lblTime setText:@"1m"];
         }
         else if (minutesDiff > 1 && hoursDiff < 1)
         {
             NSString *floatString = [NSString stringWithFormat:@"%0.f",minutesDiff];
             
             if ([floatString isEqualToString:@"1"]) {
-            [activity.lblTime setText:[NSString stringWithFormat:@"%.0fmin",minutesDiff]];
+            [activity.lblTime setText:[NSString stringWithFormat:@"%.0fm",minutesDiff]];
             }
             else {
-                [activity.lblTime setText:[NSString stringWithFormat:@"%.0fmin",minutesDiff]];  
+                [activity.lblTime setText:[NSString stringWithFormat:@"%.0fm",minutesDiff]];  
             }
         }
         else if (hoursDiff > 1 && daysDiff < 1)
@@ -252,7 +254,7 @@
                     [activity.lblTime setText:[NSString stringWithFormat:@"%.0fh",hoursDiff]];
                 }
         }
-        else if (daysDiff >1 && monthsDiff < 1)
+        else if (daysDiff >1 && weeksDiff < 1)
         {
             NSString *floatString = [NSString stringWithFormat:@"%0.f",daysDiff];
             
@@ -265,15 +267,18 @@
 
             }
         }
-        else {
-            NSString *floatString = [NSString stringWithFormat:@"%0.f",monthsDiff];
+        else if (weeksDiff >1 && yearsDiff < 1){
+            NSString *floatString = [NSString stringWithFormat:@"%0.f",weeksDiff];
             
             if ([floatString isEqualToString:@"1"]) {
-            [activity.lblTime setText:[NSString stringWithFormat:@"%.0fmon",monthsDiff]];
+            [activity.lblTime setText:[NSString stringWithFormat:@"%.0fw",weeksDiff]];
             }
             else {
-                [activity.lblTime setText:[NSString stringWithFormat:@"%.0fmon",monthsDiff]];
+                [activity.lblTime setText:[NSString stringWithFormat:@"%.0fw",weeksDiff]];
             }
+        }
+        else {
+            [activity.lblTime setText:[NSString stringWithFormat:@"%.0fy",yearsDiff]];
         }
         
         //[activity.lblTime setText:[ItemData valueForKey:@"Time"]];

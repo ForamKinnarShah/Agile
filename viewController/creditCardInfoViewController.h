@@ -19,6 +19,7 @@
     NSMutableArray *arrCardDetail;
     // stores the value of different card type
     NSMutableArray *arrCardType;
+    NSMutableArray *textEntries; 
     
     IBOutlet UIToolbar *doneBar;
     IBOutlet UIPickerView *pickerCard;

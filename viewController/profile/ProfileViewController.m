@@ -223,6 +223,7 @@
         [activity.lblComment setText:[ItemData valueForKey:@"UserComment"]];
         [activity.lblLocation setText:[ItemData valueForKey:@"Location"]];
         [activity.lblTime setText:[ItemData valueForKey:@"DateCreated"]];
+        [activity.lblAddress setText:[ItemData valueForKey:@"Address"]]; 
         NSLog(@"_ProfilePicture >> %@",_ProfilePicture.image);
         [activity.ProfilePicture setImage:[_ProfilePicture image]];
         
@@ -262,6 +263,7 @@
 }
 -(void) ProfileLoadingFailedWithError:(NSError *)error{
     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Warning" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [UIBlocker stopUIBlockerInView:self.tabBarController.view]; 
     [alert show];
 }
 -(void)imageviewloaderLoadingCompleted:(NSImageLoaderToImageView *)loader{

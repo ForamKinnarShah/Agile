@@ -15,7 +15,7 @@
 			<key>CFBundleIconFiles</key>
 			<array>
 				<string>Here's2U-app-icon.png</string>
-				<string>Here's2U-app-icon@2x.png</string>
+				<string>Icon@2x.png</string>
 			</array>
 		</dict>
 	</dict>

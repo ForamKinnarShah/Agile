@@ -14,6 +14,7 @@
 @interface CommentViewController : UIViewController<NSUserInterfaceCommandsProtocol,UITextFieldDelegate,NSCommentLoaderProtocol>{
     @private
     UIActivityView *internal;
+    CGRect originalToolBarFrame; 
 }
 @property (strong, nonatomic) IBOutlet UILabel *Title;
 @property (strong, nonatomic) IBOutlet UIImageView *ProfilePicture;

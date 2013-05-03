@@ -77,7 +77,7 @@
 					<object class="IBUITableView" id="753080798">
 						<reference key="NSNextResponder" ref="780983173"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrameSize">{320, 404}</string>
+						<string key="NSFrameSize">{320, 502}</string>
 						<reference key="NSSuperview" ref="780983173"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="456508574"/>
@@ -368,58 +368,18 @@
 						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="addCardBtn">UIButton</string>
-						<string key="address1TextField">UITextField</string>
-						<string key="address2TextField">UITextField</string>
-						<string key="cardNumberTextField">UITextField</string>
-						<string key="cardTypeTextField">UITextField</string>
 						<string key="doneBar">UIToolbar</string>
-						<string key="expirationDateTextField">UITextField</string>
-						<string key="nameTextField">UITextField</string>
 						<string key="pickerCard">UIPickerView</string>
-						<string key="securityCodeTextField">UITextField</string>
 						<string key="tblCreditCardInfo">UITableView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="addCardBtn">
-							<string key="name">addCardBtn</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="address1TextField">
-							<string key="name">address1TextField</string>
-							<string key="candidateClassName">UITextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="address2TextField">
-							<string key="name">address2TextField</string>
-							<string key="candidateClassName">UITextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="cardNumberTextField">
-							<string key="name">cardNumberTextField</string>
-							<string key="candidateClassName">UITextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="cardTypeTextField">
-							<string key="name">cardTypeTextField</string>
-							<string key="candidateClassName">UITextField</string>
-						</object>
 						<object class="IBToOneOutletInfo" key="doneBar">
 							<string key="name">doneBar</string>
 							<string key="candidateClassName">UIToolbar</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="expirationDateTextField">
-							<string key="name">expirationDateTextField</string>
-							<string key="candidateClassName">UITextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="nameTextField">
-							<string key="name">nameTextField</string>
-							<string key="candidateClassName">UITextField</string>
-						</object>
 						<object class="IBToOneOutletInfo" key="pickerCard">
 							<string key="name">pickerCard</string>
 							<string key="candidateClassName">UIPickerView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="securityCodeTextField">
-							<string key="name">securityCodeTextField</string>
-							<string key="candidateClassName">UITextField</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="tblCreditCardInfo">
 							<string key="name">tblCreditCardInfo</string>

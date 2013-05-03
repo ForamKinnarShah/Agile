@@ -31,22 +31,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    textEntries = [[NSMutableArray alloc] initWithCapacity:0];
+    for (int i=0; i<7; i++){
+        textEntries[i] = @"";
+    }
+    
     NSString *centerImageName = @"logo_small.png";
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:centerImageName]];
+    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(addCreditCard:)]]; 
     
    // [(UIScrollView*)self.view setContentSize:self.view.bounds.size];
     // Do any additional setup after loading the view from its nib.
-    NSMutableDictionary *creditCardInfo = [NSGlobalConfiguration getConfigurationItem:@"creditCard"];
-    if (creditCardInfo)
-    {
-//        nameTextField.text = [creditCardInfo objectForKey:@"nameOnCard"]; nameTextField.userInteractionEnabled = NO; 
-//        cardNumberTextField.text = [creditCardInfo objectForKey:@"cardNumber"]; cardNumberTextField.userInteractionEnabled = NO; 
-//        address1TextField.text = [creditCardInfo objectForKey:@"address1"]; address1TextField.userInteractionEnabled = NO; 
-//        address2TextField.text = [creditCardInfo objectForKey:@"address2"]; address2TextField.userInteractionEnabled = NO; 
-//        cardTypeTextField.text = [creditCardInfo objectForKey:@"cardType"]; cardTypeTextField.userInteractionEnabled = NO;
-//        securityCodeTextField.text = [creditCardInfo objectForKey:@"securityCode"]; securityCodeTextField.userInteractionEnabled = NO; 
-        
-    }
     datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 239, 320, 44)];
     datePicker.hidden = YES;
     [datePicker setDatePickerMode:UIDatePickerModeDate];
@@ -76,9 +71,14 @@
 
 -(IBAction)addCreditCard:(id)sender
 {
-    for (UITextField *field in [NSArray arrayWithObjects:nameTextField,address1TextField,cardTypeTextField,cardNumberTextField,securityCodeTextField, nil])
+        
+//    for (UITextField *field in [NSArray arrayWithObjects:nameTextField,address1TextField,cardTypeTextField,cardNumberTextField,securityCodeTextField, nil])
+//    {
+    for (NSString *field in textEntries)
     {
-        if ([field.text isEqualToString:@""])
+        NSLog(@"field:%@",field);
+        
+        if ([field isEqualToString:@""])
         {
             [[[UIAlertView alloc] initWithTitle:@"one or more fields are missing" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show]; 
             return;
@@ -91,8 +91,6 @@
         return;
     }
     
-
-//[[[UIAlertView alloc] initWithTitle:@"credit card added" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     QBMSRequester *qbms = [[QBMSRequester alloc] init];
     [qbms sendAddWalletRequestForCustomerID:[NSGlobalConfiguration getConfigurationItem:@"ID"] CCNumber:cardNumberTextField.text ExpiryDate:datePicker.date];
     qbms.delegate = self; 
@@ -228,6 +226,7 @@ NSDateFormatter *nsdf;
         pickerCard.hidden = YES;
         doneBar.hidden = YES;
         _strCardType = [arrCardType objectAtIndex:[pickerCard selectedRowInComponent:0]];
+        //textEntries[4] = _strCardType;
     }
     else
     {
@@ -235,6 +234,7 @@ NSDateFormatter *nsdf;
         doneBar.hidden = YES;
         [datePicker addTarget:self action:@selector(datePickerPicked:) forControlEvents:UIControlEventValueChanged];
         _strExpirationDate = [NSString stringWithFormat:@"%@",[nsdf stringFromDate:datePicker.date]];
+        //textEntries[1] = _strExpirationDate;
     }
     [_tblCreditCardInfo reloadData];
 }
@@ -266,7 +266,7 @@ NSDateFormatter *nsdf;
         _txtCardDetail = [[UITextField alloc] initWithFrame:CGRectMake(130, 10, 150, 24)];
         [_txtCardDetail setBorderStyle:UITextBorderStyleRoundedRect];
         _txtCardDetail.delegate = self;
-        _txtCardDetail.tag = 200;
+        _txtCardDetail.tag = indexPath.row;
         
         _lblexiprationDate = [[UILabel alloc] initWithFrame:CGRectMake(130, 10, 150, 24)];
         [_lblexiprationDate setBackgroundColor:[UIColor clearColor]];
@@ -283,7 +283,7 @@ NSDateFormatter *nsdf;
     else
     {
         _lblCardDetail = (UILabel *)[Cell.contentView viewWithTag:100];
-        _txtCardDetail = (UITextField *)[Cell.contentView viewWithTag:200];
+        _txtCardDetail = (UITextField *)[Cell.contentView viewWithTag:indexPath.row];
         _lblexiprationDate = (UILabel *)[Cell.contentView viewWithTag:300];
         _lblCardType = (UILabel *)[Cell.contentView viewWithTag:400];
     }
@@ -362,6 +362,8 @@ NSDateFormatter *nsdf;
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
+    textEntries[textField.tag] = textField.text; 
+    
     switch (textField.tag)
     {
         case 0:
@@ -415,6 +417,7 @@ NSDateFormatter *nsdf;
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     _strCardType = [arrCardType objectAtIndex:[pickerView selectedRowInComponent:0]];
+    textEntries[4] = _strCardType; 
 }
 
 @end
