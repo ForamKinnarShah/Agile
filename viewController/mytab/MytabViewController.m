@@ -268,10 +268,19 @@
         uId = (NSString *)[NSGlobalConfiguration getConfigurationItem:@"ID"];
         NSLog(@"uId : %@",uId);
         
+        if (![CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized)
+        {
+            [locationManager stopUpdatingLocation];
+            isLatLong = YES;
+            currentLat = 0;
+            currentLong = 0; 
+        }
+        
         if(isLatLong){
             
             //http://50.62.148.155:8080/heres2u/api/index.php?webservice=ui&action=getreceiveditems&ID=33&Lat=-33.7501&Long=18.4533
             
+                        
             NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@index.php?webservice=ui&action=getreceiveditems&ID=%@&Lat=-%@&Long=%@",hostURl,uId,currentLat,currentLong]];
             NSLog(@" : %@",url);
             
@@ -1003,13 +1012,13 @@
             
             UILabel *lblPrice = [[UILabel alloc] initWithFrame:CGRectMake(5, 2, 150, 30)];
             if(selectedSegment==0 && self.arrayPrice.count>0){
-                [lblPrice setText:[NSString stringWithFormat:@"%@$",[self.arrayPrice objectAtIndex:indexPath.row]]];
+                [lblPrice setText:[NSString stringWithFormat:@"$%@",[self.arrayPrice objectAtIndex:indexPath.row]]];
             }
             else if(selectedSegment==1 && self.arrayPrice1.count>0){
-                [lblPrice setText:[NSString stringWithFormat:@"%@$",[self.arrayPrice1 objectAtIndex:indexPath.row]]];
+                [lblPrice setText:[NSString stringWithFormat:@"$%@",[self.arrayPrice1 objectAtIndex:indexPath.row]]];
             }
             else if(selectedSegment==2 && self.arrayPrice2.count>0){
-                [lblPrice setText:[NSString stringWithFormat:@"%@$",[self.arrayPrice2 objectAtIndex:indexPath.row]]];
+                [lblPrice setText:[NSString stringWithFormat:@"$%@",[self.arrayPrice2 objectAtIndex:indexPath.row]]];
             }
             [lblPrice setBackgroundColor:[UIColor clearColor]];
             [lblPrice setTextColor:[UIColor whiteColor]];

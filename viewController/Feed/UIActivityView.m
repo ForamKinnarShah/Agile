@@ -32,6 +32,7 @@
     return self;
 }
 - (IBAction)comment:(id)sender {
+    
     SEL RequestSelector=@selector(activityviewRequestComment:);
     if([Delegate respondsToSelector:RequestSelector]){
         [Delegate activityviewRequestComment:self];

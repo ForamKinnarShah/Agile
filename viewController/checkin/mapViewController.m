@@ -28,6 +28,8 @@
 {
     [super viewDidLoad];
     [self annotateMapViewWithLocations:locations];
+    //[self zoomToYouAndNearest];
+    [self zoomToLA]; 
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -60,6 +62,24 @@
     NSLog(@"annotationCoord:%f %f",annotationCoord.longitude,annotationCoord.latitude);
     //mapView.region = MKCoordinateRegionMakeWithDistance(annotationCoord, 50,50);
  
+}
+
+-(void)zoomToYouAndNearest
+{
+    MKMapPoint annotationPoint = MKMapPointForCoordinate(mapView.userLocation.coordinate);
+    MKMapRect zoomRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0.1, 0.1);
+    
+        MKMapPoint annotationPoint2 = MKMapPointForCoordinate([mapView.annotations[0] coordinate]);
+        MKMapRect pointRect = MKMapRectMake(annotationPoint2.x, annotationPoint2.y, 0.1, 0.1);
+        zoomRect = MKMapRectUnion(zoomRect, pointRect);
+    
+    [mapView setVisibleMapRect:zoomRect animated:YES];
+}
+
+-(void)zoomToLA
+{
+    MKCoordinateRegion LA = MKCoordinateRegionMake(CLLocationCoordinate2DMake(34.03, -118.14), MKCoordinateSpanMake(1, 1));
+    [mapView setRegion:LA]; 
 }
 
 -(IBAction)doneButtonClicked:(id)sender

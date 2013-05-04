@@ -25,5 +25,7 @@
     NSSearchForUser *Search;
 }
 @property (strong, nonatomic) IBOutlet UITableView *userstable;
+@property int ID; 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil ID:(int)ID;
 
 @end

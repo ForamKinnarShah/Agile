@@ -14,7 +14,7 @@
 
 @implementation FollowingViewController
 @synthesize userstable;
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil ID:(int)ID
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 
@@ -30,13 +30,23 @@
             [Followers setDelegate:self];
             NSUserDefaults *Defaults=[NSUserDefaults standardUserDefaults];
             NSString *UserID=[Defaults valueForKey:@"ID"];
-            [Followers setUserID:[UserID integerValue]];
+            //[Followers setUserID:[UserID integerValue]];
+            if (!self.ID)
+            {
+                self.ID = [UserID integerValue]; 
+            }
+            [Followers setUserID:ID];
             
         }else{
             Followees=[[NSFollowingDatasource alloc] init];
             NSUserDefaults *Defaults=[NSUserDefaults standardUserDefaults];
             NSString *UserID=[Defaults valueForKey:@"ID"];
-            [Followees setUserID:[UserID integerValue]];
+            //[Followees setUserID:[UserID integerValue]];
+            if (!self.ID)
+            {
+                self.ID = [UserID integerValue];
+            }
+            [Followees setUserID:ID];
             [Followees setDelegate:self];
         }
             }
@@ -132,10 +142,12 @@
     [UIBlocker setBackgroundColor:[UIColor grayColor]];
     [self.view addSubview:UIBlocker];
     if(Followers){
+        [Followers setUserID:self.ID]; 
         [Followers loadData];
         [UIBlocker startAnimating];
     }else{
         [Followees loadData];
+        [Followees setUserID:self.ID]; 
         [UIBlocker startAnimating];
     }
 }

@@ -131,12 +131,15 @@
 }
 
 -(void) FollowingPressed:(UIGestureRecognizer *)gesture{
-    FollowingViewController *Following=[[FollowingViewController alloc] initWithNibName:@"Following" bundle:nil];
+    FollowingViewController *Following=[[FollowingViewController alloc] initWithNibName:@"Following" bundle:nil ID:ProfileID];
+    NSLog(@"ProfileID:%i",ProfileID);
+    Following.ID = ProfileID; 
     [self.navigationController pushViewController:Following animated:YES];
 }
 
 -(void) FollowersPressed:(UIGestureRecognizer *)gesture{
-    FollowingViewController *Following=[[FollowingViewController alloc] initWithNibName:@"Followers" bundle:nil];
+    FollowingViewController *Following=[[FollowingViewController alloc] initWithNibName:@"Followers" bundle:nil ID:ProfileID];
+    Following.ID = ProfileID; 
     [self.navigationController pushViewController:Following animated:YES];
 }
 
@@ -222,7 +225,15 @@
         [activity.UserName setText:[ItemData valueForKey:@"FullName"]];
         [activity.lblComment setText:[ItemData valueForKey:@"UserComment"]];
         [activity.lblLocation setText:[ItemData valueForKey:@"Location"]];
+        
         [activity.lblTime setText:[ItemData valueForKey:@"DateCreated"]];
+        NSString *time = [ItemData valueForKey:@"DateCreated"];
+        NSDateFormatter *format = [[NSDateFormatter alloc] init];
+        [format setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        NSDate *timeDate = [format dateFromString:time];
+        NSString *dateString = [self humanTimeSinceDate:timeDate];
+        [activity.lblTime setText:dateString]; 
+        
         [activity.lblAddress setText:[ItemData valueForKey:@"Address"]]; 
         NSLog(@"_ProfilePicture >> %@",_ProfilePicture.image);
         [activity.ProfilePicture setImage:[_ProfilePicture image]];
@@ -253,7 +264,7 @@
         NSLog(@"added");
     }
     [ProSroll setScrollEnabled:YES];
-    [ProSroll setContentSize:CGSizeMake(0, ([Profile.Feeds count]*156)+120)];
+    [ProSroll setContentSize:CGSizeMake(0, ([Profile.Feeds count]*166)+120)];
     NSLog(@"%i",([Profile.Feeds count]*156));
 }
 -(void)activityviewRequestComment:(UIActivityView *)activity{
@@ -629,6 +640,88 @@
     UIAlertView *alertView=[[UIAlertView alloc] initWithTitle:@"Success" message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alertView show];
    
+}
+
+-(NSString*)humanTimeSinceDate:(NSDate*)date
+{
+    //assumes PST as reference date
+    int offset = [[NSTimeZone localTimeZone] secondsFromGMT];
+    //PST is -28800 s, PDT - 25200. This is the timestamp our server gives to check-ins and must be adjusted for other time zones.
+    // NSLog(@"offest:%i",offset);
+    NSTimeZone* systemTimeZone = [NSTimeZone systemTimeZone];
+    BOOL dstIsOn = [systemTimeZone isDaylightSavingTime];
+    int adjustSeconds;
+    if (dstIsOn){
+        adjustSeconds = offset + 25200;
+    }
+    else {
+        adjustSeconds = offset + 28800;
+    }
+    
+    NSTimeInterval interval = [[NSDate date] timeIntervalSinceDate:date];
+    NSTimeInterval adjusted = interval - adjustSeconds;
+    float minutesDiff = adjusted / 60;
+    float hoursDiff = minutesDiff/60;
+    float daysDiff = hoursDiff/24;
+    float weeksDiff = daysDiff/7;
+    float yearsDiff = weeksDiff/52;
+    
+    NSString *returnString;
+    
+    if (minutesDiff < 1)
+    {
+        returnString = @"1m";
+    }
+    else if (minutesDiff > 1 && hoursDiff < 1)
+    {
+        NSString *floatString = [NSString stringWithFormat:@"%0.f",minutesDiff];
+        
+        if ([floatString isEqualToString:@"1"]) {
+            returnString = [NSString stringWithFormat:@"%.0fm",minutesDiff];
+        }
+        else {
+            returnString = [NSString stringWithFormat:@"%.0fm",minutesDiff];
+        }
+    }
+    else if (hoursDiff > 1 && daysDiff < 1)
+    {
+        NSString *floatString = [NSString stringWithFormat:@"%0.f",hoursDiff];
+        
+        if ([floatString isEqualToString:@"1"]) {
+            
+            returnString = [NSString stringWithFormat:@"%.0fh",hoursDiff];
+        }
+        else {
+            returnString = [NSString stringWithFormat:@"%.0fh",hoursDiff];
+        }
+    }
+    else if (daysDiff >1 && weeksDiff < 1)
+    {
+        NSString *floatString = [NSString stringWithFormat:@"%0.f",daysDiff];
+        
+        if ([floatString isEqualToString:@"1"]) {
+            
+            returnString = [NSString stringWithFormat:@"%.0fd",daysDiff];
+        }
+        else {
+            returnString = [NSString stringWithFormat:@"%.0fd",daysDiff];
+            
+        }
+    }
+    else if (weeksDiff >1 && yearsDiff < 1){
+        NSString *floatString = [NSString stringWithFormat:@"%0.f",weeksDiff];
+        
+        if ([floatString isEqualToString:@"1"]) {
+            returnString = [NSString stringWithFormat:@"%.0fw",weeksDiff];
+        }
+        else {
+            returnString = [NSString stringWithFormat:@"%.0fw",weeksDiff];
+        }
+    }
+    else {
+        returnString = [NSString stringWithFormat:@"%.0fy",yearsDiff];
+    }
+    return returnString;
 }
 
 @end

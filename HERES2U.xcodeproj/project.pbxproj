@@ -947,7 +947,8 @@
 				7AA195A91712B15B001F7A40 /* NSSearchForUser.m */,
 				7AA195AA1712B15B001F7A40 /* NSSearchForUserProtocol.h */,
 			);
-			path = FollowersFollowing;
+			name = FollowersFollowing;
+			path = ../FollowersFollowing;
 			sourceTree = "<group>";
 		};
 		7AA195AB1712B15B001F7A40 /* HERES2U */ = {
@@ -1159,8 +1160,9 @@
 				7AA196541712B15C001F7A40 /* mytab */,
 				134AB79B171D4E2700F179E4 /* ReceiptViewController */,
 				7AA1965B1712B15C001F7A40 /* profile */,
-				7AA196601712B15C001F7A40 /* searchViewController.h */,
+				7AA1959D1712B15B001F7A40 /* FollowersFollowing */,
 				7AA196611712B15C001F7A40 /* searchViewController.m */,
+				7AA196601712B15C001F7A40 /* searchViewController.h */,
 				7AA196621712B15C001F7A40 /* searchViewController.xib */,
 				7AA196631712B15C001F7A40 /* settingsViewController.h */,
 				7AA196641712B15C001F7A40 /* settingsViewController.m */,
@@ -1411,7 +1413,6 @@
 				7AA1959C1712B15B001F7A40 /* Constants.m */,
 				13448F9E17194A7600B84B9F /* ImageViewLoading.h */,
 				13448F9F17194A7600B84B9F /* ImageViewLoading.m */,
-				7AA1959D1712B15B001F7A40 /* FollowersFollowing */,
 				7AA195AB1712B15B001F7A40 /* HERES2U */,
 				7AA195BA1712B15B001F7A40 /* images */,
 				7AA195DC1712B15B001F7A40 /* NSCommentLoader.h */,

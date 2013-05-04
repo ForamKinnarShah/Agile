@@ -208,9 +208,7 @@
     mapViewController *mapVC = [[mapViewController alloc] initWithNibName:@"mapViewController" bundle:nil];
     mapVC.locations = sortedLocations;
     mapVC.delegate = self;
-    //[mapVC annotateMapViewWithLocations:sortedLocations];
     [self presentViewController:mapVC animated:YES completion:NULL];
-    //[mapVC annotateMapViewWithLocations:sortedLocations];
     
 }
 

@@ -201,91 +201,10 @@
         NSDateFormatter *format = [[NSDateFormatter alloc] init];
         [format setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         NSDate *timeDate = [format dateFromString:time];
-        NSCalendar *cal = [NSCalendar currentCalendar];
-        NSDateComponents *hour = [cal components:NSHourCalendarUnit fromDate:[NSDate date] toDate:timeDate options:0];
-        NSDateComponents *minutes = [cal components:NSMinuteCalendarUnit fromDate:[NSDate date] toDate:timeDate options:0]; 
-                
-        int offset = [[NSTimeZone localTimeZone] secondsFromGMT];
-        //PST is -28800 s, PDT - 25200. This is the timestamp our server gives to check-ins and must be adjusted for other time zones. 
-       // NSLog(@"offest:%i",offset);
-        NSTimeZone* systemTimeZone = [NSTimeZone systemTimeZone];
-        BOOL dstIsOn = [systemTimeZone isDaylightSavingTime];
-        int adjustSeconds; 
-        if (dstIsOn){
-         adjustSeconds = offset + 25200;
-        }
-        else {
-             adjustSeconds = offset + 28800;
-        }
         
-        NSTimeInterval interval = [[NSDate date] timeIntervalSinceDate:timeDate];
-        NSTimeInterval adjusted = interval - adjustSeconds;
-        float minutesDiff = adjusted / 60;
-        float hoursDiff = minutesDiff/60;
-        float daysDiff = hoursDiff/24;
-        float weeksDiff = daysDiff/7; 
-        float yearsDiff = weeksDiff/52; 
-        
-        
-        if (minutesDiff < 1)
-        {
-            [activity.lblTime setText:@"1m"];
-        }
-        else if (minutesDiff > 1 && hoursDiff < 1)
-        {
-            NSString *floatString = [NSString stringWithFormat:@"%0.f",minutesDiff];
-            
-            if ([floatString isEqualToString:@"1"]) {
-            [activity.lblTime setText:[NSString stringWithFormat:@"%.0fm",minutesDiff]];
-            }
-            else {
-                [activity.lblTime setText:[NSString stringWithFormat:@"%.0fm",minutesDiff]];  
-            }
-        }
-        else if (hoursDiff > 1 && daysDiff < 1)
-        {
-            NSString *floatString = [NSString stringWithFormat:@"%0.f",hoursDiff];
-            
-            if ([floatString isEqualToString:@"1"]) {
-
-            [activity.lblTime setText:[NSString stringWithFormat:@"%.0fh",hoursDiff]];
-            }
-                else {
-                    [activity.lblTime setText:[NSString stringWithFormat:@"%.0fh",hoursDiff]];
-                }
-        }
-        else if (daysDiff >1 && weeksDiff < 1)
-        {
-            NSString *floatString = [NSString stringWithFormat:@"%0.f",daysDiff];
-            
-            if ([floatString isEqualToString:@"1"]) {
-
-            [activity.lblTime setText:[NSString stringWithFormat:@"%.0fd",daysDiff]];
-            }
-            else {
-                [activity.lblTime setText:[NSString stringWithFormat:@"%.0fd",daysDiff]];
-
-            }
-        }
-        else if (weeksDiff >1 && yearsDiff < 1){
-            NSString *floatString = [NSString stringWithFormat:@"%0.f",weeksDiff];
-            
-            if ([floatString isEqualToString:@"1"]) {
-            [activity.lblTime setText:[NSString stringWithFormat:@"%.0fw",weeksDiff]];
-            }
-            else {
-                [activity.lblTime setText:[NSString stringWithFormat:@"%.0fw",weeksDiff]];
-            }
-        }
-        else {
-            [activity.lblTime setText:[NSString stringWithFormat:@"%.0fy",yearsDiff]];
-        }
-        
-        //[activity.lblTime setText:[ItemData valueForKey:@"Time"]];
-       // [activity.lblTime setText:[NSString stringWithFormat:@"%i",hoursDiff]];
-
+        NSString *test = [self humanTimeSinceDate:timeDate]; 
+        activity.lblTime.text = test;
         [activity setDelegate:self];
-        [activity setTag:i];
         
         if ([[ItemData valueForKey:@"UserID"] isEqual:[NSGlobalConfiguration getConfigurationItem:@"ID"]])
         {
@@ -349,6 +268,88 @@
         //[feedManager getFeeds];
         [self loadActivities]; 
     }
+}
+
+-(NSString*)humanTimeSinceDate:(NSDate*)date
+{
+    //assumes PST as reference date
+    int offset = [[NSTimeZone localTimeZone] secondsFromGMT];
+    //PST is -28800 s, PDT - 25200. This is the timestamp our server gives to check-ins and must be adjusted for other time zones.
+    // NSLog(@"offest:%i",offset);
+    NSTimeZone* systemTimeZone = [NSTimeZone systemTimeZone];
+    BOOL dstIsOn = [systemTimeZone isDaylightSavingTime];
+    int adjustSeconds;
+    if (dstIsOn){
+        adjustSeconds = offset + 25200;
+    }
+    else {
+        adjustSeconds = offset + 28800;
+    }
+    
+    NSTimeInterval interval = [[NSDate date] timeIntervalSinceDate:date];
+    NSTimeInterval adjusted = interval - adjustSeconds;
+    float minutesDiff = adjusted / 60;
+    float hoursDiff = minutesDiff/60;
+    float daysDiff = hoursDiff/24;
+    float weeksDiff = daysDiff/7;
+    float yearsDiff = weeksDiff/52;
+    
+    NSString *returnString;
+    
+    if (minutesDiff < 1)
+    {
+        returnString = @"1m";
+    }
+    else if (minutesDiff > 1 && hoursDiff < 1)
+    {
+        NSString *floatString = [NSString stringWithFormat:@"%0.f",minutesDiff];
+        
+        if ([floatString isEqualToString:@"1"]) {
+            returnString = [NSString stringWithFormat:@"%.0fm",minutesDiff];
+        }
+        else {
+            returnString = [NSString stringWithFormat:@"%.0fm",minutesDiff];
+        }
+    }
+    else if (hoursDiff > 1 && daysDiff < 1)
+    {
+        NSString *floatString = [NSString stringWithFormat:@"%0.f",hoursDiff];
+        
+        if ([floatString isEqualToString:@"1"]) {
+            
+            returnString = [NSString stringWithFormat:@"%.0fh",hoursDiff];
+        }
+        else {
+            returnString = [NSString stringWithFormat:@"%.0fh",hoursDiff];
+        }
+    }
+    else if (daysDiff >1 && weeksDiff < 1)
+    {
+        NSString *floatString = [NSString stringWithFormat:@"%0.f",daysDiff];
+        
+        if ([floatString isEqualToString:@"1"]) {
+            
+           returnString = [NSString stringWithFormat:@"%.0fd",daysDiff];
+        }
+        else {
+            returnString = [NSString stringWithFormat:@"%.0fd",daysDiff];
+            
+        }
+    }
+    else if (weeksDiff >1 && yearsDiff < 1){
+        NSString *floatString = [NSString stringWithFormat:@"%0.f",weeksDiff];
+        
+        if ([floatString isEqualToString:@"1"]) {
+            returnString = [NSString stringWithFormat:@"%.0fw",weeksDiff];
+        }
+        else {
+            returnString = [NSString stringWithFormat:@"%.0fw",weeksDiff];
+        }
+    }
+    else {
+       returnString = [NSString stringWithFormat:@"%.0fy",yearsDiff];
+    }
+    return returnString; 
 }
 
 @end
