@@ -41,11 +41,16 @@
         [CommentText resignFirstResponder];
         CommentText.text = nil;
     }
+    _tblComment.frame = CGRectMake(0, 115, _tblComment.frame.size.width, 290);
 }
 
 - (void)viewDidLoad
 {
+    
     [super viewDidLoad];
+    
+    NSLog(@"%@",NSStringFromCGRect(_tblComment.frame));
+    
 	// Do any additional setup after loading the view.
     NSString *centerImageName = @"logo_small.png";
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:centerImageName]];
@@ -142,6 +147,7 @@
 
         [_toolTab_bg setFrame:frm];
     }];
+    _tblComment.frame = CGRectMake(0, 115, _tblComment.frame.size.width, 135);
     return YES;
 }
 -(BOOL) textFieldShouldReturn:(UITextField *)textField{
@@ -159,6 +165,7 @@
         [_toolTab_bg setFrame:frm];
     }];
 
+    _tblComment.frame = CGRectMake(0, 115, _tblComment.frame.size.width, 290);
     [textField resignFirstResponder];
     return YES;
 
@@ -176,6 +183,7 @@
         [_toolTab_bg setFrame:frm];
     }];
 
+    _tblComment.frame = CGRectMake(0, 115, _tblComment.frame.size.width, 290);
     [CommentsScroll setUserInteractionEnabled:YES];
     [textField resignFirstResponder];
     return YES;
@@ -190,7 +198,7 @@
         }];
         [CommentsScroll setUserInteractionEnabled:YES];
         [CommentText resignFirstResponder];
-
+        _tblComment.frame = CGRectMake(0, 115, _tblComment.frame.size.width, 290);
     }
 }
 -(void)commentsLoaded:(NSCommentLoader *)loader

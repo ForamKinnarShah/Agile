@@ -22,6 +22,15 @@
     BOOL isCamera;
     IBOutlet UITableView *objTableView;
     
+    NSString *strBusName;
+    NSString *strTypeofBusiness;
+    NSString *strAdd;
+    NSString *strAdd1;
+    NSString *strCity;
+    NSString *strState;
+    NSString *strZip;
+    
+    
     
 }
 

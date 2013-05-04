@@ -186,10 +186,9 @@
     }
 }
 
-
 -(IBAction)goToAdd:(id)sender {
-         addViewController *add = [[addViewController alloc] initWithNibName:@"addViewController" bundle:nil];
-         [self.navigationController pushViewController:add animated:YES];
+     addViewController *add = [[addViewController alloc] initWithNibName:@"addViewController" bundle:nil];
+     [self.navigationController pushViewController:add animated:YES];
 }
 
 -(IBAction)goToCheckinComment:(id)sender {
