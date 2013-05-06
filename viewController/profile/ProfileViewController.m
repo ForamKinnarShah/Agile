@@ -66,6 +66,10 @@
     Profile.ProfileID = ProfileID;
     }
     [Profile startFetching];
+    
+    feedManager=[[NSFeedManager alloc] init];
+    [feedManager setDelegate:self];
+    [feedManager getFeeds];
 }
 
 - (void)viewDidLoad
@@ -143,9 +147,16 @@
     [self.navigationController pushViewController:Following animated:YES];
 }
 
--(IBAction)goToMenu:(id)sender
+-(IBAction)goToMenu:(UIActivityView*)sender
 {
+    
+    NSLog(@"feedManager : %@",feedManager);
     menuViewController *menu = [[menuViewController alloc] initWithNibName:@"menuViewController" bundle:nil];
+    menu.userInfo = [NSMutableDictionary dictionaryWithDictionary:[feedManager getFeedAtIndex:sender.tag]];
+    menu.restaurantInfo = [NSMutableDictionary dictionaryWithObjects:[[feedManager getFeedAtIndex:sender.tag] objectsForKeys:[NSArray arrayWithObjects:@"locationID",@"Title",@"Address", nil] notFoundMarker:@"none"] forKeys:[NSArray arrayWithObjects:@"ID",@"Title",@"Address",nil]];
+    menu.followeePicImg = sender.ProfilePicture.image;
+    menu.followeeNametxt = sender.UserName.text;
+    menu.timeLabelText = sender.lblTime.text;
     [self.navigationController pushViewController:menu animated:YES];
 }
 

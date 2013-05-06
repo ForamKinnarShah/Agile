@@ -14,7 +14,8 @@
 @end
 
 @implementation checkinCommentViewController
-@synthesize CommentField,lblName,POSTButton,lblTitle,UserImage;
+@synthesize CommentField,lblName,POSTButton,UserImage;
+@synthesize lblResAddress,lblResDis,lblResName;
 
 -(id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil Checkin:(UICheckIns *)checkin{
     self=[super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -39,7 +40,12 @@
     NSString *centerImageName = @"logo_small.png";
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:centerImageName]];
     
-    [lblTitle setText:[Checkin.Location text]];
+    [lblResName setText:[Checkin.Name text]];
+    [lblResDis setText:[Checkin.Distance text]];
+    [lblResAddress setText:[Checkin.Location text]];
+    
+    
+    
     [lblName setText:[NSGlobalConfiguration getConfigurationItem:@"FullName"]];
     NSLog(@"Checkin.Picture: %@",Checkin.Picture);
 

@@ -14,6 +14,7 @@
     return [Feeds count];
 }
 -(NSDictionary *)getFeedAtIndex:(NSInteger)index{
+    NSLog(@"Feeds : %@",Feeds);
     return [Feeds objectAtIndex:index];
 }
 -(void) getFeeds{

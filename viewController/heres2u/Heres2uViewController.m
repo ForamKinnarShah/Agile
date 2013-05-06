@@ -72,11 +72,17 @@
 
     checkin.delegate = self;
     selectedImage = sender.picture.image;
+    UINavigationController *cntrol = [[UINavigationController alloc] initWithRootViewController:checkin];
+    [self presentModalViewController:cntrol animated:YES];
     
-   // [self.navigationController pushViewController:checkin animated:YES];
-    [self presentViewController:checkin animated:NO completion:NULL];
-    [[[UIAlertView alloc] initWithTitle:@"Select Restaurant" message:@"Please choose a restaurant at which to buy your gift!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show]; 
+    //[self.navigationController pushViewController:checkin animated:YES];
+//    [self presentViewController:checkin animated:NO completion:NULL];
+    [[[UIAlertView alloc] initWithTitle:@"Select Restaurant" message:@"Please choose a restaurant at which to buy your gift!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     _senderNumber = sender.tag; 
+
+   
+    
+    
 //    menuViewController *menu = [[menuViewController alloc] initWithNibName:@"menuViewController" bundle:nil];
 //
 //    NSLog(@"%@: name:%@",sender,sender.name.text);

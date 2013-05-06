@@ -8,9 +8,9 @@
 
 #import "CommentViewController.h"
 
-#define FONT_SIZE 16.0f
+#define FONT_SIZE 13.0f
 #define CELL_CONTENT_WIDTH 320.0f
-#define CELL_CONTENT_MARGIN 10.0f
+#define CELL_CONTENT_MARGIN 80.0f
 
 @interface CommentViewController ()
 
@@ -18,6 +18,7 @@
 
 @implementation CommentViewController
 @synthesize Title,ProfilePicture,Time,FullName,CommentsScroll,CommentText,MainComment;
+
 -(id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil ActivityView:(UIActivityView *)activity{
     self=[self initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if(self){
@@ -51,6 +52,10 @@
     
     NSLog(@"%@",NSStringFromCGRect(_tblComment.frame));
     
+    //hostURL
+    hostURl = [NSGlobalConfiguration URL];
+
+    
 	// Do any additional setup after loading the view.
     NSString *centerImageName = @"logo_small.png";
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:centerImageName]];
@@ -66,7 +71,7 @@
         [_imgNav setFrame:CGRectMake(5, 6, 310, 81)];
         [ProfilePicture setFrame:CGRectMake(5, 5, 80, 80)];
         [Title setFrame:CGRectMake(101, 11, 180, 18)];
-        [Time setFrame:CGRectMake(112, 29, 141, 17)];
+        //[Time setFrame:CGRectMake(112, 29, 141, 17)];
         [_btnTitle_bg setFrame:CGRectMake(5, 55, 310, 22)];
         [FullName setFrame:CGRectMake(13, 53, 208, 22)]; // height 22
         [_lblBuy setFrame:CGRectMake(274, 55, 35, 22)]; // height 22
@@ -84,7 +89,7 @@
         [_imgNav setFrame:CGRectMake(5, 4, 310, 82)];
         [ProfilePicture setFrame:CGRectMake(5, 5, 80, 80)];
         [Title setFrame:CGRectMake(101, 11, 180, 18)];
-        [Time setFrame:CGRectMake(112, 29, 141, 17)];
+       //[Time setFrame:CGRectMake(112, 29, 141, 17)];
         [_btnTitle_bg setFrame:CGRectMake(5, 64, 310, 22)];
         [FullName setFrame:CGRectMake(13, 63, 205, 22)];
         [_lblBuy setFrame:CGRectMake(274, 64, 35, 22)];
@@ -143,7 +148,7 @@
     CGRect toolFrame = _toolTab_bg.frame; 
     [UIView animateWithDuration:0.2 animations:^(void) {
        // CGRect frm=CGRectMake(0, -160, CurrentRect.size.width, CurrentRect.size.height);
-        CGRect frm=CGRectMake(0, toolFrame.origin.y-160, toolFrame.size.width, toolFrame.size.height);
+        CGRect frm=CGRectMake(0, toolFrame.origin.y-165, toolFrame.size.width, toolFrame.size.height);
 
         [_toolTab_bg setFrame:frm];
     }];
@@ -236,10 +241,10 @@
 {
     UITableViewCell *cell;
     UILabel *label = nil;
-    UILabel *lblDetailed = nil;
     
     cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
 
+    NSLog(@"_arrComment : %@",_arrComment);
     if (cell == nil)
     {
         cell = [[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"Cell"];
@@ -256,26 +261,37 @@
         [[cell contentView] addSubview:label];
         
     }
+    //PostImage
+    NSString *strURL = [NSString stringWithFormat:@"%@%@",hostURl,[[_arrComment objectAtIndex:indexPath.row] valueForKey:@"ImageURL"]];
+    NSLog(@"strURL:%@",strURL);
+    ImageViewLoading *imageViewPoster = [[ImageViewLoading alloc] initWithFrame:CGRectMake(7, 5, 60, 60) ImageUrl:strURL];
+    [cell.contentView addSubview:imageViewPoster];
+    
+    
+    
+    //UserName
+    UILabel *lblUsername = [[UILabel alloc] initWithFrame:CGRectMake(CELL_CONTENT_MARGIN, 5, 200, 20.0)];
+    [lblUsername setMinimumFontSize:12];
+    [lblUsername setNumberOfLines:1];
+    [lblUsername setFont:[UIFont boldSystemFontOfSize:FONT_SIZE]];
+    [lblUsername setTag:2];
+    [lblUsername setTextColor:[UIColor blackColor]];
+    [[cell contentView] addSubview:lblUsername];
+    [lblUsername setText:[[_arrComment objectAtIndex:indexPath.row] valueForKey:@"FullName"]];
+    
+    
+  
     NSString *text = [[_arrComment objectAtIndex:indexPath.row] valueForKey:@"Comment"];
     
     CGSize constraint = CGSizeMake(CELL_CONTENT_WIDTH - (CELL_CONTENT_MARGIN * 2), 20000.0f);
-    
     CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
-    
     if (!label)
         label = (UILabel*)[cell viewWithTag:1];
     
     [label setText:text];
-    [label setFrame:CGRectMake(CELL_CONTENT_MARGIN, CELL_CONTENT_MARGIN, CELL_CONTENT_WIDTH - (CELL_CONTENT_MARGIN * 2), MAX(size.height, 44.0f))];
+    [label setFrame:CGRectMake(CELL_CONTENT_MARGIN, 25.0, 220, MAX(size.height, 10.0f))];
     
-    UILabel *lblUsername = [[UILabel alloc] initWithFrame:CGRectMake(CELL_CONTENT_MARGIN, label.frame.size.height + 5.0, 200, 20.0)];
-    [lblUsername setMinimumFontSize:12];
-    [lblUsername setNumberOfLines:1];
-    [lblUsername setFont:[UIFont systemFontOfSize:12]];
-    [lblUsername setTag:2];
-    [lblUsername setTextColor:[UIColor grayColor]];
-    [[cell contentView] addSubview:lblUsername];
-    [lblUsername setText:[[_arrComment objectAtIndex:indexPath.row] valueForKey:@"FullName"]];
+    
 
     
 //    if (cell == nil)
@@ -335,16 +351,20 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
     
-    NSString *text = [[_arrComment objectAtIndex:indexPath.row] valueForKey:@"Comment"];
-    
     CGSize constraint = CGSizeMake(CELL_CONTENT_WIDTH - (CELL_CONTENT_MARGIN * 2), 20000.0f);
+    NSString *text = [[_arrComment objectAtIndex:indexPath.row] valueForKey:@"Comment"];
+    CGSize mTempSize = [text sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint  lineBreakMode:UILineBreakModeWordWrap];
+    return mTempSize.height + (CELL_CONTENT_MARGIN);
     
+    
+    
+ /*   CGSize constraint = CGSizeMake(450 - (CELL_CONTENT_MARGIN * 2), 20000.0f);
     CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
-    
     CGFloat height = MAX(size.height + 28.0, 44.0f);
     NSLog(@"height %f",height);
-    return height + (CELL_CONTENT_MARGIN * 2);
-    
+//    return height + (CELL_CONTENT_MARGIN * 2);
+    return height + 50;
+*/
     
 //    NSString *text = [NSString stringWithFormat:@"%@\n%@",[[_arrComment objectAtIndex:indexPath.row] valueForKey:@"Comment"],[[_arrComment objectAtIndex:indexPath.row] valueForKey:@"FullName"]];
 //    CGSize constraint = CGSizeMake(CELL_CONTENT_WIDTH - (CELL_CONTENT_MARGIN * 2), 20000.0f);

@@ -67,6 +67,12 @@
 
 -(void)login:(id)sender
 {
+    if([_strusrname length] == 0)
+        _strusrname = _txtEmail_Login.text;
+    
+    if ([_strpass length] == 0)
+        _strpass = _txtPassword.text;
+    
 //    profNav.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon.png"]];
 //    mytabNav.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon.png"]];
 //    checkNav.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon.png"]];
@@ -180,7 +186,7 @@
     [NSGlobalConfiguration setConfigurationItem:@"ID" Item:[AppDelegate sharedInstance].strUserID];
     
     [UIBlocker stopAnimating];
-/*
+
     // -----------------------------Push Notification
 
 	// Get Bundle Info for Remote Registration (handy if you have more than one app)
@@ -291,7 +297,7 @@
     NSLog(@"Response String ==-========================================================================================================================================================== %@",s);
     
     //  -----Completion of notification
- */
+ 
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

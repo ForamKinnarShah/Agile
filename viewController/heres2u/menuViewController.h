@@ -12,28 +12,34 @@
 {
     NSMutableArray *selectedItems;
     NSMutableArray *selectedIndices; 
-    NSArray *menu; 
+    NSArray *menu;
 }
 
 @property IBOutlet UISegmentedControl *segmentedControl;
 @property IBOutlet UILabel *lowPricelbl;
 @property IBOutlet UILabel *medPricelbl;
-@property IBOutlet UILabel *highPricelbl; 
-@property IBOutlet UITextField *enterPriceTxtField; 
+@property IBOutlet UILabel *highPricelbl;
+@property IBOutlet UITextField *enterPriceTxtField;
 @property IBOutlet UIButton *button1;
 @property IBOutlet UIButton *button2;
 @property IBOutlet UIButton *button3;
 @property IBOutlet UILabel *followeeName;
-@property NSString *followeeNametxt; 
+@property NSString *followeeNametxt;
 @property IBOutlet UIImageView *followeePic;
-@property UIImage *followeePicImg; 
-@property IBOutlet UILabel *restaurantName; 
+@property UIImage *followeePicImg;
+@property IBOutlet UILabel *restaurantName;
+@property IBOutlet UILabel *restaurantAddress;
+
 @property NSMutableDictionary *userInfo;
-@property NSDictionary *restaurantInfo; 
-@property IBOutlet UILabel *timeLabel; 
-@property NSString *timeLabelText; 
+@property NSDictionary *restaurantInfo;
+@property IBOutlet UILabel *timeLabel;
+@property NSString *timeLabelText;
+
+
+@property (nonatomic, strong) IBOutlet UITableView *tblMenu;
 
 // button action
 - (IBAction)bg_clicked:(id)sender;
 
 @end
+

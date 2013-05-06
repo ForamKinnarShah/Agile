@@ -15,6 +15,7 @@
 #import "CommentViewController.h"
 #import "utilities.h" 
 #import "AssetsLibrary/AssetsLibrary.h"
+#import "NSFeedManager.h"
 
 @interface ProfileViewController : UIViewController <UITabBarControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate,NSProfileProtocol,NSImageLoaderToImageViewProtocol, NSXMLParserDelegate, UIScrollViewDelegate,UIImagePickerControllerDelegate>{
 @private
@@ -26,7 +27,8 @@
     NSString *imgExt1;
     UIImage *img1;
     NSString *CurrentString;
-    int numberOfFeedsToLoad; 
+    int numberOfFeedsToLoad;
+    NSFeedManager *feedManager;
 }
 @property (strong, nonatomic) IBOutlet UIScrollView *ProSroll;
 @property (strong, nonatomic) IBOutlet UIImageView *ProfilePicture;

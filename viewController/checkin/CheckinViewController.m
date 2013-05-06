@@ -37,7 +37,19 @@
 //    self.tabBarItem = tab;
     // Custom initialization
     // Do any additional setup after loading the view from its nib.
-    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(goToAdd:)]];
+    
+    if (self.presentingViewController)
+    {
+        // Do any additional setup after loading the view.
+        NSString *centerImageName = @"logo_small.png";
+        self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:centerImageName]];
+        
+         [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(btnCancel_Click:)]];
+    }
+    else{
+        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(goToAdd:)]];
+    }
+    
     Locations=[[NSLocationLoader alloc] init];
     [Locations setDelegate:self];
     //[Locations downloadLocations];
@@ -59,6 +71,7 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    
     [super viewWillAppear:animated];
     FilterTextBox.text =@"";
 }
@@ -66,7 +79,8 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     
-    [Locations downloadLocations]; 
+    
+    [Locations downloadLocations];
 }
 
 - (void)didReceiveMemoryWarning
@@ -190,6 +204,12 @@
      addViewController *add = [[addViewController alloc] initWithNibName:@"addViewController" bundle:nil];
      [self.navigationController pushViewController:add animated:YES];
 }
+
+-(IBAction)btnCancel_Click:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:NO];
+}
+
+
 
 -(IBAction)goToCheckinComment:(id)sender {
     checkinCommentViewController *add = [[checkinCommentViewController alloc] initWithNibName:@"checkinCommentViewController" bundle:nil];

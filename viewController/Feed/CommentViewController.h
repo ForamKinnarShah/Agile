@@ -11,10 +11,14 @@
 #import "NSUserInterfaceCommands.h"
 #import "UIComment.h"
 #import "NSCommentLoader.h"
+#import "ImageViewLoading.h"
+
 @interface CommentViewController : UIViewController<NSUserInterfaceCommandsProtocol,UITextFieldDelegate,NSCommentLoaderProtocol>{
     @private
     UIActivityView *internal;
-    CGRect originalToolBarFrame; 
+    CGRect originalToolBarFrame;
+    
+    NSString *hostURl;
 }
 @property (strong, nonatomic) IBOutlet UILabel *Title;
 @property (strong, nonatomic) IBOutlet UIImageView *ProfilePicture;
