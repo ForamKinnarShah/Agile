@@ -148,6 +148,7 @@
     
     if ([feedManager count] == 0)
     {
+        if (!defaultButton){
 //        defaultLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.origin.y, 300, 50)];
 //        defaultLabel.text = @"You have no feed activity yet. Check-in somewhere or add some friends!";
         defaultButton = [[UIButton alloc] initWithFrame:self.view.frame];
@@ -157,9 +158,11 @@
         [defaultButton setBackgroundImage:[UIImage imageNamed:@"dot-green.png"] forState:UIControlStateNormal]; 
         [defaultButton.titleLabel setLineBreakMode:NSLineBreakByWordWrapping]; 
         [self.view addSubview:defaultButton];
+        }
     }
     else{
         [defaultButton removeFromSuperview];
+        defaultButton = nil; 
     }
     
     for (UIView *activity in activityViews)

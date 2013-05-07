@@ -254,7 +254,15 @@
         UICheckIns *CheckIn=[[UICheckIns alloc] init];
         CheckIn.frame = CGRectMake(0, (checkinViewLength*i), 320, checkinViewLength);
         
+        
+        if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized)
+        {
         [CheckIn.Distance setText:[NSString stringWithFormat:@"%i mi",[[ItemData objectForKey:@"distance"] intValue]]];
+        }
+        else {
+            [CheckIn.Distance setText:@""]; 
+        }
+        
         [CheckIn.Name setText:[ItemData valueForKey:@"Title"]];
         
         [arrayTitle addObject:[ItemData valueForKey:@"Title"]];

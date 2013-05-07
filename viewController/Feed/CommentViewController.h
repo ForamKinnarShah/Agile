@@ -32,6 +32,7 @@
 // stores value for comments
 @property (strong, nonatomic) NSMutableArray *arrComment;
 @property (strong, nonatomic) IBOutlet UITableView *tblComment;
+@property (strong, nonatomic) IBOutlet UILabel *lblAddress; 
 
 // assign properties
 @property (strong, nonatomic) IBOutlet UIImageView *imgNav;

@@ -267,13 +267,13 @@
         
         uId = (NSString *)[NSGlobalConfiguration getConfigurationItem:@"ID"];
         NSLog(@"uId : %@",uId);
-        
-        if (![CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized)
+        NSLog(@"status:%u",[CLLocationManager authorizationStatus]); 
+        if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized)
         {
             [locationManager stopUpdatingLocation];
             isLatLong = YES;
             currentLat = 0;
-            currentLong = 0; 
+            currentLong = 0;
         }
         
         if(isLatLong){
@@ -750,7 +750,6 @@
 {
     NSLog(@"didFailWithError: %@", error);
     [self stopLoading];
-    
     UIAlertView *errorAlert = [[UIAlertView alloc]
                                initWithTitle:@"Error!" message:@"Failed to Get Your Location. Please Turn on your device location services." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [errorAlert show];
@@ -1161,8 +1160,8 @@
           
                 NSMutableArray *receData = [[NSMutableArray alloc] init];
                 [receData addObject:[self.arrayTransactionsID1 objectAtIndex:selectedRow]];
-                [receData addObject:[self.arraySenderName1 objectAtIndex:selectedRow]];
                 [receData addObject:[NSGlobalConfiguration getConfigurationItem:@"FullName"]];
+                [receData addObject:[self.arraySenderName1 objectAtIndex:selectedRow]];
                 [receData addObject:[self.arrayLocationName1 objectAtIndex:selectedRow]];
                 [receData addObject:[self.arrayPrice1 objectAtIndex:selectedRow]];
                 

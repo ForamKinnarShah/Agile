@@ -153,18 +153,20 @@
     //NSLog(@"Loading Activity");
     if ([friendItems count] == 0)
     {
+        if (!defaultButton){
         defaultButton = [[UIButton alloc] initWithFrame:self.view.frame];
         [defaultButton setTitle:@"You have no followees yet. Search for them on the Profile page!" forState:UIControlStateNormal];
         defaultButton.titleLabel.textAlignment = NSTextAlignmentCenter;
         [defaultButton setBackgroundImage:[UIImage imageNamed:@"dot-green.png"] forState:UIControlStateNormal];
         [defaultButton.titleLabel setLineBreakMode:NSLineBreakByWordWrapping];
         [self.view addSubview:defaultButton];
-
+        }
     }
     
     
     else {
-        [defaultButton removeFromSuperview]; 
+        [defaultButton removeFromSuperview];
+        defaultButton = nil; 
         
     for(NSInteger i=0; i<[friendItems count];i++){
         heres2uitemView *friend=[[heres2uitemView alloc] initWithFrame:CGRectMake(5, (i*81), 320, 81)];

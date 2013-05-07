@@ -212,15 +212,19 @@
     
     if ([Profile.Feeds count] == 0)
     {
+        if (!defaultButton){
         defaultButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 120, 320, self.view.frame.size.height-120)];
-        [defaultButton setTitle:@"You have no followees yet. Search for them on the Profile page!" forState:UIControlStateNormal];
+        [defaultButton setTitle:@"You have no check-in history yet. Check-in at a restaurant soon!" forState:UIControlStateNormal];
         defaultButton.titleLabel.textAlignment = NSTextAlignmentCenter;
         [defaultButton setBackgroundImage:[UIImage imageNamed:@"dot-green.png"] forState:UIControlStateNormal];
         [defaultButton.titleLabel setLineBreakMode:NSLineBreakByWordWrapping];
         [self.view addSubview:defaultButton];
+        }
+        
     }
     else {
-        [defaultButton removeFromSuperview]; 
+        [defaultButton removeFromSuperview];
+        defaultButton = nil; 
     }
     
     if ([Profile.Feeds count]<numberOfFeedsToLoad){
@@ -275,7 +279,7 @@
         NSLog(@"added");
     }
     [ProSroll setScrollEnabled:YES];
-    [ProSroll setContentSize:CGSizeMake(0, ([Profile.Feeds count]*166)+120)];
+    [ProSroll setContentSize:CGSizeMake(0, (numberOfFeedsToLoad*166)+120)];
     NSLog(@"%i",([Profile.Feeds count]*156));
 }
 -(void)activityviewRequestComment:(UIActivityView *)activity{

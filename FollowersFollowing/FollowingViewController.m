@@ -31,7 +31,7 @@
             NSUserDefaults *Defaults=[NSUserDefaults standardUserDefaults];
             NSString *UserID=[Defaults valueForKey:@"ID"];
             //[Followers setUserID:[UserID integerValue]];
-            if (!self.ID)
+            if (!self.ID && UserID)
             {
                 self.ID = [UserID integerValue]; 
             }

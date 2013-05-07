@@ -425,7 +425,9 @@ NSDateFormatter *nsdf;
     datePicker.hidden = YES;
     doneBar.hidden = YES;
     pickerCard.hidden = YES;
+    if (textField.tag == 600 || textField.tag == 700){
     [self setViewMovedUp:YES];
+    }
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
