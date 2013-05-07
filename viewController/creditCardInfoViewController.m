@@ -56,9 +56,7 @@
     
     arrCardDetail = [[NSMutableArray alloc] initWithObjects:@"Name on Card",@"Expiration Date",@"Billing Address",@"Address Line 2",@"Card Type",@"Card Number",@"security Code", nil];
     _strExpirationDate = @"";
-    arrCardType = [[NSMutableArray alloc] initWithObjects:@"visa", @"mastercard", @"amex", nil];
-
-
+    arrCardType = [[NSMutableArray alloc] initWithObjects:@"Visa", @"Mastercard", @"Amex", nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -87,15 +85,6 @@
 //        }
 //    }
     
-    NSLog(@"_txtName >> %i",[_txtName.text length]);
-    NSLog(@"exiprationDate >> %i",[_lblexiprationDate.text length]);
-     NSLog(@"_txtBillingAddress >> %i",[_txtBillingAddress.text length]);
-     NSLog(@"_txtAddressLine2 >> %i",[_txtAddressLine2.text length]);
-    NSLog(@"_lblCardType >> %i",[_lblCardType.text length]);
-    NSLog(@"_txtCardNumber >> %i",[_txtCardNumber.text length]);
-    NSLog(@"_txtSecurityCode >> %i",[_txtSecurityCode.text length]);
-    
-
     if ([_strnameTextField length] == 0 || [_strexpirationDateTextField length] == 0 || [_straddress1TextField length] == 0 || [_straddress2TextField length] == 0 || [_strcardTypeTextField length] == 0 || [_strcardNumberTextField length] == 0 || [_strsecurityCodeTextField length] == 0)
     {
         [[[UIAlertView alloc] initWithTitle:@"one or more fields are missing" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
@@ -229,6 +218,8 @@ NSDateFormatter *nsdf;
 
 -(IBAction)Done_Picker
 {
+    [self setViewMovedUp:NO];
+
     pickerCard.hidden = YES;
     doneBar.hidden = YES;
     datePicker.hidden = YES;
@@ -284,7 +275,7 @@ NSDateFormatter *nsdf;
         
         if (indexPath.row == 0)
         {
-            _txtName = [[UITextField alloc] initWithFrame:CGRectMake(130, 10, 150, 24)];
+            _txtName = [[UITextField alloc] initWithFrame:CGRectMake(120, 10, 170, 24)];
             [_txtName setTextAlignment:NSTextAlignmentRight];
             _txtName.tag = 100;
             [_txtName setPlaceholder:@"Name"];
@@ -294,7 +285,7 @@ NSDateFormatter *nsdf;
         }
         if (indexPath.row == 1)
         {
-            _lblexiprationDate = [[UILabel alloc] initWithFrame:CGRectMake(130, 10, 150, 24)];
+            _lblexiprationDate = [[UILabel alloc] initWithFrame:CGRectMake(120, 10, 170, 24)];
             [_lblexiprationDate setTextAlignment:NSTextAlignmentRight];
             [_lblexiprationDate setText:@"Expiration Date"];
             [_lblexiprationDate setBackgroundColor:[UIColor clearColor]];
@@ -305,7 +296,7 @@ NSDateFormatter *nsdf;
         }
         if (indexPath.row == 2)
         {
-            _txtBillingAddress = [[UITextField alloc] initWithFrame:CGRectMake(130, 10, 150, 24)];
+            _txtBillingAddress = [[UITextField alloc] initWithFrame:CGRectMake(120, 10, 170, 24)];
             [_txtBillingAddress setTextAlignment:NSTextAlignmentRight];
             [_txtBillingAddress setPlaceholder:@"Billing Address"];
             _txtBillingAddress.tag = 300;
@@ -315,7 +306,7 @@ NSDateFormatter *nsdf;
         }
         if (indexPath.row == 3)
         {
-            _txtAddressLine2 = [[UITextField alloc] initWithFrame:CGRectMake(130, 10, 150, 24)];
+            _txtAddressLine2 = [[UITextField alloc] initWithFrame:CGRectMake(120, 10, 170, 24)];
             [_txtAddressLine2 setTextAlignment:NSTextAlignmentRight];
             [_txtAddressLine2 setPlaceholder:@"Billing Address"];
             _txtAddressLine2.tag = 400;
@@ -325,7 +316,7 @@ NSDateFormatter *nsdf;
         }
         if(indexPath.row == 4)
         {
-            _lblCardType = [[UILabel alloc] initWithFrame:CGRectMake(130, 10, 150, 24)];
+            _lblCardType = [[UILabel alloc] initWithFrame:CGRectMake(120, 10, 170, 24)];
             [_lblCardType setTextAlignment:NSTextAlignmentRight];
             [_lblCardType setText:@"Card Type"];
             [_lblCardType setBackgroundColor:[UIColor clearColor]];
@@ -336,10 +327,11 @@ NSDateFormatter *nsdf;
         }
         if (indexPath.row == 5)
         {
-            _txtCardNumber = [[UITextField alloc] initWithFrame:CGRectMake(130, 10, 150, 24)];
+            _txtCardNumber = [[UITextField alloc] initWithFrame:CGRectMake(120, 10, 170, 24)];
             [_txtCardNumber setTextAlignment:NSTextAlignmentRight];
             [_txtCardNumber setPlaceholder:@"Card Number"];
             _txtCardNumber.tag = 600;
+            _txtCardNumber.returnKeyType = UIReturnKeyDone;
             [_txtCardNumber setBorderStyle:UITextBorderStyleNone];
             _txtCardNumber.delegate = self;
             [_txtCardNumber setKeyboardType:UIKeyboardTypeNumberPad];
@@ -347,7 +339,7 @@ NSDateFormatter *nsdf;
         }
         if (indexPath.row == 6)
         {
-            _txtSecurityCode = [[UITextField alloc] initWithFrame:CGRectMake(130, 10, 150, 24)];
+            _txtSecurityCode = [[UITextField alloc] initWithFrame:CGRectMake(120, 10, 170, 24)];
             [_txtSecurityCode setTextAlignment:NSTextAlignmentRight];
             [_txtSecurityCode setPlaceholder:@"code"];
             _txtSecurityCode.tag = 700;
@@ -398,6 +390,9 @@ NSDateFormatter *nsdf;
         SELECTED_PICKER = NO;
         datePicker.hidden = NO;
         doneBar.hidden = NO;
+        
+        [datePicker setMinimumDate:[NSDate date]];
+        [self setViewMovedUp:NO];
     }
     if (indexPath.row == 4)
     {
@@ -406,6 +401,8 @@ NSDateFormatter *nsdf;
 
         pickerCard.hidden = NO;
         doneBar.hidden = NO;
+
+        [self setViewMovedUp:NO];
     }
 }
 
@@ -419,15 +416,18 @@ NSDateFormatter *nsdf;
     return YES;
 }
 
+
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     [textField becomeFirstResponder];
     datePicker.hidden = YES;
     doneBar.hidden = YES;
     pickerCard.hidden = YES;
-    if (textField.tag == 600 || textField.tag == 700){
-    [self setViewMovedUp:YES];
-    }
+    if (textField.tag == 600 || textField.tag == 700)
+        [self setViewMovedUp:YES];
+
+    if (textField.tag == 600)
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
@@ -435,12 +435,6 @@ NSDateFormatter *nsdf;
     pickerCard.hidden = YES;
     doneBar.hidden = YES;
     datePicker.hidden = YES;
-//    [_txtName resignFirstResponder];
-//    [_txtBillingAddress resignFirstResponder];
-//    [_txtAddressLine2 resignFirstResponder];
-//    [_txtCardNumber resignFirstResponder];
-//    [_txtSecurityCode resignFirstResponder];
-//    
     
     switch (textField.tag)
     {
@@ -491,6 +485,18 @@ NSDateFormatter *nsdf;
     return YES;
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range
+replacementString:(NSString*)string
+{
+    if (textField == _txtCardNumber)
+    {
+        if (range.location >= 16)
+            return NO;
+    }
+    
+    return YES;
+}
+
 #pragma mark
 #pragma mark pickerview
 
@@ -517,5 +523,29 @@ NSDateFormatter *nsdf;
     _strCardType = [arrCardType objectAtIndex:[pickerView selectedRowInComponent:0]];
     textEntries[4] = _strCardType; 
 }
+
+#pragma mark 
+#pragma mark invoked functions
+
+- (void)keyboardWillShow:(NSNotification *)note
+{
+    // create custom button
+    UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    doneButton.frame = CGRectMake(0, 163, 106, 53);
+    doneButton.adjustsImageWhenHighlighted = NO;
+    [doneButton setImage:[UIImage imageNamed:@"DoneUp.png"] forState:UIControlStateNormal];
+    [doneButton setImage:[UIImage imageNamed:@"DoneDown.png"] forState:UIControlStateHighlighted];
+    [doneButton addTarget:self action:@selector(doneButton:) forControlEvents:UIControlEventTouchUpInside];
+    
+    // locate keyboard view
+    
+    UIWindow* tempWindow = [[[UIApplication sharedApplication] windows] objectAtIndex:1];
+    UIView* keyboard;
+    for(int i=0; i<[tempWindow.subviews count]; i++) {
+        keyboard = [tempWindow.subviews objectAtIndex:i];
+        // keyboard view found; add the custom button to it
+        if([[keyboard description] hasPrefix:@"<UIKeyboard"] == YES)
+            [keyboard addSubview:doneButton];
+    }}
 
 @end

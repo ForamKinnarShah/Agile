@@ -166,8 +166,18 @@
         }
         NSUserDefaults *Defaults=[NSUserDefaults standardUserDefaults];
         NSString *UserID=[Defaults valueForKey:@"ID"];
+        
+        NSLog(@"follower >> %i",[[Data valueForKey:@"ID"] intValue]);
+        NSLog(@"followee >> %@",[Defaults valueForKey:@"ID"]);
         //NSLog(@"User %@ Requesting to Follow UserID:%@",UserID,[Data valueForKey:@"ID"]);
-        [NSUserInterfaceCommands followUser:[UserID integerValue] FolloweeID:[(NSString *)[Data valueForKey:@"ID"] integerValue] CallbackDelegate:self];
+      
+        if ([[NSString stringWithFormat:@"%i",[[Data valueForKey:@"ID"] intValue]] isEqualToString:[Defaults valueForKey:@"ID"]])
+        {
+            UIAlertView *alError = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"Oops! You can't follow yourself!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alError show];
+        }
+        else
+            [NSUserInterfaceCommands followUser:[UserID integerValue] FolloweeID:[(NSString *)[Data valueForKey:@"ID"] integerValue] CallbackDelegate:self];
     }
 }
 -(void)userRequestedToStopUserFromFollowing:(NSInteger)userID{

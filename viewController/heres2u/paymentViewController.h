@@ -30,6 +30,10 @@
 @property NSDictionary *restaurantInfo; 
 @property float additionalGiftAmount; 
 
+@property (nonatomic, strong) IBOutlet UITableView *tblPayment;
+@property (nonatomic, strong) UILabel *lblItemList,*lblItemValueList;
+@property (nonatomic, strong) NSMutableArray *arrItemList,*arrItemValueList;
+
 -(IBAction)goToCreditCardPage:(id)sender;
 -(IBAction)clickedAccept:(id)sender; 
 

@@ -187,7 +187,7 @@
     
     [UIBlocker stopAnimating];
 
-    // -----------------------------Push Notification
+   // -----------------------------Push Notification
 
 	// Get Bundle Info for Remote Registration (handy if you have more than one app)
     NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
@@ -308,7 +308,6 @@
 {
     if (buttonIndex == 1)
     {
-        
         if ([_txtEmail.text length] == 0)
         {
             UIAlertView *alValidateLostPassword = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"Please provide your email" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];

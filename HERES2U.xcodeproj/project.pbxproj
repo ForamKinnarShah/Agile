@@ -99,6 +99,8 @@
 		6FC50969171FE61D003CA7FC /* LostPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC50967171FE61D003CA7FC /* LostPasswordVC.m */; };
 		6FC5096A171FE61D003CA7FC /* LostPasswordVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FC50968171FE61D003CA7FC /* LostPasswordVC.xib */; };
 		6FC5096E17202886003CA7FC /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC5096D17202886003CA7FC /* MBProgressHUD.m */; };
+		6FC7E6C6173925E600B352B3 /* DoneDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC7E6C4173925E500B352B3 /* DoneDown.png */; };
+		6FC7E6C7173925E600B352B3 /* DoneUp.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC7E6C5173925E600B352B3 /* DoneUp.png */; };
 		7A4217741723AB9800697822 /* FBUserSettingsViewResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7A4217731723AB9700697822 /* FBUserSettingsViewResources.bundle */; };
 		7A4217781723B2E700697822 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4217771723B2E700697822 /* FacebookSDK.framework */; };
 		7A42177A1723B45C00697822 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4217791723B45C00697822 /* Security.framework */; };
@@ -422,6 +424,8 @@
 		6FC50968171FE61D003CA7FC /* LostPasswordVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LostPasswordVC.xib; sourceTree = "<group>"; };
 		6FC5096C17202886003CA7FC /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		6FC5096D17202886003CA7FC /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		6FC7E6C4173925E500B352B3 /* DoneDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DoneDown.png; sourceTree = "<group>"; };
+		6FC7E6C5173925E600B352B3 /* DoneUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DoneUp.png; sourceTree = "<group>"; };
 		7A4217731723AB9700697822 /* FBUserSettingsViewResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FBUserSettingsViewResources.bundle; path = FacebookSDK/FacebookSDK.framework/Versions/A/Resources/FBUserSettingsViewResources.bundle; sourceTree = "<group>"; };
 		7A4217771723B2E700697822 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		7A4217791723B45C00697822 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -1400,6 +1404,8 @@
 		DAF870BD16671F0000747CDA = {
 			isa = PBXGroup;
 			children = (
+				6FC7E6C4173925E500B352B3 /* DoneDown.png */,
+				6FC7E6C5173925E600B352B3 /* DoneUp.png */,
 				7AE6FD221733355500B44DE8 /* Icon@2x.png */,
 				7AE6FD1E1732148600B44DE8 /* Here's2U-app-icon@2x.png */,
 				6F37AF48172B9645001DBB16 /* ImageIO.framework */,
@@ -1705,6 +1711,8 @@
 				1330772C1733F2D90086DB2D /* iTunesArtwork in Resources */,
 				134823901734DCEF005029CC /* imgComment.png in Resources */,
 				134823911734DCEF005029CC /* imgComment@2x.png in Resources */,
+				6FC7E6C6173925E600B352B3 /* DoneDown.png in Resources */,
+				6FC7E6C7173925E600B352B3 /* DoneUp.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

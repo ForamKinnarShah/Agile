@@ -30,7 +30,7 @@
     NSString *transactionRequestID = @"11"; //needs to be changed to actual. 
     NSString *expirationDate = [creditCard objectForKey:@"expirationDate"]; 
     
-    
+    NSLog(@"%@",expirationDate);
     NSString *expirationMonth = @"12";
     NSString *expirationYear = @"2013";
     
@@ -113,8 +113,11 @@ NSString *requestString = [NSString stringWithFormat:@"<?xml version=\"1.0\"?>\
     [nsdf setDateFormat:@"yyyy-MM-ddTHH:mm:ss"];
     NSString *dateString = [nsdf stringFromDate:[NSDate date]];
     
-NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:[NSDate date]];
-    
+//NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:[NSDate date]];
+
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:expiryDate];
+
+    NSLog(@"expiryDate >> %@",expiryDate);
     NSString *expiryMonth = [NSString stringWithFormat:@"%i",[components month]];
     NSString *expiryYear = [NSString stringWithFormat:@"%i",[components year]];
 

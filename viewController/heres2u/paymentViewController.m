@@ -99,6 +99,20 @@ totalTotalLbl.text = [NSString stringWithFormat:@"$%.2f",totalTotal];
         self.changeCardBtn.titleLabel.text = @"add Card"; 
 //        [self.creditCardLbl addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToCreditCardPage)]]; 
     }
+    
+    // assign array for item purchase
+    _arrItemList = [[NSMutableArray alloc] initWithObjects:@"Drinks",@"Food",@"Dessert",@"Fees",@"Total",@"Payment Method",nil];
+    _arrItemValueList = [[NSMutableArray alloc] init];
+    
+    NSLog(@"%@",drinkTotalLbl.text);
+    [_arrItemValueList addObject:[NSString stringWithFormat:@"$%.2f",drinkTotal]];
+    [_arrItemValueList addObject:[NSString stringWithFormat:@"$%.2f",foodTotal]];
+    [_arrItemValueList addObject:[NSString stringWithFormat:@"$%.2f",dessertTotal]];
+    [_arrItemValueList addObject:[NSString stringWithFormat:@"$%.2f",feeTotal]];
+    [_arrItemValueList addObject:[NSString stringWithFormat:@"$%.2f",totalTotal]];
+    [_arrItemValueList addObject:@"visa 1111"];
+    
+    NSLog(@"%@",_arrItemValueList);
 }
 
 - (void)didReceiveMemoryWarning
@@ -182,7 +196,53 @@ totalTotalLbl.text = [NSString stringWithFormat:@"$%.2f",totalTotal];
 -(void) phpCallerFinished:(NSMutableArray*)returnData
 {
     [util stopUIBlockerInView:self.view];
-
 }
+
+#pragma mark
+#pragma mark tableview methods
+
+// datasource
+-(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return  6;
+}
+
+-(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *Cell=[tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    
+    if (Cell == nil)
+    {
+        Cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
+        [Cell setSelectionStyle:UITableViewCellEditingStyleNone];
+        
+        _lblItemList = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 120, 24)];
+        [_lblItemList setBackgroundColor:[UIColor clearColor]];
+        [_lblItemList setTextColor:[UIColor blackColor]];
+        [_lblItemList setFont:[UIFont systemFontOfSize:14]];
+        _lblItemList.tag = 10;
+        [_lblItemList setTextAlignment:NSTextAlignmentLeft];
+        [Cell.contentView addSubview:_lblItemList];
+        
+        _lblItemValueList = [[UILabel alloc] initWithFrame:CGRectMake(120, 10, 170, 24)];
+        [_lblItemValueList setBackgroundColor:[UIColor clearColor]];
+        [_lblItemValueList setTextColor:[UIColor blackColor]];
+        [_lblItemValueList setFont:[UIFont systemFontOfSize:14]];
+        _lblItemValueList.tag = 20;
+        [_lblItemValueList setTextAlignment:NSTextAlignmentRight];
+        [Cell.contentView addSubview:_lblItemValueList];
+    }
+    else
+    {
+        _lblItemList = (UILabel *)[Cell.contentView viewWithTag:10];
+        _lblItemValueList = (UILabel *)[Cell.contentView viewWithTag:20];
+    }
+    
+    [_lblItemList setText:[NSString stringWithFormat:@"%@ :",[_arrItemList objectAtIndex:indexPath.row]]];
+    [_lblItemValueList setText:[NSString stringWithFormat:@"%@ :",[_arrItemValueList objectAtIndex:indexPath.row]]];
+  
+    return Cell;
+}
+
 
 @end
