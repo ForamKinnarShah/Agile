@@ -187,7 +187,7 @@
     
     [UIBlocker stopAnimating];
 
-   // -----------------------------Push Notification
+ /*  // -----------------------------Push Notification
 
 	// Get Bundle Info for Remote Registration (handy if you have more than one app)
     NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
@@ -297,7 +297,7 @@
     NSLog(@"Response String ==-========================================================================================================================================================== %@",s);
     
     //  -----Completion of notification
- 
+ */
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -400,6 +400,7 @@
         _txtPassword = [[UITextField alloc] initWithFrame:CGRectMake(10, 10, 260, 40)];
         [_txtPassword setSecureTextEntry:YES];
         _txtPassword.delegate = self;
+        [_txtPassword setReturnKeyType:UIReturnKeyGo];
         _txtPassword.placeholder = @"Password";
         _txtPassword.tag = 200;
     }
@@ -425,7 +426,11 @@
     if (textField.tag == 100)
         [_txtPassword becomeFirstResponder];
     else
+    {
+        _strpass = textField.text;
         [_txtPassword resignFirstResponder];
+        [self performSelector:@selector(login:)];
+    }
     return YES;
 }
 
@@ -444,9 +449,6 @@
             break;
             
     }
-    
-    NSLog(@"%@",_strusrname);
-    NSLog(@"%@",_strpass);
     return YES;
 }
 

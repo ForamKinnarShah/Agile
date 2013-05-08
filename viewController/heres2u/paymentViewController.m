@@ -121,10 +121,6 @@ totalTotalLbl.text = [NSString stringWithFormat:@"$%.2f",totalTotal];
     
     // assign array for item purchase
     _arrItemList = [[NSMutableArray alloc] initWithObjects:@"Drinks",@"Food",@"Dessert",@"Fees",@"Total",@"Payment Method",nil];
-    
-    NSLog(@"%@",drinkTotalLbl.text);
-    
-    NSLog(@"%@",_arrItemValueList);
 }
 
 - (void)didReceiveMemoryWarning
@@ -252,7 +248,7 @@ totalTotalLbl.text = [NSString stringWithFormat:@"$%.2f",totalTotal];
     }
     
     [_lblItemList setText:[NSString stringWithFormat:@"%@ :",[_arrItemList objectAtIndex:indexPath.row]]];
-    [_lblItemValueList setText:[NSString stringWithFormat:@"%@ :",[_arrItemValueList objectAtIndex:indexPath.row]]];
+    [_lblItemValueList setText:[NSString stringWithFormat:@"%@",[_arrItemValueList objectAtIndex:indexPath.row]]];
   
     return Cell;
 }

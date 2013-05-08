@@ -145,7 +145,7 @@
         
         
         int count1=0;
-        int y=0;
+        int y=10;
         BOOL isMatch;
         
         for(int i=0; i<results.count; i++){

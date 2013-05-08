@@ -31,6 +31,12 @@
     NSString *centerImageName = @"logo_small.png";
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:centerImageName]];
 
+    UIButton *btnSubmit = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnSubmit.frame = CGRectMake(5, 406, 310, 44);
+    [btnSubmit setTitle:@"Submit" forState:UIControlStateNormal];
+    [btnSubmit setBackgroundImage:[UIImage imageNamed:@"dot-green.png"] forState:UIControlStateNormal];
+    [btnSubmit addTarget:self action:@selector(submitClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btnSubmit];
 }
 
 - (void)didReceiveMemoryWarning
@@ -232,7 +238,7 @@
         count=2;
     }
     else{
-        count=7;
+        count=6;
     }
     
     NSLog(@"count : %d",count);
@@ -459,16 +465,16 @@
                     [cell addSubview:lbl];
                     
                 }
-                else if(indexPath.row==6){
+            //    else if(indexPath.row==6){
                     
-                    UIButton *btnSubmit = [UIButton buttonWithType:UIButtonTypeCustom];
-                    btnSubmit.frame = CGRectMake(30, 0, 260, 40);
-                    [btnSubmit setTitle:@"Submit" forState:UIControlStateNormal];
-                    [btnSubmit setBackgroundImage:[UIImage imageNamed:@"buttonProfile.png"] forState:UIControlStateNormal];
-                    [btnSubmit addTarget:self action:@selector(submitClicked:) forControlEvents:UIControlEventTouchUpInside];
-                    [cell addSubview:btnSubmit];
+//                    UIButton *btnSubmit = [UIButton buttonWithType:UIButtonTypeCustom];
+//                    btnSubmit.frame = CGRectMake(30, 0, 260, 40);
+//                    [btnSubmit setTitle:@"Submit" forState:UIControlStateNormal];
+//                    [btnSubmit setBackgroundImage:[UIImage imageNamed:@"buttonProfile.png"] forState:UIControlStateNormal];
+//                    [btnSubmit addTarget:self action:@selector(submitClicked:) forControlEvents:UIControlEventTouchUpInside];
+//                    [cell addSubview:btnSubmit];
                     
-                }
+              //  }
                 
                 
             }

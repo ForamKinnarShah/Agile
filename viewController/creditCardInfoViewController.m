@@ -57,6 +57,9 @@
     arrCardDetail = [[NSMutableArray alloc] initWithObjects:@"Name on Card",@"Expiration Date",@"Billing Address",@"Address Line 2",@"Card Type",@"Card Number",@"security Code", nil];
     _strExpirationDate = @"";
     arrCardType = [[NSMutableArray alloc] initWithObjects:@"Visa", @"Mastercard", @"Amex", nil];
+
+// notification while picking up the nemberpad keyboard
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -426,10 +429,18 @@ NSDateFormatter *nsdf;
     doneBar.hidden = YES;
     pickerCard.hidden = YES;
     if (textField.tag == 600 || textField.tag == 700)
+    {
         [self setViewMovedUp:YES];
-
-    if (textField.tag == 600)
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+        
+        _addDone = YES;
+        [self keyboardDidShow:nil];
+    }
+    else
+    {
+        _addDone = NO;
+        [_doneButton removeFromSuperview];
+        _doneButton = nil;
+    }
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
@@ -529,25 +540,113 @@ replacementString:(NSString*)string
 #pragma mark 
 #pragma mark invoked functions
 
-- (void)keyboardWillShow:(NSNotification *)note
+
+- (void)keyboardWillShow: (NSNotification *)notification
 {
-    // create custom button
-    UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    doneButton.frame = CGRectMake(0, 163, 106, 53);
-    doneButton.adjustsImageWhenHighlighted = NO;
-    [doneButton setImage:[UIImage imageNamed:@"DoneUp.png"] forState:UIControlStateNormal];
-    [doneButton setImage:[UIImage imageNamed:@"DoneDown.png"] forState:UIControlStateHighlighted];
-    [doneButton addTarget:self action:@selector(doneButton:) forControlEvents:UIControlEventTouchUpInside];
+	if(!_addDone)
+	{
+		return;
+	}
+	else
+	{
+		if ([[[UIDevice currentDevice] systemVersion] floatValue] <3.2)  //3.2
+		{
+			[self performSelector:@selector(addHideKeyboardButtonToKeyboard) withObject:nil afterDelay:0];
+		}
+	}
+}
+- (void)keyboardDidShow:(NSNotification *)notification
+{
     
-    // locate keyboard view
+    [self addButtonToKeyboard];
+    //	if(!addDone)
+    //	{
+    //		return;
+    //	}
+    //	else
+    //	{
+    //		if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 3.2) // 3.2
+    //		{
+    //			[self performSelector:@selector(addHideKeyboardButtonToKeyboard) withObject:nil afterDelay:0];
+    //		}
+    //	}
+}
+- (void)addHideKeyboardButtonToKeyboard {
+	UIWindow *keyboardWindow = nil;
+	for (UIWindow *testWindow in [[UIApplication sharedApplication] windows])
+	{
+		if (![[testWindow class] isEqual:[UIWindow class]])
+		{
+			keyboardWindow = testWindow;
+			break;
+		}
+	}
+	if (!keyboardWindow) return;
+	
+	// Locate UIKeyboard.
+	UIView *foundKeyboard = nil;
+	for (_possibleKeyboard in [keyboardWindow subviews]) {
+		
+		// iOS 4 sticks the UIKeyboard inside a UIPeripheralHostView.
+		if ([[_possibleKeyboard description] hasPrefix:@"<UIPeripheralHostView"]) {
+			_possibleKeyboard = [[_possibleKeyboard subviews] objectAtIndex:0];
+		}
+		
+		if ([[_possibleKeyboard description] hasPrefix:@"<UIKeyboard"]) {
+			foundKeyboard = _possibleKeyboard;
+			break;
+		}
+	}
+	
+	if (foundKeyboard) {
+		[self addButtonToKeyboard];
+	}
+}
+
+
+-(void)addButtonToKeyboard {
+	// create custom button
     
-    UIWindow* tempWindow = [[[UIApplication sharedApplication] windows] objectAtIndex:1];
-    UIView* keyboard;
-    for(int i=0; i<[tempWindow.subviews count]; i++) {
-        keyboard = [tempWindow.subviews objectAtIndex:i];
-        // keyboard view found; add the custom button to it
-        if([[keyboard description] hasPrefix:@"<UIKeyboard"] == YES)
-            [keyboard addSubview:doneButton];
-    }}
+    if (!_addDone) {
+        return;
+    }
+    else
+    {
+        _doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _doneButton.frame = CGRectMake(0, 163, 106, 53);  //0, 163, 106, 53
+        _doneButton.adjustsImageWhenHighlighted = NO;
+        [_doneButton setImage:[UIImage imageNamed:@"DoneUp3.png"] forState:UIControlStateNormal];
+        [_doneButton addTarget:self action:@selector(doneButton:) forControlEvents:UIControlEventTouchUpInside];
+        
+        
+        
+        
+        UIView *keyboard;
+        if ([[[UIApplication sharedApplication] windows] count] < 2)
+            return;
+        UIWindow *tempWindow = [[[UIApplication sharedApplication] windows] objectAtIndex:1];
+        
+        
+        for(int i=0; i<[tempWindow.subviews count]; i++) {
+            keyboard = [tempWindow.subviews objectAtIndex:i];
+            // keyboard found, add the button
+            if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 3.2) { //4.3
+                if([[keyboard description] hasPrefix:@"<UIPeripheralHost"] == YES)
+                    [keyboard addSubview:_doneButton];
+            } else {
+                if([[keyboard description] hasPrefix:@"<UIKeyboard"] == YES)
+                    [keyboard addSubview:_doneButton];
+            }
+        }
+    }
+}
+
+- (void)doneButton:(id)sender
+{
+    [self.view endEditing:YES];
+    [_txtCardNumber resignFirstResponder];
+    [_txtSecurityCode resignFirstResponder];
+    [self setViewMovedUp:NO];
+}
 
 @end

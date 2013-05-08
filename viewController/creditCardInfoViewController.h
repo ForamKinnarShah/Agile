@@ -40,9 +40,11 @@
 // assignments for tableview
 @property (nonatomic, strong) UILabel *lblCardDetail,*lblexiprationDate,*lblCardType;
 @property (nonatomic, strong) UITextField *txtName,*txtBillingAddress,*txtAddressLine2,*txtCardNumber,*txtSecurityCode;
-
-// assign properties
 @property (nonatomic, strong) IBOutlet UITableView *tblCreditCardInfo;
+// for adding done button 
+@property (nonatomic, readwrite) BOOL addDone;
+@property (nonatomic, retain) UIButton *doneButton;
+@property (nonatomic, strong) UIView *possibleKeyboard;
 
 -(IBAction)addCreditCard:(id)sender; 
 
