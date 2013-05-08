@@ -77,7 +77,9 @@
     
     //[self.navigationController pushViewController:checkin animated:YES];
 //    [self presentViewController:checkin animated:NO completion:NULL];
-    [[[UIAlertView alloc] initWithTitle:@"Select Restaurant" message:@"Please choose a restaurant at which to buy your gift!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Select Restaurant" message:@"Please choose a restaurant at which to buy your gift!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    //[alert performSelector:@selector(show) withObject:nil afterDelay:0.2];
+    [alert show]; 
     _senderNumber = sender.tag; 
 
    

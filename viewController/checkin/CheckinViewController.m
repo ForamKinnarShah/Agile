@@ -79,7 +79,6 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     
-    
     [Locations downloadLocations];
 }
 

@@ -72,10 +72,10 @@
     
 float preFeeTotal = drinkTotal + foodTotal + dessertTotal;
     float feeTotal;
-    NSLog(@"prefeetotal:%f",preFeeTotal); 
     feeTotal = 1.36;
     
-float totalTotal = preFeeTotal + feeTotal;
+totalTotal = preFeeTotal + feeTotal;
+    NSLog(@"totalTotal:%f",totalTotal);
 
 drinkTotalLbl.text = [NSString stringWithFormat:@"$%.2f",drinkTotal];
 foodTotalLbl.text = [NSString stringWithFormat:@"$%.2f",foodTotal];
@@ -88,29 +88,41 @@ totalTotalLbl.text = [NSString stringWithFormat:@"$%.2f",totalTotal];
        
     if ([creditCards count] != 0)
     {
+        NSLog(@"credit Cards:%@",creditCards);
+        
         NSMutableDictionary *creditCardInfo = [creditCards objectAtIndex:0];
         creditCardNumber = [creditCardInfo objectForKey:@"cardNumberLast4Digits"];
         NSString *cardType = [creditCardInfo objectForKey:@"cardType"];
+        _arrItemValueList = [[NSMutableArray alloc] init];
+        [_arrItemValueList addObject:[NSString stringWithFormat:@"$%.2f",drinkTotal]];
+        [_arrItemValueList addObject:[NSString stringWithFormat:@"$%.2f",foodTotal]];
+        [_arrItemValueList addObject:[NSString stringWithFormat:@"$%.2f",dessertTotal]];
+        [_arrItemValueList addObject:[NSString stringWithFormat:@"$%.2f",feeTotal]];
+        [_arrItemValueList addObject:[NSString stringWithFormat:@"$%.2f",totalTotal]];
+        //[_arrItemValueList addObject:@"visa 1111"];
+        [_arrItemValueList addObject:[NSString stringWithFormat:@"%@ %@",cardType,creditCardNumber]];
+        
         self.creditCardLbl.text = [NSString stringWithFormat:@"%@ %@",cardType,creditCardNumber];
     }
     else{
         NSLog(@"no cards found"); 
         self.creditCardLbl.text = @"";
-        self.changeCardBtn.titleLabel.text = @"add Card"; 
+        self.changeCardBtn.titleLabel.text = @"add Card";
+        _arrItemValueList = [[NSMutableArray alloc] init];
+        [_arrItemValueList addObject:[NSString stringWithFormat:@"$%.2f",drinkTotal]];
+        [_arrItemValueList addObject:[NSString stringWithFormat:@"$%.2f",foodTotal]];
+        [_arrItemValueList addObject:[NSString stringWithFormat:@"$%.2f",dessertTotal]];
+        [_arrItemValueList addObject:[NSString stringWithFormat:@"$%.2f",feeTotal]];
+        [_arrItemValueList addObject:[NSString stringWithFormat:@"$%.2f",totalTotal]];
+        //[_arrItemValueList addObject:@"visa 1111"];
+        [_arrItemValueList addObject:[NSString stringWithFormat:@""]];
 //        [self.creditCardLbl addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToCreditCardPage)]]; 
     }
     
     // assign array for item purchase
     _arrItemList = [[NSMutableArray alloc] initWithObjects:@"Drinks",@"Food",@"Dessert",@"Fees",@"Total",@"Payment Method",nil];
-    _arrItemValueList = [[NSMutableArray alloc] init];
     
     NSLog(@"%@",drinkTotalLbl.text);
-    [_arrItemValueList addObject:[NSString stringWithFormat:@"$%.2f",drinkTotal]];
-    [_arrItemValueList addObject:[NSString stringWithFormat:@"$%.2f",foodTotal]];
-    [_arrItemValueList addObject:[NSString stringWithFormat:@"$%.2f",dessertTotal]];
-    [_arrItemValueList addObject:[NSString stringWithFormat:@"$%.2f",feeTotal]];
-    [_arrItemValueList addObject:[NSString stringWithFormat:@"$%.2f",totalTotal]];
-    [_arrItemValueList addObject:@"visa 1111"];
     
     NSLog(@"%@",_arrItemValueList);
 }
@@ -152,7 +164,7 @@ totalTotalLbl.text = [NSString stringWithFormat:@"$%.2f",totalTotal];
         
         QBMSRequester *qbms = [[QBMSRequester alloc] init];
         qbms.delegate = self;
-        [qbms sendChargeRequestWithWalletID:walletID customerID:[NSGlobalConfiguration getConfigurationItem:@"ID"] forAmount:[totalTotalLbl.text substringFromIndex:1]];
+        [qbms sendChargeRequestWithWalletID:walletID customerID:[NSGlobalConfiguration getConfigurationItem:@"ID"] forAmount:[NSString stringWithFormat:@"%.2f",totalTotal]];
     }
     //creditCardNumber = @"4111111111111111";
     //[creditCard setObject:creditCardNumber forKey:@"cardNumber"];
@@ -168,9 +180,10 @@ totalTotalLbl.text = [NSString stringWithFormat:@"$%.2f",totalTotal];
     NSLog(@"credit card transaction id:%@",code);
     [[[UIAlertView alloc] initWithTitle:@"credit card authorization succeeded:" message:@"A receipt has been emailed to you."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
     
-    NSLog(@"http://50.62.148.155:8080/heres2u/api/addtransactionrequest.php?sendingUserID=%@&receivingUserID=%@&chargeAmount=%@&creditTransID=%@&locationID=%@",[NSGlobalConfiguration getConfigurationItem:@"ID"],[self.userInfo objectForKey:@"ID"],[totalTotalLbl.text substringFromIndex:1],code,[self.restaurantInfo objectForKey:@"ID"]);
+       
+    NSURL *request = [[NSURL alloc]initWithString:[NSString stringWithFormat:@"http://50.62.148.155:8080/heres2u/api/addtransactionrequest.php?sendingUserID=%@&receivingUserID=%@&chargeAmount=%@&creditTransID=%@&locationID=%@",[NSGlobalConfiguration getConfigurationItem:@"ID"],[self.userInfo objectForKey:@"ID"],[NSString stringWithFormat:@"%.2f",totalTotal],code,[self.restaurantInfo objectForKey:@"ID"]]];
     
-    NSURL *request = [[NSURL alloc]initWithString:[NSString stringWithFormat:@"http://50.62.148.155:8080/heres2u/api/addtransactionrequest.php?sendingUserID=%@&receivingUserID=%@&chargeAmount=%@&creditTransID=%@&locationID=%@",[NSGlobalConfiguration getConfigurationItem:@"ID"],[self.userInfo objectForKey:@"ID"],[totalTotalLbl.text substringFromIndex:1],code,[self.restaurantInfo objectForKey:@"ID"]]];
+    NSLog(@"request:%@",request); 
     
    NSString *Items=[[NSString alloc] initWithContentsOfURL:request encoding:NSUTF8StringEncoding error:nil];
     NSLog(@"Items:%@",Items);

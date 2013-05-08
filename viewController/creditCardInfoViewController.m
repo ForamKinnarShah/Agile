@@ -390,6 +390,7 @@ NSDateFormatter *nsdf;
         SELECTED_PICKER = NO;
         datePicker.hidden = NO;
         doneBar.hidden = NO;
+        [activeTextField resignFirstResponder]; 
         
         [datePicker setMinimumDate:[NSDate date]];
         [self setViewMovedUp:NO];
@@ -398,7 +399,7 @@ NSDateFormatter *nsdf;
     {
         // no, if date picker is selected
         SELECTED_PICKER = YES;
-
+        [activeTextField resignFirstResponder];
         pickerCard.hidden = NO;
         doneBar.hidden = NO;
 
@@ -419,6 +420,7 @@ NSDateFormatter *nsdf;
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
+    activeTextField = textField; 
     [textField becomeFirstResponder];
     datePicker.hidden = YES;
     doneBar.hidden = YES;
@@ -475,7 +477,7 @@ NSDateFormatter *nsdf;
     
     if ([_strcardTypeTextField length] == 0)
         _strcardTypeTextField = _strCardType;
-        
+    
 //    if ([_strcardNumberTextField length] == 0)
 //        _strcardNumberTextField = _txtCardNumber.text;
     

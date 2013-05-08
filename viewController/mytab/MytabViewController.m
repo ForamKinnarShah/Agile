@@ -270,10 +270,11 @@
         NSLog(@"status:%u",[CLLocationManager authorizationStatus]); 
         if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized)
         {
+            NSLog(@"locations not authorized, stopping locationmanager"); 
             [locationManager stopUpdatingLocation];
             isLatLong = YES;
-            currentLat = 0;
-            currentLong = 0;
+            currentLat = @"0";
+            currentLong = @"0";
         }
         
         if(isLatLong){
@@ -750,9 +751,10 @@
 {
     NSLog(@"didFailWithError: %@", error);
     [self stopLoading];
+    [locationManager stopUpdatingLocation]; 
     UIAlertView *errorAlert = [[UIAlertView alloc]
                                initWithTitle:@"Error!" message:@"Failed to Get Your Location. Please Turn on your device location services." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [errorAlert show];
+    [errorAlert performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:YES]; 
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
@@ -1305,6 +1307,8 @@
 }
 -(void)viewDidAppear:(BOOL)animated
 {
+    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized){
     [locationManager startUpdatingLocation];
+    }
 }
 @end

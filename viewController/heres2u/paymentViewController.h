@@ -16,6 +16,7 @@
 {
     NSString *creditCardNumber;
     utilities *util;
+    float totalTotal;
 }
 
 @property NSArray *orderItems;
