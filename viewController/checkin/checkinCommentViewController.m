@@ -72,7 +72,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     @try {
-        [CommentField becomeFirstResponder];
+        //[CommentField becomeFirstResponder];
         
         //check switch condition
         NSString *strAccessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"fb_access_token"];
