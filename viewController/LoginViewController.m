@@ -392,6 +392,8 @@
     
         _txtEmail_Login = [[UITextField alloc] initWithFrame:CGRectMake(10, 10, 260, 40)];
         [_txtEmail_Login setKeyboardType:UIKeyboardTypeEmailAddress];
+        [_txtEmail_Login setAutocapitalizationType:UITextAutocapitalizationTypeNone];
+        [_txtEmail_Login setAutocorrectionType:UITextAutocorrectionTypeNo]; 
         _txtEmail_Login.delegate = self;
         _txtEmail_Login.placeholder = @"Email";
         [_txtEmail_Login setReturnKeyType:UIReturnKeyNext];
@@ -429,7 +431,8 @@
     {
         _strpass = textField.text;
         [_txtPassword resignFirstResponder];
-        [self performSelector:@selector(login:)];
+        //[self performSelector:@selector(login:)];
+        [self login:nil];
     }
     return YES;
 }
