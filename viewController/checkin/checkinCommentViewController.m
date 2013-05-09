@@ -40,22 +40,16 @@
     NSString *centerImageName = @"logo_small.png";
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:centerImageName]];
     
-    
-    UIBarButtonItem *btnShare = [[UIBarButtonItem alloc] initWithTitle:@"Share" style:UIBarButtonItemStylePlain target:self action:@selector(btnShare_Click:)];
-    [self.navigationItem setRightBarButtonItem:btnShare];
-    
-    
-    
+//    UIBarButtonItem *btnShare = [[UIBarButtonItem alloc] initWithTitle:@"Share" style:UIBarButtonItemStylePlain target:self action:@selector(btnShare_Click:)];
+//    [self.navigationItem setRightBarButtonItem:btnShare];
     
     [lblResName setText:[Checkin.Name text]];
     [lblResDis setText:[Checkin.Distance text]];
     [lblResAddress setText:[Checkin.Location text]];
-    
-    
+        
     [lblName setText:[NSGlobalConfiguration getConfigurationItem:@"FullName"]];
     NSLog(@"Checkin.Picture: %@",Checkin.Picture);
 
-    
     ProfileID = [[NSGlobalConfiguration getConfigurationItem:@"ID"] intValue];
     NSLog(@"%d",ProfileID);
     NSString *strUrl = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[NSGlobalConfiguration getConfigurationItem:@"ImageURL"]]];
@@ -66,6 +60,12 @@
     
     
     // Do any additional setup after loading the view from its nib.
+    
+    NSLog(@"Name >> %@",lblName);
+    NSLog(@"Res address >> %@",lblResAddress);
+    
+    switchFacebook = [[UISwitch alloc] initWithFrame:CGRectMake(180, 9, 77, 27)];
+    switchTwitter = [[UISwitch alloc] initWithFrame:CGRectMake(180, 9, 77, 27)];
 }
 
 
@@ -83,20 +83,19 @@
         NSDateFormatter* df = [[NSDateFormatter alloc] init];
         [df setDateFormat:@"yyyy-MM-dd HH:mm:ss Z"];
         NSDate* fbdate = [df dateFromString:strFbExpDate];
-        
         NSDate *todayDate = [NSDate date];
         
-        if ([fbdate earlierDate:todayDate]) {
-            
-            NSLog(@"fbdate : %@",fbdate);
-            NSLog(@"todayDate : %@",todayDate);
+        NSLog(@"fbdate %@",fbdate);
+        NSLog(@"todayDate %@",todayDate);
+        NSLog(@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"FB"]);
+        if ([todayDate earlierDate:fbdate] && fbdate)
+        {
             NSLog(@"YES");
             [switchFacebook setOn:YES];
         }
         else{
             NSLog(@"NO");
             [switchFacebook setOn:NO];
-            return;
         }
         //For twitter
         BOOL isTwitterLogin = [[NSUserDefaults standardUserDefaults] boolForKey:@"twitterLogin"];
@@ -105,6 +104,19 @@
         }
         else{
             [switchTwitter setOn:YES];
+            
+            if(!engine)
+            {
+                engine = [[SA_OAuthTwitterEngine alloc] initOAuthWithDelegate:self];
+                engine.consumerKey    = TWITTER_CONSUMER_KEY;
+                engine.consumerSecret = TWITTER_CONSUMER_SECRET;
+                BOOL isAu = [engine isAuthorized];
+                
+                if (isAu)
+                    [switchTwitter setOn:YES];
+                else
+                    [switchTwitter setOn:NO];
+             }
         }
     }
     @catch (NSException *exception) {
@@ -121,6 +133,7 @@
 //        return;
 //    }
     [NSUserInterfaceCommands PostFeed:[(NSString *)[NSGlobalConfiguration getConfigurationItem:@"ID"] integerValue] Comment:[CommentField text] LocationID:[Checkin ID] CallbackDelegate:self];
+    [self performSelector:@selector(btnShare_Click:) withObject:nil];
     
 }
 -(void) userinterfaceCommandFailed:(NSString *)message{
@@ -134,8 +147,13 @@
     @try {
         if(sender.tag==1){
            
-            if([sender isOn]){
-               
+            if([sender isOn])
+            {
+               [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"FB"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                NSLog(@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"FB"]);
+
+
                 NSString *strAccessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"fb_access_token"];
                 NSString *strFbExpDate = [[NSUserDefaults standardUserDefaults] stringForKey:@"fb_exp_date"];
                 NSLog(@"strAccessToken : %@,strFbExpDate : %@",strAccessToken,strFbExpDate);
@@ -195,14 +213,25 @@
 
                     
             }
-            
-                
+            else
+            {
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"FB"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+         
+                NSLog(@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"FB"]);
+
+            }
+   
 //            NSArray *permissions =  [NSArray arrayWithObjects:@"read_stream", @"publish_stream", @"offline_access",nil];
 //            [_facebook authorize:permissions];
             
         }
         else if(sender.tag==2){
-            if([sender isOn]){
+            if([sender isOn])
+            {
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"TW"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+
                 if(!engine)
                 {
                     engine = [[SA_OAuthTwitterEngine alloc] initOAuthWithDelegate:self];
@@ -220,13 +249,13 @@
                 
                 
                 if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"is_app_upgraded"] isEqualToString:@"UPGRADED"])
-                    strTwitterText = @"Test with ad";//txtvwStatusWithoutAd.text;
+                    strTwitterText = [NSString stringWithFormat:@"%@ checked in at %@ via Heres2U app",lblName.text,lblResName.text];//txtvwStatusWithoutAd.text;
                 else
-                    strTwitterText = @"Test with status";//txtvwStatus.text;
+                    strTwitterText = [NSString stringWithFormat:@"%@ checked in at %@ via Heres2U app",lblName.text,lblResName.text];//txtvwStatus.text;
                 
                 if ([strTwitterText length] > 140)
                 {
-                    UIAlertView *alTWSucceed = [[UIAlertView alloc] initWithTitle:@"Social Status" message:@"You can not post this status as it exceeds the limit of 140 characters!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    UIAlertView *alTWSucceed = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"You can not post this status as it exceeds the limit of 140 characters!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                     [alTWSucceed show];
                     return;
                 }
@@ -237,6 +266,11 @@
 //                    [self AddTwitterWithAnimated];
                     
                 }
+            }
+            else
+            {
+                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"TW"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
             }
         }
     }
@@ -276,22 +310,21 @@
                 NSLog(@"todayDate : %@",todayDate);
                 NSLog(@"YES");
             }
-            else{
+            else
+            {
                 NSLog(@"NO");
-                
-                return;
-            }  
+            }
             
             
             if(strAccessToken.length>0){
                 
                 NSURL *url = [NSURL URLWithString:@"https://graph.facebook.com/me/feed"];
                 ASIFormDataRequest *newRequest = [ASIFormDataRequest requestWithURL:url];
-                [newRequest setPostValue:@"Helloo message Test" forKey:@"message"];
-                [newRequest setPostValue:@"Hello Test1" forKey:@"name"];
-                [newRequest setPostValue:@"HelloCaption Test" forKey:@"caption"];
-                [newRequest setPostValue:@"Hellodescription test" forKey:@"description"];
-                [newRequest setPostValue:@"http://www.google.co.in" forKey:@"link"];
+                [newRequest setPostValue:[NSString stringWithFormat:@"%@ checked in at %@ via Heres2U app",lblName.text,lblResName.text] forKey:@"message"];
+                [newRequest setPostValue:@"Heres2U App" forKey:@"name"];
+                [newRequest setPostValue:@"Locaiton Name" forKey:@"caption"];
+                [newRequest setPostValue:nil forKey:@"description"];
+                [newRequest setPostValue:@"http://www.heres2uapp.com" forKey:@"link"];
                  
                 [newRequest setPostValue:strAccessToken forKey:@"access_token"];
                 [newRequest setDidFinishSelector:@selector(postToWallFinished:)];
@@ -316,35 +349,6 @@
     }
 }
 
-- (void) OAuthTwitterController: (SA_OAuthTwitterController *) controller authenticatedWithUsername: (NSString *) username{
-    @try {
-        NSLog(@"User name : %@",username);
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"twitterLogin"];
-        
-    }
-    @catch (NSException *exception) {
-        
-    }
-}
-
-- (void) OAuthTwitterControllerFailed: (SA_OAuthTwitterController *) controller{
-    @try {
-        
-    }
-    @catch (NSException *exception) {
-        
-    }
-    
-}
-- (void) OAuthTwitterControllerCanceled: (SA_OAuthTwitterController *) controller{
-    @try {
-        
-    }
-    @catch (NSException *exception) {
-        
-    }
-    
-}
 - (void)postToWallFinished:(ASIHTTPRequest *)request
 {
     //    [self stopLoading];
@@ -353,26 +357,13 @@
     NSMutableDictionary *responseJSON = [responseString JSONValue];
     NSString *postId = [responseJSON objectForKey:@"id"];
     NSLog(@"Post id is: %@", postId);
-    BOOL isTwitterShareOn = [switchTwitter isOn];
-    if(isTwitterShareOn){
-        UIAlertView *av = [[UIAlertView alloc]
-                           initWithTitle:@"Sucessfully posted to Facebook wall And Twitter!"
-                           message:@"Check out your Facebook and Twitter to see!"
-                           delegate:nil
-                           cancelButtonTitle:@"OK"
-                           otherButtonTitles:nil];
-        [av show];
-    }
-    else{
-        UIAlertView *av = [[UIAlertView alloc]
+            UIAlertView *av = [[UIAlertView alloc]
                            initWithTitle:@"Sucessfully posted to Facebook wall!"
                            message:@"Check out your Facebook to see!"
                            delegate:nil
                            cancelButtonTitle:@"OK"
                            otherButtonTitles:nil];
         [av show];
-    }
-    
 }
 
 - (void)postToWallFailed:(ASIHTTPRequest *)request
@@ -387,11 +378,58 @@
     
 }
 
+#pragma mark SA_OAuthTwitterEngineDelegate
+
+- (void) storeCachedTwitterOAuthData: (NSString *) data forUsername: (NSString *) username
+{
+    NSLog(@"User name : %@",username);
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"twitterLogin"];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:data forKey:@"authData"];
+    [defaults synchronize];
+}
+
+- (NSString *) cachedTwitterOAuthDataForUsername: (NSString *) username
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey: @"authData"];
+}
+
+//=============================================================================================================================
+#pragma mark TwitterEngineDelegate
+
+- (void) requestSucceeded: (NSString *) requestIdentifier
+{
+    NSLog(@"Request %@ succeeded", requestIdentifier);
+    UIAlertView *alTWSucceed = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"Message has been posted successfully!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alTWSucceed show];
+}
+
+- (void) requestFailed: (NSString *) requestIdentifier withError: (NSError *) error
+{
+    NSLog(@"Request %@ failed with error: %@", requestIdentifier, error);
+    NSArray *arrayError = [[NSArray alloc] init];
+    arrayError = [[error localizedDescription] componentsSeparatedByString:@"("];
+    NSLog(@"Error Code >> %@",[arrayError objectAtIndex:1]);
+    
+    UIAlertView *alTwitterError;
+    if ([[arrayError objectAtIndex:1] isEqualToString:@"HTTP error 403.)"])
+    {
+        alTwitterError = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"You can't tweet same post again!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alTwitterError show];
+    }
+    else
+    {
+        alTwitterError = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"Oops! Something is going wrong. Please try again later." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alTwitterError show];
+    }
+}
+
 
 -(void) userinterfaceCommandSucceeded:(NSString *)message{
     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Success" message:@"Successfully Checked In." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
-    [self.navigationController popViewControllerAnimated:YES]; 
+   // [self.navigationController popViewControllerAnimated:YES];
     NSLog(@"tabBarController:%@",self.tabBarController); 
     //[[[self.navigationController.viewControllers objectAtIndex:0] tabBarController] setSelectedIndex:0];
     [self.tabBar setSelectedIndex:0]; 
@@ -400,6 +438,55 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark
+#pragma mark tableview methods
+
+// datasource
+-(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 2;
+}
+
+-(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *Cell=[tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    if (Cell == nil)
+    {
+        Cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
+        [Cell setSelectionStyle:UITableViewCellEditingStyleNone];
+   
+        if (indexPath.row == 0)
+        {
+            UILabel *lblfb = [[UILabel alloc] initWithFrame:CGRectMake(30, 10, 130, 30)];
+            [lblfb setText:@"Facebook"];
+            [lblfb setBackgroundColor:[UIColor clearColor]];
+            [Cell.contentView addSubview:lblfb];
+      
+            [switchFacebook addTarget:self action:@selector(switchValueChanged:) forControlEvents:UIControlEventValueChanged];
+            switchFacebook.tag = 1;
+            [Cell.contentView addSubview:switchFacebook];
+        }
+        else
+        {
+            UILabel *lbltw = [[UILabel alloc] initWithFrame:CGRectMake(30, 10, 130, 30)];
+            [lbltw setText:@"Twitter"];
+            [lbltw setBackgroundColor:[UIColor clearColor]];
+            [Cell.contentView addSubview:lbltw];
+            
+            [switchTwitter addTarget:self action:@selector(switchValueChanged:) forControlEvents:UIControlEventValueChanged];
+            switchTwitter.tag = 2;
+            [Cell.contentView addSubview:switchTwitter];
+        }
+        
+    }
+    return Cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 50;
 }
 
 @end

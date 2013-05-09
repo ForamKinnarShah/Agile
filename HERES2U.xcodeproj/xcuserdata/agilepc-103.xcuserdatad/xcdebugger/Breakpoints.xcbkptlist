@@ -242,26 +242,13 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "viewController/LoginViewController.m"
-         timestampString = "389686577.686186"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "69"
-         endingLineNumber = "69"
-         landmarkName = "-login:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "viewController/LoginViewController.m"
          timestampString = "389686664.576269"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "425"
          endingLineNumber = "425"
-         landmarkName = "-textFieldShouldReturn:"
-         landmarkType = "5">
+         landmarkName = "@implementation LoginViewController"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
@@ -273,20 +260,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "437"
          endingLineNumber = "437"
-         landmarkName = "-textFieldShouldEndEditing:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "NSUserAccessControl/NSUserAccessControl.m"
-         timestampString = "389687206.40826"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "64"
-         endingLineNumber = "64"
-         landmarkName = "+Login:Password:Delegate:"
+         landmarkName = "-textFieldShouldReturn:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -320,12 +294,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "viewController/checkin/checkinCommentViewController.m"
-         timestampString = "389706754.097693"
+         timestampString = "389798768.188004"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "112"
-         endingLineNumber = "112"
-         landmarkName = "-viewWillAppear:"
+         startingLineNumber = "292"
+         endingLineNumber = "292"
+         landmarkName = "-btnShare_Click:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -333,12 +307,90 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "viewController/checkin/checkinCommentViewController.m"
-         timestampString = "389699413.355765"
+         timestampString = "389798768.188004"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "76"
-         endingLineNumber = "76"
-         landmarkName = "-viewWillAppear:"
+         startingLineNumber = "154"
+         endingLineNumber = "154"
+         landmarkName = "-switchValueChanged:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "viewController/checkin/checkinCommentViewController.m"
+         timestampString = "389798768.188004"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "402"
+         endingLineNumber = "402"
+         landmarkName = "-requestSucceeded:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "viewController/checkin/checkinCommentViewController.m"
+         timestampString = "389798768.188004"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "409"
+         endingLineNumber = "409"
+         landmarkName = "-requestFailed:withError:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "viewController/checkin/checkinCommentViewController.m"
+         timestampString = "389798768.188004"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "352"
+         endingLineNumber = "352"
+         landmarkName = "-postToWallFinished:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "NSUserInterfaceCommands/NSUserInterfaceCommands.m"
+         timestampString = "389799057.620019"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "250"
+         endingLineNumber = "250"
+         landmarkName = "+PostFeed:Comment:LocationID:CallbackDelegate:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "viewController/checkin/checkinCommentViewController.m"
+         timestampString = "389799126.510671"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "135"
+         endingLineNumber = "135"
+         landmarkName = "-PostFeed:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "NSUserInterfaceCommands/NSUserInterfaceCommands.m"
+         timestampString = "389799152.367391"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "267"
+         endingLineNumber = "267"
+         landmarkName = "+PostFeed:Comment:LocationID:CallbackDelegate:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

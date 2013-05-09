@@ -31,8 +31,8 @@
     int ProfileID;
     
     //switch
-    IBOutlet UISwitch *switchFacebook;
-    IBOutlet UISwitch *switchTwitter;
+    UISwitch *switchFacebook;
+    UISwitch *switchTwitter;
     
     SA_OAuthTwitterEngine *engine;
     NSString *strTwitterText;
@@ -51,6 +51,9 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView *UserImage;
 @property UITabBarController *tabBar;
+
+// assign properties for tableview
+@property (nonatomic, strong) IBOutlet UITableView *tblShare;
 
 -(id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil Checkin:(UICheckIns *)checkin;
 -(IBAction)switchValueChanged:(UISwitch*)sender;
