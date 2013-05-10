@@ -90,7 +90,7 @@ totalTotalLbl.text = [NSString stringWithFormat:@"$%.2f",totalTotal];
     {
         NSLog(@"credit Cards:%@",creditCards);
         
-        NSMutableDictionary *creditCardInfo = [creditCards objectAtIndex:0];
+        NSMutableDictionary *creditCardInfo = [creditCards lastObject];
         creditCardNumber = [creditCardInfo objectForKey:@"cardNumberLast4Digits"];
         NSString *cardType = [creditCardInfo objectForKey:@"cardType"];
         _arrItemValueList = [[NSMutableArray alloc] init];
@@ -154,7 +154,7 @@ totalTotalLbl.text = [NSString stringWithFormat:@"$%.2f",totalTotal];
     }
         else
             {
-        NSString *walletID = [cards[0] objectForKey:@"walletID"];
+                NSString *walletID = [[cards lastObject ]objectForKey:@"walletID"];
         util = [[utilities alloc] init];
         [util startUIBlockerInView:self.view];
         

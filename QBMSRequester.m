@@ -75,7 +75,7 @@ NSString *requestString = [NSString stringWithFormat:@"<?xml version=\"1.0\"?>\
     [nsdf setDateFormat:@"yyyy-MM-ddTHH:mm:ss"];
     NSString *dateString = [nsdf stringFromDate:[NSDate date]];
     
-    NSString *transactionRequestID = @"11"; //needs to be changed to actual.
+    NSString *transactionRequestID = @"12"; //needs to be changed to actual.
     
     NSString *requestString = [NSString stringWithFormat:@"<?xml version=\"1.0\"?>\
                                <?qbmsxml version=\"4.5\"?>\
@@ -96,7 +96,17 @@ NSString *requestString = [NSString stringWithFormat:@"<?xml version=\"1.0\"?>\
                                </CustomerCreditCardWalletChargeRq>\
                                </QBMSXMLMsgsRq>\
                                </QBMSXML>",dateString,APPLICATION_LOGIN,CONNECTION_TICKET,transactionRequestID,walletID,custID,amount];
+    /*NSString *requestString = @"<?xml version=\"1.0\"?>\
+    <?qbmsxml version=\"4.5\"?>\
+    <QBMSXML>\
+    <SignonMsgsRq>\
+    <SignonDesktopRq>                               <ClientDateTime>2013-05-09</ClientDateTime>                               <ApplicationLogin>heres2u.calarg.com</ApplicationLogin>                               <ConnectionTicket>SDK-TGT-50-osMAdr$lxIsdmbZ$V4SCzQ</ConnectionTicket>                               </SignonDesktopRq>\
+    </SignonMsgsRq>\
+    <QBMSXMLMsgsRq>                               <CustomerCreditCardWalletChargeRq>                               <TransRequestID>11</TransRequestID>                               <WalletEntryID>101110826741100770621111</WalletEntryID>                               <CustomerID>85</CustomerID>                               <Amount>11.36</Amount>                               </CustomerCreditCardWalletChargeRq>\
+    </QBMSXMLMsgsRq>\
+    </QBMSXML>"; */
     
+    NSLog(@"charge request:%@",requestString); 
     NSMutableURLRequest *chargeRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:PAYMENT_GATEWAY_URL]];
     [chargeRequest setHTTPMethod:@"POST"];
     [chargeRequest setValue:@"application/x-qbmsxml" forHTTPHeaderField:@"content-type"]; 
