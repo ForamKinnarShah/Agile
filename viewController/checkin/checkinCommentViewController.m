@@ -64,11 +64,16 @@
     NSLog(@"Name >> %@",lblName);
     NSLog(@"Res address >> %@",lblResAddress);
     
-    switchFacebook = [[UISwitch alloc] initWithFrame:CGRectMake(180, 9, 77, 27)];
-    switchTwitter = [[UISwitch alloc] initWithFrame:CGRectMake(180, 9, 77, 27)];
+    switchFacebook = [[UISwitch alloc] initWithFrame:CGRectMake(190, 5, 77, 27)];
+    switchTwitter = [[UISwitch alloc] initWithFrame:CGRectMake(190, 5, 77, 27)];
+
+    [CommentField becomeFirstResponder];
+    
+    if(!isiPhone5){
+        objToolbar.frame = CGRectMake(0, 160, 320, 44);
+        _tblShare.frame = CGRectMake(_tblShare.frame.origin.x, _tblShare.frame.origin.y - 12, _tblShare.frame.size.width, _tblShare.frame.size.height);
+    }
 }
-
-
 
 -(void)viewWillAppear:(BOOL)animated{
     @try {
@@ -132,6 +137,13 @@
 //        [alPost show];
 //        return;
 //    }
+    if(CommentField.text.length==0){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"Please Fill the Text." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+        [alert show];
+        return;
+    }
+    
+    
     [NSUserInterfaceCommands PostFeed:[(NSString *)[NSGlobalConfiguration getConfigurationItem:@"ID"] integerValue] Comment:[CommentField text] LocationID:[Checkin ID] CallbackDelegate:self];
     [self performSelector:@selector(btnShare_Click:) withObject:nil];
     
@@ -449,6 +461,12 @@
     return 2;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 40;
+}
+
+
 -(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *Cell=[tableView dequeueReusableCellWithIdentifier:@"Cell"];
@@ -459,9 +477,10 @@
    
         if (indexPath.row == 0)
         {
-            UILabel *lblfb = [[UILabel alloc] initWithFrame:CGRectMake(30, 10, 130, 30)];
-            [lblfb setText:@"Facebook"];
+            UILabel *lblfb = [[UILabel alloc] initWithFrame:CGRectMake(20, 5, 130, 30)];
+            [lblfb setText:@"Post on Facebook"];
             [lblfb setBackgroundColor:[UIColor clearColor]];
+            [lblfb setFont:[UIFont boldSystemFontOfSize:13.0]];
             [Cell.contentView addSubview:lblfb];
       
             [switchFacebook addTarget:self action:@selector(switchValueChanged:) forControlEvents:UIControlEventValueChanged];
@@ -470,9 +489,10 @@
         }
         else
         {
-            UILabel *lbltw = [[UILabel alloc] initWithFrame:CGRectMake(30, 10, 130, 30)];
-            [lbltw setText:@"Twitter"];
+            UILabel *lbltw = [[UILabel alloc] initWithFrame:CGRectMake(20, 5, 130, 30)];
+            [lbltw setText:@"Post on Twitter"];
             [lbltw setBackgroundColor:[UIColor clearColor]];
+            [lbltw setFont:[UIFont boldSystemFontOfSize:13.0]];
             [Cell.contentView addSubview:lbltw];
             
             [switchTwitter addTarget:self action:@selector(switchValueChanged:) forControlEvents:UIControlEventValueChanged];
@@ -484,9 +504,5 @@
     return Cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 50;
-}
 
 @end

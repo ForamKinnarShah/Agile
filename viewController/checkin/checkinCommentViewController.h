@@ -37,10 +37,11 @@
     SA_OAuthTwitterEngine *engine;
     NSString *strTwitterText;
     
+    IBOutlet UIToolbar *objToolbar;
     
 }
 @property (strong, nonatomic) IBOutlet UITextField *CommentField;
-@property (strong, nonatomic) IBOutlet UIButton *POSTButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *POSTButton;
 @property (strong, nonatomic) IBOutlet UILabel *lblName;
 
 @property (strong, nonatomic) IBOutlet UILabel *lblResName;

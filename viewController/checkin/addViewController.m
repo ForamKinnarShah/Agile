@@ -32,7 +32,12 @@
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:centerImageName]];
 
     UIButton *btnSubmit = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnSubmit.frame = CGRectMake(5, 406, 310, 44);
+    if(isiPhone5){
+        btnSubmit.frame = CGRectMake(5, 406, 310, 44);
+    }
+    else{
+        btnSubmit.frame = CGRectMake(5, 306, 310, 44);
+    }
     [btnSubmit setTitle:@"Submit" forState:UIControlStateNormal];
     [btnSubmit setBackgroundImage:[UIImage imageNamed:@"dot-green.png"] forState:UIControlStateNormal];
     [btnSubmit addTarget:self action:@selector(submitClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -182,6 +187,14 @@
             NSLog(@"textZIP.text : %@",textZIP.text);
         }
     }
+    
+    if(strBusName.length==0 || strTypeofBusiness.length==0 || strAdd.length==0 || strCity.length==0 || strState.length==0 || strZip.length==0){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"All Fields are Must be Filled !" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+        [alert show];
+        return;
+        
+    }
+    
     
     MFMailComposeViewController *mf = [[MFMailComposeViewController alloc] init];
     mf.mailComposeDelegate = self; 

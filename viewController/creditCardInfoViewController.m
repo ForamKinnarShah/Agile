@@ -54,7 +54,7 @@
 
     //[cardNumberTextField setInputAccessoryView:doneBar];
     
-    arrCardDetail = [[NSMutableArray alloc] initWithObjects:@"Name on Card",@"Expiration Date",@"Billing Address",@"Address Line 2",@"Card Type",@"Card Number",@"security Code", nil];
+    arrCardDetail = [[NSMutableArray alloc] initWithObjects:@"Name on Card",@"Expiration Date",@"Billing Address",@"Address Line 2",@"Card Type",@"Card Number",@"Security Code", nil];
     _strExpirationDate = @"";
     arrCardType = [[NSMutableArray alloc] initWithObjects:@"Visa", @"Mastercard", @"Amex", nil];
 
@@ -285,6 +285,7 @@ NSDateFormatter *nsdf;
             [_txtName setPlaceholder:@"Name"];
             [_txtName setBorderStyle:UITextBorderStyleNone];
             _txtName.delegate = self;
+            [_txtName setTextColor:[UIColor blueColor]];
             [Cell.contentView addSubview:_txtName];
         }
         if (indexPath.row == 1)
@@ -293,7 +294,7 @@ NSDateFormatter *nsdf;
             [_lblexiprationDate setTextAlignment:NSTextAlignmentRight];
             [_lblexiprationDate setText:@"Expiration Date"];
             [_lblexiprationDate setBackgroundColor:[UIColor clearColor]];
-            [_lblexiprationDate setTextColor:[UIColor blackColor]];
+            [_lblexiprationDate setTextColor:[UIColor blueColor]];
             [_lblexiprationDate setFont:[UIFont systemFontOfSize:14]];
             _lblexiprationDate.tag = 200;
             [Cell.contentView addSubview:_lblexiprationDate];
@@ -302,6 +303,7 @@ NSDateFormatter *nsdf;
         {
             _txtBillingAddress = [[UITextField alloc] initWithFrame:CGRectMake(120, 10, 170, 24)];
             [_txtBillingAddress setTextAlignment:NSTextAlignmentRight];
+            [_txtBillingAddress setTextColor:[UIColor blueColor]];
             [_txtBillingAddress setPlaceholder:@"Billing Address"];
             _txtBillingAddress.tag = 300;
             [_txtBillingAddress setBorderStyle:UITextBorderStyleNone];
@@ -313,6 +315,7 @@ NSDateFormatter *nsdf;
             _txtAddressLine2 = [[UITextField alloc] initWithFrame:CGRectMake(120, 10, 170, 24)];
             [_txtAddressLine2 setTextAlignment:NSTextAlignmentRight];
             [_txtAddressLine2 setPlaceholder:@"Billing Address"];
+            [_txtAddressLine2 setTextColor:[UIColor blueColor]];
             _txtAddressLine2.tag = 400;
             [_txtAddressLine2 setBorderStyle:UITextBorderStyleNone];
             _txtAddressLine2.delegate = self;
@@ -324,7 +327,7 @@ NSDateFormatter *nsdf;
             [_lblCardType setTextAlignment:NSTextAlignmentRight];
             [_lblCardType setText:@"Card Type"];
             [_lblCardType setBackgroundColor:[UIColor clearColor]];
-            [_lblCardType setTextColor:[UIColor blackColor]];
+            [_lblCardType setTextColor:[UIColor blueColor]];
             [_lblCardType setFont:[UIFont systemFontOfSize:14]];
             _lblCardType.tag = 500;
             [Cell.contentView addSubview:_lblCardType];
@@ -336,6 +339,7 @@ NSDateFormatter *nsdf;
             [_txtCardNumber setPlaceholder:@"Card Number"];
             _txtCardNumber.tag = 600;
             _txtCardNumber.returnKeyType = UIReturnKeyDone;
+            [_txtCardNumber setTextColor:[UIColor blueColor]];
             [_txtCardNumber setBorderStyle:UITextBorderStyleNone];
             _txtCardNumber.delegate = self;
             [_txtCardNumber setKeyboardType:UIKeyboardTypeNumberPad];
@@ -346,6 +350,7 @@ NSDateFormatter *nsdf;
             _txtSecurityCode = [[UITextField alloc] initWithFrame:CGRectMake(120, 10, 170, 24)];
             [_txtSecurityCode setTextAlignment:NSTextAlignmentRight];
             [_txtSecurityCode setPlaceholder:@"code"];
+            [_txtSecurityCode setTextColor:[UIColor blueColor]];
             _txtSecurityCode.tag = 700;
             [_txtSecurityCode setBorderStyle:UITextBorderStyleNone];
             _txtSecurityCode.delegate = self;

@@ -281,7 +281,7 @@
             
             //http://50.62.148.155:8080/heres2u/api/index.php?webservice=ui&action=getreceiveditems&ID=33&Lat=-33.7501&Long=18.4533
             
-                        
+            isReceived = YES;            
             NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@index.php?webservice=ui&action=getreceiveditems&ID=%@&Lat=-%@&Long=%@",hostURl,uId,currentLat,currentLong]];
             NSLog(@" : %@",url);
             
@@ -1163,6 +1163,7 @@
                 NSMutableArray *receData = [[NSMutableArray alloc] init];
                 [receData addObject:[self.arrayTransactionsID1 objectAtIndex:selectedRow]];
                 [receData addObject:[NSGlobalConfiguration getConfigurationItem:@"FullName"]];
+                NSLog(@"arraySenderName1 : %@",arraySenderName1);
                 [receData addObject:[self.arraySenderName1 objectAtIndex:selectedRow]];
                 [receData addObject:[self.arrayLocationName1 objectAtIndex:selectedRow]];
                 [receData addObject:[self.arrayPrice1 objectAtIndex:selectedRow]];

@@ -60,12 +60,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "viewController/checkin/addViewController.m"
-         timestampString = "389346348.453772"
+         timestampString = "389883420.4933"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "501"
-         endingLineNumber = "501"
-         landmarkName = "-textFieldShouldReturn:"
+         startingLineNumber = "506"
+         endingLineNumber = "506"
+         landmarkName = "-showAlertMessage:withTitle:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -73,26 +73,13 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "viewController/checkin/addViewController.m"
-         timestampString = "389337554.709457"
+         timestampString = "389883420.4933"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "168"
-         endingLineNumber = "168"
-         landmarkName = "-submitClicked:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "viewController/checkin/CheckinViewController.m"
-         timestampString = "389534369.147459"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "396"
-         endingLineNumber = "396"
-         landmarkName = "-bg_clicked:"
-         landmarkType = "5">
+         startingLineNumber = "173"
+         endingLineNumber = "173"
+         landmarkName = "@implementation addViewController"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
@@ -105,19 +92,6 @@
          startingLineNumber = "215"
          endingLineNumber = "215"
          landmarkName = "-goToCheckinComment:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "viewController/heres2u/menuViewController.m"
-         timestampString = "389535603.759008"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "107"
-         endingLineNumber = "107"
-         landmarkName = "-viewDidLoad"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -137,26 +111,65 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "viewController/profile/ProfileViewController.m"
-         timestampString = "389536791.987146"
+         filePath = "viewController/mytab/ReceiptViewController.m"
+         timestampString = "389881950.229359"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "72"
-         endingLineNumber = "72"
-         landmarkName = "-viewDidAppear:"
+         startingLineNumber = "33"
+         endingLineNumber = "33"
+         landmarkName = "-viewDidLoad"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "NSFeedManager.m"
-         timestampString = "389536558.669584"
+         filePath = "viewController/mytab/MytabViewController.m"
+         timestampString = "389882371.607625"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "17"
-         endingLineNumber = "17"
-         landmarkName = "-getFeedAtIndex:"
+         startingLineNumber = "1166"
+         endingLineNumber = "1166"
+         landmarkName = "-alertView:clickedButtonAtIndex:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "viewController/mytab/MytabViewController.m"
+         timestampString = "389882475.617692"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "368"
+         endingLineNumber = "368"
+         landmarkName = "-segmentControlChanged"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "viewController/mytab/MytabViewController.m"
+         timestampString = "389882490.384808"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "268"
+         endingLineNumber = "268"
+         landmarkName = "-callReceivedData"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "viewController/mytab/MytabViewController.m"
+         timestampString = "389882669.992542"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "284"
+         endingLineNumber = "284"
+         landmarkName = "-callReceivedData"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

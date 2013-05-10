@@ -235,7 +235,7 @@ totalTotalLbl.text = [NSString stringWithFormat:@"$%.2f",totalTotal];
         
         _lblItemValueList = [[UILabel alloc] initWithFrame:CGRectMake(120, 10, 170, 24)];
         [_lblItemValueList setBackgroundColor:[UIColor clearColor]];
-        [_lblItemValueList setTextColor:[UIColor blackColor]];
+        [_lblItemValueList setTextColor:[UIColor blueColor]];
         [_lblItemValueList setFont:[UIFont systemFontOfSize:14]];
         _lblItemValueList.tag = 20;
         [_lblItemValueList setTextAlignment:NSTextAlignmentRight];
