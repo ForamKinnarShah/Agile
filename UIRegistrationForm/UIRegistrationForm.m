@@ -14,11 +14,6 @@
 @synthesize RegistrationTable,AccountTable,ProfileTable,ProfilePicture,Password,Email,Name,Phone,DOB,ZipCode,Register,BackButton,ViewController,currentProfilePicture;
 @synthesize requestConnection = _requestConnection;
 
-
-
-
-
-
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -65,11 +60,11 @@
         [self addSubview:RegistrationTable];
         [self addSubview:NavigationBar];
         
-        Email.delegate = self;
-        Password.delegate = self;
-        Name.delegate = self;
-        Phone.delegate = self;
-        ZipCode.delegate = self;
+//        Email.delegate = self;
+//        Password.delegate = self;
+//        Name.delegate = self;
+//        Phone.delegate = self;
+//        ZipCode.delegate = self;
     }
     return self;
 }
@@ -226,7 +221,9 @@
                     [Email setAutocorrectionType:UITextAutocorrectionTypeNo]; 
                     [Email setInputAccessoryView:AccessoryView];
                     [Email setPlaceholder:@"Email"];
+                    [Email setDelegate:self];
                     [Email setTextColor:[UIColor grayColor]];
+                    [Email setReturnKeyType:UIReturnKeyNext];
                     [Email addTarget:self action:@selector(textFieldDismissed:) forControlEvents:UIControlEventEditingDidEnd];
                     [Email addTarget:self action:@selector(textFieldSelected:) forControlEvents:UIControlEventEditingDidBegin];
                     UITableViewCell *cell=[AccountTable dequeueReusableCellWithIdentifier:@"Cell"];
@@ -246,8 +243,10 @@
                     }
                     [Password setInputAccessoryView:AccessoryView];
                     [Password setAutocapitalizationType:UITextAutocapitalizationTypeNone];
+                    [Password setDelegate:self];
                     [Password setAutocorrectionType:UITextAutocorrectionTypeNo];
                     [Password setTextColor:[UIColor grayColor]];
+                    [Password setReturnKeyType:UIReturnKeyNext];
                     [Password setSecureTextEntry:YES];
                     [Password setPlaceholder:@"Password"];
                     [Password addTarget:self action:@selector(textFieldSelected:) forControlEvents:UIControlEventEditingDidBegin];
@@ -292,6 +291,8 @@
                     }
                     [Name setTextColor:[UIColor grayColor]];
                     [Name setInputAccessoryView:AccessoryView];
+                    [Name setDelegate:self];
+                    [Name setReturnKeyType:UIReturnKeyNext];
                     [Name addTarget:self action:@selector(textFieldSelected:) forControlEvents:UIControlEventEditingDidBegin];
                     [Name addTarget:self action:@selector(textFieldDismissed:) forControlEvents:UIControlEventEditingDidEnd];
                     [Name setPlaceholder:@"Full Name"];
@@ -311,6 +312,8 @@
                     }
                     [Phone setTextColor:[UIColor grayColor]];
                     [Phone setInputAccessoryView:AccessoryView];
+                    [Phone setDelegate:self];
+                    [Phone setReturnKeyType:UIReturnKeyNext];
                     [Phone setKeyboardType:UIKeyboardTypeNumberPad];
                     [Phone addTarget:self action:@selector(textFieldDismissed:) forControlEvents:UIControlEventEditingDidEnd];
                     [Phone setPlaceholder:@"Phone"];
@@ -363,7 +366,8 @@
                     }
                     [ZipCode setKeyboardType:UIKeyboardTypeNumberPad];
                     [ZipCode setTextColor:[UIColor grayColor]];
-                    
+                    [ZipCode setDelegate:self];
+                    [ZipCode setReturnKeyType:UIReturnKeyNext];
                     [ZipCode setInputAccessoryView:AccessoryView];
                     [ZipCode addTarget:self action:@selector(textFieldSelected:) forControlEvents:UIControlEventEditingDidBegin];
                     [ZipCode addTarget:self action:@selector(textFieldDismissed:) forControlEvents:UIControlEventEditingDidEnd];
@@ -749,7 +753,8 @@
         }*/
     
 }
--(IBAction)dismissKeyboard:(id)sender{
+-(IBAction)dismissKeyboard:(id)sender
+{
    // [Username resignFirstResponder];
     [Password resignFirstResponder];
     [Email resignFirstResponder];
@@ -825,7 +830,17 @@
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [textField resignFirstResponder];
+    if (textField == Email)
+        [Password becomeFirstResponder];
+    if (textField == Password)
+        [Name becomeFirstResponder];
+    if (textField == Name)
+        [Phone becomeFirstResponder];
+    if (textField == Phone)
+        [ZipCode becomeFirstResponder];
+    else
+        [ZipCode resignFirstResponder];
+
     return YES;
 }
 

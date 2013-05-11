@@ -117,7 +117,16 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
                                                
                                                if (donePressed) {
                                                    self.selectedFriends = friendPicker.selection;
-                                                   [self FeedDialog];
+                                                  
+                                                   NSLog(@"%@",self.selectedFriends);
+                                                   if ([self.selectedFriends count] != 0)
+                                                       [self FeedDialog];
+                                                   else
+                                                   {
+                                                       UIAlertView *alSelect = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"Please select a friend to be shared with!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] ;
+                                                       [alSelect show];
+                                                       return;
+                                                   }
                                                }
                                            }];
     return;

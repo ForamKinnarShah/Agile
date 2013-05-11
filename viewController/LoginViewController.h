@@ -15,6 +15,8 @@
     UIActivityIndicatorView *UIBlocker;
     NSMutableData *rawData;
 }
+@property     UIActivityIndicatorView *UIBlocker;
+
 -(IBAction)login:(id)sender;
 - (IBAction)LostPassword:(id)sender;
 

@@ -8,6 +8,8 @@
 
 #import "NSUserAccessControl.h"
 #import "NSGlobalConfiguration.h"
+#import "utilities.h"
+
 @implementation NSUserAccessControl
 +(void) RegisterUser:(NSString *)email Password:(NSString *)password ProfilePicture:(UIImage *)profilepicture  Phone:(NSString *)phone DateOfBirth:(NSString *)dob Name:(NSString *)name ZipCode:(NSString *)zip CallBackDelegate:(id)Delegate{
     NSLog(@"Registering");
@@ -128,6 +130,15 @@
 }
 +(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
     //Return an Error;
+//    if ([[error localizedDescription] isEqualToString:@"Could not connect to the server."])
+//    {
+//        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Warning" message:[error localizedDescription] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+//        [alert show];
+//
+//        return;
+//    }
+    
+    
     NSTaggedURLConnection *taggedconnection=(NSTaggedURLConnection *)connection;
     if([taggedconnection tag]==NSUserAccessControlTypeRegisterUser){
         SEL selError=@selector(registrationDidFail:);

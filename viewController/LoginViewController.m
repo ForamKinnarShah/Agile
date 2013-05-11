@@ -48,6 +48,8 @@
     self.navigationItem.hidesBackButton = YES;
     
     // Do any additional setup after loading the view from its nib.
+    _strusrname = [[NSString alloc] init];
+    _strpass = [[NSString alloc] init];
 }
 
 -(IBAction)goToRegister:(id)sender {
@@ -67,10 +69,12 @@
 
 -(void)login:(id)sender
 {
-    if([_strusrname length] == 0)
+    
+    
+  //  if([_strusrname length] == 0)
         _strusrname = _txtEmail_Login.text;
     
-    if ([_strpass length] == 0)
+ //   if ([_strpass length] == 0)
         _strpass = _txtPassword.text;
     
 //    profNav.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon.png"]];
@@ -174,7 +178,7 @@
 
 -(void)loggingInFailed:(NSError *)error
 {
-    UIAlertView *Alert=[[UIAlertView alloc] initWithTitle:@"Warning" message:@"Invalid Email or Password" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    UIAlertView *Alert=[[UIAlertView alloc] initWithTitle:@"Warning" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     NSLog(@"error:%@",error.localizedDescription);
     [UIBlocker stopAnimating];
     [Alert show];
@@ -349,7 +353,8 @@
     [rawData appendData:data];
 }
 
--(void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
+-(void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{
     [[[UIAlertView alloc] initWithTitle:@"Connection Failed" message:@"Was not able to get a response from mail server. Please check your internet connection and try again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     [UIBlocker stopAnimating];
 }
@@ -423,36 +428,63 @@
 #pragma mark
 #pragma mark textfield delegates
 
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    if (!isiPhone5)
+        [self setViewMovedUp:YES];
+    return YES;
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     if (textField.tag == 100)
+    {
+        _strusrname = _txtEmail_Login.text;
         [_txtPassword becomeFirstResponder];
+    }
     else
     {
-        _strpass = textField.text;
+        _strpass = _txtPassword.text;
         [_txtPassword resignFirstResponder];
         //[self performSelector:@selector(login:)];
         [self login:nil];
     }
+    if (!isiPhone5)
+        [self setViewMovedUp:NO];
     return YES;
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
-    NSLog(@"%i",textField.tag);
-    NSLog(@"%@",textField);
     switch (textField.tag)
     {
         case 100:
-            _strusrname = textField.text;
+             _txtEmail_Login.text = textField.text;
             break;
             
         case 200:
-            _strpass = textField.text;
+            _txtPassword.text = textField.text;
             break;
             
     }
     return YES;
+}
+
+#pragma  mark
+#pragma mark invoked functions
+
+- (void)setViewMovedUp:(BOOL)movedUp
+{
+    CGRect rect = self.view.frame;
+    if (movedUp){
+        if(rect.origin.y == 20)
+            rect.origin.y = self.view.frame.origin.y - 105;
+    }
+    else{
+        if(rect.origin.y < 20)
+            rect.origin.y = self.view.frame.origin.y + 105;
+    }
+    self.view.frame = rect;
 }
 
 @end

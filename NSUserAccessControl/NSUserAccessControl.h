@@ -10,6 +10,8 @@
 #import "NSTaggedURLConnection.h"
 #import "NSTaggedXMLParser.h"
 #import "NSUserAccessControlProtocol.h"
+#import "LoginViewController.h"
+
 @interface NSUserAccessControl : NSObject<NSXMLParserDelegate,NSURLConnectionDataDelegate>
 
 +(void) RegisterUser:(NSString *)email Password:(NSString *)password ProfilePicture:(UIImage *)profilepicture Phone:(NSString *)phone DateOfBirth:(NSString *)dob Name:(NSString *)name ZipCode:(NSString *)zip CallBackDelegate:(id)Delegate;
