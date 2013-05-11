@@ -122,6 +122,7 @@
     if (buttonIndex == 1)
     {
         [creditCards removeObjectAtIndex:deleteCardIndex];
+        [NSGlobalConfiguration setConfigurationItem:[NSGlobalConfiguration getConfigurationItem:@"Email"] Item:creditCards]; 
         [cardTable reloadData]; 
     }
 }

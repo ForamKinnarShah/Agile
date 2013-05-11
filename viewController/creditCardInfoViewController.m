@@ -300,6 +300,7 @@ NSDateFormatter *nsdf;
             _txtName.delegate = self;
             [_txtName setTextColor:[UIColor blueColor]];
             [_txtName setText:_strnameTextField];
+            [_txtName setReturnKeyType:UIReturnKeyNext]; 
             [Cell.contentView addSubview:_txtName];
         }
         if (indexPath.row == 1)
@@ -323,6 +324,7 @@ NSDateFormatter *nsdf;
             [_txtBillingAddress setBorderStyle:UITextBorderStyleNone];
             _txtBillingAddress.delegate = self;
             [_txtBillingAddress setText:_straddress1TextField];
+            [_txtBillingAddress setReturnKeyType:UIReturnKeyNext]; 
             [Cell.contentView addSubview:_txtBillingAddress];
         }
         if (indexPath.row == 3)
@@ -334,7 +336,9 @@ NSDateFormatter *nsdf;
             _txtAddressLine2.tag = 400;
             [_txtAddressLine2 setBorderStyle:UITextBorderStyleNone];
             _txtAddressLine2.delegate = self;
-            [_txtAddressLine2 setText:_straddress2TextField]; 
+            [_txtAddressLine2 setText:_straddress2TextField];
+            [_txtAddressLine2 setReturnKeyType:UIReturnKeyNext];
+
             [Cell.contentView addSubview:_txtAddressLine2];
         }
         if(indexPath.row == 4)
@@ -359,7 +363,9 @@ NSDateFormatter *nsdf;
             [_txtCardNumber setBorderStyle:UITextBorderStyleNone];
             _txtCardNumber.delegate = self;
             [_txtCardNumber setKeyboardType:UIKeyboardTypeNumberPad];
-            [_txtCardNumber setText:_strcardNumberTextField]; 
+            [_txtCardNumber setText:_strcardNumberTextField];
+            [_txtCardNumber setReturnKeyType:UIReturnKeyNext];
+
             [Cell.contentView addSubview:_txtCardNumber];
         }
         if (indexPath.row == 6)
@@ -372,6 +378,8 @@ NSDateFormatter *nsdf;
             [_txtSecurityCode setBorderStyle:UITextBorderStyleNone];
             _txtSecurityCode.delegate = self;
             [_txtSecurityCode setKeyboardType:UIKeyboardTypeNumberPad];
+            [_txtSecurityCode setReturnKeyType:UIReturnKeyNext];
+
             [Cell.contentView addSubview:_txtSecurityCode];
         }
     }
@@ -497,15 +505,20 @@ NSDateFormatter *nsdf;
     {
         case 100:
             _strnameTextField = textField.text;
+            doneBar.hidden = NO;
+            datePicker.hidden = NO; 
             break;
         case 300:
             _straddress1TextField = textField.text;
+            [_txtAddressLine2 becomeFirstResponder]; 
             break;
         case 400:
             _straddress2TextField = textField.text;
+            pickerCard.hidden = NO; 
             break;
         case 600:
             _strcardNumberTextField = textField.text;
+            [_txtSecurityCode becomeFirstResponder]; 
             break;
         case 700:
             _strsecurityCodeTextField = textField.text;
