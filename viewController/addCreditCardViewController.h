@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface addCreditCardViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
-
+@interface addCreditCardViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>
+{
+    BOOL deleteCardIndex; 
+}
 @property IBOutlet UITableView *cardTable;
 @property NSMutableArray *creditCards; 
 

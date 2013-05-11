@@ -243,6 +243,9 @@
 		7AA196E31712B15C001F7A40 /* UICheckIns.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA1966A1712B15C001F7A40 /* UICheckIns.m */; };
 		7AA196E41712B15C001F7A40 /* UICheckIns.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA1966B1712B15C001F7A40 /* UICheckIns.xib */; };
 		7AA196E51712B15C001F7A40 /* UICommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA1966D1712B15C001F7A40 /* UICommentView.xib */; };
+		7AA7A4E0173DCF6200948274 /* checkbox-checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AA7A4DD173DCF6100948274 /* checkbox-checked.png */; };
+		7AA7A4E1173DCF6200948274 /* checkbox-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AA7A4DE173DCF6100948274 /* checkbox-pressed.png */; };
+		7AA7A4E2173DCF6200948274 /* checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AA7A4DF173DCF6100948274 /* checkbox.png */; };
 		7ABD92D4171B7268001D10DE /* addCreditCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABD92D2171B7268001D10DE /* addCreditCardViewController.m */; };
 		7ABD92D5171B7268001D10DE /* addCreditCardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ABD92D3171B7268001D10DE /* addCreditCardViewController.xib */; };
 		7ABD92E5171FBC9E001D10DE /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ABD92E3171FBC9D001D10DE /* AddressBook.framework */; };
@@ -690,6 +693,9 @@
 		7AA1966B1712B15C001F7A40 /* UICheckIns.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = UICheckIns.xib; path = ../UICheckIns.xib; sourceTree = "<group>"; };
 		7AA1966C1712B15C001F7A40 /* UICheckInsProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICheckInsProtocol.h; sourceTree = "<group>"; };
 		7AA1966D1712B15C001F7A40 /* UICommentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = UICommentView.xib; path = ../UICommentView.xib; sourceTree = "<group>"; };
+		7AA7A4DD173DCF6100948274 /* checkbox-checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-checked.png"; sourceTree = SOURCE_ROOT; };
+		7AA7A4DE173DCF6100948274 /* checkbox-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-pressed.png"; sourceTree = SOURCE_ROOT; };
+		7AA7A4DF173DCF6100948274 /* checkbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox.png; sourceTree = SOURCE_ROOT; };
 		7ABD92D1171B7268001D10DE /* addCreditCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = addCreditCardViewController.h; sourceTree = "<group>"; };
 		7ABD92D2171B7268001D10DE /* addCreditCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = addCreditCardViewController.m; sourceTree = "<group>"; };
 		7ABD92D3171B7268001D10DE /* addCreditCardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = addCreditCardViewController.xib; sourceTree = "<group>"; };
@@ -1585,6 +1591,9 @@
 		DAF870BD16671F0000747CDA = {
 			isa = PBXGroup;
 			children = (
+				7AA7A4DD173DCF6100948274 /* checkbox-checked.png */,
+				7AA7A4DE173DCF6100948274 /* checkbox-pressed.png */,
+				7AA7A4DF173DCF6100948274 /* checkbox.png */,
 				6FB04234173A638000CE0314 /* libxml2.dylib */,
 				6FB04230173A60B800CE0314 /* facebook_logo-1.png */,
 				6FB04231173A60B800CE0314 /* twitter-logo-1.jpg */,
@@ -1907,6 +1916,9 @@
 				6FB0422F173A60A100CE0314 /* twitter_load.png in Resources */,
 				6FB04232173A60B800CE0314 /* facebook_logo-1.png in Resources */,
 				6FB04233173A60B800CE0314 /* twitter-logo-1.jpg in Resources */,
+				7AA7A4E0173DCF6200948274 /* checkbox-checked.png in Resources */,
+				7AA7A4E1173DCF6200948274 /* checkbox-pressed.png in Resources */,
+				7AA7A4E2173DCF6200948274 /* checkbox.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

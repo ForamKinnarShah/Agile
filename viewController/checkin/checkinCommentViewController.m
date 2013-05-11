@@ -137,11 +137,14 @@
 //        [alPost show];
 //        return;
 //    }
-    if(CommentField.text.length==0){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"Please Fill the Text." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
-        [alert show];
-        return;
-    }
+    
+    
+    //WE DO NOT NEED TO REQUIRE A COMMENT - P.S., 5.10.2013
+//    if(CommentField.text.length==0){
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"Please Fill the Text." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+//        [alert show];
+//        return;
+//    } 
     
     
     [NSUserInterfaceCommands PostFeed:[(NSString *)[NSGlobalConfiguration getConfigurationItem:@"ID"] integerValue] Comment:[CommentField text] LocationID:[Checkin ID] CallbackDelegate:self];

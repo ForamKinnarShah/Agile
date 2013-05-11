@@ -208,7 +208,11 @@
         [messageBody appendFormat:@"%@\n",strAdd1];
     }
     [messageBody appendFormat:@"%@, %@ %@\n",strCity,strState,strZip];
-    [messageBody appendString:@"----------------------------------------------------\n"]; 
+    if (checkBoxClicked)
+    {
+        [messageBody appendFormat:@"*This business has recently opened or will soon open\n"]; 
+    }
+    [messageBody appendString:@"----------------------------------------------------\n"];
     [mf setToRecipients:[NSArray arrayWithObject:@"support@heres2uapp.com"]];
     [mf setMessageBody:messageBody isHTML:NO];
     if ([MFMailComposeViewController canSendMail]){
@@ -468,7 +472,7 @@
                 }
                 else if(indexPath.row==5){
                     
-                    UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(20, 5, 300, 30)];
+                    UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(20, 5, 260, 30)];
                     [lbl setText:@"This business recently opened or is opening soon."];
                     [lbl setBackgroundColor:[UIColor clearColor]];
                     [lbl setTextColor:[UIColor blackColor]];
@@ -476,6 +480,16 @@
                     [lbl setTextAlignment:NSTextAlignmentLeft];
                     [lbl setNumberOfLines:2.0];
                     [cell addSubview:lbl];
+                    
+                    UIButton *checkBox = [[UIButton alloc] initWithFrame:CGRectMake(275, 4, 30, 30)];
+                    //[checkBox setBackgroundImage:[UIImage imageNamed:@"checkbox.png"] forState:UIControlStateNormal];
+                    [checkBox setImage:[UIImage imageNamed:@"checkbox.png"] forState:UIControlStateNormal];
+                    [checkBox setImage:[UIImage imageNamed:@"checkbox-checked.png"] forState:UIControlStateSelected];
+                    //[checkBox setBackgroundImage:[UIImage imageNamed:@"checkbox-checked.png"] forState:UIControlStateSelected];
+                    [checkBox setUserInteractionEnabled:YES];
+                    [checkBox setContentMode:UIViewContentModeCenter]; 
+                    [checkBox addTarget:self action:@selector(checkBoxClicked:) forControlEvents:UIControlEventTouchUpInside];
+                    [cell addSubview:checkBox]; 
                     
                 }
             //    else if(indexPath.row==6){
@@ -499,6 +513,12 @@
         NSLog(@"NSException : %@",exception);
     }
     
+}
+
+-(void)checkBoxClicked:(UIButton*)sender
+{
+    [sender setSelected:![sender isSelected]];
+    checkBoxClicked = !checkBoxClicked; 
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

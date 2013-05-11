@@ -70,7 +70,7 @@
     
     foodTotal = foodTotal + self.additionalGiftAmount; 
     
-float preFeeTotal = drinkTotal + foodTotal + dessertTotal;
+    preFeeTotal = drinkTotal + foodTotal + dessertTotal;
     float feeTotal;
     feeTotal = 1.36;
     
@@ -177,7 +177,7 @@ totalTotalLbl.text = [NSString stringWithFormat:@"$%.2f",totalTotal];
     [[[UIAlertView alloc] initWithTitle:@"credit card authorization succeeded:" message:@"A receipt has been emailed to you."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
     
        
-    NSURL *request = [[NSURL alloc]initWithString:[NSString stringWithFormat:@"http://50.62.148.155:8080/heres2u/api/addtransactionrequest.php?sendingUserID=%@&receivingUserID=%@&chargeAmount=%@&creditTransID=%@&locationID=%@",[NSGlobalConfiguration getConfigurationItem:@"ID"],[self.userInfo objectForKey:@"ID"],[NSString stringWithFormat:@"%.2f",totalTotal],code,[self.restaurantInfo objectForKey:@"ID"]]];
+    NSURL *request = [[NSURL alloc]initWithString:[NSString stringWithFormat:@"http://50.62.148.155:8080/heres2u/api/addtransactionrequest.php?sendingUserID=%@&receivingUserID=%@&chargeAmount=%@&creditTransID=%@&locationID=%@",[NSGlobalConfiguration getConfigurationItem:@"ID"],[self.userInfo objectForKey:@"ID"],[NSString stringWithFormat:@"%.2f",preFeeTotal],code,[self.restaurantInfo objectForKey:@"ID"]]];
     
     NSLog(@"request:%@",request); 
     

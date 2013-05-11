@@ -17,6 +17,7 @@
     NSString *creditCardNumber;
     utilities *util;
     float totalTotal;
+    float preFeeTotal; 
 }
 
 @property NSArray *orderItems;

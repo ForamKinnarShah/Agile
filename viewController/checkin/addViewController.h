@@ -29,7 +29,7 @@
     NSString *strCity;
     NSString *strState;
     NSString *strZip;
-    
+    BOOL checkBoxClicked; 
     
     
 }

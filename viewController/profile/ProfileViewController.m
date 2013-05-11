@@ -24,7 +24,7 @@
 @end
 
 @implementation ProfileViewController
-@synthesize FollowButton,FollowersCount,FollowersRect,FollowingCount,btnFollowBack,FollowingRect,ImageLoader,UserName,ProSroll, UIBlocker, SourceSelector;
+@synthesize FollowButton,FollowersCount,FollowersRect,FollowingCount,btnFollowBack,FollowingRect,ImageLoader,UserName, UIBlocker, SourceSelector;
 //Initializers:
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -76,12 +76,14 @@
 {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clearView) name:logOutNotification object:nil]; 
-    self.ProSroll.delegate = self; 
+    [(UIScrollView*)self.view setDelegate:self]; 
     
     UIBlocker = [[utilities alloc] init];
     [UIBlocker startUIBlockerInView:self.tabBarController.view];
     
-    //ProfileID = [[NSGlobalConfiguration getConfigurationItem:@"ID"] intValue];
+    if (!ProfileID){
+    ProfileID = [[NSGlobalConfiguration getConfigurationItem:@"ID"] intValue];
+    }
     Profile=[[NSProfile alloc] initWithProfileID:ProfileID];
     [Profile setDelegate:self];
     
@@ -275,12 +277,12 @@
             [activity.nameButton setFrame:CGRectMake(activity.nameButton.frame.origin.x, activity.nameButton.frame.origin.y, 310, activity.nameButton.frame.size.height)];
         }
         
-        [ProSroll addSubview:activity];
+        [self.view addSubview:activity];
         NSLog(@"added");
     }
-    [ProSroll setScrollEnabled:YES];
-    [ProSroll setContentSize:CGSizeMake(0, (numberOfFeedsToLoad*166)+120)];
-    NSLog(@"%i",([Profile.Feeds count]*156));
+    [(UIScrollView*)self.view setScrollEnabled:YES];
+    [(UIScrollView*)self.view setContentSize:CGSizeMake(0, (numberOfFeedsToLoad*166)+120)];
+    NSLog(@"contentsize: %f",[(UIScrollView*)self.view contentSize].height);
 }
 -(void)activityviewRequestComment:(UIActivityView *)activity{
     //Load Comments View Controller and PUsh it with ID
@@ -521,7 +523,7 @@
 
 -(void)clearView
 {
-    for (UIActivityView *activity in ProSroll.subviews)
+    for (UIActivityView *activity in self.view.subviews)
     {
         if (activity.tag)
         {

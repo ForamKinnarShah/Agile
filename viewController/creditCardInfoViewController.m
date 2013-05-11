@@ -49,6 +49,7 @@
 //    [expirationDateTextField setInputView:datePicker];
   [self.view addSubview:datePicker];
 
+    
     pickerCard.hidden = YES;
     doneBar.hidden = YES;
 
@@ -60,6 +61,18 @@
 
 // notification while picking up the nemberpad keyboard
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+    
+    //adjust position of picker & doneBar for smaller iPhone screens
+//    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+//    
+//    //    if iPhone5
+//    if(screenSize.height != 568)
+//    {
+//        [doneBar setFrame:CGRectMake(0, 197, 320, 44)];
+//        [pickerCard setFrame:CGRectMake(0, 239, 320, 216)]; 
+//    }
+    
+
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -88,7 +101,7 @@
 //        }
 //    }
     
-    if ([_strnameTextField length] == 0 || [_strexpirationDateTextField length] == 0 || [_straddress1TextField length] == 0 || [_straddress2TextField length] == 0 || [_strcardTypeTextField length] == 0 || [_strcardNumberTextField length] == 0 || [_strsecurityCodeTextField length] == 0)
+    if ([_strnameTextField length] == 0 || [_strexpirationDateTextField length] == 0 || [_straddress1TextField length] == 0 || [_strcardTypeTextField length] == 0 || [_strcardNumberTextField length] == 0 || [_strsecurityCodeTextField length] == 0)
     {
         [[[UIAlertView alloc] initWithTitle:@"one or more fields are missing" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         return;
@@ -286,6 +299,7 @@ NSDateFormatter *nsdf;
             [_txtName setBorderStyle:UITextBorderStyleNone];
             _txtName.delegate = self;
             [_txtName setTextColor:[UIColor blueColor]];
+            [_txtName setText:_strnameTextField];
             [Cell.contentView addSubview:_txtName];
         }
         if (indexPath.row == 1)
@@ -308,6 +322,7 @@ NSDateFormatter *nsdf;
             _txtBillingAddress.tag = 300;
             [_txtBillingAddress setBorderStyle:UITextBorderStyleNone];
             _txtBillingAddress.delegate = self;
+            [_txtBillingAddress setText:_straddress1TextField];
             [Cell.contentView addSubview:_txtBillingAddress];
         }
         if (indexPath.row == 3)
@@ -319,6 +334,7 @@ NSDateFormatter *nsdf;
             _txtAddressLine2.tag = 400;
             [_txtAddressLine2 setBorderStyle:UITextBorderStyleNone];
             _txtAddressLine2.delegate = self;
+            [_txtAddressLine2 setText:_straddress2TextField]; 
             [Cell.contentView addSubview:_txtAddressLine2];
         }
         if(indexPath.row == 4)
@@ -343,6 +359,7 @@ NSDateFormatter *nsdf;
             [_txtCardNumber setBorderStyle:UITextBorderStyleNone];
             _txtCardNumber.delegate = self;
             [_txtCardNumber setKeyboardType:UIKeyboardTypeNumberPad];
+            [_txtCardNumber setText:_strcardNumberTextField]; 
             [Cell.contentView addSubview:_txtCardNumber];
         }
         if (indexPath.row == 6)
@@ -421,7 +438,28 @@ NSDateFormatter *nsdf;
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+   
+    if (textField == _txtName)
+    {
+        //[datePicker becomeFirstResponder];
+        
+    }
+    else if (textField == _txtBillingAddress)
+    {
+        [_txtAddressLine2 becomeFirstResponder];
+    }
+    else if (textField == _txtAddressLine2)
+    {
+        [pickerCard becomeFirstResponder];
+    }
+    else if (textField == _txtCardNumber)
+    {
+        [_txtSecurityCode becomeFirstResponder];
+    }
+    else {
+    
     [textField resignFirstResponder];
+    }
     [self setViewMovedUp:NO];
     return YES;
 }

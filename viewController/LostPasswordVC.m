@@ -106,7 +106,7 @@
     NSLog(@"connection finished loading with response:%@",[[NSString alloc] initWithData:rawData encoding:NSUTF8StringEncoding]);
     if ([response rangeOfString:@"<SuccessMessage>1</SuccessMessage>"].location == NSNotFound)
     {
-        [[[UIAlertView alloc] initWithTitle:@"Message Failed to Send" message:@"Your message was not sent. Please confirm your email address and try again. If problems persist, please contact support.heres2uapp.com" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc] initWithTitle:@"Message Failed to Send" message:@"Your message was not sent. Please confirm your email address is correct and try again. If problems persist, please contact support@heres2uapp.com" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }
     else{
         [[[UIAlertView alloc] initWithTitle:@"Message Sent" message:@"Please check your email in order to reset your password" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show]; 
