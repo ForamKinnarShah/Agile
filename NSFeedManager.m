@@ -65,6 +65,7 @@
     SEL CompetionSelector=@selector(feedmanagerCompleted:);
     if([Delegate respondsToSelector:CompetionSelector]){
         [Delegate feedmanagerCompleted:self];
+        return;
     }
 }
 -(void) parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError{

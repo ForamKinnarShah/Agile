@@ -65,7 +65,6 @@ NSString * const logOutNotification = @"logOutNotification";
     }
 
     
-    
     // push notification
     remoteHost = [Reachability reachabilityWithHostName:@"www.google.co.in"];
 	[remoteHost startNotifier];

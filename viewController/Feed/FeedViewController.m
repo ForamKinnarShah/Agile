@@ -177,7 +177,7 @@
         numberOfPostsToLoad = [feedManager count]; 
     }
 
-    for(NSInteger i=0; i<numberOfPostsToLoad;i++){
+    for(NSInteger i=0; i<[feedManager count];i++){
         
         NSDictionary *ItemData=[feedManager getFeedAtIndex:i];
         UIActivityView *activity; 
@@ -190,7 +190,8 @@
             activity=[[UIActivityView alloc] initWithFrame:CGRectMake(0, length+10, 320, 128) andView:1];
             length = length + 124;
         }
-        NSLog(@"itemData:%@",ItemData);
+       
+        NSLog(@"itemData i: %d: %@",i,ItemData);
         
         [activity setID:[(NSString *)[ItemData valueForKey:@"FeedID"] integerValue]];
         [activity.UserName setText:[ItemData valueForKey:@"FullName"]];
@@ -220,7 +221,8 @@
         [img start];
         
         [self.view addSubview:activity];
-        [activityViews addObject:activity]; 
+        [activityViews addObject:activity];
+        
        // NSLog(@"added");
     }
     [(UIScrollView *)self.view setScrollEnabled:YES];
@@ -248,7 +250,7 @@
             UIBlocker = [[utilities alloc] init];
             [UIBlocker startUIBlockerInView:self.tabBarController.view]; 
         }
-    [feedManager getFeeds];
+        [feedManager getFeeds];
     }
 }
 
@@ -270,7 +272,7 @@
         numberOfPostsToLoad = numberOfPostsToLoad + 15;
         [UIBlocker startUIBlockerInView:self.tabBarController.view];
         //[feedManager getFeeds];
-        [self loadActivities]; 
+        [self loadActivities];     
     }
 }
 

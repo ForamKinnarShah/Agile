@@ -18,6 +18,7 @@
 
 @implementation CommentViewController
 @synthesize Title,ProfilePicture,Time,FullName,CommentsScroll,CommentText,MainComment;
+@synthesize lblAddress;
 
 -(id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil ActivityView:(UIActivityView *)activity{
     self=[self initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -36,6 +37,8 @@
     return self;
 }
 - (IBAction)PostComment:(id)sender {
+    CommentText.text = [CommentText.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+   
     if(![CommentText.text isEqualToString:@""])
     {
         [NSUserInterfaceCommands addComment:[(NSString *)[NSGlobalConfiguration getConfigurationItem:@"ID"] integerValue] Comment:[CommentText text] FeedID:[internal ID] CallbackDelegate:self];
@@ -108,7 +111,10 @@
     [Time setText:[internal.lblTime text]];
     [MainComment setText:[internal.lblComment text]];
     [FullName setText:[internal.UserName text]];
+    [lblAddress setText:[internal.lblAddress text]];
+    
     [CommentText setDelegate:self];
+   
     NSCommentLoader *loader=[[NSCommentLoader alloc] init];
     [loader setDelegate:self];
     [loader getCommentsForFeed:[internal ID]];

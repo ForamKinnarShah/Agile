@@ -101,7 +101,15 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
                                                
                                                if (donePressed) {
                                                    self.selectedFriends = friendPicker.selection;
-                                                   [self FeedDialog];
+                                                   NSLog(@"self.selectedFriends : %d",self.selectedFriends.count);
+                                                   int friendCount = self.selectedFriends.count;
+                                                   if(friendCount==0){
+                                                       UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"You did not select any friend!" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+                                                       [alert show];
+                                                   }
+                                                   else{
+                                                       [self FeedDialog];
+                                                   }
                                                }
                                            }];
     return;

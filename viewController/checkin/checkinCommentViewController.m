@@ -146,9 +146,11 @@
 //        return;
 //    } 
     
-    
-    [NSUserInterfaceCommands PostFeed:[(NSString *)[NSGlobalConfiguration getConfigurationItem:@"ID"] integerValue] Comment:[CommentField text] LocationID:[Checkin ID] CallbackDelegate:self];
-    [self performSelector:@selector(btnShare_Click:) withObject:nil];
+    CommentField.text = [CommentField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if(CommentField.text.length!=0){
+        [NSUserInterfaceCommands PostFeed:[(NSString *)[NSGlobalConfiguration getConfigurationItem:@"ID"] integerValue] Comment:[CommentField text] LocationID:[Checkin ID] CallbackDelegate:self];
+        [self performSelector:@selector(btnShare_Click:) withObject:nil];
+    }
     
 }
 -(void) userinterfaceCommandFailed:(NSString *)message{

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
-		<int key="IBDocument.SystemTarget">1552</int>
-		<string key="IBDocument.SystemVersion">12C60</string>
-		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.34</string>
-		<string key="IBDocument.HIToolboxVersion">625.00</string>
+		<int key="IBDocument.SystemTarget">1536</int>
+		<string key="IBDocument.SystemVersion">12B19</string>
+		<string key="IBDocument.InterfaceBuilderVersion">2840</string>
+		<string key="IBDocument.AppKitVersion">1187</string>
+		<string key="IBDocument.HIToolboxVersion">624.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-			<string key="NS.object.0">2083</string>
+			<string key="NS.object.0">1926</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBProxyObject</string>
@@ -293,7 +293,7 @@
 					<object class="IBUILabel" id="1021921618">
 						<reference key="NSNextResponder" ref="380312327"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrame">{{93, 35}, {212, 20}}</string>
+						<string key="NSFrame">{{98, 35}, {212, 20}}</string>
 						<reference key="NSSuperview" ref="380312327"/>
 						<reference key="NSNextKeyView" ref="760424128"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -605,7 +605,6 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="534800841"/>
 							<reference ref="250461987"/>
-							<reference ref="240674901"/>
 							<reference ref="760424128"/>
 							<reference ref="792031371"/>
 							<reference ref="614129120"/>
@@ -615,6 +614,7 @@
 							<reference ref="641462195"/>
 							<reference ref="713594594"/>
 							<reference ref="1021921618"/>
+							<reference ref="240674901"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -749,6 +749,6 @@
 			<string key="dot.png">{5, 5}</string>
 			<string key="pic.png">{128, 128}</string>
 		</dictionary>
-		<string key="IBCocoaTouchPluginVersion">2083</string>
+		<string key="IBCocoaTouchPluginVersion">1926</string>
 	</data>
 </archive>

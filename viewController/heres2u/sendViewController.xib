@@ -187,7 +187,6 @@
 						<string key="NSFrame">{{184, 266}, {116, 44}}</string>
 						<reference key="NSSuperview" ref="1011946537"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIAutoresizesSubviews">NO</bool>

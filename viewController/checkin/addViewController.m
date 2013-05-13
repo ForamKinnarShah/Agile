@@ -591,35 +591,57 @@
         if(textField.text.length>0){
             strBusName = textField.text;
         }
+        else{
+            strBusName  = @"";
+        }
     }
     else if(textField.tag==2){
         if(textField.text.length>0){
             strTypeofBusiness = textField.text;
+        }
+        else{
+            strTypeofBusiness  = @"";
         }
     }
     else if(textField.tag==3){
         if(textField.text.length>0){
             strAdd = textField.text;
         }
+        else{
+            strAdd  = @"";
+        }
     }
     else if(textField.tag==4){
         if(textField.text.length>0){
             strAdd1 = textField.text;
+        }
+        else{
+            strAdd1  = @"";
         }
     }
     else if(textField.tag==5){
         if(textField.text.length>0){
             strCity = textField.text;
         }
+        else{
+            strCity  = @"";
+        }
+
     }
     else if(textField.tag==6){
         if(textField.text.length>0){
             strState = textField.text;
         }
+        else{
+            strState  = @"";
+        }
     }
     else if(textField.tag==7){
         if(textField.text.length>0){
             strZip = textField.text;
+        }
+        else{
+            strZip  = @"";
         }
     }
     
