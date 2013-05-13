@@ -73,7 +73,8 @@
     [self.navigationController pushViewController:contact animated:YES]; 
 }
 
--(void)btnEmail_click{
+-(void)btnEmail_click
+{
     
     
     MFMailComposeViewController *composer=[[MFMailComposeViewController alloc]init];

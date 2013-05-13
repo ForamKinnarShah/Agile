@@ -25,6 +25,8 @@
     IBOutlet UIPickerView *pickerCard;
     // a variable to decide which picker is selected
     BOOL SELECTED_PICKER;
+    // store tag for the numberpad keypad, in order to give the next button feature
+    int textfieldTag;
 }
 @property (nonatomic, strong) NSString *strnameTextField;
 @property (nonatomic, strong) NSString *straddress1TextField;

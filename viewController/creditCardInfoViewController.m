@@ -72,6 +72,13 @@
 //        [pickerCard setFrame:CGRectMake(0, 239, 320, 216)]; 
 //    }
     
+    _txtName = [[UITextField alloc] initWithFrame:CGRectMake(120, 10, 170, 24)];
+    _lblexiprationDate = [[UILabel alloc] initWithFrame:CGRectMake(120, 10, 170, 24)];
+    _txtBillingAddress = [[UITextField alloc] initWithFrame:CGRectMake(120, 10, 170, 24)];
+    _txtAddressLine2 = [[UITextField alloc] initWithFrame:CGRectMake(120, 10, 170, 24)];
+    _lblCardType = [[UILabel alloc] initWithFrame:CGRectMake(120, 10, 170, 24)];
+    _txtCardNumber = [[UITextField alloc] initWithFrame:CGRectMake(120, 10, 170, 24)];
+    _txtSecurityCode = [[UITextField alloc] initWithFrame:CGRectMake(120, 10, 170, 24)];
 
 }
 
@@ -248,13 +255,19 @@ NSDateFormatter *nsdf;
     
     // if pickerview for
     if (SELECTED_PICKER)
+    {
         _strCardType = [arrCardType objectAtIndex:[pickerCard selectedRowInComponent:0]];
-    else
+        [_lblCardType setText:_strCardType];
+        [_txtCardNumber becomeFirstResponder];
+    }
+    else 
     {
         [self performSelector:@selector(datePickerPicked:) withObject:pickerCard];
         _strExpirationDate = [NSString stringWithFormat:@"%@",[nsdf stringFromDate:datePicker.date]];
+        [_lblexiprationDate setText:_strExpirationDate];
+        [_txtBillingAddress becomeFirstResponder];
     }
-    [_tblCreditCardInfo reloadData];
+ //   [_tblCreditCardInfo reloadData];
 }
 
 #pragma mark
@@ -292,19 +305,20 @@ NSDateFormatter *nsdf;
         
         if (indexPath.row == 0)
         {
-            _txtName = [[UITextField alloc] initWithFrame:CGRectMake(120, 10, 170, 24)];
+//            _txtName = [[UITextField alloc] initWithFrame:CGRectMake(120, 10, 170, 24)];
             [_txtName setTextAlignment:NSTextAlignmentRight];
             _txtName.tag = 100;
             [_txtName setPlaceholder:@"Name"];
             [_txtName setBorderStyle:UITextBorderStyleNone];
             _txtName.delegate = self;
+            [_txtName setReturnKeyType:UIReturnKeyNext];
             [_txtName setTextColor:[UIColor blueColor]];
             [_txtName setText:_strnameTextField];
             [Cell.contentView addSubview:_txtName];
         }
         if (indexPath.row == 1)
         {
-            _lblexiprationDate = [[UILabel alloc] initWithFrame:CGRectMake(120, 10, 170, 24)];
+//            _lblexiprationDate = [[UILabel alloc] initWithFrame:CGRectMake(120, 10, 170, 24)];
             [_lblexiprationDate setTextAlignment:NSTextAlignmentRight];
             [_lblexiprationDate setText:@"Expiration Date"];
             [_lblexiprationDate setBackgroundColor:[UIColor clearColor]];
@@ -315,8 +329,9 @@ NSDateFormatter *nsdf;
         }
         if (indexPath.row == 2)
         {
-            _txtBillingAddress = [[UITextField alloc] initWithFrame:CGRectMake(120, 10, 170, 24)];
+//            _txtBillingAddress = [[UITextField alloc] initWithFrame:CGRectMake(120, 10, 170, 24)];
             [_txtBillingAddress setTextAlignment:NSTextAlignmentRight];
+            [_txtBillingAddress setReturnKeyType:UIReturnKeyNext];
             [_txtBillingAddress setTextColor:[UIColor blueColor]];
             [_txtBillingAddress setPlaceholder:@"Billing Address"];
             _txtBillingAddress.tag = 300;
@@ -327,8 +342,9 @@ NSDateFormatter *nsdf;
         }
         if (indexPath.row == 3)
         {
-            _txtAddressLine2 = [[UITextField alloc] initWithFrame:CGRectMake(120, 10, 170, 24)];
+//            _txtAddressLine2 = [[UITextField alloc] initWithFrame:CGRectMake(120, 10, 170, 24)];
             [_txtAddressLine2 setTextAlignment:NSTextAlignmentRight];
+            [_txtAddressLine2 setReturnKeyType:UIReturnKeyNext];
             [_txtAddressLine2 setPlaceholder:@"Billing Address"];
             [_txtAddressLine2 setTextColor:[UIColor blueColor]];
             _txtAddressLine2.tag = 400;
@@ -339,7 +355,7 @@ NSDateFormatter *nsdf;
         }
         if(indexPath.row == 4)
         {
-            _lblCardType = [[UILabel alloc] initWithFrame:CGRectMake(120, 10, 170, 24)];
+//            _lblCardType = [[UILabel alloc] initWithFrame:CGRectMake(120, 10, 170, 24)];
             [_lblCardType setTextAlignment:NSTextAlignmentRight];
             [_lblCardType setText:@"Card Type"];
             [_lblCardType setBackgroundColor:[UIColor clearColor]];
@@ -350,7 +366,7 @@ NSDateFormatter *nsdf;
         }
         if (indexPath.row == 5)
         {
-            _txtCardNumber = [[UITextField alloc] initWithFrame:CGRectMake(120, 10, 170, 24)];
+//            _txtCardNumber = [[UITextField alloc] initWithFrame:CGRectMake(120, 10, 170, 24)];
             [_txtCardNumber setTextAlignment:NSTextAlignmentRight];
             [_txtCardNumber setPlaceholder:@"Card Number"];
             _txtCardNumber.tag = 600;
@@ -364,7 +380,7 @@ NSDateFormatter *nsdf;
         }
         if (indexPath.row == 6)
         {
-            _txtSecurityCode = [[UITextField alloc] initWithFrame:CGRectMake(120, 10, 170, 24)];
+//            _txtSecurityCode = [[UITextField alloc] initWithFrame:CGRectMake(120, 10, 170, 24)];
             [_txtSecurityCode setTextAlignment:NSTextAlignmentRight];
             [_txtSecurityCode setPlaceholder:@"code"];
             [_txtSecurityCode setTextColor:[UIColor blueColor]];
@@ -410,6 +426,8 @@ NSDateFormatter *nsdf;
     [_txtCardNumber resignFirstResponder];
     [_txtSecurityCode resignFirstResponder];
     
+    if (indexPath.row == 0)
+        [_txtName becomeFirstResponder];
     if (indexPath.row == 1)
     {
         // no, if date picker is selected
@@ -438,29 +456,28 @@ NSDateFormatter *nsdf;
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-   
-    if (textField == _txtName)
+    [self setViewMovedUp:YES];
+    if (textField.tag == 100)
     {
-        //[datePicker becomeFirstResponder];
-        
+        [self tableView:_tblCreditCardInfo didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     }
-    else if (textField == _txtBillingAddress)
+    else if (textField.tag == 300)
     {
         [_txtAddressLine2 becomeFirstResponder];
     }
-    else if (textField == _txtAddressLine2)
+    else if (textField.tag == 400)
     {
-        [pickerCard becomeFirstResponder];
+        [self tableView:_tblCreditCardInfo didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:0]];
     }
-    else if (textField == _txtCardNumber)
+    else if (textField.tag == 600)
     {
         [_txtSecurityCode becomeFirstResponder];
     }
-    else {
-    
-    [textField resignFirstResponder];
+    else
+    {
+        [self setViewMovedUp:NO];
+        [textField resignFirstResponder];
     }
-    [self setViewMovedUp:NO];
     return YES;
 }
 
@@ -477,6 +494,7 @@ NSDateFormatter *nsdf;
         [self setViewMovedUp:YES];
         
         _addDone = YES;
+        textfieldTag = textField.tag;
         [self keyboardDidShow:nil];
     }
     else
@@ -545,7 +563,7 @@ NSDateFormatter *nsdf;
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range
 replacementString:(NSString*)string
 {
-    if (textField == _txtCardNumber)
+    if (textField.tag == 600)
     {
         if (range.location >= 16)
             return NO;
@@ -688,9 +706,17 @@ replacementString:(NSString*)string
 - (void)doneButton:(id)sender
 {
     [self.view endEditing:YES];
-    [_txtCardNumber resignFirstResponder];
-    [_txtSecurityCode resignFirstResponder];
-    [self setViewMovedUp:NO];
+    if (textfieldTag == 600)
+    {
+        [self setViewMovedUp:YES];
+        [_txtSecurityCode becomeFirstResponder];
+    }
+    else
+    {
+        [self setViewMovedUp:NO];
+        [_txtSecurityCode resignFirstResponder];
+    }
+  //  [self setViewMovedUp:NO];
 }
 
 @end
