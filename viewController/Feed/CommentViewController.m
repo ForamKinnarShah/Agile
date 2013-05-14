@@ -46,6 +46,7 @@
         CommentText.text = nil;
     }
     _tblComment.frame = CGRectMake(0, 115, _tblComment.frame.size.width, 290);
+    [CommentText setText:nil];
 }
 
 - (void)viewDidLoad

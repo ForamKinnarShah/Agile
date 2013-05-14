@@ -844,6 +844,21 @@
     return YES;
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range
+replacementString:(NSString*)string
+{
+    if (textField == Phone)
+    {
+        if (range.location >= 12)
+            return NO;
+    }
+    else if(textField == ZipCode)
+    {
+        if (range.location >= 6)
+            return NO;
+    }
+    return YES;
+}
 
 #pragma mark
 #pragma mark button actions

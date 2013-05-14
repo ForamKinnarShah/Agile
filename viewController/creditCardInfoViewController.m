@@ -108,6 +108,14 @@
 //        }
 //    }
     
+    _strnameTextField = _txtName.text;
+    _strexpirationDateTextField = _lblexiprationDate.text;
+    _straddress1TextField = _txtBillingAddress.text;
+    _straddress2TextField = _txtAddressLine2.text;
+    _strcardTypeTextField = _lblCardType.text;
+    _strcardNumberTextField = _txtCardNumber.text;
+    _strsecurityCodeTextField = _txtSecurityCode.text;
+    
     if ([_strnameTextField length] == 0 || [_strexpirationDateTextField length] == 0 || [_straddress1TextField length] == 0 || [_strcardTypeTextField length] == 0 || [_strcardNumberTextField length] == 0 || [_strsecurityCodeTextField length] == 0)
     {
         [[[UIAlertView alloc] initWithTitle:@"one or more fields are missing" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];

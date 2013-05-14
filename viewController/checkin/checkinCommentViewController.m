@@ -24,6 +24,7 @@
     }
     return self;
 }
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -52,6 +53,10 @@
 
     ProfileID = [[NSGlobalConfiguration getConfigurationItem:@"ID"] intValue];
     NSLog(@"%d",ProfileID);
+    
+    locationId = (int)Checkin.ID;
+    NSLog(@"locationId : %d",locationId);
+    
     NSString *strUrl = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[NSGlobalConfiguration getConfigurationItem:@"ImageURL"]]];
     NSLog(@"strUrl >> %@",strUrl);
 
@@ -151,7 +156,7 @@
         [NSUserInterfaceCommands PostFeed:[(NSString *)[NSGlobalConfiguration getConfigurationItem:@"ID"] integerValue] Comment:[CommentField text] LocationID:[Checkin ID] CallbackDelegate:self];
         [self performSelector:@selector(btnShare_Click:) withObject:nil];
     }
-    
+    [CommentField setText:nil];
 }
 -(void) userinterfaceCommandFailed:(NSString *)message{
     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Warning" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -341,7 +346,7 @@
                 [newRequest setPostValue:@"Heres2U App" forKey:@"name"];
                 [newRequest setPostValue:@"Locaiton Name" forKey:@"caption"];
                 [newRequest setPostValue:nil forKey:@"description"];
-                [newRequest setPostValue:@"http://www.heres2uapp.com" forKey:@"link"];
+                [newRequest setPostValue:[NSString stringWithFormat:@"http://50.62.148.155:8080/heres2u/sendgift_home.php?receivingUserID=%d&locationID=%d",ProfileID,locationId] forKey:@"link"];
                  
                 [newRequest setPostValue:strAccessToken forKey:@"access_token"];
                 [newRequest setDidFinishSelector:@selector(postToWallFinished:)];

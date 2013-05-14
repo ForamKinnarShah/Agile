@@ -48,8 +48,10 @@
     self.navigationItem.hidesBackButton = YES;
     
     // Do any additional setup after loading the view from its nib.
-    _strusrname = [[NSString alloc] init];
-    _strpass = [[NSString alloc] init];
+    _txtEmail_Login = [[UITextField alloc] initWithFrame:CGRectMake(10, 10, 260, 40)];
+    _txtEmail_Login.delegate = self;
+    _txtPassword = [[UITextField alloc] initWithFrame:CGRectMake(10, 10, 260, 40)];
+    _txtPassword.delegate = self;
 }
 
 -(IBAction)goToRegister:(id)sender {
@@ -78,22 +80,26 @@
 
 -(void)login:(id)sender
 {
+    [_txtEmail_Login resignFirstResponder];
+    [_txtPassword resignFirstResponder];
     
-    
-    BOOL checkEmailID = [self validateEmailWithString:_txtEmail_Login.text];
+    if([_txtEmail_Login.text length] != 0)
+    {
+        BOOL checkEmailID = [self validateEmailWithString:_txtEmail_Login.text];
    
-    if(checkEmailID==NO){
+        if(checkEmailID==NO)
+        {
         UIAlertView *alertEmail = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"Invalid EmailId" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alertEmail show];
         return;
+        }
     }
-    
-    
-  //  if([_strusrname length] == 0)
-        _strusrname = _txtEmail_Login.text;
-    
- //   if ([_strpass length] == 0)
-        _strpass = _txtPassword.text;
+    else
+    {
+        UIAlertView *alertEmail = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"Please insert EmailId" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alertEmail show];
+        return;
+    }
     
 //    profNav.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon.png"]];
 //    mytabNav.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon.png"]];
@@ -103,13 +109,13 @@
     
 //    tab.viewControllers = [NSArray arrayWithObjects:feed,check,h2u,mytab,prof,nil];
     
-    if ([_strusrname length] == 0)
+    if ([_txtEmail_Login.text length] == 0)
     {
         UIAlertView *alValidateLogin = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"Please insert username" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alValidateLogin show];
         return;
     }
-    else if([_strpass length] == 0)
+    else if([_txtPassword.text length] == 0)
     {
         UIAlertView *alValidateLogin = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"Please insert password" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alValidateLogin show];
@@ -125,7 +131,7 @@
         [self.view addSubview:UIBlocker];
         [UIBlocker startAnimating];
         //[self presentViewController:tab animated:NO completion:NULL];
-        [NSUserAccessControl Login:_strusrname Password:_strpass Delegate:self];
+        [NSUserAccessControl Login:_txtEmail_Login.text Password:_txtPassword.text Delegate:self];
     }
 }
 
@@ -203,8 +209,8 @@
 }
 
 -(void)loggingInSucceeded:(NSString *)message{
-    [NSGlobalConfiguration setConfigurationItem:@"Email" Item:_strusrname];
-    [NSGlobalConfiguration setConfigurationItem:@"Password" Item:_strpass];
+    [NSGlobalConfiguration setConfigurationItem:@"Email" Item:_txtEmail_Login.text];
+    [NSGlobalConfiguration setConfigurationItem:@"Password" Item:_txtPassword.text];
     [NSGlobalConfiguration setConfigurationItem:@"ID" Item:[AppDelegate sharedInstance].strUserID];
     
     [UIBlocker stopAnimating];
@@ -413,18 +419,14 @@
         Cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
         [Cell setSelectionStyle:UITableViewCellEditingStyleNone];
     
-        _txtEmail_Login = [[UITextField alloc] initWithFrame:CGRectMake(10, 10, 260, 40)];
         [_txtEmail_Login setKeyboardType:UIKeyboardTypeEmailAddress];
         [_txtEmail_Login setAutocapitalizationType:UITextAutocapitalizationTypeNone];
         [_txtEmail_Login setAutocorrectionType:UITextAutocorrectionTypeNo]; 
-        _txtEmail_Login.delegate = self;
         _txtEmail_Login.placeholder = @"Email";
         [_txtEmail_Login setReturnKeyType:UIReturnKeyNext];
         _txtEmail_Login.tag = 100;
     
-        _txtPassword = [[UITextField alloc] initWithFrame:CGRectMake(10, 10, 260, 40)];
         [_txtPassword setSecureTextEntry:YES];
-        _txtPassword.delegate = self;
         [_txtPassword setReturnKeyType:UIReturnKeyGo];
         _txtPassword.placeholder = @"Password";
         _txtPassword.tag = 200;
@@ -456,13 +458,9 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     if (textField.tag == 100)
-    {
-        _strusrname = _txtEmail_Login.text;
         [_txtPassword becomeFirstResponder];
-    }
     else
     {
-        _strpass = _txtPassword.text;
         [_txtPassword resignFirstResponder];
         //[self performSelector:@selector(login:)];
         [self login:nil];

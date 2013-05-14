@@ -29,6 +29,7 @@
     @private
     UICheckIns *Checkin;
     int ProfileID;
+    int  locationId;
     
     //switch
     UISwitch *switchFacebook;
