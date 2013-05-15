@@ -12,8 +12,8 @@
 
 @implementation NSUserAccessControl
 +(void) RegisterUser:(NSString *)email Password:(NSString *)password ProfilePicture:(UIImage *)profilepicture  Phone:(NSString *)phone DateOfBirth:(NSString *)dob Name:(NSString *)name ZipCode:(NSString *)zip CallBackDelegate:(id)Delegate{
-    NSLog(@"Registering");
-    NSLog(@"Date of Birth: %@",dob);
+  //  NSLog(@"Registering");
+  //  NSLog(@"Date of Birth: %@",dob);
     NSURL *URL=[NSURL URLWithString:[NSString stringWithFormat:@"%@/?webservice=uac&action=register",[NSGlobalConfiguration URL]]];
 
     //NSURL *URL = [NSURL URLWithString:@""];
@@ -156,7 +156,7 @@
    // NSLog(@"Finished Loading");
      //Init XMLParser
     NSTaggedURLConnection *taggedconnection=(NSTaggedURLConnection *)connection;
-    NSLog(@"Reply:%@",[[NSString alloc] initWithData:[taggedconnection Data] encoding:NSUTF8StringEncoding]);
+ //   NSLog(@"Reply:%@",[[NSString alloc] initWithData:[taggedconnection Data] encoding:NSUTF8StringEncoding]);
     //NSLog(@"%i",[taggedconnection tag]);
    //NSLog(<#id, ...#>)
     
@@ -220,7 +220,7 @@
             if([taggedparser Tag]==NSUserAccessControlTypeLoginUser){
                 if(![string isEqualToString:@""] && ![string isEqualToString:@"\n"])
                 {
-                    NSLog(@"Saving %@ as %@",string,[taggedparser lastTag]);
+           //         NSLog(@"Saving %@ as %@",string,[taggedparser lastTag]);
                     [NSGlobalConfiguration setConfigurationItem:[taggedparser lastTag] Item:string];
                 
                     if ([[taggedparser lastTag] isEqualToString:@"ID"])

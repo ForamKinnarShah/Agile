@@ -31,7 +31,7 @@
 {
     [(UIScrollView*)self.view setContentSize:self.view.bounds.size];
     creditCards = [NSGlobalConfiguration getConfigurationItem:[NSGlobalConfiguration getConfigurationItem:@"Email"]];
-    NSLog(@"cards:%@",creditCards);
+  //  NSLog(@"cards:%@",creditCards);
     if (!creditCards)
     {
         creditCards = [NSMutableArray arrayWithCapacity:0];
@@ -51,7 +51,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"tableview cell for row");
+ //   NSLog(@"tableview cell for row");
     creditCards = [NSGlobalConfiguration getConfigurationItem:[NSGlobalConfiguration getConfigurationItem:@"Email"]]; 
     NSMutableDictionary *card = [creditCards objectAtIndex:indexPath.row];
     NSString *last4Digits = [card objectForKey:@"cardNumberLast4Digits"];
@@ -74,7 +74,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"tableview numberOfRows");
+  //  NSLog(@"tableview numberOfRows");
     int count = [creditCards count];
     return count; 
 }

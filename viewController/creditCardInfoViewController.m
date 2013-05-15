@@ -234,7 +234,7 @@ NSDateFormatter *nsdf;
 {
     [UIBlocker stopUIBlockerInView:self.tabBarController.view];
     [utilities showAlertWithTitle:@"Adding Credit Card Failed" Message:@"The credit card information you provided is either inaccurate or your internet connection timed out."];
-    NSLog(@"error:%@",error.localizedDescription); 
+ //   NSLog(@"error:%@",error.localizedDescription);
 }
 
 #pragma mark

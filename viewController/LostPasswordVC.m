@@ -58,7 +58,7 @@
     //[NSUserAccessControl LostPassword:_txtEmail.text Delegate:self];
     
     NSString *URLString = [[NSString stringWithFormat:@"%@resetpassword.php?Email=%@",[NSGlobalConfiguration URL],_txtEmail.text] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSLog(@"URLString : %@",URLString);
+  //  NSLog(@"URLString : %@",URLString);
     NSURL *url = [[NSURL alloc] initWithString:URLString];
     
     UIBlocker=[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
@@ -103,7 +103,7 @@
 -(void) connectionDidFinishLoading:(NSURLConnection *)connection{
     //XML PARSER:
     NSString *response = [[NSString alloc] initWithData:rawData encoding:NSUTF8StringEncoding];
-    NSLog(@"connection finished loading with response:%@",[[NSString alloc] initWithData:rawData encoding:NSUTF8StringEncoding]);
+ //   NSLog(@"connection finished loading with response:%@",[[NSString alloc] initWithData:rawData encoding:NSUTF8StringEncoding]);
     if ([response rangeOfString:@"<SuccessMessage>1</SuccessMessage>"].location == NSNotFound)
     {
         [[[UIAlertView alloc] initWithTitle:@"Message Failed to Send" message:@"Your message was not sent. Please confirm your email address is correct and try again. If problems persist, please contact support@heres2uapp.com" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];

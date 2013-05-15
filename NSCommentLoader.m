@@ -11,9 +11,9 @@
 @implementation NSCommentLoader
 @synthesize Delegate;
 -(void) getCommentsForFeed:(NSInteger)FeedID{
-    NSLog(@"%@",[NSURL URLWithString:[NSString stringWithFormat:@"%@?webservice=ui&action=getcomments&FeedID=%i",[NSGlobalConfiguration URL],FeedID]]);
+ //   NSLog(@"%@",[NSURL URLWithString:[NSString stringWithFormat:@"%@?webservice=ui&action=getcomments&FeedID=%i",[NSGlobalConfiguration URL],FeedID]]);
     NSString *Items=[[NSString alloc] initWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?webservice=ui&action=getcomments&FeedID=%i",[NSGlobalConfiguration URL],FeedID]] encoding:NSUTF8StringEncoding error:nil];
-    NSLog(@"Items :%@",Items);
+  //  NSLog(@"Items :%@",Items);
     NSXMLParser *parser=[[NSXMLParser alloc] initWithData:[Items dataUsingEncoding:NSUTF8StringEncoding]];
     [parser setDelegate:self];
     _Data=[[NSMutableArray alloc] init];
@@ -26,7 +26,7 @@
     return [_Data objectAtIndex:index];
 }
 -(void) parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict{
-    NSLog(@"attributeDict : %@",attributeDict);
+  //  NSLog(@"attributeDict : %@",attributeDict);
     if([[elementName lowercaseString] isEqualToString:@"comment"] ){
         [_Data addObject:attributeDict];
     }else{
@@ -38,7 +38,7 @@
 -(void) parser:(NSXMLParser *)parser foundCharacters:(NSString *)string{
     if(encounteredServerReply){
         //Error
-        NSLog(@"Error:%@",string);
+     //   NSLog(@"Error:%@",string);
         SEL error=@selector(loaderFailed:);
         if([Delegate respondsToSelector:error]){
                     }

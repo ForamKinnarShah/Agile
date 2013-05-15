@@ -50,7 +50,7 @@
     //[feedManager getFeeds];
    // }
     [self.navigationController.navigationBar setBackgroundColor:[UIColor grayColor]];
-    UIBarButtonItem *searchBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(search:)];
+ //   UIBarButtonItem *searchBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(search:)];
     //[self.navigationItem setRightBarButtonItem:searchBtn];
     
     //login code
@@ -123,7 +123,7 @@
 
 -(void) feedmanagerCompleted:(NSFeedManager *)feedmanager{
     //Load Feeds
-    NSLog(@"feed manager loaded");
+  //  NSLog(@"feed manager loaded");
     [UIBlocker stopUIBlockerInView:self.tabBarController.view];
     length = 0;
     
@@ -191,7 +191,7 @@
             length = length + 124;
         }
        
-        NSLog(@"itemData i: %d: %@",i,ItemData);
+   //     NSLog(@"itemData i: %d: %@",i,ItemData);
         
         [activity setID:[(NSString *)[ItemData valueForKey:@"FeedID"] integerValue]];
         [activity.UserName setText:[ItemData valueForKey:@"FullName"]];
@@ -244,7 +244,7 @@
     [sv setContentOffset:CGPointMake(0, 0)]; 
     NSString *Email=[NSGlobalConfiguration getConfigurationItem:@"Email"];
     if (Email){ // means logged in already 
-        NSLog(@"feedManagercount:%i",[feedManager count]); 
+     //   NSLog(@"feedManagercount:%i",[feedManager count]);
         if ([feedManager count] == 0) //means we haven't gotten any feeds yet
         {
             UIBlocker = [[utilities alloc] init];

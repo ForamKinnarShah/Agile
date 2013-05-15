@@ -91,7 +91,7 @@
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
-    NSLog(@"fiterText:%@",FilterTextBox.text);
+  //  NSLog(@"fiterText:%@",FilterTextBox.text);
     
     if([textField.text isEqualToString:@""] || textField.text.length==0){
         [self locationloaderCompleted:nil];
@@ -115,15 +115,15 @@
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
    
-    NSLog(@"textField.text.length : %d",textField.text.length);
+  //  NSLog(@"textField.text.length : %d",textField.text.length);
     return YES;
 }
 
 -(void)searchForText{
     @try {
-        NSLog(@"arrayTitle : %@",arrayTitle);
-        NSLog(@"textField.text.length : %d",FilterTextBox.text.length);
-        NSLog(@"%@",FilterTextBox.text);
+     //   NSLog(@"arrayTitle : %@",arrayTitle);
+     //   NSLog(@"textField.text.length : %d",FilterTextBox.text.length);
+      //  NSLog(@"%@",FilterTextBox.text);
         
         // For string kind of values:
         for(UIView *CurrentView in LocationsView.subviews){
@@ -131,15 +131,15 @@
         }
         
         NSArray *results=nil;
-        NSLog(@"arrayTitle count : %d",arrayTitle.count);
-        NSLog(@"Locations count : %d",Locations.count);
+  //      NSLog(@"arrayTitle count : %d",arrayTitle.count);
+  //      NSLog(@"Locations count : %d",Locations.count);
         
         for(NSInteger i=0;i<[sortedLocations count];i++){
             
             //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", FilterTextBox.text];
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self CONTAINS[c] %@", FilterTextBox.text];
             results = [arrayTitle filteredArrayUsingPredicate:predicate];
-            NSLog(@"results : %@",results);
+    //        NSLog(@"results : %@",results);
         }
         
         
@@ -151,13 +151,13 @@
         for(int i=0; i<results.count; i++){
             isMatch = NO;
             NSString *strArrayTitle = [NSString stringWithFormat:@"%@",[results objectAtIndex:i]];
-            NSLog(@"strArrayTitle : %@",strArrayTitle);
+     //       NSLog(@"strArrayTitle : %@",strArrayTitle);
             
             
             NSDictionary *ItemData1=[sortedLocations objectAtIndex:i];
             
             for(int k=0;k<=ItemData1.count;k++){
-                NSLog(@"ItemData1.count : %d",ItemData1.count);
+          //      NSLog(@"ItemData1.count : %d",ItemData1.count);
                 if(isMatch){
                     break;
                 }
@@ -195,7 +195,7 @@
         [LocationsView setScrollEnabled:YES];
     }
     @catch (NSException *exception) {
-        NSLog(@"NSException : %@",exception);
+  //      NSLog(@"NSException : %@",exception);
     }
 }
 
@@ -247,7 +247,7 @@
     
     for(NSInteger i=0;i<[sortedLocations count];i++){
         NSDictionary *ItemData=[sortedLocations objectAtIndex:i];
-        NSLog(@"ItemData : %@",ItemData);
+ //       NSLog(@"ItemData : %@",ItemData);
         
         
         UICheckIns *CheckIn=[[UICheckIns alloc] init];
@@ -299,17 +299,17 @@
    // NSLog(@"checkin requested");
     
     if (self.presentingViewController) //indicates it is being called from heres2u view controller, and should go to menu page next
-    {  NSLog(@"isBeingPresented");
+    { // NSLog(@"isBeingPresented");
         
         //Heres2uViewController *h2u = [self.tabBarController.viewControllers objectAtIndex:2];
         
         [self.delegate setRestaurantInfo:[sortedLocations objectAtIndex:checkin.tag]];
         [self dismissViewControllerAnimated:YES completion:^{
             
-            NSLog(@"something"); 
+         //   NSLog(@"something");
             if ([self.delegate respondsToSelector:@selector(loadMenuView)])
             {
-                NSLog(@"responds to selector");
+          //      NSLog(@"responds to selector");
                 [self.delegate loadMenuView];
             }
         }];
@@ -325,7 +325,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    NSLog(@"didFailWithError: %@", error);
+ //   NSLog(@"didFailWithError: %@", error);
     
     
     UIAlertView *errorAlert = [[UIAlertView alloc]
@@ -338,11 +338,11 @@
     //NSLog(@"didUpdateToLocation: %@", newLocation);
     currentLocation = newLocation;
     
-    NSString *currentLat = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.latitude];
-    NSString *currentLong = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude];
+  //  NSString *currentLat = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.latitude];
+  //  NSString *currentLong = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude];
     
-     NSLog(@"strLat : %@",currentLat);
-     NSLog(@"strLat : %@",currentLong);
+   //  NSLog(@"strLat : %@",currentLat);
+   //  NSLog(@"strLat : %@",currentLong);
     
     // Reverse Geocoding
     //NSLog(@"Resolving the Address");
@@ -369,8 +369,8 @@
         float c = 2 * atan2f(sqrtf(a), sqrtf((1-a)));
         float distanceFromLocation = c * 3959;
         
-        NSLog(@"Lat :%@,  Long:%@",locationLat,locationLong);
-        NSLog(@"distanceFromLocation :%f",distanceFromLocation);
+     //   NSLog(@"Lat :%@,  Long:%@",locationLat,locationLong);
+     //   NSLog(@"distanceFromLocation :%f",distanceFromLocation);
         
       // float a = sinf(lat1) * sinf(lat2) + cosf(lat1) * cosf(lat2) * cosf(dLongRadians);
       //  float distanceFromLocation = acosf(a) * 180/3.141596 * 60 * 1.1515;

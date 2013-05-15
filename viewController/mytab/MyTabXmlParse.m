@@ -17,7 +17,7 @@
 
 -(id)initWithURL:(NSURL*)parseURL{
     @try {
-        NSLog(@"parseURL : %@",parseURL);
+   //     NSLog(@"parseURL : %@",parseURL);
         
 //        NSString *Items=[[NSString alloc] initWithContentsOfURL:parseURL encoding:NSUTF8StringEncoding error:nil];
 //        NSXMLParser *nsXmlParser=[[NSXMLParser alloc] initWithData:[Items dataUsingEncoding:NSUTF8StringEncoding]];
@@ -52,10 +52,10 @@
         BOOL success = [nsXmlParser parse];
         // test the result
         if (success) {
-            NSLog(@"success.");
+      //      NSLog(@"success.");
             return (id)dicReceived;
         } else {
-            NSLog(@"Error parsing document!");
+       //     NSLog(@"Error parsing document!");
             isParseFailed = YES;
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"Error parsing document!" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
             [alert show];
@@ -64,13 +64,13 @@
     
     }
     @catch (NSException *exception) {
-        NSLog(@"exception : %@",exception);
+   //     NSLog(@"exception : %@",exception);
     }
 }
 
 -(void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict{
     @try {
-        NSLog(@"didStartElement elementName : %@",elementName);
+   //     NSLog(@"didStartElement elementName : %@",elementName);
         if([elementName isEqualToString:@"TransactionID"]){
             isTransactionsID = YES;
         }
@@ -120,83 +120,83 @@
 
 -(void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string{
     @try {
-        NSLog(@"foundCharacters string : %@",string);
+   //     NSLog(@"foundCharacters string : %@",string);
         string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-        NSLog(@"foundCharacters string : %@",string);
+     //   NSLog(@"foundCharacters string : %@",string);
         if(!string || [string isEqualToString:@""] || [string isEqualToString:@" "] || string==NULL || string==nil || string==Nil){
             strMutableElement = [NSString stringWithFormat:@"No Data"];
         }
         strMutableElement = [string copy];
-        NSLog(@"strMutableElement.length :%d",strMutableElement.length);
+    //    NSLog(@"strMutableElement.length :%d",strMutableElement.length);
 //        if([strMutableElement isEqualToString:@" "]){
 //            strMutableElement = [NSString stringWithFormat:@"No Data"];
 //        }
         
         if(isTransactionsID){
             [self.arrayTransactionsID addObject:[NSString stringWithFormat:@"%@",strMutableElement]];
-            NSLog(@"arrayTransactionsID : %@",self.arrayTransactionsID);
+         //   NSLog(@"arrayTransactionsID : %@",self.arrayTransactionsID);
         }
         else if(isLocationID){
             [self.arrayLocationID addObject:[NSString stringWithFormat:@"%@",strMutableElement]];
-            NSLog(@"arrayLocationID : %@",arrayLocationID);
+        //    NSLog(@"arrayLocationID : %@",arrayLocationID);
         }
         else if(isLocationImage){
             [self.arrayLocationImage addObject:[NSString stringWithFormat:@"%@",strMutableElement]];
-            NSLog(@"arrayLocationImage : %@",arrayLocationImage);
+         //   NSLog(@"arrayLocationImage : %@",arrayLocationImage);
         }
         else if(isLocationName){
             [self.arrayLocationName addObject:[NSString stringWithFormat:@"%@",strMutableElement]];
-            NSLog(@"arrayLocationName : %@",arrayLocationName);
+         //   NSLog(@"arrayLocationName : %@",arrayLocationName);
         }
         else if(isMiles){
             [self.arrayMiles addObject:[NSString stringWithFormat:@"%@",strMutableElement]];
-            NSLog(@"arrayMiles : %@",arrayMiles);
+        //   NSLog(@"arrayMiles : %@",arrayMiles);
         }
         else if(isSenderID){
             [self.arraySenderID addObject:[NSString stringWithFormat:@"%@",strMutableElement]];
-            NSLog(@"arraySenderID : %@",arraySenderID);
+       //     NSLog(@"arraySenderID : %@",arraySenderID);
         }
         else if(isSenderName){
             [self.arraySenderName addObject:[NSString stringWithFormat:@"%@",strMutableElement]];
-            NSLog(@"arraySenderName : %@",arraySenderName);
+        //    NSLog(@"arraySenderName : %@",arraySenderName);
         }
         else if(isPrice){
             [self.arrayPrice addObject:[NSString stringWithFormat:@"%@",strMutableElement]];
-            NSLog(@"arrayPrice : %@",arrayPrice);
+        //    NSLog(@"arrayPrice : %@",arrayPrice);
         }
         else if(isStatus){
             [self.arrayStatus addObject:[NSString stringWithFormat:@"%@",strMutableElement]];
-            NSLog(@"arrayStatus : %@",arrayStatus);
+         //   NSLog(@"arrayStatus : %@",arrayStatus);
         }
         else if(isLatitude){
-            NSLog(@"strMutableElement : %@",strMutableElement);
+        //    NSLog(@"strMutableElement : %@",strMutableElement);
             if([strMutableElement isEqualToString:@""]){
                 strMutableElement = [NSString stringWithFormat:@"00.0000"];
             }
             [self.arrayLatitude addObject:[NSString stringWithFormat:@"%@",strMutableElement]];
-            NSLog(@"arrayLatitude : %@",arrayLatitude);
+         //   NSLog(@"arrayLatitude : %@",arrayLatitude);
         }
         else if(isLongitude){
-            NSLog(@"strMutableElement : %@",strMutableElement);
+         //   NSLog(@"strMutableElement : %@",strMutableElement);
             if([strMutableElement isEqualToString:@""]){
                 strMutableElement = [NSString stringWithFormat:@"00.0000"];
             }
             [self.arrayLongitude addObject:[NSString stringWithFormat:@"%@",strMutableElement]];
-            NSLog(@"arrayLongitude : %@",arrayLongitude);
+         //   NSLog(@"arrayLongitude : %@",arrayLongitude);
         }
         else if(isCoupancode){
             [self.arrayCoupancode addObject:[NSString stringWithFormat:@"%@",strMutableElement]];
-            NSLog(@"arrayCoupancode : %@",arrayCoupancode);
+        //    NSLog(@"arrayCoupancode : %@",arrayCoupancode);
         }
         else if(isSayThanksRece){
             [self.arraySayThanksRece addObject:[NSString stringWithFormat:@"%@",strMutableElement]];
-            NSLog(@"arraySayThanksRece : %@",arraySayThanksRece);
+        //    NSLog(@"arraySayThanksRece : %@",arraySayThanksRece);
         }
         
 
     }
     @catch (NSException *exception) {
-        NSLog(@"exception : %@",exception);
+     //   NSLog(@"exception : %@",exception);
     }
 }
 
@@ -257,7 +257,7 @@
     
     }
     @catch (NSException *exception) {
-        NSLog(@"exception : %@",exception);
+  //      NSLog(@"exception : %@",exception);
     }
 }
 

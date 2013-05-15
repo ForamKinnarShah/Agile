@@ -604,9 +604,9 @@ finishedWithFetcher:(GTMHTTPFetcher *)fetcher
   if (error) {
 #if DEBUG
     if (data) {
-      NSString *dataStr = [[[NSString alloc] initWithData:data
-                                                 encoding:NSUTF8StringEncoding] autorelease];
-      NSLog(@"infoFetcher error: %@\n%@", error, dataStr);
+//      NSString *dataStr = [[[NSString alloc] initWithData:data
+//                                                 encoding:NSUTF8StringEncoding] autorelease];
+   //   NSLog(@"infoFetcher error: %@\n%@", error, dataStr);
     }
 #endif
   } else {
@@ -814,9 +814,9 @@ static void ReachabilityCallBack(SCNetworkReachabilityRef target,
       [fetcher beginFetchWithCompletionHandler:^(NSData *data, NSError *error) {
   #if DEBUG
         if (error) {
-          NSString *errStr = [[[NSString alloc] initWithData:data
-                                                    encoding:NSUTF8StringEncoding] autorelease];
-          NSLog(@"revoke error: %@", errStr);
+//          NSString *errStr = [[[NSString alloc] initWithData:data
+//                                                    encoding:NSUTF8StringEncoding] autorelease];
+      //    NSLog(@"revoke error: %@", errStr);
         }
   #endif // DEBUG
       }];

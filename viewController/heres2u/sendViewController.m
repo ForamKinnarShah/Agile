@@ -66,7 +66,7 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
         //check switch condition
         NSString *strAccessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"fb_access_token"];
         NSString *strFbExpDate = [[NSUserDefaults standardUserDefaults] stringForKey:@"fb_exp_date"];
-        NSLog(@"strAccessToken : %@,strFbExpDate : %@",strAccessToken,strFbExpDate);
+     //   NSLog(@"strAccessToken : %@,strFbExpDate : %@",strAccessToken,strFbExpDate);
         
         //2013-07-06 09:39:05 +0000
         NSDateFormatter* df = [[NSDateFormatter alloc] init];
@@ -74,16 +74,16 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
         NSDate* fbdate = [df dateFromString:strFbExpDate];
         NSDate *todayDate = [NSDate date];
         
-        NSLog(@"fbdate %@",fbdate);
-        NSLog(@"todayDate %@",todayDate);
-        NSLog(@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"FB"]);
+     //   NSLog(@"fbdate %@",fbdate);
+     //   NSLog(@"todayDate %@",todayDate);
+      //  NSLog(@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"FB"]);
         if ([todayDate earlierDate:fbdate] && fbdate)
         {
-            NSLog(@"YES");
+       //     NSLog(@"YES");
             [_switchFacebook setOn:YES];
         }
         else{
-            NSLog(@"NO");
+      //      NSLog(@"NO");
             [_switchFacebook setOn:NO];
         }
         //For twitter
@@ -109,7 +109,7 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
         }
     }
     @catch (NSException *exception) {
-        NSLog(@"exception : %@",exception);
+  //      NSLog(@"exception : %@",exception);
     }
 }
 
@@ -131,35 +131,25 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
         // get friend details & display friend picker
         if (![FBSession.activeSession.permissions containsObject:@"publish_actions"])
         {
-            [FBSession.activeSession reauthorizeWithPublishPermissions:[NSArray arrayWithObjects:@"publish_actions",@"publish_stream",@"manage_friendlists", nil]
-                                                       defaultAudience:FBSessionDefaultAudienceFriends completionHandler:^(FBSession *session, NSError *error) {
-                                                           if (!error)
-                                                           {
-                                                               [self loadFriends];
-                                                           }
-                                                           else {
-                                                               NSLog(@"error:%@",error.localizedDescription);
-                                                           }
-                                                       }];
+            [FBSession.activeSession reauthorizeWithPublishPermissions:[NSArray arrayWithObjects:@"publish_actions",@"publish_stream",@"manage_friendlists", nil] defaultAudience:FBSessionDefaultAudienceFriends completionHandler:^(FBSession *session, NSError *error)
+             {
+                 if (!error)
+                     [self loadFriends];
+             }];
         }
     }
     else {
         // No, display the login page.
         [FBSession openActiveSessionWithPublishPermissions:[NSArray arrayWithObject:@"publish_stream"] defaultAudience:FBSessionDefaultAudienceFriends allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
             
-            if (!error){
+            if (!error)
                 [self loadFriends]; 
-            }
-            else {
-                NSLog(@"error:%@",error.localizedDescription); 
-            }
-        }];
+           }];
     }
 }
 
 -(void)loadFriends
 {
-    
     FBFriendPickerViewController *friendPicker = [[FBFriendPickerViewController alloc] init];
     
     // Set up the friend picker to sort and display names the same way as the
@@ -175,25 +165,28 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
     
     [friendPicker loadData];
     friendPicker.delegate = self;
-    [friendPicker presentModallyFromViewController:self
-                                          animated:YES
-                                           handler:^(FBViewController *sender, BOOL donePressed) {
-                                               
-                                               if (donePressed) {
-                                                   self.selectedFriends = friendPicker.selection;
-                                                  
-                                                   NSLog(@"%@",self.selectedFriends);
-                                                   if ([self.selectedFriends count] != 0)
-                                                       [self FeedDialog];
-                                                   else
-                                                   {
-                                                       UIAlertView *alSelect = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"Please select a friend to be shared with!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] ;
-                                                       [alSelect show];
-                                                       return;
-                                                   }
-                                               }
-                                           }];
+    
+    [friendPicker presentModallyFromViewController:self animated:YES handler:^(FBViewController *sender, BOOL donePressed)
+    {
+        if (donePressed)
+        {
+            self.selectedFriends = friendPicker.selection;
+
+            if ([self.selectedFriends count] != 0)
+                [self FeedDialog];
+            else
+            {
+                UIAlertView *alSelect = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"Please select a friend to be shared with!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alSelect show];
+                return;
+            }
+        }
+     
+    }];
+    
+ 
     return;
+    
 }
 
 //-(void)checkPostingRights
@@ -234,23 +227,23 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
      ^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
          if (error) {
              // Error launching the dialog or publishing a story.
-             NSLog(@"Error publishing story.");
+       //      NSLog(@"Error publishing story.");
          } else {
              if (result == FBWebDialogResultDialogNotCompleted) {
                  // User clicked the "x" icon
-                 NSLog(@"User canceled story publishing.");
+             //    NSLog(@"User canceled story publishing.");
              } else {
                  // Handle the publish feed callback
                  NSDictionary *urlParams = [self parseURLParams:[resultURL query]];
                  if (![urlParams valueForKey:@"post_id"]) {
                      // User clicked the Cancel button
-                     NSLog(@"User canceled story publishing.");
+                  //   NSLog(@"User canceled story publishing.");
                  } else {
                      // User clicked the Share button
                      NSString *msg = [NSString stringWithFormat:
                                       @"Posted story, id: %@",
                                       [urlParams valueForKey:@"post_id"]];
-                     NSLog(@"%@", msg);
+                //     NSLog(@"%@", msg);
                      // Show the result in an alert
                      [[[UIAlertView alloc] initWithTitle:@"Result"
                                                  message:msg
@@ -278,7 +271,7 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
                                                                [self postTheDamnThing];
                                                            }
                                                            else {
-                                                               NSLog(@"error:%@",error.localizedDescription);
+                                                         //      NSLog(@"error:%@",error.localizedDescription);
                                                            }
                                                        }];
         }
@@ -291,7 +284,7 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
                 [self postTheDamnThing];
             }
             else {
-                NSLog(@"error:%@",error.localizedDescription);
+         //       NSLog(@"error:%@",error.localizedDescription);
             }
         }];
     }
@@ -408,7 +401,7 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
         [self presentViewController:composer animated:YES completion:nil];
     }
     else {
-        NSLog(@"controller cannot send mail");
+   //     NSLog(@"controller cannot send mail");
     }
 }
 
@@ -452,7 +445,7 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
                                    @"/1.1/statuses/update.json"];
                      
                      
-                     ACAccount *twAccount = [twitterAccounts lastObject];
+                  //  ACAccount *twAccount = [twitterAccounts lastObject];
                      
                      NSDictionary *params = @{@"status" : [NSString stringWithFormat:@"I just gifted a friend at %@ using the Heres2U iPhone app!",[self.restaurantInfo objectForKey:@"Title"]],
                                               
@@ -495,7 +488,7 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
                                      
                                      [self showAlertMessage:@"Link successfully posted to Twitter" withTitle:@"Success"];
                                  });
-                                 NSLog(@"posted?");
+                         //        NSLog(@"posted?");
                              }
                              
                              else {
@@ -506,7 +499,7 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
                                      [self showAlertMessage:@"Please check whether you have recently posted a message for the same video. " withTitle:@"Link not posted"];
                                  });
                                  
-                                 NSLog(@"The response status code is %d", urlResponse.statusCode);
+                             //    NSLog(@"The response status code is %d", urlResponse.statusCode);
                                  
                              }
                              
@@ -523,7 +516,7 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
                  
                  // Access was not granted, or an error occurred
                  
-                 NSLog(@"%@", [error localizedDescription]);
+            //     NSLog(@"%@", [error localizedDescription]);
                  
              }
              
@@ -558,7 +551,7 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
 {
     if (error)
     {
-        NSLog(@"Received error %@ and auth object %@",error, auth);
+      //  NSLog(@"Received error %@ and auth object %@",error, auth);
     }
     else {
         [self realSharing];
@@ -566,7 +559,7 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
 }
 
 -(void)realSharing{
-    NSLog(@"attempting sharing via google+");
+ //   NSLog(@"attempting sharing via google+");
     [GPPShare sharedInstance].delegate = self;
     id<GPPShareBuilder> shareBuilder = [[GPPShare sharedInstance] shareDialog];
     
@@ -581,9 +574,9 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
 - (void)finishedSharing: (BOOL)shared {
     if (shared) {
         [self showAlertMessage:@"Shared link on google+!" withTitle:@"successfully shared"];
-        NSLog(@"User successfully shared!");
+    //    NSLog(@"User successfully shared!");
     } else {
-        NSLog(@"User didn't share.");
+     //   NSLog(@"User didn't share.");
     }
 }
 
@@ -657,11 +650,11 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
             {
                 [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"FB"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
-                NSLog(@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"FB"]);
+       //         NSLog(@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"FB"]);
                 
                 NSString *strAccessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"fb_access_token"];
                 NSString *strFbExpDate = [[NSUserDefaults standardUserDefaults] stringForKey:@"fb_exp_date"];
-                NSLog(@"strAccessToken : %@,strFbExpDate : %@",strAccessToken,strFbExpDate);
+          //      NSLog(@"strAccessToken : %@,strFbExpDate : %@",strAccessToken,strFbExpDate);
                 
                 //2013-07-06 09:39:05 +0000
                 NSDateFormatter* df = [[NSDateFormatter alloc] init];
@@ -672,15 +665,15 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
                 
                 if ([fbdate earlierDate:todayDate])
                 {
-                    NSLog(@"fbdate : %@",fbdate);
-                    NSLog(@"todayDate : %@",todayDate);
-                    NSLog(@"YES");
+               //     NSLog(@"fbdate : %@",fbdate);
+                //    NSLog(@"todayDate : %@",todayDate);
+                //    NSLog(@"YES");
                     return;
                 }
                 else
                 {
                     //   [FBSession set];
-                    NSLog(@"NO");
+                //    NSLog(@"NO");
                 }
                 
                 if (FBSession.activeSession.isOpen)
@@ -692,7 +685,7 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
                         {
                             if (!error)
                             {
-                                NSLog(@"%@",session.accessToken);
+                     //           NSLog(@"%@",session.accessToken);
                                 [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@",session.accessToken] forKey:@"fb_access_token"];
                                 [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@",session.expirationDate] forKey:@"fb_exp_date"];
                             }
@@ -708,7 +701,7 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
                     {
                         if (!error)
                         {
-                            NSLog(@"%@",session.accessToken);
+                     //       NSLog(@"%@",session.accessToken);
                             [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@",session.accessToken] forKey:@"fb_access_token"];
                             [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@",session.expirationDate] forKey:@"fb_exp_date"];
                         }
@@ -721,7 +714,7 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
             {
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"FB"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
-                NSLog(@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"FB"]);
+             //   NSLog(@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"FB"]);
             }
         }
         else if(sender.tag==2)
@@ -774,11 +767,11 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
 - (void)postToWallFinished:(ASIHTTPRequest *)request
 {
     //    [self stopLoading];
-    NSString *responseString = [request responseString];
+  //  NSString *responseString = [request responseString];
     
-    NSMutableDictionary *responseJSON = [responseString JSONValue];
-    NSString *postId = [responseJSON objectForKey:@"id"];
-    NSLog(@"Post id is: %@", postId);
+   // NSMutableDictionary *responseJSON = [responseString JSONValue];
+   // NSString *postId = [responseJSON objectForKey:@"id"];
+ //   NSLog(@"Post id is: %@", postId);
     UIAlertView *av = [[UIAlertView alloc]
                        initWithTitle:@"Sucessfully posted to Facebook wall!"
                        message:@"Check out your Facebook to see!"
@@ -798,7 +791,7 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
 -(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
     if (error)
     {
-        NSLog(@"error:%@",error);
+  //      NSLog(@"error:%@",error);
     }
     
     if (result == MFMailComposeResultSent)
@@ -848,7 +841,7 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
 
 - (void) storeCachedTwitterOAuthData: (NSString *) data forUsername: (NSString *) username
 {
-    NSLog(@"User name : %@",username);
+ //   NSLog(@"User name : %@",username);
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"twitterLogin"];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -866,17 +859,17 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
 
 - (void) requestSucceeded: (NSString *) requestIdentifier
 {
-    NSLog(@"Request %@ succeeded", requestIdentifier);
+  //  NSLog(@"Request %@ succeeded", requestIdentifier);
     UIAlertView *alTWSucceed = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"Message has been posted successfully!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alTWSucceed show];
 }
 
 - (void) requestFailed: (NSString *) requestIdentifier withError: (NSError *) error
 {
-    NSLog(@"Request %@ failed with error: %@", requestIdentifier, error);
-    NSArray *arrayError = [[NSArray alloc] init];
-    arrayError = [[error localizedDescription] componentsSeparatedByString:@"("];
-    NSLog(@"Error Code >> %@",[arrayError objectAtIndex:1]);
+ //   NSLog(@"Request %@ failed with error: %@", requestIdentifier, error);
+    NSArray *arrayError = [[NSArray alloc] initWithArray:[[error localizedDescription] componentsSeparatedByString:@"("]];
+//    arrayError = [[error localizedDescription] componentsSeparatedByString:@"("];
+ //   NSLog(@"Error Code >> %@",[arrayError objectAtIndex:1]);
     
     UIAlertView *alTwitterError;
     if ([[arrayError objectAtIndex:1] isEqualToString:@"HTTP error 403.)"])
@@ -902,7 +895,7 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
         if(isFaceBookShareOn){
             NSString *strAccessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"fb_access_token"];
             NSString *strFbExpDate = [[NSUserDefaults standardUserDefaults] stringForKey:@"fb_exp_date"];
-            NSLog(@"strAccessToken : %@,strFbExpDate : %@",strAccessToken,strFbExpDate);
+         //   NSLog(@"strAccessToken : %@,strFbExpDate : %@",strAccessToken,strFbExpDate);
             
             //2013-07-06 09:39:05 +0000
             NSDateFormatter* df = [[NSDateFormatter alloc] init];
@@ -913,13 +906,13 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
             
             if ([fbdate earlierDate:todayDate]) {
                 
-                NSLog(@"fbdate : %@",fbdate);
-                NSLog(@"todayDate : %@",todayDate);
-                NSLog(@"YES");
+           //     NSLog(@"fbdate : %@",fbdate);
+            //    NSLog(@"todayDate : %@",todayDate);
+            //    NSLog(@"YES");
             }
             else
             {
-                NSLog(@"NO");
+             //   NSLog(@"NO");
             }
             
             
@@ -977,7 +970,7 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
         [self presentViewController:composer animated:YES completion:nil];
     }
     else {
-        NSLog(@"controller cannot send mail");
+    //    NSLog(@"controller cannot send mail");
     }
 }
 

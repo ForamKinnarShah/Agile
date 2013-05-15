@@ -59,7 +59,7 @@
     }
     
     mapView.showsUserLocation = YES;
-    NSLog(@"annotationCoord:%f %f",annotationCoord.longitude,annotationCoord.latitude);
+ //   NSLog(@"annotationCoord:%f %f",annotationCoord.longitude,annotationCoord.latitude);
     //mapView.region = MKCoordinateRegionMakeWithDistance(annotationCoord, 50,50);
  
 }

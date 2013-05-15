@@ -54,7 +54,7 @@
     
     [super viewDidLoad];
     
-    NSLog(@"%@",NSStringFromCGRect(_tblComment.frame));
+ //   NSLog(@"%@",NSStringFromCGRect(_tblComment.frame));
     
     //hostURL
     hostURl = [NSGlobalConfiguration URL];
@@ -71,7 +71,7 @@
     //    if iPhone5
     if(_screenSize.height == 568)
     {
-        NSLog(@"iphone 5"); 
+    //    NSLog(@"iphone 5");
         [_imgNav setFrame:CGRectMake(5, 6, 310, 81)];
         [ProfilePicture setFrame:CGRectMake(5, 5, 80, 80)];
         [Title setFrame:CGRectMake(101, 11, 180, 18)];
@@ -89,7 +89,7 @@
     }
     else
     {
-        NSLog(@"not iphone 5, height 480"); 
+    //    NSLog(@"not iphone 5, height 480");
         [_imgNav setFrame:CGRectMake(5, 4, 310, 82)];
         [ProfilePicture setFrame:CGRectMake(5, 5, 80, 80)];
         [Title setFrame:CGRectMake(101, 11, 180, 18)];
@@ -127,7 +127,7 @@
 
 -(void) userinterfaceCommandSucceeded:(NSString *)message{
     //Add Current Comment
-    NSLog(@"Succeeded");
+ //   NSLog(@"Succeeded");
     CGSize Size=CommentsScroll.contentSize;
     
     UIComment *Comment=[[UIComment alloc]init];
@@ -169,7 +169,7 @@
 //        CGRect frm=CGRectMake(0, 0, CurrentRect.size.width, CurrentRect.size.height);
 //        [self.view setFrame:frm];
 //    }];
-    CGRect toolFrame = _toolTab_bg.frame;
+ //   CGRect toolFrame = _toolTab_bg.frame;
     [UIView animateWithDuration:0.2 animations:^(void) {
         // CGRect frm=CGRectMake(0, -160, CurrentRect.size.width, CurrentRect.size.height);
         CGRect frm=originalToolBarFrame; 
@@ -215,8 +215,8 @@
 }
 -(void)commentsLoaded:(NSCommentLoader *)loader
 {
-    NSLog(@"Successfully loaded comments %i",[loader count]);
-    NSLog(@"comments >> %@",loader.Data);
+//    NSLog(@"Successfully loaded comments %i",[loader count]);
+//    NSLog(@"comments >> %@",loader.Data);
     
     _arrComment = [[NSMutableArray alloc] initWithArray:loader.Data];
 
@@ -251,7 +251,7 @@
     
     cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
 
-    NSLog(@"_arrComment : %@",_arrComment);
+  //  NSLog(@"_arrComment : %@",_arrComment);
     if (cell == nil)
     {
         cell = [[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"Cell"];
@@ -270,7 +270,7 @@
     }
     //PostImage
     NSString *strURL = [NSString stringWithFormat:@"%@%@",hostURl,[[_arrComment objectAtIndex:indexPath.row] valueForKey:@"ImageURL"]];
-    NSLog(@"strURL:%@",strURL);
+   // NSLog(@"strURL:%@",strURL);
     ImageViewLoading *imageViewPoster = [[ImageViewLoading alloc] initWithFrame:CGRectMake(7, 5, 60, 60) ImageUrl:strURL];
     [cell.contentView addSubview:imageViewPoster];
     

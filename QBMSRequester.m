@@ -28,9 +28,9 @@
     [nsdf setDateFormat:@"yyyy-MM-ddTHH:mm:ss"];
     NSString *dateString = [nsdf stringFromDate:[NSDate date]]; 
     NSString *transactionRequestID = @"11"; //needs to be changed to actual. 
-    NSString *expirationDate = [creditCard objectForKey:@"expirationDate"]; 
+ //   NSString *expirationDate = [creditCard objectForKey:@"expirationDate"];
     
-    NSLog(@"%@",expirationDate);
+  //  NSLog(@"%@",expirationDate);
     NSString *expirationMonth = @"12";
     NSString *expirationYear = @"2013";
     
@@ -63,7 +63,7 @@ NSString *requestString = [NSString stringWithFormat:@"<?xml version=\"1.0\"?>\
     [chargeRequest setValue:@"application/x-qbmsxml" forHTTPHeaderField:@"content-type"]; 
     [chargeRequest setHTTPBody:[requestString dataUsingEncoding:NSUTF8StringEncoding]]; 
     
-    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:chargeRequest delegate:self startImmediately:YES]; 
+  //  NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:chargeRequest delegate:self startImmediately:YES];
     return YES;
     
 }
@@ -106,13 +106,13 @@ NSString *requestString = [NSString stringWithFormat:@"<?xml version=\"1.0\"?>\
     </QBMSXMLMsgsRq>\
     </QBMSXML>"; */
     
-    NSLog(@"charge request:%@",requestString); 
+ //   NSLog(@"charge request:%@",requestString);
     NSMutableURLRequest *chargeRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:PAYMENT_GATEWAY_URL]];
     [chargeRequest setHTTPMethod:@"POST"];
     [chargeRequest setValue:@"application/x-qbmsxml" forHTTPHeaderField:@"content-type"]; 
     [chargeRequest setHTTPBody:[requestString dataUsingEncoding:NSUTF8StringEncoding]]; 
     
-    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:chargeRequest delegate:self startImmediately:YES]; 
+  //  NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:chargeRequest delegate:self startImmediately:YES];
     return YES;
     
 }
@@ -127,7 +127,7 @@ NSString *requestString = [NSString stringWithFormat:@"<?xml version=\"1.0\"?>\
 
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:expiryDate];
 
-    NSLog(@"expiryDate >> %@",expiryDate);
+ //   NSLog(@"expiryDate >> %@",expiryDate);
     NSString *expiryMonth = [NSString stringWithFormat:@"%i",[components month]];
     NSString *expiryYear = [NSString stringWithFormat:@"%i",[components year]];
 
@@ -157,69 +157,69 @@ NSString *requestString = [NSString stringWithFormat:@"<?xml version=\"1.0\"?>\
     [chargeRequest setValue:@"application/x-qbmsxml" forHTTPHeaderField:@"content-type"]; 
     [chargeRequest setHTTPBody:[requestString dataUsingEncoding:NSUTF8StringEncoding]]; 
     
-    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:chargeRequest delegate:self startImmediately:YES]; 
+ //   NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:chargeRequest delegate:self startImmediately:YES];
     return YES;
     
 }
 
 -(BOOL)importQuickbooksData {
 
-NSString *queryString = [NSString stringWithFormat:
-@"<?xml version=\"1.0\" ?>\
-<?qbxml version=\"6.0\"?>\
-<QBXML>\
-<QBXMLMsgsRq onError=\"stopOnError\">\
-<SalesReceiptAddRq requestID = \"101\">\
-<SalesReceiptAdd>\
-<CustomerRef>\
-<FullName>John Hamilton</FullName>\
-</CustomerRef>\
-<TxnDate>2009-02-23</TxnDate>\
-<RefNumber>2345</RefNumber>\
-<PaymentMethodRef>\
-<FullName>Visa</FullName>\
-</PaymentMethodRef>\
-<Memo>QBMS SDK Test 2345</Memo>\
-<CreditCardTxnInfo>\
-<CreditCardTxnInputInfo>\
-<CreditCardNumber>xxxxxxxxxxxx4444</CreditCardNumber>\
-<ExpirationMonth>12</ExpirationMonth>\
-<ExpirationYear>2012</ExpirationYear>\
-<NameOnCard>John Hamilton</NameOnCard>\
-<CreditCardAddress>2750 Coast Avenue</CreditCardAddress>\
-<CreditCardPostalCode>94043</CreditCardPostalCode>\
-<CommercialCardCode>123</CommercialCardCode>\
-<TransactionMode>CardNotPresent</TransactionMode>\
-</CreditCardTxnInputInfo>\
-<CreditCardTxnResultInfo>\
-<ResultCode>0</ResultCode>\
-<ResultMessage>STATUS OK</ResultMessage>\
-<CreditCardTransID>V64A76208243</CreditCardTransID>\
-<MerchantAccountNumber>4269281420247209</MerchantAccountNumber>\
-<AuthorizationCode>185PNI</AuthorizationCode>\
-<AVSStreet>Pass</AVSStreet>\
-<AVSZip>Fail</AVSZip>\
-<CardSecurityCodeMatch>Pass</CardSecurityCodeMatch>\
-<ReconBatchID>420050223 MC 2005-02-23 QBMS 15.0 pre-beta</ReconBatchID>\
-<PaymentGroupingCode>4</PaymentGroupingCode>\
-<PaymentStatus>Completed</PaymentStatus>\
-<TxnAuthorizationTime>2005-02-23T20:57:13</TxnAuthorizationTime>\
-<TxnAuthorizationStamp>1109192233</TxnAuthorizationStamp>\
-<ClientTransID>q0002ee5</ClientTransID>\
-</CreditCardTxnResultInfo>\
-</CreditCardTxnInfo>\
-<SalesReceiptLineAdd>\
-<ItemRef>\
-<FullName>Fee</FullName>\
-</ItemRef>\
-<Rate>100.00</Rate>\
-</SalesReceiptLineAdd>\
-</SalesReceiptAdd>\
-</SalesReceiptAddRq>\
-</QBXMLMsgsRq>\
-</QBXML>"
-                         ];
-    return YES; 
+//NSString *queryString = [NSString stringWithFormat:
+//@"<?xml version=\"1.0\" ?>\
+//<?qbxml version=\"6.0\"?>\
+//<QBXML>\
+//<QBXMLMsgsRq onError=\"stopOnError\">\
+//<SalesReceiptAddRq requestID = \"101\">\
+//<SalesReceiptAdd>\
+//<CustomerRef>\
+//<FullName>John Hamilton</FullName>\
+//</CustomerRef>\
+//<TxnDate>2009-02-23</TxnDate>\
+//<RefNumber>2345</RefNumber>\
+//<PaymentMethodRef>\
+//<FullName>Visa</FullName>\
+//</PaymentMethodRef>\
+//<Memo>QBMS SDK Test 2345</Memo>\
+//<CreditCardTxnInfo>\
+//<CreditCardTxnInputInfo>\
+//<CreditCardNumber>xxxxxxxxxxxx4444</CreditCardNumber>\
+//<ExpirationMonth>12</ExpirationMonth>\
+//<ExpirationYear>2012</ExpirationYear>\
+//<NameOnCard>John Hamilton</NameOnCard>\
+//<CreditCardAddress>2750 Coast Avenue</CreditCardAddress>\
+//<CreditCardPostalCode>94043</CreditCardPostalCode>\
+//<CommercialCardCode>123</CommercialCardCode>\
+//<TransactionMode>CardNotPresent</TransactionMode>\
+//</CreditCardTxnInputInfo>\
+//<CreditCardTxnResultInfo>\
+//<ResultCode>0</ResultCode>\
+//<ResultMessage>STATUS OK</ResultMessage>\
+//<CreditCardTransID>V64A76208243</CreditCardTransID>\
+//<MerchantAccountNumber>4269281420247209</MerchantAccountNumber>\
+//<AuthorizationCode>185PNI</AuthorizationCode>\
+//<AVSStreet>Pass</AVSStreet>\
+//<AVSZip>Fail</AVSZip>\
+//<CardSecurityCodeMatch>Pass</CardSecurityCodeMatch>\
+//<ReconBatchID>420050223 MC 2005-02-23 QBMS 15.0 pre-beta</ReconBatchID>\
+//<PaymentGroupingCode>4</PaymentGroupingCode>\
+//<PaymentStatus>Completed</PaymentStatus>\
+//<TxnAuthorizationTime>2005-02-23T20:57:13</TxnAuthorizationTime>\
+//<TxnAuthorizationStamp>1109192233</TxnAuthorizationStamp>\
+//<ClientTransID>q0002ee5</ClientTransID>\
+//</CreditCardTxnResultInfo>\
+//</CreditCardTxnInfo>\
+//<SalesReceiptLineAdd>\
+//<ItemRef>\
+//<FullName>Fee</FullName>\
+//</ItemRef>\
+//<Rate>100.00</Rate>\
+//</SalesReceiptLineAdd>\
+//</SalesReceiptAdd>\
+//</SalesReceiptAddRq>\
+//</QBXMLMsgsRq>\
+//</QBXML>"
+//                         ];
+    return YES;
 }
 
 #pragma mark - NSURLConnectionDelegate Methods
@@ -236,8 +236,8 @@ NSString *queryString = [NSString stringWithFormat:
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    NSString *response = [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding];
-    NSLog(@"received response:%@",response);
+ //  NSString *response = [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding];
+  //  NSLog(@"received response:%@",response);
     
     NSXMLParser *parser = [[NSXMLParser alloc] initWithData:self.data];
     parser.delegate = self;
@@ -250,14 +250,14 @@ NSString *queryString = [NSString stringWithFormat:
     
     if ([elementName isEqualToString:@"SignonDesktopRs"])
     {
-        NSLog(@"attributeDict:%@",attributeDict);
+    //    NSLog(@"attributeDict:%@",attributeDict);
         
         if ([[attributeDict objectForKey:@"statusCode"] isEqualToString:@"0"])
         {
-            NSLog(@"signon worked");
+     //       NSLog(@"signon worked");
         }
         else {
-            NSLog(@"signon error occurred");
+    //        NSLog(@"signon error occurred");
             [parser abortParsing];
             if ([self.delegate respondsToSelector:@selector(QBMSRequesterDelegateFailedWithError:)])
             {
@@ -269,14 +269,14 @@ NSString *queryString = [NSString stringWithFormat:
 
     else if ([elementName isEqualToString:@"CustomerCreditCardChargeRs"] || [elementName isEqualToString:@"CustomerCreditCardWalletAddRs"] || [elementName isEqualToString:@"CustomerCreditCardWalletChargeRs"])
     {
-        NSLog(@"attributeDict:%@",attributeDict); 
+    //    NSLog(@"attributeDict:%@",attributeDict);
         
         if ([[attributeDict objectForKey:@"statusCode"] isEqualToString:@"0"])
         {
-            NSLog(@"authorization worked");
+     //       NSLog(@"authorization worked");
         }
         else {
-            NSLog(@"authorization error occurred");
+     //       NSLog(@"authorization error occurred");
             [parser abortParsing]; 
             if ([self.delegate respondsToSelector:@selector(QBMSRequesterDelegateFailedWithError:)])
             {
@@ -299,7 +299,7 @@ NSString *queryString = [NSString stringWithFormat:
     if ([elementName isEqualToString:@"CreditCardTransID"] || [elementName isEqualToString:@"WalletEntryID"])
     {
         returnID = [currentString copy];
-        NSLog(@"recorded returnID as:%@",currentString); 
+   //     NSLog(@"recorded returnID as:%@",currentString);
     }
 }
 

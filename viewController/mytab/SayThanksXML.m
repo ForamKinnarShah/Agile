@@ -14,7 +14,7 @@
 
 -(id)initWithURL:(NSURL*)parseURL{
     @try {
-        NSLog(@"parseURL : %@",parseURL);
+  //      NSLog(@"parseURL : %@",parseURL);
 //        NSString *Items=[[NSString alloc] initWithContentsOfURL:parseURL encoding:NSUTF8StringEncoding error:nil];
 //        NSLog(@"items %@",Items);
 //        NSData *xmlData = [[NSData alloc] initWithContentsOfURL:parseURL];
@@ -35,10 +35,10 @@
         BOOL success = [nsXmlParser parse];
         // test the result
         if (success) {
-            NSLog(@"success.");
+        //    NSLog(@"success.");
             return (id)dicSayThanks;
         } else {    
-            NSLog(@"Error parsing document!");
+        //    NSLog(@"Error parsing document!");
             isParseFailed = YES;
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"Error parsing document!" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
             [alert show];
@@ -53,7 +53,7 @@
 
 -(void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict{
     @try {
-        NSLog(@"didStartElement elementName : %@",elementName);
+      //  NSLog(@"didStartElement elementName : %@",elementName);
         if([elementName isEqualToString:@"successmessage"]){
             isSayThanks = YES;
         }
@@ -65,7 +65,7 @@
 
 -(void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string{
     @try {
-        NSLog(@"foundCharacters string : %@",string);
+    //    NSLog(@"foundCharacters string : %@",string);
         strMutableElement = [string copy];
         
         if(isSayThanks){
@@ -90,7 +90,7 @@
 }
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
-    NSLog(@"%@",[parseError description]);
+ //   NSLog(@"%@",[parseError description]);
 }
 
 @end

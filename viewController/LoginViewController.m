@@ -203,7 +203,7 @@
 -(void)loggingInFailed:(NSError *)error
 {
     UIAlertView *Alert=[[UIAlertView alloc] initWithTitle:@"Warning" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    NSLog(@"error:%@",error.localizedDescription);
+ //   NSLog(@"error:%@",error.localizedDescription);
     [UIBlocker stopAnimating];
     [Alert show];
 }
@@ -270,7 +270,7 @@
 	  
 	// Prepare the Device Token for Registration (remove spaces and < >)
   
-    NSLog(@"devicetoken >> %@",[AppDelegate sharedInstance].dataDeviceToken);
+ //   NSLog(@"devicetoken >> %@",[AppDelegate sharedInstance].dataDeviceToken);
     NSString *deviceToken_Push = [[[[[AppDelegate sharedInstance].dataDeviceToken description]
                                     stringByReplacingOccurrencesOfString:@"<"withString:@""]
                                    stringByReplacingOccurrencesOfString:@">" withString:@""]
@@ -288,7 +288,7 @@
     urlString = [urlString stringByAppendingString:@"&deviceuid="];
     urlString = [urlString stringByAppendingString:deviceUuid];
     urlString = [urlString stringByAppendingString:@"&devicetoken="];
-    NSLog(@"deviceToken_Push after >> %@",deviceToken_Push);
+  //  NSLog(@"deviceToken_Push after >> %@",deviceToken_Push);
     urlString = [urlString stringByAppendingString:deviceToken_Push];
     urlString = [urlString stringByAppendingString:@"&devicename="];
     urlString = [urlString stringByAppendingString:deviceName];
@@ -315,14 +315,14 @@
     
     [AppDelegate sharedInstance].url = [[NSURL alloc] initWithScheme:@"http" host:hostUrl path:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[AppDelegate sharedInstance].url];
-    NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    NSLog(@"Register URL: %@", [AppDelegate sharedInstance].url);
-    NSLog(@"Return Data: %@", returnData);
+ //   NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[AppDelegate sharedInstance].url];
+   // NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+  //  NSLog(@"Register URL: %@", [AppDelegate sharedInstance].url);
+  //  NSLog(@"Return Data: %@", returnData);
     
-    NSString *s=[[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+  //  NSString *s=[[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
     
-    NSLog(@"Response String ==-========================================================================================================================================================== %@",s);
+  //  NSLog(@"Response String ==-========================================================================================================================================================== %@",s);
     
     //  -----Completion of notification
 
@@ -345,7 +345,7 @@
         else
         {
             NSString *URLString = [[NSString stringWithFormat:@"%@resetpassword.php?Email=%@",[NSGlobalConfiguration URL],_txtEmail.text] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            NSLog(@"URLString : %@",URLString);
+      //      NSLog(@"URLString : %@",URLString);
             NSURL *url = [[NSURL alloc] initWithString:URLString];
             
             UIBlocker = [[utilities alloc] init];
@@ -386,7 +386,7 @@
 -(void) connectionDidFinishLoading:(NSURLConnection *)connection{
     //XML PARSER:
     NSString *response = [[NSString alloc] initWithData:rawData encoding:NSUTF8StringEncoding];
-    NSLog(@"connection finished loading with response:%@",[[NSString alloc] initWithData:rawData encoding:NSUTF8StringEncoding]);
+ //   NSLog(@"connection finished loading with response:%@",[[NSString alloc] initWithData:rawData encoding:NSUTF8StringEncoding]);
     if ([response rangeOfString:@"<SuccessMessage>1</SuccessMessage>"].location == NSNotFound)
     {
         [[[UIAlertView alloc] initWithTitle:@"Message Failed to Send" message:@"Your message was not sent. Please confirm your email address and try again. If problems persist, please contact support.heres2uapp.com" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];

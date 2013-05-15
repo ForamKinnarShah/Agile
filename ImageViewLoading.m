@@ -65,13 +65,13 @@
                     //save image
                     if([strExtentionName isEqualToString:@"png"])
                     {
-                        NSLog(@"saving png");
+                 //       NSLog(@"saving png");
                         NSData *data1 = [NSData dataWithData:UIImagePNGRepresentation(image)];
                         [data1 writeToFile:FilePath atomically:YES];
                     }
                     else if([strExtentionName isEqualToString:@"jpeg"] || [strExtentionName isEqualToString:@"jpg"])
                     {
-                        NSLog(@"saving jpeg");
+                   //     NSLog(@"saving jpeg");
                         NSData *data2 = [NSData dataWithData:UIImageJPEGRepresentation(image, 1.0f)];//1.0f = 100% quality
                         [data2 writeToFile:FilePath atomically:YES];
                     }

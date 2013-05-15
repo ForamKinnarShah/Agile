@@ -543,8 +543,8 @@ static NSString* gLoggingProcessName = nil;
           && ![dataToWrite writeToFile:responseDataFilePath
                                options:0
                                  error:&downloadedError]) {
-            NSLog(@"%@ logging write error:%@ (%@)",
-                  [self class], downloadedError, responseDataFileName);
+//            NSLog(@"%@ logging write error:%@ (%@)",
+//                  [self class], downloadedError, responseDataFileName);
           }
     }
   }
@@ -852,8 +852,8 @@ static NSString* gLoggingProcessName = nil;
                       encoding:NSUTF8StringEncoding
                          error:&copyableError]) {
       // Error writing to file
-      NSLog(@"%@ logging write error:%@ (%@)",
-            [self class], copyableError, copyablePath);
+//      NSLog(@"%@ logging write error:%@ (%@)",
+//            [self class], copyableError, copyablePath);
     }
 
     [outputHTML appendString:@"<br><hr><p>"];
@@ -879,7 +879,7 @@ static NSString* gLoggingProcessName = nil;
     static BOOL gReportedLoggingPath = NO;
     if (!gReportedLoggingPath) {
       gReportedLoggingPath = YES;
-      NSLog(@"GTMHTTPFetcher logging to \"%@\"", parentDir);
+  //    NSLog(@"GTMHTTPFetcher logging to \"%@\"", parentDir);
     }
 #endif
   }

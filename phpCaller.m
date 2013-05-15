@@ -55,7 +55,7 @@
 //generic method
 -(BOOL) invokeWebService:(NSString*)webService forAction:(NSString*)action withParameters:(NSMutableArray*)parameters {
     selectedActionName = action; 
-    NSLog(@"requested action:%@",action); 
+  //  NSLog(@"requested action:%@",action);
     
     NSURL *URL=[NSURL URLWithString:[NSString stringWithFormat:@"%@?webservice=%@&action=%@", [NSGlobalConfiguration URL],webService,action]];
     NSMutableURLRequest *Request=[[NSMutableURLRequest alloc] initWithURL:URL];
@@ -65,12 +65,12 @@
     NSArray *parameterNames = [inputsDictionary objectForKey:action];
     if (!parameterNames || [parameterNames count] == 0)
     {
-        NSLog(@"no parameters found for requested action:%@",action); 
+   //     NSLog(@"no parameters found for requested action:%@",action);
         return NO;
     }
     else if ([parameters count] != [parameterNames count])
     {
-        NSLog(@"incorrect number of parameters for action:%@",action);
+   //     NSLog(@"incorrect number of parameters for action:%@",action);
         return NO;
     }
     
@@ -108,7 +108,7 @@
 }
 -(void) connectionDidFinishLoading:(NSURLConnection *)connection{
     //XML PARSER:
-    NSLog(@"connection finished loading with response:%@",[[NSString alloc] initWithData:rawData encoding:NSUTF8StringEncoding]); 
+ //   NSLog(@"connection finished loading with response:%@",[[NSString alloc] initWithData:rawData encoding:NSUTF8StringEncoding]);
     encounteredServerReply=NO;
     returnData=[[NSMutableArray alloc] init];
     NSXMLParser *parser=[[NSXMLParser alloc] initWithData:rawData];

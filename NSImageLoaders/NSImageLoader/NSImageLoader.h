@@ -13,7 +13,7 @@
     NSMutableData *ImageData;
     NSURLRequest *urlRequest;
     NSURLConnection *urlConnection;
-    UIImage *Target;
+    //UIImage *Target;
     NSString *ImageName;
 }
 @property (weak, nonatomic) NSString *URLString;

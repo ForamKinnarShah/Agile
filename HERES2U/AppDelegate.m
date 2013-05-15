@@ -51,16 +51,16 @@ NSString * const logOutNotification = @"logOutNotification";
             result = CGSizeMake(result.width * scale, result.height * scale);
             
             if(result.height == 960) {
-                NSLog(@"iPhone 4 Resolution");
+     //           NSLog(@"iPhone 4 Resolution");
                 isiPhone5 = NO;
             }
             if(result.height == 1136) {
                 isiPhone5 = YES;
-                NSLog(@"iPhone 5 Resolution");
+       //         NSLog(@"iPhone 5 Resolution");
             }
         }
         else{
-            NSLog(@"Standard Resolution");
+      //      NSLog(@"Standard Resolution");
         }
     }
 
@@ -191,13 +191,13 @@ NSString * const logOutNotification = @"logOutNotification";
     [req setHTTPBody:deviceToken];
     [req setHTTPMethod:@"POST"];
     //[req setValue:<#(NSString *)#> forHTTPHeaderField:@"content-length"]; 
-    NSLog(@"Did register for remote notifications: %@", deviceToken);
+ //   NSLog(@"Did register for remote notifications: %@", deviceToken);
     
     _dataDeviceToken = [[NSData alloc] initWithData:deviceToken];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-    NSLog(@"Fail to register for remote notifications: %@", error);
+  //  NSLog(@"Fail to register for remote notifications: %@", error);
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo

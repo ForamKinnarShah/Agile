@@ -96,14 +96,14 @@
         [self presentViewController:composer animated:YES completion:nil];
     }
     else {
-        NSLog(@"controller cannot send mail");
+    //    NSLog(@"controller cannot send mail");
     }
 }
 
 -(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
     if (error)
     {
-        NSLog(@"error:%@",error);
+    //    NSLog(@"error:%@",error);
     }
     
     if (result == MFMailComposeResultSent)

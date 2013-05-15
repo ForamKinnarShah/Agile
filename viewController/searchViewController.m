@@ -51,16 +51,13 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
         // get friend details & display friend picker
         if (![FBSession.activeSession.permissions containsObject:@"publish_actions"])
         {
-            [FBSession.activeSession reauthorizeWithPublishPermissions:[NSArray arrayWithObjects:@"publish_actions",@"publish_stream",@"manage_friendlists", nil] 
- defaultAudience:FBSessionDefaultAudienceFriends completionHandler:^(FBSession *session, NSError *error) {
+          
+            [FBSession.activeSession reauthorizeWithPublishPermissions:[NSArray arrayWithObjects:@"publish_actions",@"publish_stream",@"manage_friendlists", nil]
+ defaultAudience:FBSessionDefaultAudienceFriends completionHandler:^(FBSession *session, NSError *error)
+             {
                 if (!error)
-                {
-                    [self loadFriends]; 
-                }
-                else {
-                    NSLog(@"error:%@",error.localizedDescription);
-                }
-            }]; 
+                    [self loadFriends];
+             }];
         }
     }
     else {
@@ -71,7 +68,7 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
                 [self loadFriends]; 
             }
             else {
-                NSLog(@"error:%@",error.localizedDescription); 
+           //     NSLog(@"error:%@",error.localizedDescription);
             }
         }];
     }
@@ -79,9 +76,8 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
 
 -(void)loadFriends
 {
-    
     FBFriendPickerViewController *friendPicker = [[FBFriendPickerViewController alloc] init];
-    
+
     // Set up the friend picker to sort and display names the same way as the
     // iOS Address Book does.
     
@@ -92,16 +88,19 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
     
     friendPicker.sortOrdering = (sortOrdering == kABPersonSortByFirstName) ? FBFriendSortByFirstName : FBFriendSortByLastName;
     friendPicker.displayOrdering = (nameFormat == kABPersonCompositeNameFormatFirstNameFirst) ? FBFriendDisplayByFirstName : FBFriendDisplayByLastName;
-    
+
     [friendPicker loadData];
-    friendPicker.delegate = self; 
+
+    friendPicker.delegate = self;
+    CFRelease(CFBridgingRetain(friendPicker));
+
     [friendPicker presentModallyFromViewController:self
                                           animated:YES
                                            handler:^(FBViewController *sender, BOOL donePressed) {
                                                
                                                if (donePressed) {
                                                    self.selectedFriends = friendPicker.selection;
-                                                   NSLog(@"self.selectedFriends : %d",self.selectedFriends.count);
+                                              //     NSLog(@"self.selectedFriends : %d",self.selectedFriends.count);
                                                    int friendCount = self.selectedFriends.count;
                                                    if(friendCount==0){
                                                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"You did not select any friend!" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
@@ -125,14 +124,14 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
     
     for (NSDictionary<FBGraphUser> *user in self.selectedFriends)
     {
-        NSLog(@"postPath:%@/feed",user.id); 
+   //     NSLog(@"postPath:%@/feed",user.id);
         [FBRequestConnection startWithGraphPath:[NSString stringWithFormat:@"/%@/feed",user.id] parameters:params HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
             if (!error)
             {
-                NSLog(@"post worked for user:%@",user.id); 
+        //        NSLog(@"post worked for user:%@",user.id);
             }
             else {
-                NSLog(@"error:%@",error);
+          //      NSLog(@"error:%@",error);
             }
         }]; 
     }
@@ -161,23 +160,23 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
      ^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
          if (error) {
              // Error launching the dialog or publishing a story.
-             NSLog(@"Error publishing story.");
+         //    NSLog(@"Error publishing story.");
          } else {
              if (result == FBWebDialogResultDialogNotCompleted) {
                  // User clicked the "x" icon
-                 NSLog(@"User canceled story publishing.");
+             //    NSLog(@"User canceled story publishing.");
              } else {
                  // Handle the publish feed callback
                  NSDictionary *urlParams = [self parseURLParams:[resultURL query]];
                  if (![urlParams valueForKey:@"post_id"]) {
                      // User clicked the Cancel button
-                     NSLog(@"User canceled story publishing.");
+                 //    NSLog(@"User canceled story publishing.");
                  } else {
                      // User clicked the Share button
                      NSString *msg = [NSString stringWithFormat:
                                       @"Posted story, id: %@",
                                       [urlParams valueForKey:@"post_id"]];
-                     NSLog(@"%@", msg);
+                  //   NSLog(@"%@", msg);
                      // Show the result in an alert
                      [[[UIAlertView alloc] initWithTitle:@"Result"
                                                  message:msg
@@ -237,16 +236,16 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
 {
     if (error)
     {
-        NSLog(@"Received error %@ and auth object %@",error, auth);
+    //    NSLog(@"Received error %@ and auth object %@",error, auth);
     }
     else {
-        NSLog(@"authenticated"); 
+    //    NSLog(@"authenticated");
         [self realSharing];
     }
 }
 
 -(void)realSharing{
-    NSLog(@"attempting sharing via google+");
+  //  NSLog(@"attempting sharing via google+");
     [GPPShare sharedInstance].delegate = self;
     id<GPPShareBuilder> shareBuilder = [[GPPShare sharedInstance] shareDialog];
     
@@ -262,9 +261,9 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
 - (void)finishedSharing: (BOOL)shared {
     if (shared) {
         [self showAlertMessage:@"Shared link on google+!" withTitle:@"successfully shared"];
-        NSLog(@"User successfully shared!");
+     //   NSLog(@"User successfully shared!");
     } else {
-        NSLog(@"User didn't share.");
+     //   NSLog(@"User didn't share.");
     }
 }
 

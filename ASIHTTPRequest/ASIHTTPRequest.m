@@ -664,7 +664,7 @@ static NSOperationQueue *sharedQueue = nil;
 - (void)cancelOnRequestThread
 {
 	#if DEBUG_REQUEST_STATUS
-	NSLog(@"Request cancelled: %@",self);
+//	NSLog(@"Request cancelled: %@",self);
 	#endif
     
 	[[self cancelledLock] lock];
@@ -754,7 +754,7 @@ static NSOperationQueue *sharedQueue = nil;
 - (void)startSynchronous
 {
 #if DEBUG_REQUEST_STATUS || DEBUG_THROTTLING
-	NSLog(@"Starting synchronous request %@",self);
+//	NSLog(@"Starting synchronous request %@",self);
 #endif
 	[self setRunLoopMode:ASIHTTPRequestRunLoopMode];
 	[self setInProgress:YES];
@@ -778,7 +778,7 @@ static NSOperationQueue *sharedQueue = nil;
 - (void)startAsynchronous
 {
 #if DEBUG_REQUEST_STATUS || DEBUG_THROTTLING
-	NSLog(@"Starting asynchronous request %@",self);
+//	NSLog(@"Starting asynchronous request %@",self);
 #endif
 	[sharedQueue addOperation:self];
 }
@@ -1271,7 +1271,7 @@ static NSOperationQueue *sharedQueue = nil;
 			// Check if we should have expired this connection
 			} else if ([[[self connectionInfo] objectForKey:@"expires"] timeIntervalSinceNow] < 0) {
 				#if DEBUG_PERSISTENT_CONNECTIONS
-				NSLog(@"Not re-using connection #%i because it has expired",[[[self connectionInfo] objectForKey:@"id"] intValue]);
+			//	NSLog(@"Not re-using connection #%i because it has expired",[[[self connectionInfo] objectForKey:@"id"] intValue]);
 				#endif
 				[persistentConnectionsPool removeObject:[self connectionInfo]];
 				[self setConnectionInfo:nil];
@@ -1316,7 +1316,7 @@ static NSOperationQueue *sharedQueue = nil;
 		CFReadStreamSetProperty((CFReadStreamRef)[self readStream],  kCFStreamPropertyHTTPAttemptPersistentConnection, kCFBooleanTrue);
 		
 		#if DEBUG_PERSISTENT_CONNECTIONS
-		NSLog(@"Request #%@ will use connection #%i",[self requestID],[[[self connectionInfo] objectForKey:@"id"] intValue]);
+	//	NSLog(@"Request #%@ will use connection #%i",[self requestID],[[[self connectionInfo] objectForKey:@"id"] intValue]);
 		#endif
 		
 		
@@ -1500,7 +1500,7 @@ static NSOperationQueue *sharedQueue = nil;
 						
 				#if DEBUG_REQUEST_STATUS
 				if ([self totalBytesSent] == [self postLength]) {
-					NSLog(@"Request %@ finished uploading data",self);
+			//		NSLog(@"Request %@ finished uploading data",self);
 				}
 				#endif
 			}
@@ -1942,7 +1942,7 @@ static NSOperationQueue *sharedQueue = nil;
 - (void)requestFinished
 {
 #if DEBUG_REQUEST_STATUS || DEBUG_THROTTLING
-	NSLog(@"Request finished: %@",self);
+	//NSLog(@"Request finished: %@",self);
 #endif
 	if ([self error] || [self mainRequest]) {
 		return;
@@ -2001,7 +2001,7 @@ static NSOperationQueue *sharedQueue = nil;
 - (void)failWithError:(NSError *)theError
 {
 #if DEBUG_REQUEST_STATUS || DEBUG_THROTTLING
-	NSLog(@"Request %@: %@",self,(theError == ASIRequestCancelledError ? @"Cancelled" : @"Failed"));
+//	NSLog(@"Request %@: %@",self,(theError == ASIRequestCancelledError ? @"Cancelled" : @"Failed"));
 #endif
 	[self setComplete:YES];
 	
@@ -2009,7 +2009,7 @@ static NSOperationQueue *sharedQueue = nil;
 	if (theError && [theError code] != ASIAuthenticationErrorType && [theError code] != ASITooMuchRedirectionErrorType) {
 		[connectionsLock lock];
 		#if DEBUG_PERSISTENT_CONNECTIONS
-		NSLog(@"Request #%@ failed and will invalidate connection #%@",[self requestID],[[self connectionInfo] objectForKey:@"id"]);
+	//	NSLog(@"Request #%@ failed and will invalidate connection #%@",[self requestID],[[self connectionInfo] objectForKey:@"id"]);
 		#endif
 		[[self connectionInfo] removeObjectForKey:@"request"];
 		[persistentConnectionsPool removeObject:[self connectionInfo]];
@@ -2073,7 +2073,7 @@ static NSOperationQueue *sharedQueue = nil;
 
 	#if DEBUG_REQUEST_STATUS
 	if ([self totalBytesSent] == [self postLength]) {
-		NSLog(@"Request %@ received response headers",self);
+//		NSLog(@"Request %@ received response headers",self);
 	}
 	#endif		
 
@@ -2184,7 +2184,7 @@ static NSOperationQueue *sharedQueue = nil;
 			[self setRequestCookies:[NSMutableArray array]];
 			
 			#if DEBUG_REQUEST_STATUS
-				NSLog(@"Request will redirect (code: %i): %@",[self responseStatusCode],self);
+	//			NSLog(@"Request will redirect (code: %i): %@",[self responseStatusCode],self);
 			#endif
 			
 		}
@@ -2247,7 +2247,7 @@ static NSOperationQueue *sharedQueue = nil;
 						[self setConnectionCanBeReused:YES];
 						[self setPersistentConnectionTimeoutSeconds:timeout];
 						#if DEBUG_PERSISTENT_CONNECTIONS
-							NSLog(@"Got a keep-alive header, will keep this connection open for %f seconds", [self persistentConnectionTimeoutSeconds]);
+					//		NSLog(@"Got a keep-alive header, will keep this connection open for %f seconds", [self persistentConnectionTimeoutSeconds]);
 						#endif					
 					}
 				
@@ -2255,7 +2255,7 @@ static NSOperationQueue *sharedQueue = nil;
 				} else {
 					[self setConnectionCanBeReused:YES];
 					#if DEBUG_PERSISTENT_CONNECTIONS
-						NSLog(@"Got no keep-alive header, will keep this connection open for %f seconds", [self persistentConnectionTimeoutSeconds]);
+				//		NSLog(@"Got no keep-alive header, will keep this connection open for %f seconds", [self persistentConnectionTimeoutSeconds]);
 					#endif
 				}
 			}
@@ -3145,7 +3145,7 @@ static NSOperationQueue *sharedQueue = nil;
 {	
 
 #if DEBUG_REQUEST_STATUS
-	NSLog(@"Request %@ finished downloading data (%qu bytes)",self, [self totalBytesRead]);
+//	NSLog(@"Request %@ finished downloading data (%qu bytes)",self, [self totalBytesRead]);
 #endif
 	[self setStatusTimer:nil];
 	[self setDownloadComplete:YES];
@@ -3242,7 +3242,7 @@ static NSOperationQueue *sharedQueue = nil;
 		[self unscheduleReadStream];
 	}
 	#if DEBUG_PERSISTENT_CONNECTIONS
-	NSLog(@"Request #%@ finished using connection #%@",[self requestID], [[self connectionInfo] objectForKey:@"id"]);
+//	NSLog(@"Request #%@ finished using connection #%@",[self requestID], [[self connectionInfo] objectForKey:@"id"]);
 	#endif
 	[[self connectionInfo] removeObjectForKey:@"request"];
 	[[self connectionInfo] setObject:[NSDate dateWithTimeIntervalSinceNow:[self persistentConnectionTimeoutSeconds]] forKey:@"expires"];
@@ -3368,7 +3368,7 @@ static NSOperationQueue *sharedQueue = nil;
 {
 	if ([self retryCount] == 0) {
 		#if DEBUG_PERSISTENT_CONNECTIONS
-			NSLog(@"Request attempted to use connection #%@, but it has been closed - will retry with a new connection", [[self connectionInfo] objectForKey:@"id"]);
+	//		NSLog(@"Request attempted to use connection #%@, but it has been closed - will retry with a new connection", [[self connectionInfo] objectForKey:@"id"]);
 		#endif
 		[connectionsLock lock];
 		[[self connectionInfo] removeObjectForKey:@"request"];
@@ -3380,7 +3380,7 @@ static NSOperationQueue *sharedQueue = nil;
 		return YES;
 	}
 	#if DEBUG_PERSISTENT_CONNECTIONS
-		NSLog(@"Request attempted to use connection #%@, but it has been closed - we have already retried with a new connection, so we must give up", [[self connectionInfo] objectForKey:@"id"]);
+	//	NSLog(@"Request attempted to use connection #%@, but it has been closed - we have already retried with a new connection, so we must give up", [[self connectionInfo] objectForKey:@"id"]);
 	#endif	
 	return NO;
 }
@@ -3562,7 +3562,7 @@ static NSOperationQueue *sharedQueue = nil;
 		NSDictionary *existingConnection = [persistentConnectionsPool objectAtIndex:i];
 		if (![existingConnection objectForKey:@"request"] && [[existingConnection objectForKey:@"expires"] timeIntervalSinceNow] <= 0) {
 #if DEBUG_PERSISTENT_CONNECTIONS
-			NSLog(@"Closing connection #%i because it has expired",[[existingConnection objectForKey:@"id"] intValue]);
+	//		NSLog(@"Closing connection #%i because it has expired",[[existingConnection objectForKey:@"id"] intValue]);
 #endif
 			NSInputStream *stream = [existingConnection objectForKey:@"stream"];
 			if (stream) {
@@ -3992,14 +3992,14 @@ static NSOperationQueue *sharedQueue = nil;
 				if ([self readStreamIsScheduled]) {
 					[self unscheduleReadStream];
 					#if DEBUG_THROTTLING
-					NSLog(@"Sleeping request %@ until after %@",self,throttleWakeUpTime);
+		//			NSLog(@"Sleeping request %@ until after %@",self,throttleWakeUpTime);
 					#endif
 				}
 			} else {
 				if (![self readStreamIsScheduled]) {
 					[self scheduleReadStream];
 					#if DEBUG_THROTTLING
-					NSLog(@"Waking up request %@",self);
+			//		NSLog(@"Waking up request %@",self);
 					#endif
 				}
 			}
@@ -4062,7 +4062,7 @@ static NSOperationQueue *sharedQueue = nil;
 		}
 	}
 	#if DEBUG_THROTTLING
-	NSLog(@"===Used: %u bytes of bandwidth in last measurement period===",bandwidthUsedInLastSecond);
+	//NSLog(@"===Used: %u bytes of bandwidth in last measurement period===",bandwidthUsedInLastSecond);
 	#endif
 	[bandwidthUsageTracker addObject:[NSNumber numberWithUnsignedLong:bandwidthUsedInLastSecond]];
 	[bandwidthMeasurementDate release];

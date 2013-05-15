@@ -30,7 +30,7 @@
     self.title = @"Receipt";
     self.navigationController.navigationBar.topItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo_small.png"]];
     
-    NSLog(@"arrayData : %@",arrayData);
+  //  NSLog(@"arrayData : %@",arrayData);
     // Do any additional setup after loading the view from its nib.
 }
 

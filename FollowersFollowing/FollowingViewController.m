@@ -85,17 +85,17 @@
     CellData=(NSDictionary *)[OutputData objectAtIndex:[indexPath row]];
     if(isFollowers){
         [Item setAllowsStopFollow:YES];
-        NSString *isFollowing=[CellData valueForKey:@"isFollowed"];
+ //       NSString *isFollowing=[CellData valueForKey:@"isFollowed"];
         //[Item setAllowsUnfollow:[isFollowing boolValue]];
     }else{
         [Item setAllowsUnfollow:YES];
-        NSString *isFollowing=[CellData valueForKey:@"isFollowing"];
+ //      NSString *isFollowing=[CellData valueForKey:@"isFollowing"];
        // [Item setAllowsStopFollow:[isFollowing boolValue]];
     }
     [Item.lblFullName setText:[CellData valueForKey:@"FullName"]];
-    NSString *WineIQ=[CellData valueForKey:@"WineIQ"];
+ //   NSString *WineIQ=[CellData valueForKey:@"WineIQ"];
     //[Item.lblWineIQ setText:[NSString stringWithFormat:@"WineIQ: %i",[WineIQ integerValue]]];
-    NSString *CorkzRated=[CellData valueForKey:@"CorkzRated"];
+ //   NSString *CorkzRated=[CellData valueForKey:@"CorkzRated"];
     NSString *UserID=[CellData valueForKey:@"ID"];
     [Item setUserID:[UserID integerValue]];
     //[Item.lblCorkzRated setText:[NSString stringWithFormat:@"Corkz Rated: %i",[CorkzRated integerValue]]];
@@ -152,7 +152,7 @@
     }
 }
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"Tab Pressed");
+ // NSLog(@"Tab Pressed");
     if([tableView cellForRowAtIndexPath:indexPath].selectionStyle!=UITableViewCellSelectionStyleNone){
         NSDictionary *Data;
         if(isFollowers){
@@ -167,8 +167,8 @@
         NSUserDefaults *Defaults=[NSUserDefaults standardUserDefaults];
         NSString *UserID=[Defaults valueForKey:@"ID"];
         
-        NSLog(@"follower >> %i",[[Data valueForKey:@"ID"] intValue]);
-        NSLog(@"followee >> %@",[Defaults valueForKey:@"ID"]);
+     //   NSLog(@"follower >> %i",[[Data valueForKey:@"ID"] intValue]);
+      //  NSLog(@"followee >> %@",[Defaults valueForKey:@"ID"]);
         //NSLog(@"User %@ Requesting to Follow UserID:%@",UserID,[Data valueForKey:@"ID"]);
       
         if ([[NSString stringWithFormat:@"%i",[[Data valueForKey:@"ID"] intValue]] isEqualToString:[Defaults valueForKey:@"ID"]])
@@ -323,26 +323,26 @@
     //[userstable setUserInteractionEnabled:YES];
 }
 -(void) searchforuser:(NSSearchForUser *)searchobject FailedWithError:(NSError *)error{
-    NSLog(@"Error: %@",[error localizedDescription]);
+ //   NSLog(@"Error: %@",[error localizedDescription]);
 }
 -(void) searchforuserDidNotFindAnyUsers:(NSSearchForUser *)searchobject{
     //Do Nothing...
-    NSLog(@"Found Nothing");
+  //  NSLog(@"Found Nothing");
     ServerSearchResults=nil;
     [userstable reloadData];
 }
 -(void) searchforuserFoundUsers:(NSSearchForUser *)searchobject{
     ServerSearchResults=[searchobject getAllData];
-    NSLog(@"Done: %i",[searchobject count]);
+  //  NSLog(@"Done: %i",[searchobject count]);
     [userstable reloadData];
 }
 -(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView{
-    NSLog(@"Counting Sections");
+  //  NSLog(@"Counting Sections");
     if(ServerSearchResults && [ServerSearchResults count]>0){
-        NSLog(@"%i",2);
+   //     NSLog(@"%i",2);
         return 2;
     }else{
-        NSLog(@"%i",1);
+   //     NSLog(@"%i",1);
         return 1;
     }
 }

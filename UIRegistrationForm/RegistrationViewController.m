@@ -52,7 +52,7 @@
             }
         }
         
-        NSLog(@"%@",[form.DOB date]);
+    //    NSLog(@"%@",[form.DOB date]);
         // check for the age eligiblity
         int yearDifference = [[NSDate date] timeIntervalSinceDate:[form.DOB date]] / (60.0 * 60.0 * 24.0 * 365.0);
         
@@ -96,7 +96,7 @@
 }
 
 -(void) registrationDidBegin:(NSTaggedURLConnection *)connection{
-    NSLog(@"Registration Began");
+ //   NSLog(@"Registration Began");
     if(!activity){
         activity=[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         [activity setFrame:[UIScreen mainScreen].bounds];
@@ -108,7 +108,7 @@
 }
 
 -(void) registrationDidFail:(NSError *)error{
-    NSLog(@"Registration Failed! Reason: %@",[error localizedDescription]);
+  //  NSLog(@"Registration Failed! Reason: %@",[error localizedDescription]);
     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Retry", nil];
     [alert show];
     [activity removeFromSuperview];
@@ -117,11 +117,11 @@
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Retry"]){
         [self RegistrationButtonPressed];
-        NSLog(@"Retrying");
+   //     NSLog(@"Retrying");
     }
 }
 -(void) registrationDidSucceed:(NSString *)message{
-    NSLog(@"Registration succeeded! Server message:%@", message);
+  //  NSLog(@"Registration succeeded! Server message:%@", message);
     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Congratulations" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alert show];
     [alert show];
@@ -137,7 +137,7 @@
     [self.view setFrame:[[UIScreen mainScreen] bounds]];
 	// Do any additional setup after loading the view.
     form=[[UIRegistrationForm alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    NSLog(@"%f,%f,%f,%f",self.view.frame.origin.x,self.view.frame.origin.y,self.view.frame.size.width,self.view.frame.size.height);
+  //  NSLog(@"%f,%f,%f,%f",self.view.frame.origin.x,self.view.frame.origin.y,self.view.frame.size.width,self.view.frame.size.height);
     [form setViewController:self];
     [form.BackButton setTarget:self];
     [form.BackButton setAction:@selector(backButtonPressed:)];
@@ -154,11 +154,11 @@
 
 -(void)loginWithFacebook:(id)sender
 {
-    NSLog(@"%@",FBSession.activeSession);
+//    NSLog(@"%@",FBSession.activeSession);
     
     
     if (FBSession.activeSession.isOpen)
-    {   NSLog(@"FBSession is open, getting user details");
+    { //  NSLog(@"FBSession is open, getting user details");
         [self getUserDetails];
     }
     
@@ -168,7 +168,7 @@
         
        // delegate.session = [[FBSession alloc] initWithPermissions:[NSArray arrayWithObjects:@"email", nil]];
         
-        NSLog(@"opening new session");
+   //     NSLog(@"opening new session");
         [FBSession openActiveSessionWithReadPermissions:[NSArray arrayWithObject:@"email"] allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
             
         
@@ -200,7 +200,7 @@
     // dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
     
-    NSLog(@"getting user details");
+ //   NSLog(@"getting user details");
     if (FBSession.activeSession.isOpen) {
         [[FBRequest requestForMe] startWithCompletionHandler:
          ^(FBRequestConnection *connection,
@@ -212,14 +212,14 @@
              });
              
              if (!error) {
-                 NSLog(@"setting username");
+           //      NSLog(@"setting username");
                  form.Email.text = [user objectForKey:@"email"];
                  form.Name.text = user.name;
              }
          }];
     }
     else {
-        NSLog(@"fbsession not open?");
+     //   NSLog(@"fbsession not open?");
     }
     // });
 }
@@ -232,7 +232,7 @@
     NSString *regExPattern = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
     NSRegularExpression *regEx = [[NSRegularExpression alloc] initWithPattern:regExPattern options:NSRegularExpressionCaseInsensitive error:nil];
     NSUInteger regExMatches = [regEx numberOfMatchesInString:emailString options:0 range:NSMakeRange(0, [emailString length])];
-    NSLog(@"%i", regExMatches);
+  //  NSLog(@"%i", regExMatches);
     if (regExMatches == 0)
         return NO;
     else

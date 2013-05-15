@@ -49,16 +49,16 @@
     [lblResAddress setText:[Checkin.Location text]];
         
     [lblName setText:[NSGlobalConfiguration getConfigurationItem:@"FullName"]];
-    NSLog(@"Checkin.Picture: %@",Checkin.Picture);
+   // NSLog(@"Checkin.Picture: %@",Checkin.Picture);
 
     ProfileID = [[NSGlobalConfiguration getConfigurationItem:@"ID"] intValue];
-    NSLog(@"%d",ProfileID);
+ //   NSLog(@"%d",ProfileID);
     
     locationId = (int)Checkin.ID;
-    NSLog(@"locationId : %d",locationId);
+  //  NSLog(@"locationId : %d",locationId);
     
     NSString *strUrl = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[NSGlobalConfiguration getConfigurationItem:@"ImageURL"]]];
-    NSLog(@"strUrl >> %@",strUrl);
+  //  NSLog(@"strUrl >> %@",strUrl);
 
     ImageViewLoading *imgView = [[ImageViewLoading alloc] initWithFrame:CGRectMake(0, 0, 80, 80) ImageUrl:strUrl];
     [UserImage addSubview:imgView];
@@ -66,8 +66,8 @@
     
     // Do any additional setup after loading the view from its nib.
     
-    NSLog(@"Name >> %@",lblName);
-    NSLog(@"Res address >> %@",lblResAddress);
+   // NSLog(@"Name >> %@",lblName);
+  //  NSLog(@"Res address >> %@",lblResAddress);
     
     switchFacebook = [[UISwitch alloc] initWithFrame:CGRectMake(190, 5, 77, 27)];
     switchTwitter = [[UISwitch alloc] initWithFrame:CGRectMake(190, 5, 77, 27)];
@@ -80,14 +80,16 @@
     }
 }
 
--(void)viewWillAppear:(BOOL)animated{
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
     @try {
         //[CommentField becomeFirstResponder];
         
         //check switch condition
         NSString *strAccessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"fb_access_token"];
         NSString *strFbExpDate = [[NSUserDefaults standardUserDefaults] stringForKey:@"fb_exp_date"];
-        NSLog(@"strAccessToken : %@,strFbExpDate : %@",strAccessToken,strFbExpDate);
+    //    NSLog(@"strAccessToken : %@,strFbExpDate : %@",strAccessToken,strFbExpDate);
         
         //2013-07-06 09:39:05 +0000
         NSDateFormatter* df = [[NSDateFormatter alloc] init];
@@ -95,16 +97,16 @@
         NSDate* fbdate = [df dateFromString:strFbExpDate];
         NSDate *todayDate = [NSDate date];
         
-        NSLog(@"fbdate %@",fbdate);
-        NSLog(@"todayDate %@",todayDate);
-        NSLog(@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"FB"]);
+     //   NSLog(@"fbdate %@",fbdate);
+     //   NSLog(@"todayDate %@",todayDate);
+     //   NSLog(@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"FB"]);
         if ([todayDate earlierDate:fbdate] && fbdate)
         {
-            NSLog(@"YES");
+         //   NSLog(@"YES");
             [switchFacebook setOn:YES];
         }
         else{
-            NSLog(@"NO");
+         //   NSLog(@"NO");
             [switchFacebook setOn:NO];
         }
         //For twitter
@@ -130,7 +132,7 @@
         }
     }
     @catch (NSException *exception) {
-        NSLog(@"exception : %@",exception);
+   //     NSLog(@"exception : %@",exception);
     }
 }
 
@@ -154,7 +156,9 @@
     CommentField.text = [CommentField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     if(CommentField.text.length!=0){
         [NSUserInterfaceCommands PostFeed:[(NSString *)[NSGlobalConfiguration getConfigurationItem:@"ID"] integerValue] Comment:[CommentField text] LocationID:[Checkin ID] CallbackDelegate:self];
-        [self performSelector:@selector(btnShare_Click:) withObject:nil];
+        //[self performSelector:@selector(btnShare_Click:) withObject:nil];
+        [self performSelectorInBackground:@selector(btnShare_Click:) withObject:nil];
+        
     }
     [CommentField setText:nil];
 }
@@ -173,12 +177,12 @@
             {
                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"FB"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
-                NSLog(@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"FB"]);
+           //     NSLog(@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"FB"]);
 
 
                 NSString *strAccessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"fb_access_token"];
                 NSString *strFbExpDate = [[NSUserDefaults standardUserDefaults] stringForKey:@"fb_exp_date"];
-                NSLog(@"strAccessToken : %@,strFbExpDate : %@",strAccessToken,strFbExpDate);
+            //    NSLog(@"strAccessToken : %@,strFbExpDate : %@",strAccessToken,strFbExpDate);
                 
                 //2013-07-06 09:39:05 +0000
                 NSDateFormatter* df = [[NSDateFormatter alloc] init];
@@ -189,14 +193,14 @@
                 
                 if ([fbdate earlierDate:todayDate]) {
                     
-                    NSLog(@"fbdate : %@",fbdate);
-                    NSLog(@"todayDate : %@",todayDate);
-                    NSLog(@"YES");
+              //      NSLog(@"fbdate : %@",fbdate);
+               //     NSLog(@"todayDate : %@",todayDate);
+               //     NSLog(@"YES");
                     return;
                 }
                 else{
                  //   [FBSession set];
-                    NSLog(@"NO");
+                 //   NSLog(@"NO");
                 }
                 
                 if (FBSession.activeSession.isOpen){
@@ -206,12 +210,12 @@
                         [FBSession.activeSession reauthorizeWithPublishPermissions:[NSArray arrayWithObjects:@"read_stream", @"publish_stream", @"offline_access", nil] defaultAudience:FBSessionDefaultAudienceFriends completionHandler:^(FBSession *session, NSError *error) {
                            if (!error)
                            {
-                               NSLog(@"%@",session.accessToken);
+                      //         NSLog(@"%@",session.accessToken);
                                [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@",session.accessToken] forKey:@"fb_access_token"];
                                [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@",session.expirationDate] forKey:@"fb_exp_date"];
                            }
                            else {
-                               NSLog(@"error:%@",error.localizedDescription);
+                        //       NSLog(@"error:%@",error.localizedDescription);
                            }
                        }];
                     }
@@ -221,14 +225,14 @@
                     [FBSession openActiveSessionWithPublishPermissions:[NSArray arrayWithObjects:@"read_stream",@"publish_stream", nil] defaultAudience:FBSessionDefaultAudienceFriends allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
                         
                         if (!error){
-                            NSLog(@"%@",session.accessToken);
+                //            NSLog(@"%@",session.accessToken);
                            
                             [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@",session.accessToken] forKey:@"fb_access_token"];
                             [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@",session.expirationDate] forKey:@"fb_exp_date"];
                             
                         }
                         else {
-                            NSLog(@"error:%@",error.localizedDescription);
+                   //         NSLog(@"error:%@",error.localizedDescription);
                         }
                     }];
                 }
@@ -240,7 +244,7 @@
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"FB"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
          
-                NSLog(@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"FB"]);
+         //       NSLog(@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"FB"]);
 
             }
    
@@ -317,7 +321,7 @@
         if(isFaceBookShareOn){
             NSString *strAccessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"fb_access_token"];
             NSString *strFbExpDate = [[NSUserDefaults standardUserDefaults] stringForKey:@"fb_exp_date"];
-            NSLog(@"strAccessToken : %@,strFbExpDate : %@",strAccessToken,strFbExpDate);
+     //       NSLog(@"strAccessToken : %@,strFbExpDate : %@",strAccessToken,strFbExpDate);
             
             //2013-07-06 09:39:05 +0000
             NSDateFormatter* df = [[NSDateFormatter alloc] init];
@@ -328,13 +332,13 @@
             
             if ([fbdate earlierDate:todayDate]) {
                 
-                NSLog(@"fbdate : %@",fbdate);
-                NSLog(@"todayDate : %@",todayDate);
-                NSLog(@"YES");
+          //      NSLog(@"fbdate : %@",fbdate);
+           //     NSLog(@"todayDate : %@",todayDate);
+            //    NSLog(@"YES");
             }
             else
             {
-                NSLog(@"NO");
+             //   NSLog(@"NO");
             }
             
             
@@ -342,9 +346,9 @@
                 
                 NSURL *url = [NSURL URLWithString:@"https://graph.facebook.com/me/feed"];
                 ASIFormDataRequest *newRequest = [ASIFormDataRequest requestWithURL:url];
-                [newRequest setPostValue:[NSString stringWithFormat:@"%@ checked in at %@ via Heres2U app",lblName.text,lblResName.text] forKey:@"message"];
-                [newRequest setPostValue:@"Heres2U App" forKey:@"name"];
-                [newRequest setPostValue:@"Locaiton Name" forKey:@"caption"];
+                [newRequest setPostValue:[NSString stringWithFormat:@"%@ checked in at restaurant %@, click here to buy him a drink or meal in real-time!",lblName.text,lblResName.text] forKey:@"message"];
+                [newRequest setPostValue:lblResName.text forKey:@"name"];
+                [newRequest setPostValue:lblResAddress.text forKey:@"caption"];
                 [newRequest setPostValue:nil forKey:@"description"];
                 [newRequest setPostValue:[NSString stringWithFormat:@"http://50.62.148.155:8080/heres2u/sendgift_home.php?receivingUserID=%d&locationID=%d",ProfileID,locationId] forKey:@"link"];
                  
@@ -374,18 +378,13 @@
 - (void)postToWallFinished:(ASIHTTPRequest *)request
 {
     //    [self stopLoading];
-    NSString *responseString = [request responseString];
+ //  NSString *responseString = [request responseString];
     
-    NSMutableDictionary *responseJSON = [responseString JSONValue];
-    NSString *postId = [responseJSON objectForKey:@"id"];
-    NSLog(@"Post id is: %@", postId);
-            UIAlertView *av = [[UIAlertView alloc]
-                           initWithTitle:@"Sucessfully posted to Facebook wall!"
-                           message:@"Check out your Facebook to see!"
-                           delegate:nil
-                           cancelButtonTitle:@"OK"
-                           otherButtonTitles:nil];
-        [av show];
+   // NSMutableDictionary *responseJSON = [responseString JSONValue];
+ //   NSString *postId = [responseJSON objectForKey:@"id"];
+ //   NSLog(@"Post id is: %@", postId);
+    UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Sucessfully posted to Facebook wall!" message:@"Check out your Facebook to see!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [av show];
 }
 
 - (void)postToWallFailed:(ASIHTTPRequest *)request
@@ -404,7 +403,7 @@
 
 - (void) storeCachedTwitterOAuthData: (NSString *) data forUsername: (NSString *) username
 {
-    NSLog(@"User name : %@",username);
+ //   NSLog(@"User name : %@",username);
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"twitterLogin"];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -422,17 +421,17 @@
 
 - (void) requestSucceeded: (NSString *) requestIdentifier
 {
-    NSLog(@"Request %@ succeeded", requestIdentifier);
+  //  NSLog(@"Request %@ succeeded", requestIdentifier);
     UIAlertView *alTWSucceed = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"Message has been posted successfully!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alTWSucceed show];
 }
 
 - (void) requestFailed: (NSString *) requestIdentifier withError: (NSError *) error
 {
-    NSLog(@"Request %@ failed with error: %@", requestIdentifier, error);
-    NSArray *arrayError = [[NSArray alloc] init];
-    arrayError = [[error localizedDescription] componentsSeparatedByString:@"("];
-    NSLog(@"Error Code >> %@",[arrayError objectAtIndex:1]);
+   // NSLog(@"Request %@ failed with error: %@", requestIdentifier, error);
+    NSArray *arrayError = [[NSArray alloc] initWithArray:[[error localizedDescription] componentsSeparatedByString:@"("]];
+//    arrayError = [[error localizedDescription] componentsSeparatedByString:@"("];
+  //  NSLog(@"Error Code >> %@",[arrayError objectAtIndex:1]);
     
     UIAlertView *alTwitterError;
     if ([[arrayError objectAtIndex:1] isEqualToString:@"HTTP error 403.)"])
@@ -452,10 +451,16 @@
     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Success" message:@"Successfully Checked In." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
    // [self.navigationController popViewControllerAnimated:YES];
-    NSLog(@"tabBarController:%@",self.tabBarController); 
+ //   NSLog(@"tabBarController:%@",self.tabBarController);
     //[[[self.navigationController.viewControllers objectAtIndex:0] tabBarController] setSelectedIndex:0];
-    [self.tabBar setSelectedIndex:0]; 
+    [self performSelector:@selector(sendToOtherTab) withObject:self afterDelay:2.5];
 }
+
+-(void)sendToOtherTab{
+    [self.tabBar setSelectedIndex:0];
+}
+
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

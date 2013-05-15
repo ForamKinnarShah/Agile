@@ -20,7 +20,7 @@
 }
 -(void) downloadLocations{
     NSURL *URL=[NSURL URLWithString:[NSString stringWithFormat:@"%@?webservice=ui&action=getlocations",[NSGlobalConfiguration URL]]];
-    NSLog(@"URL : %@",URL);
+ //   NSLog(@"URL : %@",URL);
     NSURLRequest *request=[[NSURLRequest alloc] initWithURL:URL];
     NSURLConnection *connection=[[NSURLConnection alloc] initWithRequest:request delegate:self];
     RawData=[[NSMutableData alloc] init];

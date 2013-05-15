@@ -74,7 +74,7 @@
 		[self setPostData:[NSMutableArray array]];
 	}
 	[[self postData] addObject:[NSDictionary dictionaryWithObjectsAndKeys:[value description],@"value",key,@"key",nil]];
-	NSLog(@"%@",[postData description]);
+//	NSLog(@"%@",[postData description]);
 }
 
 - (void)setPostValue:(id <NSObject>)value forKey:(NSString *)key
@@ -210,7 +210,7 @@
 	[super buildPostBody];
 	
 #if DEBUG_FORM_DATA_REQUEST
-	NSLog(@"%@",[self debugBodyString]);
+	//NSLog(@"%@",[self debugBodyString]);
 	[self setDebugBodyString:nil];
 #endif
 }

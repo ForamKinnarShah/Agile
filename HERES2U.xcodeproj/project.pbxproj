@@ -1953,62 +1953,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AA1966E1712B15C001F7A40 /* Constants.m in Sources */,
 				7AA196711712B15C001F7A40 /* FollowingViewController.m in Sources */,
-				7AA196721712B15C001F7A40 /* NSFollowersDatasource.m in Sources */,
-				7AA196731712B15C001F7A40 /* NSFollowingDatasource.m in Sources */,
-				7AA196741712B15C001F7A40 /* NSSearchForUser.m in Sources */,
-				7AA196751712B15C001F7A40 /* AppDelegate.m in Sources */,
-				7AA1967A1712B15C001F7A40 /* FeedItems.m in Sources */,
-				7AA1967B1712B15C001F7A40 /* Feeds.xcdatamodeld in Sources */,
-				7AA1967D1712B15C001F7A40 /* main.m in Sources */,
-				7AA1969E1712B15C001F7A40 /* NSCommentLoader.m in Sources */,
-				7AA1969F1712B15C001F7A40 /* NSFeedManager.m in Sources */,
-				7AA196A01712B15C001F7A40 /* NSGlobalConfiguration.m in Sources */,
-				7AA196A11712B15C001F7A40 /* NSImageLoader.m in Sources */,
-				7AA196A21712B15C001F7A40 /* NSImageLoaderToImageView.m in Sources */,
-				7AA196A31712B15C001F7A40 /* NSLocationLoader.m in Sources */,
-				7AA196A41712B15C001F7A40 /* NSProfile.m in Sources */,
-				7AA196A51712B15C001F7A40 /* NSTaggedURLConnection.m in Sources */,
-				7AA196A61712B15C001F7A40 /* NSTaggedXMLParser.m in Sources */,
-				7AA196A71712B15C001F7A40 /* NSUserAccessControl.m in Sources */,
-				7AA196A81712B15C001F7A40 /* NSUserInterfaceCommands.m in Sources */,
-				7AA196A91712B15C001F7A40 /* orderItem.m in Sources */,
-				7AA196AA1712B15C001F7A40 /* phpCaller.m in Sources */,
-				7AA196AB1712B15C001F7A40 /* QBMSRequester.m in Sources */,
-				7AA196AE1712B15C001F7A40 /* UIComment.m in Sources */,
-				7AA196B01712B15C001F7A40 /* RegistrationViewController.m in Sources */,
-				7AA196B11712B15C001F7A40 /* UIRegistrationForm.m in Sources */,
-				7AA196B21712B15C001F7A40 /* UIUserInteractionItem.m in Sources */,
-				7AA196B61712B15C001F7A40 /* utilities.m in Sources */,
-				7AA196B71712B15C001F7A40 /* addViewController.m in Sources */,
-				7AA196BB1712B15C001F7A40 /* CheckinViewController.m in Sources */,
-				7AA196C01712B15C001F7A40 /* CommentViewController.m in Sources */,
-				7AA196C11712B15C001F7A40 /* FeedViewController.m in Sources */,
-				7AA196C31712B15C001F7A40 /* UIActivityView.m in Sources */,
-				7AA196C51712B15C001F7A40 /* contactInfoViewController.m in Sources */,
-				7AA196C71712B15C001F7A40 /* heres2uitemView.m in Sources */,
-				7AA196C91712B15C001F7A40 /* Heres2uViewController.m in Sources */,
-				7AA196CB1712B15C001F7A40 /* menuViewController.m in Sources */,
-				7AA196CD1712B15C001F7A40 /* paymentViewController.m in Sources */,
-				7AA196CF1712B15C001F7A40 /* sendViewController.m in Sources */,
-				7AA196D81712B15C001F7A40 /* orderItemView.m in Sources */,
-				7AA196DB1712B15C001F7A40 /* ProfileViewController.m in Sources */,
-				7AA196DD1712B15C001F7A40 /* searchViewController.m in Sources */,
-				7AA196DF1712B15C001F7A40 /* settingsViewController.m in Sources */,
-				7AA196E31712B15C001F7A40 /* UICheckIns.m in Sources */,
-				6F815F33171429F400447C25 /* Reachability.m in Sources */,
-				13448F9B17194A4200B84B9F /* MyTabUsed.m in Sources */,
-				13448FA017194A7600B84B9F /* ImageViewLoading.m in Sources */,
-				7ABD92D4171B7268001D10DE /* addCreditCardViewController.m in Sources */,
-				134AB797171D4E1200F179E4 /* MytabViewController.m in Sources */,
-				134AB799171D4E1200F179E4 /* ReceiptViewController.m in Sources */,
-				134AB79E171D59D800F179E4 /* MyTabXmlParse.m in Sources */,
-				134AB7F1171D6E2F00F179E4 /* SayThanksXML.m in Sources */,
 				134E4C2C171E737900257321 /* EGORefreshTableHeaderView.m in Sources */,
-				6FC50969171FE61D003CA7FC /* LostPasswordVC.m in Sources */,
-				6FC5096E17202886003CA7FC /* MBProgressHUD.m in Sources */,
-				7A4217841724BA8A00697822 /* mapViewController.m in Sources */,
 				7AED178B172611250005A15E /* GTLBase64.m in Sources */,
 				7AED178C172611250005A15E /* GTLBatchQuery.m in Sources */,
 				7AED178D172611250005A15E /* GTLBatchResult.m in Sources */,
@@ -2064,6 +2010,61 @@
 				6F7DA2531726C9BF00DB8E16 /* SBJsonParser.m in Sources */,
 				6F7DA2541726C9BF00DB8E16 /* SBJsonWriter.m in Sources */,
 				6FBEB62D1727D7D100DC9611 /* AsyncImageView.m in Sources */,
+				6F37AF47172B959D001DBB16 /* XMLReader.m in Sources */,
+				7AA1966E1712B15C001F7A40 /* Constants.m in Sources */,
+				7AA196721712B15C001F7A40 /* NSFollowersDatasource.m in Sources */,
+				7AA196731712B15C001F7A40 /* NSFollowingDatasource.m in Sources */,
+				7AA196741712B15C001F7A40 /* NSSearchForUser.m in Sources */,
+				7AA196751712B15C001F7A40 /* AppDelegate.m in Sources */,
+				7AA1967A1712B15C001F7A40 /* FeedItems.m in Sources */,
+				7AA1967B1712B15C001F7A40 /* Feeds.xcdatamodeld in Sources */,
+				7AA1967D1712B15C001F7A40 /* main.m in Sources */,
+				7AA1969E1712B15C001F7A40 /* NSCommentLoader.m in Sources */,
+				7AA1969F1712B15C001F7A40 /* NSFeedManager.m in Sources */,
+				7AA196A01712B15C001F7A40 /* NSGlobalConfiguration.m in Sources */,
+				7AA196A11712B15C001F7A40 /* NSImageLoader.m in Sources */,
+				7AA196A21712B15C001F7A40 /* NSImageLoaderToImageView.m in Sources */,
+				7AA196A31712B15C001F7A40 /* NSLocationLoader.m in Sources */,
+				7AA196A41712B15C001F7A40 /* NSProfile.m in Sources */,
+				7AA196A51712B15C001F7A40 /* NSTaggedURLConnection.m in Sources */,
+				7AA196A61712B15C001F7A40 /* NSTaggedXMLParser.m in Sources */,
+				7AA196A71712B15C001F7A40 /* NSUserAccessControl.m in Sources */,
+				7AA196A81712B15C001F7A40 /* NSUserInterfaceCommands.m in Sources */,
+				7AA196A91712B15C001F7A40 /* orderItem.m in Sources */,
+				7AA196AA1712B15C001F7A40 /* phpCaller.m in Sources */,
+				7AA196AB1712B15C001F7A40 /* QBMSRequester.m in Sources */,
+				7AA196AE1712B15C001F7A40 /* UIComment.m in Sources */,
+				7AA196B01712B15C001F7A40 /* RegistrationViewController.m in Sources */,
+				7AA196B11712B15C001F7A40 /* UIRegistrationForm.m in Sources */,
+				7AA196B21712B15C001F7A40 /* UIUserInteractionItem.m in Sources */,
+				7AA196B61712B15C001F7A40 /* utilities.m in Sources */,
+				7AA196B71712B15C001F7A40 /* addViewController.m in Sources */,
+				7AA196BB1712B15C001F7A40 /* CheckinViewController.m in Sources */,
+				7AA196C01712B15C001F7A40 /* CommentViewController.m in Sources */,
+				7AA196C11712B15C001F7A40 /* FeedViewController.m in Sources */,
+				7AA196C31712B15C001F7A40 /* UIActivityView.m in Sources */,
+				7AA196C51712B15C001F7A40 /* contactInfoViewController.m in Sources */,
+				7AA196C71712B15C001F7A40 /* heres2uitemView.m in Sources */,
+				7AA196C91712B15C001F7A40 /* Heres2uViewController.m in Sources */,
+				7AA196CB1712B15C001F7A40 /* menuViewController.m in Sources */,
+				7AA196CD1712B15C001F7A40 /* paymentViewController.m in Sources */,
+				7AA196CF1712B15C001F7A40 /* sendViewController.m in Sources */,
+				7AA196D81712B15C001F7A40 /* orderItemView.m in Sources */,
+				7AA196DB1712B15C001F7A40 /* ProfileViewController.m in Sources */,
+				7AA196DD1712B15C001F7A40 /* searchViewController.m in Sources */,
+				7AA196DF1712B15C001F7A40 /* settingsViewController.m in Sources */,
+				7AA196E31712B15C001F7A40 /* UICheckIns.m in Sources */,
+				6F815F33171429F400447C25 /* Reachability.m in Sources */,
+				13448F9B17194A4200B84B9F /* MyTabUsed.m in Sources */,
+				13448FA017194A7600B84B9F /* ImageViewLoading.m in Sources */,
+				7ABD92D4171B7268001D10DE /* addCreditCardViewController.m in Sources */,
+				134AB797171D4E1200F179E4 /* MytabViewController.m in Sources */,
+				134AB799171D4E1200F179E4 /* ReceiptViewController.m in Sources */,
+				134AB79E171D59D800F179E4 /* MyTabXmlParse.m in Sources */,
+				134AB7F1171D6E2F00F179E4 /* SayThanksXML.m in Sources */,
+				6FC50969171FE61D003CA7FC /* LostPasswordVC.m in Sources */,
+				6FC5096E17202886003CA7FC /* MBProgressHUD.m in Sources */,
+				7A4217841724BA8A00697822 /* mapViewController.m in Sources */,
 				6F37AF3D172B959D001DBB16 /* MKAnnotationView+WebCache.m in Sources */,
 				6F37AF3E172B959D001DBB16 /* SDImageCache.m in Sources */,
 				6F37AF3F172B959D001DBB16 /* SDWebImageCompat.m in Sources */,
@@ -2074,7 +2075,6 @@
 				6F37AF44172B959D001DBB16 /* SDWebImagePrefetcher.m in Sources */,
 				6F37AF45172B959D001DBB16 /* UIButton+WebCache.m in Sources */,
 				6F37AF46172B959D001DBB16 /* UIImageView+WebCache.m in Sources */,
-				6F37AF47172B959D001DBB16 /* XMLReader.m in Sources */,
 				6F37AF4C172BBA0B001DBB16 /* MyTabSent.m in Sources */,
 				133077131733F1950086DB2D /* LoginViewController.m in Sources */,
 				133077181733F1CA0086DB2D /* creditCardInfoViewController.m in Sources */,
@@ -2199,9 +2199,10 @@
 					armv7,
 					armv6,
 				);
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Brian Rosa (J35L3P43JL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Brian Rosa (J35L3P43JL)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/FacebookSDK\"",
@@ -2222,8 +2223,8 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
+				PROVISIONING_PROFILE = "F351B90D-9584-447E-AC5A-2430E83370F1";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F351B90D-9584-447E-AC5A-2430E83370F1";
 				SDKROOT = iphoneos6.1;
 				VALID_ARCHS = "armv7 armv6";
 				WRAPPER_EXTENSION = app;
@@ -2237,9 +2238,10 @@
 					armv7,
 					armv6,
 				);
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brian Rosa (XD26PHK8H7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Brian Rosa (J35L3P43JL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Brian Rosa (J35L3P43JL)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/FacebookSDK\"",
@@ -2261,8 +2263,8 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7F418B9D-5340-4A4C-B8DE-53DB6946AE2C";
+				PROVISIONING_PROFILE = "F351B90D-9584-447E-AC5A-2430E83370F1";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F351B90D-9584-447E-AC5A-2430E83370F1";
 				SDKROOT = iphoneos6.1;
 				VALIDATE_PRODUCT = NO;
 				VALID_ARCHS = "armv7 armv6";

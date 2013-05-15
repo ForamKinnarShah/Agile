@@ -39,7 +39,7 @@
     self.title = @"HERES2U";
     // Custom initialization
     [self.navigationController.navigationBar setBackgroundColor:[UIColor grayColor]];
-    UIBarButtonItem *searchBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(search:)];
+ //   UIBarButtonItem *searchBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(search:)];
     
     //[self.navigationItem setRightBarButtonItem:searchBtn];
     
@@ -102,7 +102,7 @@
 
 -(void)loadMenuView
 {
-    NSLog(@"loading menu"); 
+  //  NSLog(@"loading menu");
         menuViewController *menu = [[menuViewController alloc] initWithNibName:@"menuViewController" bundle:nil];
     //
     //    NSLog(@"%@: name:%@",sender,sender.name.text);
@@ -127,7 +127,7 @@
 
 -(void) phpCallerFailed:(NSError *)error;
 {
-    NSLog(@"php caller failed with error:%@",error.localizedDescription); 
+ //   NSLog(@"php caller failed with error:%@",error.localizedDescription);
 }
 
 -(void) phpCallerFinished:(NSMutableArray *)returnData
@@ -135,7 +135,7 @@
     if ([friendItems count] != [returnData count])
     {
     friendItems = returnData;
-    NSLog(@"php caller finished with items:%@",returnData);
+  //  NSLog(@"php caller finished with items:%@",returnData);
     [self loadActivities];
     }
     else if ([friendItems count] == 0){

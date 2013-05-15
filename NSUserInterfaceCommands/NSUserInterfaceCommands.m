@@ -238,7 +238,7 @@
     [PostData appendData:[@"\r\n--" dataUsingEncoding:NSUTF8StringEncoding]];
     [PostData appendData:[Boundary dataUsingEncoding:NSUTF8StringEncoding]];
     [PostData appendData:[@"--\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-    NSLog(@"%@",[[NSString alloc] initWithData:PostData encoding:NSUTF8StringEncoding]);
+  //  NSLog(@"%@",[[NSString alloc] initWithData:PostData encoding:NSUTF8StringEncoding]);
     [request setHTTPBody:PostData];
     [request setHTTPMethod:@"POST"];
     [request setValue:[NSString stringWithFormat:@"multipart/form-data; boundary=%@",Boundary] forHTTPHeaderField:@"Content-Type"];

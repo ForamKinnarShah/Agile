@@ -56,7 +56,7 @@
             [Unfollow setFrame:CGRectMake(10, 13, 90, 44)];
             //[Unfollow setBackgroundColor:[UIColor redColor]];
             //[Unfollow setTintColor:[UIColor blueColor]];
-            UIColor * highColor = [UIColor colorWithWhite:1.000 alpha:0.5000];
+      //      UIColor * highColor = [UIColor colorWithWhite:1.000 alpha:0.5000];
             UIColor * lowColor = [UIColor redColor];
             CAGradientLayer *unfollowlayer=[CAGradientLayer layer];
             [unfollowlayer setShadowColor:[UIColor lightGrayColor].CGColor];
@@ -114,7 +114,7 @@
                 [StopFollow setFrame:CGRectMake(220, 13, 90, 44)];
                 //[StopFollow setBackgroundColor:[UIColor redColor]];
                 //[StopFollow setTintColor:[UIColor blueColor]];
-                UIColor * highColor = [UIColor colorWithWhite:1.000 alpha:0.5000];
+        //        UIColor * highColor = [UIColor colorWithWhite:1.000 alpha:0.5000];
                 UIColor * lowColor = [UIColor redColor];
                 CAGradientLayer *layer=[CAGradientLayer layer];
                 [layer setShadowColor:[UIColor lightGrayColor].CGColor];
@@ -144,7 +144,7 @@
                     [Unfollow setFrame:CGRectMake(220, 13, 90, 44)];
                     //[Unfollow setBackgroundColor:[UIColor redColor]];
                     //[Unfollow setTintColor:[UIColor blueColor]];
-                    UIColor * highColor = [UIColor colorWithWhite:1.000 alpha:0.5000];
+            //        UIColor * highColor = [UIColor colorWithWhite:1.000 alpha:0.5000];
                     UIColor * lowColor = [UIColor redColor];
                     CAGradientLayer *layer=[CAGradientLayer layer];
                     [layer setShadowColor:[UIColor lightGrayColor].CGColor];
@@ -193,14 +193,14 @@
     }];
 }
 -(IBAction)unfollowButtonPressed:(id)sender{
-    NSLog(@"Unfollowing");
+  //  NSLog(@"Unfollowing");
     SEL  UnfollowSelector=@selector(userRequestedToUnfollowUser:);
     if([self.Delegate respondsToSelector:UnfollowSelector]){
         [self.Delegate userRequestedToUnfollowUser:userID];
     }
 }
 -(IBAction)stopFollowButtonPressed:(id)sender{
-     NSLog(@"Stopping Follow");
+ //    NSLog(@"Stopping Follow");
     SEL StopFollowSelector=@selector(userRequestedToStopUserFromFollowing:);
     if([self.Delegate respondsToSelector:StopFollowSelector]){
         [self.Delegate userRequestedToStopUserFromFollowing:userID];

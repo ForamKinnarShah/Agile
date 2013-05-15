@@ -358,7 +358,7 @@ finishedWithAuth:(GTMOAuth2Authentication *)auth
     self.view = [[[UIView alloc] init] autorelease];
 
 #if DEBUG
-    NSLog(@"missing %@.nib", nibName);
+  //  NSLog(@"missing %@.nib", nibName);
 #endif
   }
 }
@@ -544,9 +544,9 @@ static Class gSignInClass = Nil;
 #if DEBUG
   if (self.navigationController) {
     if (self.navigationController.topViewController != self && request != nil) {
-      NSLog(@"Unexpected: Request to show, when already on top. request %@", [request URL]);
+   //   NSLog(@"Unexpected: Request to show, when already on top. request %@", [request URL]);
     } else if(self.navigationController.topViewController != self && request == nil) {
-      NSLog(@"Unexpected: Request to pop, when not on top. request nil");
+   //   NSLog(@"Unexpected: Request to pop, when not on top. request nil");
     }
   }
 #endif

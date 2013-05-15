@@ -108,17 +108,17 @@
         // Request to save the image to camera roll
         [library writeImageToSavedPhotosAlbum:[image1 CGImage] orientation:(ALAssetOrientation)[image1 imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error){
             if (error) {
-                NSLog(@"error");
+             //   NSLog(@"error");
             } else {
-                NSLog(@"url %@", assetURL);
+              //  NSLog(@"url %@", assetURL);
                 NSURL *imagePath = assetURL;
                 NSString *name = [NSString stringWithFormat:@"%@",imagePath];
-                NSLog(@"name : %@",name);
+             //   NSLog(@"name : %@",name);
                 NSArray *listItems = [name componentsSeparatedByString:@"="];
-                NSLog(@"listItems : %@",listItems);
+             //   NSLog(@"listItems : %@",listItems);
                 NSString *imgName = [listItems objectAtIndex:listItems.count-2];
                 imgName = [NSString stringWithFormat:@"%@.png",imgName];
-                NSString *extention = [listItems objectAtIndex:listItems.count-1];
+          //      NSString *extention = [listItems objectAtIndex:listItems.count-1];
                 [btnImage setImage:image forState:UIControlStateNormal];
                 
             }
@@ -128,12 +128,12 @@
     else{
         NSURL *imagePath = [info objectForKey:@"UIImagePickerControllerReferenceURL"];
         NSString *name = [NSString stringWithFormat:@"%@",imagePath];
-        NSLog(@"name : %@",name);
+    //    NSLog(@"name : %@",name);
         NSArray *listItems = [name componentsSeparatedByString:@"="];
-        NSLog(@"listItems : %@",listItems);
+     //   NSLog(@"listItems : %@",listItems);
         NSString *imgName = [listItems objectAtIndex:listItems.count-2];
         imgName = [NSString stringWithFormat:@"%@.png",imgName];
-        NSString *extention = [listItems objectAtIndex:listItems.count-1];
+     //   NSString *extention = [listItems objectAtIndex:listItems.count-1];
         [btnImage setImage:image forState:UIControlStateNormal];
         
     }
@@ -184,7 +184,7 @@
             strZip = textZIP.text;
         }
         else{
-            NSLog(@"textZIP.text : %@",textZIP.text);
+    //        NSLog(@"textZIP.text : %@",textZIP.text);
         }
     }
     
@@ -226,7 +226,7 @@
 -(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
     if (error)
     {
-        NSLog(@"error:%@",error);
+    //    NSLog(@"error:%@",error);
     }
     
     if (result == MFMailComposeResultSent)
@@ -258,7 +258,7 @@
         count=6;
     }
     
-    NSLog(@"count : %d",count);
+  //  NSLog(@"count : %d",count);
     return count;
 }
 
@@ -510,7 +510,7 @@
         return cell;
     }
     @catch (NSException *exception) {
-        NSLog(@"NSException : %@",exception);
+  //      NSLog(@"NSException : %@",exception);
     }
     
 }

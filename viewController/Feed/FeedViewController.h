@@ -23,7 +23,7 @@
     NSTimer *timer;
     UIButton *defaultButton;
     CGFloat length;
-    NSMutableArray *oldFeeds;
+   // NSMutableArray *oldFeeds;
     NSMutableArray *activityViews;
     int numberOfPostsToLoad; 
 }

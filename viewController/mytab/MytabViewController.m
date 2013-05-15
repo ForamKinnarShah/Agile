@@ -62,7 +62,7 @@
     
     
     hostURl = [NSGlobalConfiguration URL];
-    NSLog(@"hostURl : %@",hostURl);
+ //   NSLog(@"hostURl : %@",hostURl);
     
     [segmented addTarget:self action:@selector(segmentControlChanged) forControlEvents:UIControlEventValueChanged];
 
@@ -128,7 +128,7 @@
     @try {
         [super viewWillAppear:animated];
         
-        NSLog(@"selectedSegment : %d",selectedSegment);
+    //    NSLog(@"selectedSegment : %d",selectedSegment);
         if(selectedSegment==1){
             isSent = NO;
             [self startLoading];
@@ -266,11 +266,11 @@
     @try {
         
         uId = (NSString *)[NSGlobalConfiguration getConfigurationItem:@"ID"];
-        NSLog(@"uId : %@",uId);
-        NSLog(@"status:%u",[CLLocationManager authorizationStatus]); 
+    //    NSLog(@"uId : %@",uId);
+    //    NSLog(@"status:%u",[CLLocationManager authorizationStatus]);
         if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized)
         {
-            NSLog(@"locations not authorized, stopping locationmanager"); 
+     //       NSLog(@"locations not authorized, stopping locationmanager");
             [locationManager stopUpdatingLocation];
             isLatLong = YES;
             currentLat = @"0";
@@ -283,12 +283,12 @@
             
             isReceived = YES;            
             NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@index.php?webservice=ui&action=getreceiveditems&ID=%@&Lat=-%@&Long=%@",hostURl,uId,currentLat,currentLong]];
-            NSLog(@" : %@",url);
+       //     NSLog(@" : %@",url);
             
             
             [dicReceived removeAllObjects];
             myparser = [[MyTabXmlParse alloc] initWithURL:url];
-            NSLog(@"dicReceived: %@",dicReceived);
+       //     NSLog(@"dicReceived: %@",dicReceived);
             if(dicReceived.count==0){
                 if(isParseFailed){
                     isParseFailed = NO;
@@ -347,7 +347,7 @@
 
     }
     @catch (NSException *exception) {
-        NSLog(@"exception : %@",exception);
+ //       NSLog(@"exception : %@",exception);
     }
 }
 
@@ -365,7 +365,7 @@
 
 -(void)segmentControlChanged
 {
-    NSLog(@"[segmented selectedSegmentIndex] : %d",[segmented selectedSegmentIndex]);
+  //  NSLog(@"[segmented selectedSegmentIndex] : %d",[segmented selectedSegmentIndex]);
     selectedSegment = [segmented selectedSegmentIndex];
     
     [self startLoading];
@@ -447,12 +447,12 @@
         
         //http://50.62.148.155:8080/heres2u/api/index.php?webservice=ui&action=getsentitems&ID=36&Lat=-33.7501&Long=18.4533
         NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@index.php?webservice=ui&action=getsentitems&ID=%@&Lat=%@&Long=%@",hostURl,uId,currentLat,currentLong]];
-        NSLog(@"url : %@",url);
+    //    NSLog(@"url : %@",url);
         myTabSent = [[MyTabSent alloc] initWithURL:url];
         
         //dictTransaction
-        NSLog(@"dicSent: %@",dicSent);
-        NSLog(@"count : %d",dicSent.count);
+     //   NSLog(@"dicSent: %@",dicSent);
+    //    NSLog(@"count : %d",dicSent.count);
         
         if(dicSent.count==0){
             if(isParseFailed){
@@ -488,7 +488,7 @@
         
         NSArray *arrayCouynt = [dicSent valueForKey:@"TransactionsID"];
         for(int i=0;i<arrayCouynt.count;i++){
-            NSLog(@"I : %d",i);
+         //   NSLog(@"I : %d",i);
             [self.arrayTransactionsID1  addObject:[[dicSent valueForKey:@"TransactionsID"] objectAtIndex:i]];
             [self.arrayLocationID1  addObject:[[dicSent valueForKey:@"LocationID"] objectAtIndex:i]];
             [self.arrayLocationImage1 addObject:[[dicSent valueForKey:@"LocationImage"]objectAtIndex:i]];
@@ -522,11 +522,11 @@
     @try {
        //http://50.62.148.155:8080/heres2u/api/index.php?webservice=ui&action=getuseditems&ID=39&Lat=-33.7501&Long=18.4533
         NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@index.php?webservice=ui&action=getuseditems&ID=%@&Lat=%@&Long=%@",hostURl,uId,currentLat,currentLong]];
-        NSLog(@"url : %@",url);
+    //    NSLog(@"url : %@",url);
        
         myTabUsed = [[MyTabUsed alloc] initWithURL:url];
         //dictTransaction
-        NSLog(@"dicReceived: %@",dicUsed);
+    //    NSLog(@"dicReceived: %@",dicUsed);
         if(dicUsed.count==0){
             if(isParseFailed){
                 isParseFailed = NO;
@@ -749,7 +749,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    NSLog(@"didFailWithError: %@", error);
+ //   NSLog(@"didFailWithError: %@", error);
     [self stopLoading];
     [locationManager stopUpdatingLocation]; 
     UIAlertView *errorAlert = [[UIAlertView alloc]
@@ -759,19 +759,19 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
-    NSLog(@"didUpdateToLocation: %@", newLocation);
+ //   NSLog(@"didUpdateToLocation: %@", newLocation);
     currentLocation = newLocation;
     
     currentLat = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.latitude];
     currentLong = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude];
     
-    NSLog(@"strLat : %@",currentLat);
-    NSLog(@"strLat : %@",currentLong);
+ //   NSLog(@"strLat : %@",currentLat);
+ //   NSLog(@"strLat : %@",currentLong);
     
     isLatLong  = YES;
     
     // Reverse Geocoding
-    NSLog(@"Resolving the Address");
+ //   NSLog(@"Resolving the Address");
      
 }
 
@@ -801,7 +801,7 @@
         
         if(selectedSegment==1){
             NSMutableString *messageBody = [[NSMutableString alloc] initWithString:@"<html><body>"];
-            NSLog(@"arrayTransactionsID : %@",self.arrayTransactionsID);
+       //     NSLog(@"arrayTransactionsID : %@",self.arrayTransactionsID);
             [messageBody appendString:[NSString stringWithFormat:@"Transaction Id: %@</br>",[arrayTransactionsID1 objectAtIndex:selectedRow]]];
             [messageBody appendString:[NSString stringWithFormat:@"Sender Name: %@</br>",[arraySenderName1 objectAtIndex:selectedRow]]];
             [messageBody appendString:[NSString stringWithFormat:@"Receiver Name: %@</br>",[NSGlobalConfiguration getConfigurationItem:@"FullName"]]];
@@ -815,14 +815,14 @@
         [self presentViewController:composer animated:YES completion:nil];
     }
     else {
-        NSLog(@"controller cannot send mail"); 
+   //     NSLog(@"controller cannot send mail");
     }
 }
 
 -(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
     if (error)
     {
-        NSLog(@"error:%@",error);
+     //   NSLog(@"error:%@",error);
     }
     
     if (result == MFMailComposeResultSent)
@@ -864,7 +864,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     int count;
     
-    NSLog(@"sortedLocations : %@",sortedLocations);
+   // NSLog(@"sortedLocations : %@",sortedLocations);
     
     if(selectedSegment==0){
         count = [self.arrayTransactionsID count];
@@ -875,7 +875,11 @@
     else if(selectedSegment==2){
         count = [self.arrayTransactionsID2 count];
     }
-    NSLog(@"count : %d",count);
+    
+    else{
+        count = 0;
+    }
+ //   NSLog(@"count : %d",count);
     return count;
 }
 
@@ -912,7 +916,7 @@
                 strImageUrl = [NSString stringWithFormat:@"%@%@",hostURl,[self.arrayLocationImage objectAtIndex:indexPath.row]];
             }
             else if(selectedSegment==1 && self.arrayLocationImage1.count>0){
-                NSLog(@"self.arrayLocationImage1 : %@",self.arrayLocationImage1);
+           //     NSLog(@"self.arrayLocationImage1 : %@",self.arrayLocationImage1);
                 strImageUrl = [NSString stringWithFormat:@"%@%@",hostURl,[self.arrayLocationImage1 objectAtIndex:indexPath.row]];
             }
             else if(selectedSegment==2 && self.arrayLocationImage2.count>0){
@@ -954,7 +958,7 @@
                  locationLat = [NSString stringWithFormat:@"%@",[self.arrayLatitude2 objectAtIndex:indexPath.row]];
             }
             
-            NSLog(@"Lat :%@,  Long:%@",locationLat,locationLong);
+       //     NSLog(@"Lat :%@,  Long:%@",locationLat,locationLong);
             
             //Haversine formala for calculating distance in miles between two long/lat coordinates
             float dLongRadians = fabsf(([locationLong floatValue] - currentLocation.coordinate.longitude) * 3.141596 / 180);
@@ -966,7 +970,7 @@
             float a = sinf(dlatRadians/2) * sinf(dlatRadians/2) + sinf(dLongRadians/2) * sinf(dLongRadians/2) * cosf(lat1) * cosf(lat2);
             float c = 2 * atan2f(sqrtf(a), sqrtf((1-a)));
             float distanceFromLocation = c * 3959;
-            NSLog(@"distanceFromLocation :%f",distanceFromLocation);
+        //    NSLog(@"distanceFromLocation :%f",distanceFromLocation);
             
             
             UILabel *lblDistance = [[UILabel alloc] initWithFrame:CGRectMake(250, 6, 65, 21)];
@@ -1062,7 +1066,7 @@
         return cell;
     }
     @catch (NSException *exception) {
-        NSLog(@"NSException : %@",exception);
+     //   NSLog(@"NSException : %@",exception);
     }
     
 }
@@ -1073,7 +1077,7 @@
 
 -(void)callAlertViewPopup1:(UIButton*)sender{
     @try {
-        NSLog(@"%d",sender.tag);
+       // NSLog(@"%d",sender.tag);
         selectedRow = sender.tag;
         UIAlertView *alert1 = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"USE GIFT",@"Navigate Here",@"Say Thanks",@"File a Complaint", nil];
         alert1.tag=1;
@@ -1087,7 +1091,7 @@
 
 -(void)callAlertViewPopup2:(UIButton*)sender{
     @try {
-        NSLog(@"%d",sender.tag);
+    //    NSLog(@"%d",sender.tag);
         selectedRow = sender.tag;
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"RECEIPT",@"File a Complaint", nil];
         alert.tag=2;
@@ -1101,7 +1105,7 @@
 
 -(void)callAlertViewPopup3:(UIButton*)sender{
     @try {
-        NSLog(@"%d",sender.tag);
+     //   NSLog(@"%d",sender.tag);
         selectedRow = sender.tag;
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Say Thanks",@"File a Complaint", nil];
         alert.tag=3;
@@ -1118,7 +1122,7 @@
 //-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     @try {
-        NSLog(@"btnIndex : %d",buttonIndex);
+  //      NSLog(@"btnIndex : %d",buttonIndex);
         
         if(alertView.tag==1){
             if(buttonIndex==1){
@@ -1129,18 +1133,18 @@
             else if(buttonIndex==2){
                 NSString *myLatLong = [NSString stringWithFormat:@"%@",[self.arrayLongitude objectAtIndex:selectedRow]];
                 NSString *latlong = [NSString stringWithFormat:@"%@",[self.arrayLatitude objectAtIndex:selectedRow]];
-                NSLog(@"lat : %@ , Long : %@",latlong,myLatLong);
+          //      NSLog(@"lat : %@ , Long : %@",latlong,myLatLong);
                 
                 CGFloat sysVers = [UIDevice currentDevice].systemVersion.floatValue;
                 NSString* hostName = (sysVers < 6.0) ? @"maps.google.com" : @"maps.apple.com";
-                NSLog(@"hostName : %@",hostName);
+        //        NSLog(@"hostName : %@",hostName);
                 NSString* url = [NSString stringWithFormat: @"http://%@/maps?saddr=Current+Location&daddr=%@,%@",hostName,latlong,myLatLong];
                 
                 [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
             }
             else if(buttonIndex==3){
                 int checkThanksID = [[self.arraySayThanksReceived objectAtIndex:selectedRow] integerValue];
-                NSLog(@"checkThanksID : %d",checkThanksID);
+            //    NSLog(@"checkThanksID : %d",checkThanksID);
                 if(checkThanksID==1){
                     [alertView dismissWithClickedButtonIndex:buttonIndex animated:YES];
                     
@@ -1163,7 +1167,7 @@
                 NSMutableArray *receData = [[NSMutableArray alloc] init];
                 [receData addObject:[self.arrayTransactionsID1 objectAtIndex:selectedRow]];
                 [receData addObject:[NSGlobalConfiguration getConfigurationItem:@"FullName"]];
-                NSLog(@"arraySenderName1 : %@",arraySenderName1);
+             //   NSLog(@"arraySenderName1 : %@",arraySenderName1);
                 [receData addObject:[self.arraySenderName1 objectAtIndex:selectedRow]];
                 [receData addObject:[self.arrayLocationName1 objectAtIndex:selectedRow]];
                 [receData addObject:[self.arrayPrice1 objectAtIndex:selectedRow]];
@@ -1244,8 +1248,8 @@
 
 -(void)sayThanks{
     @try {
-        NSLog(@"self.arrayTransactionsID2 : %@",self.arrayTransactionsID2);
-        NSLog(@"selectedRow: %d",selectedRow);
+     //   NSLog(@"self.arrayTransactionsID2 : %@",self.arrayTransactionsID2);
+     //   NSLog(@"selectedRow: %d",selectedRow);
         
         [self startLoading];
         int strTransactionId;
@@ -1255,21 +1259,21 @@
         else{
             strTransactionId = [[NSString stringWithFormat:@"%@",[self.arrayTransactionsID2 objectAtIndex:selectedRow]] integerValue];
         }
-        NSLog(@"strTransactionId : %d",strTransactionId);
+    //    NSLog(@"strTransactionId : %d",strTransactionId);
         //http://50.62.148.155:8080/heres2u/api/saythanks.php?TransactionID=1
         
         NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@saythanks.php?TransactionID=%d",hostURl,strTransactionId]];
         
         //http://50.62.148.155:8080/heres2u/api/dummy.php
         //                NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://50.62.148.155:8080/heres2u/api/dummy.php"]];
-        NSLog(@"url : %@",url);
+    //    NSLog(@"url : %@",url);
         sayThanksXML = [[SayThanksXML alloc] initWithURL:url];
         
         //                /[dicSayThanks setValue:arraySayThanks forKey:@"SayThanksId"];
         NSArray *arrayCount = [dicSayThanks valueForKey:@"SayThanksId"];
-        NSLog(@"%@",arrayCount);
+    //    NSLog(@"%@",arrayCount);
         int thanksId = [[arrayCount objectAtIndex:0] integerValue];
-        NSLog(@"%d",thanksId);
+    //    NSLog(@"%d",thanksId);
         
         
         NSString *msg;

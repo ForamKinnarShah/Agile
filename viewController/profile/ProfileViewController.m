@@ -45,13 +45,13 @@
 
 //Delegates
 -(void)viewDidAppear:(BOOL)animated{
-    NSLog(@"Profile ID:%i",ProfileID);
+  //  NSLog(@"Profile ID:%i",ProfileID);
 
     // Set the Profile Image
     NSString *strUrl = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[NSGlobalConfiguration getConfigurationItem:@"ImageURL"]]];
     _urlImg = [[NSURL alloc] initWithString:[strUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     //[_ProfilePicture setImageWithURL:_urlImg placeholderImage:[UIImage imageNamed:@""]];
-    NSLog(@"Profile Pic >> %@",_ProfilePicture.image);
+  //  NSLog(@"Profile Pic >> %@",_ProfilePicture.image);
     // ----------
 
     numberOfFeedsToLoad = 15;
@@ -89,10 +89,10 @@
     
     // Set the Profile Image
     [[AsyncImageLoader sharedLoader] cancelLoadingURL:[NSURL URLWithString:[NSGlobalConfiguration getConfigurationItem:@"ImageURL"]]];
-    NSString *strUrl = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[NSGlobalConfiguration getConfigurationItem:@"ImageURL"]]];
-    NSURL *urlImg = [[NSURL alloc] initWithString:[strUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+//    NSString *strUrl = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[NSGlobalConfiguration getConfigurationItem:@"ImageURL"]]];
+  //  NSURL *urlImg = [[NSURL alloc] initWithString:[strUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     //[_ProfilePicture setImageURL:urlImg];
-    NSLog(@"Profile Pic >>  %@",_ProfilePicture.image);
+ //   NSLog(@"Profile Pic >>  %@",_ProfilePicture.image);
     // ----------
     
     //[Profile startFetching];
@@ -122,8 +122,8 @@
     [FollowersCount addGestureRecognizer:FollowersTapCount];
     [FollowersCount setUserInteractionEnabled:YES];
     
-    NSLog(@"%ld",(long)ProfileID);
-    NSLog(@"%d",[[NSGlobalConfiguration getConfigurationItem:@"ID"] intValue]);
+ //   NSLog(@"%ld",(long)ProfileID);
+ //   NSLog(@"%d",[[NSGlobalConfiguration getConfigurationItem:@"ID"] intValue]);
     
     if (ProfileID == [[NSGlobalConfiguration getConfigurationItem:@"ID"] intValue]){
         [_ProfilePicture addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectPhoto:)]];
@@ -138,7 +138,7 @@
 
 -(void) FollowingPressed:(UIGestureRecognizer *)gesture{
     FollowingViewController *Following=[[FollowingViewController alloc] initWithNibName:@"Following" bundle:nil ID:ProfileID];
-    NSLog(@"ProfileID:%i",ProfileID);
+  //  NSLog(@"ProfileID:%i",ProfileID);
     Following.ID = ProfileID; 
     [self.navigationController pushViewController:Following animated:YES];
 }
@@ -152,7 +152,7 @@
 -(IBAction)goToMenu:(UIActivityView*)sender
 {
     
-    NSLog(@"feedManager : %@",feedManager);
+ //   NSLog(@"feedManager : %@",feedManager);
     menuViewController *menu = [[menuViewController alloc] initWithNibName:@"menuViewController" bundle:nil];
     menu.userInfo = [NSMutableDictionary dictionaryWithDictionary:[feedManager getFeedAtIndex:sender.tag]];
     menu.restaurantInfo = [NSMutableDictionary dictionaryWithObjects:[[feedManager getFeedAtIndex:sender.tag] objectsForKeys:[NSArray arrayWithObjects:@"locationID",@"Title",@"Address", nil] notFoundMarker:@"none"] forKeys:[NSArray arrayWithObjects:@"ID",@"Title",@"Address",nil]];
@@ -198,7 +198,7 @@
         [FollowButton setUserInteractionEnabled:NO];
         [btnFollowBack setUserInteractionEnabled:NO];
     }
-    NSLog(@"_ProfilePicture >> %@",_ProfilePicture.image);
+  //  NSLog(@"_ProfilePicture >> %@",_ProfilePicture.image);
     NSImageLoaderToImageView *Loader=[[NSImageLoaderToImageView alloc] initWithURLString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[Profile ImageURL]] ImageView:self.ProfilePicture]; //[AppDelegate sharedInstance].ProfilePicture_global]; //self.ProfilePicture];//
     [Loader setDelegate:self];
     [ImageLoader startAnimating];
@@ -236,7 +236,7 @@
     for(NSInteger i=0; i<numberOfFeedsToLoad;i++){
         UIActivityView *activity=[[UIActivityView alloc] initWithFrame:CGRectMake(0, (i*166)+120, 320, 156) andView:0];
         NSDictionary *ItemData=[Profile.Feeds objectAtIndex:i];
-        NSLog(@"profile item:%@",ItemData); 
+     //   NSLog(@"profile item:%@",ItemData);
         
         [activity setID:[(NSString *)[ItemData valueForKey:@"FeedID"] integerValue]];
         [activity.UserName setText:[ItemData valueForKey:@"FullName"]];
@@ -252,14 +252,14 @@
         [activity.lblTime setText:dateString]; 
         
         [activity.lblAddress setText:[ItemData valueForKey:@"Address"]]; 
-        NSLog(@"_ProfilePicture >> %@",_ProfilePicture.image);
+     //   NSLog(@"_ProfilePicture >> %@",_ProfilePicture.image);
         [activity.ProfilePicture setImage:[_ProfilePicture image]];
         
         // Set the Profile Image
         NSString *strUrl = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[NSGlobalConfiguration getConfigurationItem:@"ImageURL"]]];
         _urlImg = [[NSURL alloc] initWithString:[strUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         //[_ProfilePicture setImageWithURL:_urlImg placeholderImage:[UIImage imageNamed:@""]];
-        NSLog(@"Profile Pic >> %@",_ProfilePicture.image);
+    //    NSLog(@"Profile Pic >> %@",_ProfilePicture.image);
 
 //        NSImageLoaderToImageView *Loader=[[NSImageLoaderToImageView alloc] initWithURLString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[ItemData objectForKey:@"ImageURL"]] ImageView:activity.ProfilePicture];//[AppDelegate sharedInstance].ProfilePicture_global];
 //        [Loader setDelegate:self];
@@ -278,11 +278,11 @@
         }
         
         [self.view addSubview:activity];
-        NSLog(@"added");
+   //     NSLog(@"added");
     }
     [(UIScrollView*)self.view setScrollEnabled:YES];
     [(UIScrollView*)self.view setContentSize:CGSizeMake(0, (numberOfFeedsToLoad*166)+120)];
-    NSLog(@"contentsize: %f",[(UIScrollView*)self.view contentSize].height);
+  //  NSLog(@"contentsize: %f",[(UIScrollView*)self.view contentSize].height);
 }
 -(void)activityviewRequestComment:(UIActivityView *)activity{
     //Load Comments View Controller and PUsh it with ID
@@ -300,7 +300,7 @@
 }
 
 -(void) selectPhoto:(UIGestureRecognizer *)gesture{
-    NSLog(@"select photo"); 
+ //   NSLog(@"select photo");
     if(!SourceSelector){
         SourceSelector=[[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, 320, 216)];
         [SourceSelector setBackgroundColor:[UIColor grayColor]];
@@ -341,7 +341,7 @@
     UIImage *PickedImage=[info objectForKey:UIImagePickerControllerEditedImage];
     _ProfilePicture.image=[PickedImage copy];
 
-    NSLog(@"_ProfilePicture >> %@",_ProfilePicture.image);
+  //  NSLog(@"_ProfilePicture >> %@",_ProfilePicture.image);
     [AppDelegate sharedInstance].ProfilePicture_global.image = _ProfilePicture.image;
 
 //    if ([picker sourceType]==UIImagePickerControllerSourceTypeCamera)
@@ -359,16 +359,16 @@
         {
             if (error)
             {
-                NSLog(@"error");
+      //          NSLog(@"error");
             }
             else
             {
-                NSLog(@"url %@", assetURL);
+        //        NSLog(@"url %@", assetURL);
                 NSURL *imagePath = assetURL;
                 NSString *name = [NSString stringWithFormat:@"%@",imagePath];
-                NSLog(@"name : %@",name);
+          //      NSLog(@"name : %@",name);
                 NSArray *listItems = [name componentsSeparatedByString:@"="];
-                NSLog(@"listItems : %@",listItems);
+            //    NSLog(@"listItems : %@",listItems);
                 NSString *imgName = [listItems objectAtIndex:listItems.count-2];
                 imgName = [NSString stringWithFormat:@"%@.png",imgName];
                 NSString *extention = [listItems objectAtIndex:listItems.count-1];
@@ -384,9 +384,9 @@
     {
         NSURL *imagePath = [info objectForKey:@"UIImagePickerControllerReferenceURL"];
         NSString *name = [NSString stringWithFormat:@"%@",imagePath];
-        NSLog(@"name : %@",name);
+     //   NSLog(@"name : %@",name);
         NSArray *listItems = [name componentsSeparatedByString:@"="];
-        NSLog(@"listItems : %@",listItems);
+     //   NSLog(@"listItems : %@",listItems);
         NSString *imgName = [listItems objectAtIndex:listItems.count-2];
         imgName = [NSString stringWithFormat:@"%@.png",imgName];
         NSString *extention = [listItems objectAtIndex:listItems.count-1];
@@ -428,7 +428,7 @@
     if(ScaledImage)
   //  if(PickedImage)
     {
-        NSLog(@"_ProfilePicture >> %@",_ProfilePicture.image);
+   //     NSLog(@"_ProfilePicture >> %@",_ProfilePicture.image);
         ScaledImage = [self imageByScalingProportionallyToSize:CGSizeMake(_ProfilePicture.frame.size.width, _ProfilePicture.frame.size.height) srcImg:_ProfilePicture.image];
         NSData *imageData1 = UIImageJPEGRepresentation(ScaledImage, 100);
    //     NSData *imageData1 = UIImageJPEGRepresentation(PickedImage, 100);
@@ -441,8 +441,8 @@
     
     // --------------------------------------
     
-    NSLog(@"_ProfilePicture >> %@",_ProfilePicture.image);
-    NSLog(@"ScaledImage >> %@",ScaledImage);
+ //   NSLog(@"_ProfilePicture >> %@",_ProfilePicture.image);
+ //   NSLog(@"ScaledImage >> %@",ScaledImage);
 
     [_ProfilePicture setImage:ScaledImage];
 //     [_ProfilePicture setImage:PickedImage];
@@ -460,15 +460,15 @@
 -(void)returnSuccessfulPost:(ASIHTTPRequest*)requestor{
     
     NSString *strResponse = [requestor responseString];
-    NSLog(@"strResponse >> %@",strResponse);
+ //   NSLog(@"strResponse >> %@",strResponse);
     NSError *error;
     
     NSDictionary *dict = [XMLReader dictionaryForXMLString:strResponse error:&error];
-    NSLog(@"dict: %@",dict);
+ //   NSLog(@"dict: %@",dict);
     
     // stores the new image url for the profile picture
-    NSString *strNewImageUrl = [NSString stringWithFormat:@"http://50.62.148.155:8080/heres2u/api/%@",[[[[dict valueForKey:@"Response"] valueForKey:@"MessagePayload"] valueForKey:@"Url"] valueForKey:@"text"]];
-    strNewImageUrl = [[[[[dict valueForKey:@"Response"] valueForKey:@"MessagePayload"] valueForKey:@"Url"] valueForKey:@"text"] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+   // NSString *strNewImageUrl = [NSString stringWithFormat:@"http://50.62.148.155:8080/heres2u/api/%@",[[[[dict valueForKey:@"Response"] valueForKey:@"MessagePayload"] valueForKey:@"Url"] valueForKey:@"text"]];
+     NSString *strNewImageUrl = [[[[[dict valueForKey:@"Response"] valueForKey:@"MessagePayload"] valueForKey:@"Url"] valueForKey:@"text"] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
     [NSGlobalConfiguration setConfigurationItem:@"ImageURL" Item:strNewImageUrl];
     
     NSString *strUrl = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[NSGlobalConfiguration getConfigurationItem:@"ImageURL"]]];
@@ -477,7 +477,7 @@
     
     //NSImageLoaderToImageView *loader = [[NSImageLoaderToImageView alloc] initWithURL:_urlImg ImageView:_ProfilePicture StartImmediately:YES];
     
-    NSLog(@"Profile Pic >> %@",_ProfilePicture.image);
+//    NSLog(@"Profile Pic >> %@",_ProfilePicture.image);
     // ----------
 
  /*
@@ -504,7 +504,7 @@
     [self presentModalViewController:controller animated:YES];
 }
 -(IBAction)selectFromLibrary:(id)sender{
-    NSLog(@"Select picture");
+ //   NSLog(@"Select picture");
     UIImagePickerController *controller=[[UIImagePickerController alloc] init];
     [controller setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
     [controller setDelegate:self];
@@ -542,7 +542,7 @@
 }
 -(void) parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName{
     if([[elementName lowercaseString] isEqualToString:@"url"]){
-        NSLog(@"URL:%@",CurrentString);
+    //    NSLog(@"URL:%@",CurrentString);
         NSString *Directory=[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         NSString *ImageName = [CurrentString lastPathComponent];
         NSString *Path=[Directory stringByAppendingPathComponent:ImageName];

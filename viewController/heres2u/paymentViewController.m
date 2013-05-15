@@ -41,13 +41,13 @@
     NSString *centerImageName = @"logo_small.png";
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:centerImageName]];
 
-    float drinkTotal;
-    float foodTotal;
-    float dessertTotal;
+    float drinkTotal = 0.0;
+    float foodTotal = 0.0;
+    float dessertTotal = 0.0;
     
     for (orderItem *item in self.orderItems)
     {
-        NSLog(@"itemName:%@, price:%f, type:%i",item.name, item.price, item.itemType); 
+ //       NSLog(@"itemName:%@, price:%f, type:%i",item.name, item.price, item.itemType);
         
         if (item.itemType == food)
         {
@@ -75,7 +75,7 @@
     feeTotal = 1.36;
     
 totalTotal = preFeeTotal + feeTotal;
-    NSLog(@"totalTotal:%f",totalTotal);
+  //  NSLog(@"totalTotal:%f",totalTotal);
 
 drinkTotalLbl.text = [NSString stringWithFormat:@"$%.2f",drinkTotal];
 foodTotalLbl.text = [NSString stringWithFormat:@"$%.2f",foodTotal];
@@ -88,7 +88,7 @@ totalTotalLbl.text = [NSString stringWithFormat:@"$%.2f",totalTotal];
        
     if ([creditCards count] != 0)
     {
-        NSLog(@"credit Cards:%@",creditCards);
+   //     NSLog(@"credit Cards:%@",creditCards);
         
         NSMutableDictionary *creditCardInfo = [creditCards lastObject];
         creditCardNumber = [creditCardInfo objectForKey:@"cardNumberLast4Digits"];
@@ -105,7 +105,7 @@ totalTotalLbl.text = [NSString stringWithFormat:@"$%.2f",totalTotal];
         self.creditCardLbl.text = [NSString stringWithFormat:@"%@ %@",cardType,creditCardNumber];
     }
     else{
-        NSLog(@"no cards found"); 
+   //     NSLog(@"no cards found");
         self.creditCardLbl.text = @"";
         self.changeCardBtn.titleLabel.text = @"add Card";
         _arrItemValueList = [[NSMutableArray alloc] init];
@@ -178,12 +178,12 @@ totalTotalLbl.text = [NSString stringWithFormat:@"$%.2f",totalTotal];
     [[[UIAlertView alloc] initWithTitle:@"credit card authorization succeeded:" message:@"A receipt has been emailed to you."  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
     
        
-    NSURL *request = [[NSURL alloc]initWithString:[NSString stringWithFormat:@"http://50.62.148.155:8080/heres2u/api/addtransactionrequest.php?sendingUserID=%@&receivingUserID=%@&chargeAmount=%@&creditTransID=%@&locationID=%@",[NSGlobalConfiguration getConfigurationItem:@"ID"],[self.userInfo objectForKey:@"ID"],[NSString stringWithFormat:@"%.2f",preFeeTotal],code,[self.restaurantInfo objectForKey:@"ID"]]];
+    //NSURL *request = [[NSURL alloc]initWithString:[NSString stringWithFormat:@"http://50.62.148.155:8080/heres2u/api/addtransactionrequest.php?sendingUserID=%@&receivingUserID=%@&chargeAmount=%@&creditTransID=%@&locationID=%@",[NSGlobalConfiguration getConfigurationItem:@"ID"],[self.userInfo objectForKey:@"ID"],[NSString stringWithFormat:@"%.2f",preFeeTotal],code,[self.restaurantInfo objectForKey:@"ID"]]];
     
-    NSLog(@"request:%@",request); 
+//    NSLog(@"request:%@",request);
     
-   NSString *Items=[[NSString alloc] initWithContentsOfURL:request encoding:NSUTF8StringEncoding error:nil];
-    NSLog(@"Items:%@",Items);
+  // NSString *Items=[[NSString alloc] initWithContentsOfURL:request encoding:NSUTF8StringEncoding error:nil];
+//    NSLog(@"Items:%@",Items);
     
 //    phpCaller *php = [[phpCaller alloc] init];
 //    [php invokeWebService:@"ui" forAction:@"addTransactionRequest" withParameters:[NSMutableArray arrayWithObjects:[NSGlobalConfiguration getConfigurationItem:@"ID"],[self.userInfo objectForKey:@"ID"],[totalTotalLbl.text substringFromIndex:1],code,[self.restaurantInfo objectForKey:@"ID"],nil]];

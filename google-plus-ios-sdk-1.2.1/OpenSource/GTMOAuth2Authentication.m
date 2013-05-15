@@ -306,10 +306,10 @@ finishedRefreshWithFetcher:(GTMHTTPFetcher *)fetcher
                                    error:&error];
 #if DEBUG
     if (error) {
-      NSString *str = [[[NSString alloc] initWithData:data
-                                             encoding:NSUTF8StringEncoding] autorelease];
-      NSLog(@"NSJSONSerialization error %@ parsing %@",
-            error, str);
+//      NSString *str = [[[NSString alloc] initWithData:data
+//                                             encoding:NSUTF8StringEncoding] autorelease];
+//      NSLog(@"NSJSONSerialization error %@ parsing %@",
+//            error, str);
     }
 #endif
     return obj;
@@ -327,8 +327,8 @@ finishedRefreshWithFetcher:(GTMHTTPFetcher *)fetcher
         obj = [parser objectWithString:jsonStr error:&error];
 #if DEBUG
         if (error) {
-          NSLog(@"%@ error %@ parsing %@", NSStringFromClass(jsonParseClass),
-                error, jsonStr);
+//          NSLog(@"%@ error %@ parsing %@", NSStringFromClass(jsonParseClass),
+//                error, jsonStr);
         }
 #endif
         return obj;
@@ -518,7 +518,7 @@ finishedRefreshWithFetcher:(GTMHTTPFetcher *)fetcher
     //
     // The NSError will be created below
 #if DEBUG
-    NSLog(@"Cannot authorize request with scheme %@ (%@)", scheme, request);
+  //  NSLog(@"Cannot authorize request with scheme %@ (%@)", scheme, request);
 #endif
   }
 
@@ -828,7 +828,7 @@ finishedRefreshWithFetcher:(GTMHTTPFetcher *)fetcher
         NSDictionary *errorJson = [self dictionaryWithJSONData:data];
         if ([errorJson count] > 0) {
 #if DEBUG
-          NSLog(@"Error %@\nError data:\n%@", error, errorJson);
+      //    NSLog(@"Error %@\nError data:\n%@", error, errorJson);
 #endif
           // Add the JSON error body to the userInfo of the error
           NSMutableDictionary *userInfo;
@@ -865,7 +865,7 @@ finishedRefreshWithFetcher:(GTMHTTPFetcher *)fetcher
       NSString *tokenType = [self tokenType];
       if (tokenType == nil
           || [tokenType caseInsensitiveCompare:@"bearer"] != NSOrderedSame) {
-        NSLog(@"GTMOAuth2: Unexpected token type: %@", tokenType);
+     //   NSLog(@"GTMOAuth2: Unexpected token type: %@", tokenType);
       }
 #endif
     }

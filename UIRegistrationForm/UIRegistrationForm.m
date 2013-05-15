@@ -89,7 +89,7 @@
             if([tableView tag]==2){
                 return 5;
             }else{
-                NSLog(@"Returning 0");
+           //     NSLog(@"Returning 0");
                 return 0;
             }
         }
@@ -137,7 +137,7 @@
     }
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"Current: %i",tableView.tag);
+   // NSLog(@"Current: %i",tableView.tag);
     switch (tableView.tag) {
         case 0:
             //Registration View
@@ -154,7 +154,7 @@
                     UITapGestureRecognizer *picturetap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectPhoto:)];
                     [ProfilePicture addGestureRecognizer:picturetap];
                     [ProfilePicture setUserInteractionEnabled:YES];
-                    NSLog(@"Cell width: %f",cell.frame.size.width);
+               //     NSLog(@"Cell width: %f",cell.frame.size.width);
                     [AccountTable setFrame:CGRectMake(87, 12, 221, 66)];
                     [ProfilePicture setFrame:CGRectMake(15, 12, 66, 66)];
                     [ProfilePicture setImage:[UIImage imageNamed:@"photo"]];
@@ -468,7 +468,7 @@
     // extract the id's for which we will request the profile
     //@"publish_stream",@"user_birthday",@"user_about_me",@"email", nil]
     NSArray *fbids = [NSArray arrayWithObjects:@"email", nil];
-    NSLog(@"fbids : %@",fbids);
+  //  NSLog(@"fbids : %@",fbids);
     
     // create the connection object
     FBRequestConnection *newConnection = [[FBRequestConnection alloc] init];
@@ -526,11 +526,11 @@
     if (error) {
         // error contains details about why the request failed
         text = error.localizedDescription;
-        NSLog(@"Error text : %@",text);
+     //   NSLog(@"Error text : %@",text);
     } else {
         // result is the json response from a successful request
         NSDictionary *dictionary = (NSDictionary *)result;
-        NSLog(@"dictionary : %@",dictionary);
+    //    NSLog(@"dictionary : %@",dictionary);
         // we pull the name property out, if there is one, and display it
         text = (NSString *)[dictionary objectForKey:@"name"];
     }
@@ -633,7 +633,7 @@
     [ViewController presentModalViewController:controller animated:YES];
 }
 -(IBAction)selectFromLibrary:(id)sender{
-    NSLog(@"Select picture");
+ //   NSLog(@"Select picture");
     UIImagePickerController *controller=[[UIImagePickerController alloc] init];
     [controller setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
     [controller setDelegate:self];
@@ -649,7 +649,7 @@
     }];
 }
 -(IBAction)textFieldSelected:(UITextField*)sender{
-    NSLog(@"editing began");
+  //  NSLog(@"editing began");
     [self selectedDOB:nil];
     /*if(sender==Username){
         if([sender.text isEqualToString:@"Username"]){
@@ -700,14 +700,14 @@
         [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionAllowAnimatedContent animations:^{
            // if(counter<runs){
             [RegistrationTable setFrame:Final];
-            NSLog(@"running animation");
+       //     NSLog(@"running animation");
         }completion:^(BOOL finished){
             
         }];
     }
 }
 -(IBAction)textFieldDismissed:(UITextField*)sender{
-    NSLog(@"Ended");
+  //  NSLog(@"Ended");
     [sender resignFirstResponder];
     CGRect Final=RegistrationTable.frame;
     Final.origin.y=44;
@@ -782,7 +782,7 @@
 
 }
 -(void) showTOS:(UIGestureRecognizer *)gesture{
-    NSLog(@"TOS Showing");
+ //   NSLog(@"TOS Showing");
     if(!TOS){
    TOS=[[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     UIToolbar *TBTOS=[[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
@@ -808,7 +808,7 @@
 }
 -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     UITouch *touch=[touches anyObject];
-    NSLog(@"Touch Detected");
+  //  NSLog(@"Touch Detected");
     if(touch.view!=Password && touch.view !=Email && touch.view!=Phone && touch.view!=ZipCode){
         //[Username resignFirstResponder];
         [Password resignFirstResponder];
@@ -876,11 +876,11 @@ replacementString:(NSString*)string
 
 -(void)loginWithFacebook:(id)sender
 {
-    NSLog(@"%@",FBSession.activeSession);
+   // NSLog(@"%@",FBSession.activeSession);
     
     
     if (FBSession.activeSession.isOpen)
-    {   NSLog(@"FBSession is open, getting user details");
+    { // NSLog(@"FBSession is open, getting user details");
         if ([FBSession.activeSession.permissions containsObject:@"email"])
         {
         [self getUserDetails];
@@ -904,7 +904,7 @@ replacementString:(NSString*)string
         
         // delegate.session = [[FBSession alloc] initWithPermissions:[NSArray arrayWithObjects:@"email", nil]];
         
-        NSLog(@"opening new session");
+    //    NSLog(@"opening new session");
         [FBSession openActiveSessionWithReadPermissions:[NSArray arrayWithObject:@"email"] allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
             
             
@@ -935,7 +935,7 @@ replacementString:(NSString*)string
     // dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     
     
-    NSLog(@"getting user details");
+ //   NSLog(@"getting user details");
     if (FBSession.activeSession.isOpen) {
         [[FBRequest requestForMe] startWithCompletionHandler:
          ^(FBRequestConnection *connection,
@@ -944,17 +944,17 @@ replacementString:(NSString*)string
              
             
              if (!error) {
-                 NSLog(@"setting username : %@",user);
+           //      NSLog(@"setting username : %@",user);
                  Email.text = [user objectForKey:@"email"];
                  Name.text = user.name;
              }
              else {
-                 NSLog(@"error:%@",error); 
+          //       NSLog(@"error:%@",error);
              }
          }];
     }
     else {
-        NSLog(@"fbsession not open?");
+   //     NSLog(@"fbsession not open?");
     }
     
     

@@ -104,7 +104,7 @@ const NSInteger SELECTION_INDICATOR_TAG = 54321;
     //NSImageLoaderToImageView *img=[[NSImageLoaderToImageView alloc] initWithURLString:[NSString stringWithFormat:@"%@%@",[NSGlobalConfiguration URL],[self.userInfo objectForKey:@"ImageURL"]] ImageView:self.followeePic];
     //[img start];
     
-    NSLog(@"user info:%@",self.userInfo);
+  //  NSLog(@"user info:%@",self.userInfo);
     self.followeeName.text = [self.userInfo objectForKey:@"FullName"];
     self.timeLabel.text = self.timeLabelText;
     // NSLog(@"restaurant Info:%@",self.restaurantInfo);
@@ -265,7 +265,7 @@ const NSInteger SELECTION_INDICATOR_TAG = 54321;
         selectedIndices[selectedIndex] = [NSNumber numberWithBool:YES];
         //[sender setSelected:YES];
         [selectedItems addObject:[menu objectAtIndex:selectedIndex]];
-        NSLog(@"added %@ to selectedItems",[menu objectAtIndex:selectedIndex]);
+    //    NSLog(@"added %@ to selectedItems",[menu objectAtIndex:selectedIndex]);
     }
     else {
         //[sender setHighlighted:NO];
@@ -294,7 +294,7 @@ const NSInteger SELECTION_INDICATOR_TAG = 54321;
     else {
     }
         
-    NSLog(@"selectedItems:%@",selectedItems); 
+  //  NSLog(@"selectedItems:%@",selectedItems);
     [self.navigationController pushViewController:pay animated:YES];
     }
 }
@@ -407,8 +407,8 @@ NSInteger selectedIndex = 0;
     selectedIndices[selectedIndex] = [NSNumber numberWithBool:YES];
     [selectedItems addObject:[menu objectAtIndex:selectedIndex]];
 
-    NSLog(@"selectedItems >> %@",selectedItems);
-    NSLog(@"indexpath >> %@",indexPath);
+ //   NSLog(@"selectedItems >> %@",selectedItems);
+ //   NSLog(@"indexpath >> %@",indexPath);
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -428,7 +428,7 @@ NSInteger selectedIndex = 0;
     selectedIndices[selectedIndex] = [NSNumber numberWithBool:NO];
     [selectedItems removeObjectIdenticalTo:[menu objectAtIndex:selectedIndex]];
 
-    NSLog(@"deselectedItems >> %@",selectedIndices);
+ //   NSLog(@"deselectedItems >> %@",selectedIndices);
     
     if (self.segmentedControl.selectedSegmentIndex == 0)
     {
@@ -490,7 +490,7 @@ NSInteger selectedIndex = 0;
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"selectedItems >> %@",selectedIndices);
+ //   NSLog(@"selectedItems >> %@",selectedIndices);
 
     if (self.segmentedControl.selectedSegmentIndex == 0)
     {

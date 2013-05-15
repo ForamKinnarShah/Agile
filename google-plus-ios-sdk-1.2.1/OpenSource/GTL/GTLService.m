@@ -1154,7 +1154,7 @@ totalBytesExpectedToSend:(NSInteger)totalBytesExpected {
 
 #if GTL_LOG_PERFORMANCE
     secs2 = [NSDate timeIntervalSinceReferenceDate];
-    NSLog(@"allocation of %@ took %f seconds", objectClass, secs2 - secs1);
+  //  NSLog(@"allocation of %@ took %f seconds", objectClass, secs2 - secs1);
 #endif
   }
 
@@ -1270,11 +1270,11 @@ totalBytesExpectedToSend:(NSInteger)totalBytesExpected {
       // requested is large enough to rarely need to follow next links.
       NSUInteger pageCount = ticket.pagesFetchedCounter;
       if (pageCount > 2) {
-        NSString *queryLabel = [executingQuery isBatchQuery] ?
-          @"batch query" : executingQuery.methodName;
-        NSLog(@"Executing %@ required fetching %u pages; use a query with a"
-              @" larger maxResults for faster results",
-              queryLabel, (unsigned int) pageCount);
+      //  NSString *queryLabel = [executingQuery isBatchQuery] ?
+       //   @"batch query" : executingQuery.methodName;
+//        NSLog(@"Executing %@ required fetching %u pages; use a query with a"
+//              @" larger maxResults for faster results",
+//              queryLabel, (unsigned int) pageCount);
       }
 #endif
     }

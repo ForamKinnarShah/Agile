@@ -33,7 +33,7 @@
     [POSTData appendData:[Boundary dataUsingEncoding:NSUTF8StringEncoding]];
     [POSTData appendData:[@"\r\nContent-Disposition:form-data;name=\"id\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
     
-    NSLog(@"ProfileID >> %ld",(long)ProfileID);
+  //  NSLog(@"ProfileID >> %ld",(long)ProfileID);
     [POSTData appendData:[[NSString stringWithFormat:@"%i", ProfileID] dataUsingEncoding:NSUTF8StringEncoding]];
     [POSTData appendData:[@"\r\n--" dataUsingEncoding:NSUTF8StringEncoding]];
     [POSTData appendData:[Boundary dataUsingEncoding:NSUTF8StringEncoding]];
@@ -100,7 +100,7 @@
                                 Following=[CurrentString integerValue];
                             }else{
                                 if([[elementName lowercaseString] isEqualToString:@"feed"]){
-                                    NSLog(@"adding feed");
+                              //      NSLog(@"adding feed");
                                     [Feeds addObject:tempDict];
                                 }else{
                                     if([[elementName lowercaseString] isEqualToString:@"serverreply"]){
