@@ -143,9 +143,10 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
         [FBSession openActiveSessionWithPublishPermissions:[NSArray arrayWithObject:@"publish_stream"] defaultAudience:FBSessionDefaultAudienceFriends allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
             
             if (!error)
-                [self loadFriends]; 
+                [self loadFriends];
            }];
     }
+    
 }
 
 -(void)loadFriends
@@ -183,10 +184,7 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
         }
      
     }];
-    
- 
     return;
-    
 }
 
 //-(void)checkPostingRights

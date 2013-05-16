@@ -146,9 +146,9 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
     NSString *selectedID = user.id;
     NSMutableDictionary *params =
     [NSMutableDictionary dictionaryWithObjectsAndKeys:
-     @"Heres2U!", @"name",
-     @"I want you to join Heres2U!", @"caption",
-     @"I'm using the Heres2U app to rate and share wines with friends. You should try it too!", @"description",
+     @"Heres2U App", @"name",
+     @"I want you to join Heres2U App", @"caption",
+     @"I'm using the Heres2U app to send real-time food item gifts to friends. You should try it too!", @"description",
      @"https://itunes.apple.com/us/app/heres2u/id649232988?ls=1&mt=8", @"link",
      @"", @"picture",
      selectedID,@"to",
