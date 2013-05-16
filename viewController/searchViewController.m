@@ -47,7 +47,9 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
 -(IBAction)findOnFB:(id)sender
 {
     //if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
-    if (FBSession.activeSession.isOpen){
+    if (FBSession.activeSession.isOpen)
+    {
+        NSLog(@"%@",FBSession.activeSession);
         // get friend details & display friend picker
         if (![FBSession.activeSession.permissions containsObject:@"publish_actions"])
         {
@@ -59,17 +61,16 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
                     [self loadFriends];
              }];
         }
+        else
+            [self loadFriends];
     }
-    else {
+    else
+    {
         // No, display the login page.
-        [FBSession openActiveSessionWithPublishPermissions:[NSArray arrayWithObject:@"publish_stream"] defaultAudience:FBSessionDefaultAudienceFriends allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
-
-            if (!error){
+        [FBSession openActiveSessionWithPublishPermissions:[NSArray arrayWithObject:@"publish_stream"] defaultAudience:FBSessionDefaultAudienceFriends allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error)
+        {
+            if (!error)
                 [self loadFriends]; 
-            }
-            else {
-           //     NSLog(@"error:%@",error.localizedDescription);
-            }
         }];
     }
 }
@@ -146,10 +147,10 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
     NSMutableDictionary *params =
     [NSMutableDictionary dictionaryWithObjectsAndKeys:
      @"Heres2U!", @"name",
-     @"I want you to join Heres2U too!", @"caption",
-     @"This is a fun iPhone app for sending people gifts at restaurants. Why don't you try it out too?", @"description",
-     @"http://www.myapp.com", @"link",
-     @"http://www.image-link-here.com", @"picture",
+     @"I want you to join Heres2U!", @"caption",
+     @"I'm using the Heres2U app to rate and share wines with friends. You should try it too!", @"description",
+     @"https://itunes.apple.com/us/app/heres2u/id649232988?ls=1&mt=8", @"link",
+     @"", @"picture",
      selectedID,@"to",
      nil];
     

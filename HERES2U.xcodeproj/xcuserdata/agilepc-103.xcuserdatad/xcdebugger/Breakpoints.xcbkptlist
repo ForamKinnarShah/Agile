@@ -7,13 +7,26 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "viewController/Feed/FeedViewController.m"
-         timestampString = "390292605.409586"
+         filePath = "viewController/searchViewController.m"
+         timestampString = "390375605.237273"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "266"
-         endingLineNumber = "266"
-         landmarkName = "-scrollViewDidScroll:"
+         startingLineNumber = "47"
+         endingLineNumber = "47"
+         landmarkName = "-findOnFB:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "viewController/searchViewController.m"
+         timestampString = "390377593.3619"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "78"
+         endingLineNumber = "78"
+         landmarkName = "-loadFriends"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
