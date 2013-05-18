@@ -202,7 +202,6 @@ NSString * const logOutNotification = @"logOutNotification";
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    
     NSString *alertMsg;
     NSString *badge;
     NSString *sound;
@@ -210,29 +209,24 @@ NSString * const logOutNotification = @"logOutNotification";
 //    NSDictionary *dic_push=[[NSDictionary alloc]initWithDictionary:userInfo];
     
     if( [[userInfo objectForKey:@"aps"] objectForKey:@"alert"] != NULL)
-    {
         alertMsg = [[userInfo objectForKey:@"aps"] objectForKey:@"alert"];
-    }
     else
-    {    alertMsg = @"{no alert message in dictionary}";
-    }
+        alertMsg = @"{no alert message in dictionary}";
     
     if( [[userInfo objectForKey:@"aps"] objectForKey:@"badge"] != NULL)
-    {
         badge = [[userInfo objectForKey:@"aps"] objectForKey:@"badge"];
-    }
     else
-    {    badge = @"{no badge number in dictionary}";
-    }
-    
-    if( [[userInfo objectForKey:@"aps"] objectForKey:@"sound"] != NULL)
     {
+        badge = @"{no badge number in dictionary}";
+        NSLog(@"badge >> %@",badge);
+    }
+    if( [[userInfo objectForKey:@"aps"] objectForKey:@"sound"] != NULL)
         sound = [[userInfo objectForKey:@"aps"] objectForKey:@"sound"];
-    }
     else
-    {    sound = @"{no sound in dictionary}";
+    {
+        sound = @"{no sound in dictionary}";
+        NSLog(@"sound >> %@",sound);
     }
-    
     AudioServicesPlaySystemSound (kSystemSoundID_Vibrate);
     
   //  NSString* alert_msg = [NSString stringWithFormat:@"APNS message '%@' was just received.", alertMsg];

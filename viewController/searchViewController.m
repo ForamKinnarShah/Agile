@@ -49,7 +49,6 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
     //if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
     if (FBSession.activeSession.isOpen)
     {
-        NSLog(@"%@",FBSession.activeSession);
         // get friend details & display friend picker
         if (![FBSession.activeSession.permissions containsObject:@"publish_actions"])
         {
@@ -70,7 +69,7 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
         [FBSession openActiveSessionWithPublishPermissions:[NSArray arrayWithObject:@"publish_stream"] defaultAudience:FBSessionDefaultAudienceFriends allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error)
         {
             if (!error)
-                [self loadFriends]; 
+                [self loadFriends];
         }];
     }
 }
@@ -95,23 +94,21 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
     friendPicker.delegate = self;
     CFRelease(CFBridgingRetain(friendPicker));
 
-    [friendPicker presentModallyFromViewController:self
-                                          animated:YES
-                                           handler:^(FBViewController *sender, BOOL donePressed) {
-                                               
-                                               if (donePressed) {
-                                                   self.selectedFriends = friendPicker.selection;
-                                              //     NSLog(@"self.selectedFriends : %d",self.selectedFriends.count);
-                                                   int friendCount = self.selectedFriends.count;
-                                                   if(friendCount==0){
-                                                       UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"You did not select any friend!" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
-                                                       [alert show];
-                                                   }
-                                                   else{
-                                                       [self FeedDialog];
-                                                   }
-                                               }
-                                           }];
+    [friendPicker presentModallyFromViewController:self animated:YES handler:^(FBViewController *sender, BOOL donePressed)
+     {
+         if (donePressed)
+         {
+             self.selectedFriends = friendPicker.selection;
+             int friendCount = self.selectedFriends.count;
+             if(friendCount==0)
+             {
+                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Heres2U" message:@"You did not select any friend!" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+                 [alert show];
+             }
+             else
+                 [self FeedDialog];
+         }
+     }];
     return;
 }
 

@@ -182,7 +182,6 @@ static NSString * const kClientId = @"731819402156.apps.googleusercontent.com";
                 return;
             }
         }
-     
     }];
     return;
 }

@@ -48,19 +48,17 @@ connectionIdentifier:(NSString *)theIdentifier requestType:(MGTwitterRequestType
 
 		// setup the xml reader
 		_reader = xmlReaderForMemory([xml bytes], [xml length], [[URL absoluteString] UTF8String], nil, XML_PARSE_NOBLANKS | XML_PARSE_NOCDATA | XML_PARSE_NOERROR | XML_PARSE_NOWARNING);
-		if (! _reader)
+		if (_reader)
 		{
-			return nil;
+            // run the parser and create parsedObjects
+            [self parse];
+            
+            // free the xml reader used for parsing
+            xmlFree(_reader);
+            
+            // notify the delegate that parsing completed
+            [self _parsingDidEnd];
 		}
-
-		// run the parser and create parsedObjects
-        [self parse];
-
-		// free the xml reader used for parsing
-		xmlFree(_reader);
-		
-		// notify the delegate that parsing completed
-		[self _parsingDidEnd];
 	}
 	
 	return self;

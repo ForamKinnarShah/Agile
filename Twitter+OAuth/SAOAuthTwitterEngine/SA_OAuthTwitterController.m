@@ -199,9 +199,8 @@ static NSString* const kGGTwitterLoadingBackgroundImage = @"twitter_load.png";
         [aButton setImage:buttonImage forState:UIControlStateNormal];
         aButton.frame = CGRectMake(0.0,0.0,buttonImage.size.width,buttonImage.size.height);
         [aButton addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
-        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:aButton];
+        UIBarButtonItem *backButton = [[[UIBarButtonItem alloc] initWithCustomView:aButton] autorelease];
         navItem.leftBarButtonItem = backButton;
-        
         [_navBar pushNavigationItem: navItem animated: NO];
     }
     else 
