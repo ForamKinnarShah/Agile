@@ -7,13 +7,13 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "viewController/searchViewController.m"
-         timestampString = "390377593.3619"
+         filePath = "viewController/heres2u/sendViewController.m"
+         timestampString = "390746640.341491"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "78"
-         endingLineNumber = "78"
-         landmarkName = "-loadFriends"
+         startingLineNumber = "128"
+         endingLineNumber = "128"
+         landmarkName = "-FBButtonClicked:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
